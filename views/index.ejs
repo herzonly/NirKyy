@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NirKyy - REST API Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>NirKyy</h1>
+        <div class="search-container">
+            <input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag...">
+            <span class="search-icon"></span>
+        </div>
+    </header>
+
+    <main>
+        <section id="endpointList">
+            </section>
+    </main>
+
+    <div id="tryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Coba Endpoint</h2>
+            <div id="parameterInputs"></div>
+            <button id="runButton">Run</button>
+            <div id="loadingIndicator" class="loading"></div>
+            <div id="apiResponse">
+                <h3>Response:</h3>
+                <div id="responseContent"></div>
+                <div class="button-container">
+                    <button id="copyResponseButton">Copy Response</button>
+                    <button id="copyEndpointButton">Copy Endpoint</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 NirKyy. Dibuat dengan Gaya Cyberpunk | Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
+    </footer>
+
+    <audio id="successSound" src="success.mp3" preload="auto"></audio>
+    <audio id="errorSound" src="error.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

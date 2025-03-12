@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>404 Not Found</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #0f0;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+    }
+    .error-code {
+      font-size: 8em;
+      text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0;
+      animation: glitch 2s linear infinite;
+    }
+    .error-message {
+      font-size: 2em;
+      margin-top: 20px;
+    }
+    @keyframes glitch {
+      2%,64% {
+        transform: translate(2px,0) skew(0deg);
+      }
+      4%,60% {
+        transform: translate(-2px,0) skew(0deg);
+      }
+      62% {
+        transform: translate(0,-2px) skew(5deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="error-code">404</div>
+    <div class="error-message">Halaman tidak ditemukan.</div>
+  </div>
+</body>
+</html>

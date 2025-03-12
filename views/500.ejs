@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>500 Internal Server Error</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #f00;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+    }
+    .error-code {
+      font-size: 8em;
+      text-shadow: 0 0 10px #f00, 0 0 20px #f00, 0 0 30px #f00;
+      animation: flicker 1s linear infinite;
+    }
+    .error-message {
+      font-size: 2em;
+      margin-top: 20px;
+    }
+    @keyframes flicker {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="error-code">500</div>
+    <div class="error-message">Kesalahan server internal.</div>
+  </div>
+</body>
+</html>
