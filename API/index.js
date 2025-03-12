@@ -10,8 +10,11 @@ router.get('/llm', async (req, res) =>{
   if (!groqKey) return res.status(400).errorJson("groqKey is required");
   if (!msg) return res.status(400).errorJson("msg is required");
   if (!user) return res.status(400).errorJson("user is required");
+
+  if (groqKey.includes('Bearer')) groqKey = groqKey.replace('Bearer ', '').trim();
   try {
     handleTextQuery({ groqKey, model, systemPrompt, msg, user }).then(response => {
+    if (response.reply.includes('API Error')) return res.status(401).errorJson(response.reply);
       res.status(200).succesJson(response);
     })
   } catch (error) {
