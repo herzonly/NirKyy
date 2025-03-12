@@ -10,8 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "alldown": "github:MOHAMMAD-NAYAN/nayan-videos-downloader",
     "ejs": "^3.1.10",
     "express": "^4.18.2",
-    "alldown":"github:MOHAMMAD-NAYAN/nayan-videos-downloader"
+    "openai-gpt-token-counter": "^1.1.1"
   }
 }

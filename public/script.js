@@ -1,6 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
     const endpointData = [
         {
+            "nama": "Groq Chat 3000 Token History",
+            "tag": "AI",
+            "endpoint": "/api/v1/llm",
+            "parameter": [
+                {"groqKey": null},
+                {"model": "gemma2-9b-it"},
+                {"user": null},
+                {"systemPrompt": "kamu adalah Nirsky..."},
+                {"msg": null}
+            ]
+        },
+        {
             "nama": "AIO downloader",
             "tag": "Downloader",
             "endpoint": "/api/v1/aio-dl",
@@ -24,6 +36,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderEndpointList(endpoints) {
         endpointListSection.innerHTML = '';
+
+        endpoints.sort((a, b) => {
+            const tagA = a.tag.toUpperCase();
+            const tagB = b.tag.toUpperCase();
+            const namaA = a.nama.toUpperCase();
+            const namaB = b.nama.toUpperCase();
+
+            if (tagA < tagB) {
+                return -1;
+            }
+            if (tagA > tagB) {
+                return 1;
+            }
+
+            if (namaA < namaB) {
+                return -1;
+            }
+            if (namaA > namaB) {
+                return 1;
+            }
+            return 0;
+        });
+
         endpoints.forEach(endpoint => {
             const card = document.createElement('div');
             card.classList.add('endpoint-card');
@@ -40,12 +75,10 @@ document.addEventListener('DOMContentLoaded', function() {
             endpointListSection.appendChild(card);
         });
 
-        // Event listeners untuk tombol setelah render
         attachButtonEventListeners();
     }
 
     function attachButtonEventListeners() {
-        // Copy URL buttons
         document.querySelectorAll('.copy-url-button').forEach(button => {
             button.addEventListener('click', function() {
                 const url = this.getAttribute('data-url');
@@ -58,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Try buttons
         document.querySelectorAll('.try-button').forEach(button => {
             button.addEventListener('click', function() {
                 const endpointData = JSON.parse(this.getAttribute('data-endpoint'));
@@ -68,21 +100,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function openTryModal(endpoint) {
-        parameterInputsDiv.innerHTML = ''; // Bersihkan input parameter sebelumnya
-        currentEndpointData = endpoint; // Simpan data endpoint saat ini
-        responseContentDiv.innerHTML = ''; // Bersihkan response content sebelumnya
-        responseContentDiv.className = ''; // Reset class response content
+        parameterInputsDiv.innerHTML = '';
+        currentEndpointData = endpoint;
+        responseContentDiv.innerHTML = '';
+        responseContentDiv.className = '';
 
         if (endpoint.parameter && endpoint.parameter.length > 0) {
-            endpoint.parameter.forEach(param => {
-                for (const paramName in param) {
-                    const isRequired = param[paramName] === null;
+            endpoint.parameter.forEach(paramDef => {
+                for (const paramName in paramDef) {
+                    const isRequired = paramDef[paramName] === null;
+                    const defaultValue = paramDef[paramName] !== null ? paramDef[paramName] : '';
                     const label = document.createElement('label');
                     label.textContent = `${paramName} ${isRequired ? '(Wajib)' : '(Opsional)'}:`;
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.name = paramName;
-                    input.placeholder = param[paramName] !== null ? param[paramName] : `Masukkan ${paramName}`;
+                    input.placeholder = defaultValue !== '' ? `Default: ${defaultValue}` : `Masukkan ${paramName}`;
+                    input.value = defaultValue;
                     input.required = isRequired;
                     parameterInputsDiv.appendChild(label);
                     parameterInputsDiv.appendChild(input);
@@ -115,8 +149,8 @@ document.addEventListener('DOMContentLoaded', function() {
         copyApiEndpoint();
     };
 
-    let currentEndpointData; // Untuk menyimpan data endpoint yang sedang di "try"
-    let finalApiUrl; // Untuk menyimpan final API URL setelah parameter diisi
+    let currentEndpointData;
+    let finalApiUrl;
 
     function runApiRequest() {
         if (!currentEndpointData) return;
@@ -127,10 +161,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (currentEndpointData.parameter && currentEndpointData.parameter.length > 0) {
             parameterInputsDiv.querySelectorAll('input').forEach(input => {
+                const paramName = input.name;
+                const paramDef = currentEndpointData.parameter.find(p => p.hasOwnProperty(paramName));
+                const isRequired = paramDef[paramName] === null;
+                const defaultValue = paramDef[paramName] !== null ? paramDef[paramName] : '';
+
                 if (input.value) {
-                    const paramName = input.name;
                     params[paramName] = input.value;
-                } else if (input.required) {
+                } else if (!isRequired && defaultValue !== '') {
+                    params[paramName] = defaultValue;
+                } else if (isRequired && !input.value) {
                     hasRequiredParams = true;
                 }
             });
@@ -141,38 +181,36 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Ganti parameter URL jika ada di endpoint (misalnya /users/{userId})
         Object.keys(params).forEach(paramName => {
             const urlParamPlaceholder = `{${paramName}}`;
             if (apiUrl.includes(urlParamPlaceholder)) {
                 apiUrl = apiUrl.replace(urlParamPlaceholder, params[paramName]);
-                delete params[paramName]; // Hapus dari params query karena sudah di URL
+                delete params[paramName];
             }
         });
 
-        // Tambahkan query parameters jika ada yang tersisa
         const queryParams = new URLSearchParams(params);
         finalApiUrl = queryParams.toString() ? `${apiUrl}?${queryParams.toString()}` : apiUrl;
 
 
-        loadingIndicator.style.display = 'block'; // Tampilkan loading indicator
-        responseContentDiv.innerHTML = ''; // Bersihkan konten response sebelumnya
-        responseContentDiv.className = ''; // Reset class response content
+        loadingIndicator.style.display = 'block';
+        responseContentDiv.innerHTML = '';
+        responseContentDiv.className = '';
 
-        return fetch(finalApiUrl) // Tambahkan return di sini untuk promise chaining yang benar
+        return fetch(finalApiUrl)
             .then(response => {
-                loadingIndicator.style.display = 'none'; // Sembunyikan loading indicator
+                loadingIndicator.style.display = 'none';
                 if (!response.ok) {
-                    errorSound.play(); // Putar sound error jika request gagal
+                    errorSound.play();
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                return response; // Kembalikan response di sini
+                return response;
             })
-            .then(response => { // Blok .then kedua untuk penanganan response sukses
-                successSound.play(); // Putar sound success jika request berhasil - DIPINDAHKAN KE SINI
+            .then(response => {
+                successSound.play();
                 const contentType = response.headers.get('Content-Type');
                 if (contentType && contentType.includes('application/json')) {
-                    responseContentDiv.className = 'json-response'; // Tambahkan class untuk JSON
+                    responseContentDiv.className = 'json-response';
                     return response.json();
                 } else if (contentType && contentType.startsWith('image/')) {
                     return Promise.resolve({ type: 'image', url: response.url });
@@ -200,9 +238,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
-                loadingIndicator.style.display = 'none'; // Pastikan loading indicator sembunyi saat error
+                loadingIndicator.style.display = 'none';
                 responseContentDiv.textContent = `Error: ${error.message}`;
-                errorSound.play(); // Pastikan sound error juga diputar saat error di catch
+                errorSound.play();
             });
     }
 
@@ -229,8 +267,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-
-    // Search functionality
     searchEndpointInput.addEventListener('input', function() {
         const searchTerm = searchEndpointInput.value.toLowerCase();
         const filteredEndpoints = endpointData.filter(endpoint => {
@@ -239,7 +275,5 @@ document.addEventListener('DOMContentLoaded', function() {
         renderEndpointList(filteredEndpoints);
     });
 
-
-    // Initial render
     renderEndpointList(endpointData);
 });
