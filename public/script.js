@@ -1,6 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const endpointData = [
         {
+            "nama": "Pinterest",
+            "tag": "Search",
+            "endpoint": "/api/v1/pin",
+            "parameter": [
+                {"query":null}
+            ]
+        },
+        {
             "nama": "Groq Chat 3000 Token History",
             "tag": "AI",
             "endpoint": "/api/v1/llm",

@@ -23,7 +23,7 @@ const errorJson = (json) => {
 
 app.use((req, res, next) => {
   res.succesJson = (json) => {
-    res.json(succesJson(json));
+    res.status(200).json(succesJson(json));
   };
 
   res.errorJson = (json) => {

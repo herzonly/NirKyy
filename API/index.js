@@ -1,24 +1,37 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const { alldown } = 
-require('alldown');
+const { alldown } = require('alldown');
 const { handleTextQuery } = require('../lib/ai');
+const { pin } = require('../lib/pinterest');
 
-router.get('/llm', async (req, res) =>{
-  const { groqKey, model = 'gemma2-9b-it', systemPrompt = " ", msg, user } = req.query;
+router.get('/pin', async (req, res) => {
+  const { query } = req.query;
+  if (!query) return res.status(400).errorJson("Search query cannot be empty.");
+  try {
+    const result = await pin.search(query);
+    if (result.status) {
+      return res.succesJson(result.result);
+    } else {
+      return res.status(result.code).errorJson(result.result);
+    }
+  } catch (error) {
+    return res.status(500).errorJson(error.message);
+  }
+});
+
+router.get('/llm', async (req, res) => {
+  let { groqKey, model = 'gemma2-9b-it', systemPrompt = " ", msg, user } = req.query;
   if (!groqKey) return res.status(400).errorJson("groqKey is required");
   if (!msg) return res.status(400).errorJson("msg is required");
   if (!user) return res.status(400).errorJson("user is required");
-
   if (groqKey.includes('Bearer')) groqKey = groqKey.replace('Bearer ', '').trim();
   try {
-    handleTextQuery({ groqKey, model, systemPrompt, msg, user }).then(response => {
+    const response = await handleTextQuery({ groqKey, model, systemPrompt, msg, user });
     if (response.reply.includes('API Error')) return res.status(401).errorJson(response.reply);
-      res.status(200).succesJson(response);
-    })
+    return res.succesJson(response);
   } catch (error) {
-    res.status(500).errorJson(error);
+    return res.status(500).errorJson(error);
   }
 });
 
@@ -26,13 +39,12 @@ router.get('/aio-dl', async (req, res) => {
   const query = req.query.url;
   if (!query) return res.status(400).errorJson("Masukkan parameter url");
   try {
-    alldown(query).then(async (data) => {
-      if (!data.data) return res.status(500).errorJson("Terjadi kesalahan saat mengunduh video");
-      res.status(200).succesJson(data.data);
-    })
+    const data = await alldown(query);
+    if (!data.data) return res.status(500).errorJson("Terjadi kesalahan saat mengunduh video");
+    return res.succesJson(data.data);
   } catch (error) {
-    res.status(500).errorJson(error);
+    return res.status(500).errorJson(error);
   }
-})
+});
 
 module.exports = router;
