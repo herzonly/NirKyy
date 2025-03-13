@@ -1,61 +1,319 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NirKyy - REST API Documentation</title>
-<meta name="description" content="Dokumentasi REST API NirKyy dengan gaya cyberpunk. Temukan endpoint, coba langsung, dan salin URL dengan mudah.">
-<meta name="keywords" content="REST API, dokumentasi API, cyberpunk, NirKyy, endpoint, API documentation, web API, fetch API, coba API">
-<meta name="author" content="NirKyy Developer">
-<meta name="robots" content="index, follow">
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-<meta property="og:title" content="NirKyy - REST API Documentation">
-<meta property="og:description" content="Dokumentasi REST API NirKyy dengan gaya cyberpunk. Temukan endpoint, coba langsung, dan salin URL dengan mudah.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="nirkyy.koyeb.app">
-<meta property="og:image" content="https://i.ibb.co.com/wrKnWx35/1741804992184.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="NirKyy - REST API Documentation">
-<meta name="twitter:description" content="Dokumentasi REST API NirKyy dengan gaya cyberpunk. Temukan endpoint, coba langsung, dan salin URL dengan mudah.">
-<meta name="twitter:site" content="@NirKyyDev">
-<meta name="twitter:image" content="https://i.ibb.co.com/wrKnWx35/1741804992184.jpg">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NirKyy - REST API Documentation</title>
+  <meta name="description" content="Dokumentasi REST API NirKyy dengan gaya cyberpunk. Temukan endpoint, coba langsung, dan salin URL dengan mudah.">
+  <meta name="keywords" content="REST API, dokumentasi API, cyberpunk, NirKyy, endpoint, API documentation, web API, fetch API, coba API">
+  <meta name="author" content="NirKyy Developer">
+  <meta name="robots" content="index, follow">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta property="og:title" content="NirKyy - REST API Documentation">
+  <meta property="og:description" content="Dokumentasi REST API NirKyy dengan gaya cyberpunk. Temukan endpoint, coba langsung, dan salin URL dengan mudah.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="nirkyy.koyeb.app">
+  <meta property="og:image" content="https://i.ibb.co.com/wrKnWx35/1741804992184.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NirKyy - REST API Documentation">
+  <meta name="twitter:description" content="Dokumentasi REST API NirKyy dengan gaya cyberpunk. Temukan endpoint, coba langsung, dan salin URL dengan mudah.">
+  <meta name="twitter:site" content="@NirKyyDev">
+  <meta name="twitter:image" content="https://i.ibb.co.com/wrKnWx35/1741804992184.jpg">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body { font-family: 'Courier New', monospace; background-color: #111; color: #00ff7f; margin: 0; padding: 0; overflow-x: hidden; }
+    header { background-color: #222; padding: 20px; text-align: center; border-bottom: 2px solid #00ffff; animation: borderPulse 2s infinite alternate; }
+    @keyframes borderPulse { from { border-bottom-color: #00ffff; } to { border-bottom-color: #ff00ff; } }
+    header h1 { margin: 0; font-size: 2.5em; text-shadow: 0 0 10px #00ff7f; animation: textGlitch 1.5s infinite alternate; }
+    @keyframes textGlitch { 0%, 100% { text-shadow: 0 0 10px #00ff7f; } 50% { text-shadow: -2px -2px 5px #ff00ff, 2px 2px 5px #00ffff; } }
+    .search-container { margin-top: 20px; position: relative; }
+    .search-container input[type="text"] { padding: 10px 35px 10px 10px; border: 2px solid #00ff7f; background-color: #333; color: #fff; border-radius: 5px; width: 70%; max-width: 500px; font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+    .search-container input[type="text"]:focus { border-color: #ff00ff; box-shadow: 0 0 8px #ff00ff; outline: none; }
+    .search-icon { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2300ff7f"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>');
+      background-repeat: no-repeat; background-size: contain; opacity: 0.7; }
+    main { padding: 20px; }
+    #endpointList { }
+    .card { border: 1px solid #00ff7f; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 0 15px #00ff7f; }
+    .text-cyber { color: #00ffff; text-shadow: 0 0 5px #00ffff; }
+    .text-cyber2 { color: #ff00ff; }
+    pre { white-space: pre-wrap; }
+    .modal { display: none; position: fixed; z-index: 1050; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); animation: modalFadeIn 0.4s ease-out forwards; }
+    @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .loading { border: 6px solid #333; border-top: 6px solid #00ffff; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto; display: none; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes cardFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    footer { text-align: center; padding: 20px; background-color: #222; color: #aaa; border-top: 2px solid #00ffff; }
+  </style>
 </head>
 <body>
-<header>
-<img src="favicon.ico" alt="Logo">
-<h1>NirKyy</h1>
-<div class="search-container">
-<input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag...">
-<span class="search-icon"></span>
-</div>
-</header>
-<main>
-<section id="endpointList"></section>
-</main>
-<div id="tryModal" class="modal">
-<div class="modal-content">
-<span class="close-button">&times;</span>
-<h2>Coba Endpoint</h2>
-<div id="parameterInputs"></div>
-<button id="runButton">Run</button>
-<div id="loadingIndicator" class="loading"></div>
-<div id="apiResponse">
-<h3>Response:</h3>
-<div id="responseContent"></div>
-<div class="button-container">
-<button id="copyResponseButton">Copy Response</button>
-<button id="copyEndpointButton">Copy Endpoint</button>
-</div>
-</div>
-</div>
-</div>
-<footer>
-<p>&copy; 2025 NirKyy. Free Karena saya buat juga tanpa biaya 🗿| Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
-</footer>
-<audio id="successSound" src="success.mp3" preload="auto"></audio>
-<audio id="errorSound" src="error.mp3" preload="auto"></audio>
-<script src="script.js"></script>
+  <header>
+    <h1>NirKyy</h1>
+    <div class="search-container">
+      <input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag...">
+      <span class="search-icon"></span>
+    </div>
+  </header>
+  <main class="container">
+    <section id="endpointList"></section>
+  </main>
+  <div id="tryModal" class="modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title">Coba Endpoint</h5>
+          <button type="button" class="close text-light" id="closeButton">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div id="parameterInputs"></div>
+          <button id="runButton" class="btn btn-info btn-block">Run</button>
+          <div id="loadingIndicator" class="loading"></div>
+          <div id="apiResponse" class="mt-3">
+            <h5 class="text-cyber">Response Header:</h5>
+            <pre id="responseHeader" class="bg-secondary p-2"></pre>
+            <h5 class="text-cyber">Response Body:</h5>
+            <pre id="responseBody" class="bg-secondary p-2"></pre>
+            <div class="d-flex justify-content-end mt-2">
+              <button id="copyResponseButton" class="btn btn-outline-info btn-sm mr-2">Copy Response</button>
+              <button id="copyEndpointButton" class="btn btn-info btn-sm">Copy Endpoint</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p>&copy; 2025 NirKyy. Free Karena saya buat juga tanpa biaya 🗿| Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
+  </footer>
+  <audio id="successSound" src="success.mp3" preload="auto"></audio>
+  <audio id="errorSound" src="error.mp3" preload="auto"></audio>
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      let endpointData=[];
+      const endpointListSection=document.getElementById('endpointList');
+      const searchEndpointInput=document.getElementById('searchEndpoint');
+      const tryModal=document.getElementById('tryModal');
+      const closeButton=document.getElementById('closeButton');
+      const parameterInputsDiv=document.getElementById('parameterInputs');
+      const runButton=document.getElementById('runButton');
+      const responseHeader=document.getElementById('responseHeader');
+      const responseBody=document.getElementById('responseBody');
+      const copyResponseButton=document.getElementById('copyResponseButton');
+      const copyEndpointButton=document.getElementById('copyEndpointButton');
+      const loadingIndicator=document.getElementById('loadingIndicator');
+      const successSound=document.getElementById('successSound');
+      const errorSound=document.getElementById('errorSound');
+      fetch('list.json').then(response=>response.json()).then(data=>{
+        endpointData=data;
+        renderEndpointList(endpointData);
+      });
+      function renderEndpointList(endpoints){
+        endpointListSection.innerHTML='';
+        endpoints.sort((a,b)=>{
+          const tagA=a.tags[0].toUpperCase();
+          const tagB=b.tags[0].toUpperCase();
+          const namaA=a.nama.toUpperCase();
+          const namaB=b.nama.toUpperCase();
+          if(tagA< tagB)return -1;
+          if(tagA> tagB)return 1;
+          if(namaA< namaB)return -1;
+          if(namaA> namaB)return 1;
+          return 0;
+        });
+        let groups={};
+        endpoints.forEach(endpoint=>{
+          let groupKey=endpoint.tags[0];
+          if(!groups[groupKey])groups[groupKey]=[];
+          groups[groupKey].push(endpoint);
+        });
+        for(let group in groups){
+          let groupContainer=document.createElement('div');
+          groupContainer.className='mb-4';
+          let groupHeader=document.createElement('h2');
+          groupHeader.textContent=group;
+          groupHeader.className='text-cyber';
+          groupContainer.appendChild(groupHeader);
+          let row=document.createElement('div');
+          row.className='row';
+          groups[group].forEach(endpoint=>{
+            let col=document.createElement('div');
+            col.className='col-md-6 mb-3';
+            let card=document.createElement('div');
+            card.className='card bg-dark text-light border-cyber mb-3';
+            card.style.animation='cardFadeIn 0.5s ease-out forwards';
+            let cardBody=document.createElement('div');
+            cardBody.className='card-body';
+            let title=document.createElement('h3');
+            title.className='card-title text-cyber2';
+            title.textContent=endpoint.nama;
+            cardBody.appendChild(title);
+            let tagsDiv=document.createElement('div');
+            tagsDiv.className='mb-2';
+            endpoint.tags.forEach(tag=>{
+              let span=document.createElement('span');
+              span.className='badge badge-info mr-1';
+              span.textContent=tag;
+              tagsDiv.appendChild(span);
+            });
+            cardBody.appendChild(tagsDiv);
+            let urlDiv=document.createElement('div');
+            urlDiv.className='bg-secondary p-2 mb-2';
+            urlDiv.style.fontSize='0.9em';
+            urlDiv.style.overflowX='auto';
+            urlDiv.textContent=endpoint.endpoint;
+            cardBody.appendChild(urlDiv);
+            let btnContainer=document.createElement('div');
+            btnContainer.className='d-flex justify-content-end';
+            let copyBtn=document.createElement('button');
+            copyBtn.className='btn btn-outline-info btn-sm mr-2 copy-url-button';
+            copyBtn.setAttribute('data-url',endpoint.endpoint);
+            copyBtn.textContent='Copy URL';
+            btnContainer.appendChild(copyBtn);
+            let tryBtn=document.createElement('button');
+            tryBtn.className='btn btn-info btn-sm try-button';
+            tryBtn.setAttribute('data-endpoint',JSON.stringify(endpoint));
+            tryBtn.textContent='Try';
+            btnContainer.appendChild(tryBtn);
+            cardBody.appendChild(btnContainer);
+            card.appendChild(cardBody);
+            col.appendChild(card);
+            row.appendChild(col);
+          });
+          groupContainer.appendChild(row);
+          endpointListSection.appendChild(groupContainer);
+        }
+        attachButtonEventListeners();
+      }
+      function attachButtonEventListeners(){
+        document.querySelectorAll('.copy-url-button').forEach(button=>{
+          button.addEventListener('click',function(){
+            const url=this.getAttribute('data-url');
+            navigator.clipboard.writeText(url).then(()=>{alert('URL berhasil di-copy!');}).catch(err=>{alert('Gagal copy URL.');});
+          });
+        });
+        document.querySelectorAll('.try-button').forEach(button=>{
+          button.addEventListener('click',function(){
+            const endpointData=JSON.parse(this.getAttribute('data-endpoint'));
+            openTryModal(endpointData);
+          });
+        });
+      }
+      function openTryModal(endpoint){
+        parameterInputsDiv.innerHTML='';
+        currentEndpointData=endpoint;
+        responseHeader.textContent='';
+        responseBody.textContent='';
+        if(endpoint.parameter && endpoint.parameter.length>0){
+          endpoint.parameter.forEach(param=>{
+            const paramName=param.params;
+            const defaultValue=param.example;
+            const required=param.opsional===false;
+            const label=document.createElement('label');
+            label.textContent=paramName+(required?' (Wajib)':' (Opsional)')+':';
+            const input=document.createElement('input');
+            input.type='text';
+            input.name=paramName;
+            input.placeholder=defaultValue!==null?`Default: ${defaultValue}`:`Masukkan ${paramName}`;
+            input.value=defaultValue!==null?defaultValue:'';
+            input.required=required;
+            parameterInputsDiv.appendChild(label);
+            parameterInputsDiv.appendChild(input);
+          });
+        }
+        tryModal.style.display="block";
+      }
+      closeButton.onclick=function(){ tryModal.style.display="none"; };
+      window.onclick=function(event){ if(event.target==tryModal){ tryModal.style.display="none"; } };
+      runButton.onclick=function(){ runApiRequest(); };
+      copyResponseButton.onclick=function(){
+        const responseText=responseHeader.textContent+"\n"+responseBody.textContent;
+        navigator.clipboard.writeText(responseText).then(()=>{alert('Response API berhasil di-copy!');}).catch(err=>{alert('Gagal copy response API.');});
+      };
+      copyEndpointButton.onclick=function(){
+        if(finalApiUrl){
+          navigator.clipboard.writeText(finalApiUrl).then(()=>{alert('Endpoint berhasil di-copy!');}).catch(err=>{alert('Gagal copy endpoint.');});
+        } else { alert('Tidak ada endpoint yang dapat di-copy. Jalankan "Try" terlebih dahulu.'); }
+      };
+      let currentEndpointData;
+      let finalApiUrl;
+      function runApiRequest(){
+        if(!currentEndpointData)return;
+        let apiUrl=currentEndpointData.endpoint;
+        let params={};
+        let hasRequiredParams=false;
+        if(currentEndpointData.parameter && currentEndpointData.parameter.length>0){
+          parameterInputsDiv.querySelectorAll('input').forEach(input=>{
+            const paramName=input.name;
+            const paramDef=currentEndpointData.parameter.find(p=>p.params===paramName);
+            const required=paramDef.example===null;
+            const defaultValue=paramDef.example!==null?paramDef.example:'';
+            const trimmedValue=input.value.trim();
+            if(trimmedValue){
+              params[paramName]=trimmedValue;
+            } else if(!required && defaultValue!==''){
+              params[paramName]=defaultValue;
+            } else if(required && !trimmedValue){
+              hasRequiredParams=true;
+            }
+          });
+        }
+        if(hasRequiredParams){ alert('Harap isi semua parameter wajib.'); return; }
+        Object.keys(params).forEach(paramName=>{
+          const placeholder=`{${paramName}}`;
+          if(apiUrl.includes(placeholder)){
+            apiUrl=apiUrl.replace(placeholder,params[paramName]);
+            delete params[paramName];
+          }
+        });
+        const query=new URLSearchParams(params);
+        finalApiUrl=query.toString()?`${apiUrl}?${query.toString()}`:apiUrl;
+        loadingIndicator.style.display='block';
+        responseHeader.textContent='';
+        responseBody.textContent='';
+        fetch(finalApiUrl).then(response=>{
+          loadingIndicator.style.display='none';
+          let headers='';
+          response.headers.forEach((value,key)=>{ headers+=key+': '+value+'\n'; });
+          const contentType=response.headers.get('Content-Type')||'';
+          if(contentType.includes('application/json')){
+            return response.json().then(bodyData=>{
+              return {headers:headers, body:JSON.stringify(bodyData,null,2), response:response};
+            }).catch(()=>{ return response.text().then(bodyData=>{ return {headers:headers, body:bodyData, response:response}; }); });
+          } else if(contentType.startsWith('image/')){
+            return Promise.resolve({headers:headers, body:'<Image>', type:'image', url:response.url, response:response});
+          } else if(contentType.startsWith('video/')){
+            return Promise.resolve({headers:headers, body:'<Video>', type:'video', url:response.url, response:response});
+          } else {
+            return response.text().then(bodyData=>{ return {headers:headers, body:bodyData, response:response}; });
+          }
+        }).then(result=>{
+          if(result.response.ok){ successSound.play(); } else { errorSound.play(); }
+          responseHeader.textContent=result.headers;
+          if(result.type==='image'){
+            responseBody.innerHTML='';
+            const img=document.createElement('img');
+            img.src=result.url;
+            responseBody.appendChild(img);
+          } else if(result.type==='video'){
+            responseBody.innerHTML='';
+            const video=document.createElement('video');
+            video.src=result.url;
+            video.controls=true;
+            responseBody.appendChild(video);
+          } else {
+            responseBody.textContent=result.body;
+          }
+        }).catch(error=>{
+          loadingIndicator.style.display='none';
+          errorSound.play();
+          responseHeader.textContent='Error:';
+          responseBody.textContent=error.message;
+        });
+      }
+    });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
