@@ -1,44 +1,43 @@
 body {
     font-family: 'Courier New', monospace;
     background-color: #111;
-    color: #00ff7f; /* Neon Green */
+    color: #00ff7f;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Mencegah scroll horizontal */
+    overflow-x: hidden;
 }
-
 header {
     background-color: #222;
     padding: 20px;
     text-align: center;
-    border-bottom: 2px solid #00ffff; /* Neon Cyan */
+    border-bottom: 2px solid #00ffff;
     animation: borderPulse 2s infinite alternate;
 }
-
 @keyframes borderPulse {
     from { border-bottom-color: #00ffff; }
-    to { border-bottom-color: #ff00ff; } /* Neon Magenta */
+    to { border-bottom-color: #ff00ff; }
 }
-
 header h1 {
     margin: 0;
     font-size: 2.5em;
     text-shadow: 0 0 10px #00ff7f;
     animation: textGlitch 1.5s infinite alternate;
 }
-
 @keyframes textGlitch {
     0%, 100% { text-shadow: 0 0 10px #00ff7f; }
     50% { text-shadow: -2px -2px 5px #ff00ff, 2px 2px 5px #00ffff; }
 }
-
+header img {
+    width: 50px;
+    height: auto;
+    margin-bottom: 10px;
+}
 .search-container {
     margin-top: 20px;
-    position: relative; /* Untuk positioning ikon */
+    position: relative;
 }
-
 .search-container input[type="text"] {
-    padding: 10px 35px 10px 10px; /* Ruang untuk ikon di dalam input */
+    padding: 10px 35px 10px 10px;
     border: 2px solid #00ff7f;
     background-color: #333;
     color: #fff;
@@ -48,13 +47,11 @@ header h1 {
     font-size: 1em;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
 .search-container input[type="text"]:focus {
     border-color: #ff00ff;
     box-shadow: 0 0 8px #ff00ff;
     outline: none;
 }
-
 .search-icon {
     position: absolute;
     right: 10px;
@@ -67,18 +64,14 @@ header h1 {
     background-size: contain;
     opacity: 0.7;
 }
-
-
 main {
     padding: 20px;
 }
-
 #endpointList {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
 }
-
 .endpoint-card {
     background-color: #222;
     border: 1px solid #00ff7f;
@@ -89,66 +82,60 @@ main {
     opacity: 0;
     transform: translateY(20px);
 }
-
 @keyframes cardFadeIn {
     to { opacity: 1; transform: translateY(0); }
 }
-
 .endpoint-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 0 15px #00ff7f;
 }
-
 .endpoint-card h3 {
-    color: #00ffff; /* Neon Cyan */
+    color: #00ffff;
     margin-top: 0;
     margin-bottom: 10px;
     text-shadow: 0 0 5px #00ffff;
 }
-
-.endpoint-card .tag {
-    color: #ff00ff; /* Neon Magenta */
-    font-size: 0.9em;
+.tag-container {
+    display: flex;
+    gap: 5px;
     margin-bottom: 10px;
-    display: block;
+}
+.tag-container span {
+    padding: 2px 5px;
+    border: 1px solid #ff00ff;
+    border-radius: 3px;
+    color: #ff00ff;
+    font-size: 0.9em;
     text-shadow: 0 0 3px #ff00ff;
 }
-
 .endpoint-card .endpoint-url {
     background-color: #333;
     padding: 8px;
     border-radius: 5px;
     margin-bottom: 10px;
     font-size: 0.9em;
-    overflow-x: auto; /* Untuk scroll jika URL terlalu panjang */
-    white-space: nowrap; /* Mencegah URL wrap */
+    overflow-x: auto;
+    white-space: nowrap;
 }
-
 .endpoint-card .endpoint-url::-webkit-scrollbar {
-    height: 5px; /* Ukuran scrollbar horizontal */
+    height: 5px;
 }
-
 .endpoint-card .endpoint-url::-webkit-scrollbar-track {
-    background: #444; /* Warna track scrollbar */
+    background: #444;
     border-radius: 5px;
 }
-
 .endpoint-card .endpoint-url::-webkit-scrollbar-thumb {
-    background: #00ff7f; /* Warna thumb scrollbar */
+    background: #00ff7f;
     border-radius: 5px;
 }
-
 .endpoint-card .endpoint-url::-webkit-scrollbar-thumb:hover {
-    background: #00ffff; /* Warna thumb scrollbar saat hover */
+    background: #00ffff;
 }
-
-
 .endpoint-card .button-container {
     display: flex;
     gap: 10px;
     justify-content: flex-end;
 }
-
 .endpoint-card button {
     padding: 8px 15px;
     border: none;
@@ -158,41 +145,36 @@ main {
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 .endpoint-card button:hover {
     background-color: #ff00ff;
     color: #fff;
 }
-
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
     animation: modalFadeIn 0.4s ease-out forwards;
 }
-
 @keyframes modalFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
 .modal-content {
     background-color: #222;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto;
     padding: 20px;
     border: 2px solid #00ffff;
     border-radius: 10px;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 80%;
     max-width: 600px;
-    position: relative; /* Untuk positioning close button */
+    position: relative;
 }
-
 .close-button {
     color: #aaa;
     position: absolute;
@@ -203,20 +185,17 @@ main {
     cursor: pointer;
     transition: color 0.3s ease;
 }
-
 .close-button:hover,
 .close-button:focus {
     color: white;
     text-decoration: none;
     cursor: pointer;
 }
-
 #parameterInputs label {
     display: block;
     margin-bottom: 5px;
     color: #00ffff;
 }
-
 #parameterInputs input[type="text"] {
     width: 100%;
     padding: 8px;
@@ -226,7 +205,6 @@ main {
     color: #fff;
     border-radius: 5px;
 }
-
 #runButton, #copyResponseButton, #copyEndpointButton {
     padding: 10px 20px;
     border: none;
@@ -237,54 +215,46 @@ main {
     margin-top: 10px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 #runButton:hover, #copyResponseButton:hover, #copyEndpointButton:hover {
     background-color: #ff00ff;
     color: #fff;
 }
-
 #apiResponse {
     margin-top: 20px;
     border: 1px dashed #00ff7f;
     padding: 10px;
     border-radius: 5px;
 }
-
 #apiResponse h3 {
     color: #00ffff;
     margin-top: 0;
 }
-
 #responseContent {
     background-color: #333;
     color: #fff;
     padding: 10px;
     border-radius: 5px;
     overflow-x: auto;
-    white-space: pre-wrap; /* Agar response wrap jika panjang */
+    white-space: pre-wrap;
     font-size: 0.9em;
-    min-height: 50px; /* Menambahkan tinggi minimum */
-    display: flex; /* Menggunakan flexbox untuk konten dinamis */
-    justify-content: center; /* Pusatkan konten horizontal */
-    align-items: center; /* Pusatkan konten vertikal */
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 #responseContent.json-response {
-    display: block; /* Kembalikan ke display block untuk JSON */
-    justify-content: flex-start; /* Kembalikan ke justify-content default */
-    align-items: flex-start; /* Kembalikan ke align-items default */
+    display: block;
+    justify-content: flex-start;
+    align-items: flex-start;
     white-space: pre-wrap;
 }
-
 #responseContent img,
 #responseContent video {
     max-width: 100%;
     max-height: 400px;
-    display: block; /* Menghilangkan ruang ekstra di bawah gambar/video */
-    margin: 0 auto; /* Pusatkan gambar/video */
+    display: block;
+    margin: 0 auto;
 }
-
-
 footer {
     text-align: center;
     padding: 20px;
@@ -292,19 +262,16 @@ footer {
     color: #aaa;
     border-top: 2px solid #00ffff;
 }
-
-
 .loading {
-    border: 6px solid #333; /* Light grey */
-    border-top: 6px solid #00ffff; /* Cyan */
+    border: 6px solid #333;
+    border-top: 6px solid #00ffff;
     border-radius: 50%;
     width: 50px;
     height: 50px;
     animation: spin 1s linear infinite;
     margin: 20px auto;
-    display: none; /* Hidden by default */
+    display: none;
 }
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

@@ -1,92 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const endpointData = [
-        {
-            "nama": "SaveTube",
-            "tag": "Downloader",
-            "endpoint": "/api/v1/savetube",
-            "parameter": [
-                {
-                    "params": "url",
-                    "example": "https://youtu.be/3eDgG_AvOZk?si=HJ1GvDr8o1dNUKcB",
-                    "opsional": false
-                },
-                {
-                    "params": "format",
-                    "example": "choose: 144, 240, 360, 480, 720, 1080, mp3",
-                    "opsional": false
-                }
-            ]
-        },
-        {
-            "nama": "Jadwal Anime",
-            "tag": "Tools",
-            "endpoint": "/api/v1/anime-jadwal",
-            "parameter": [
-                {
-                    "params": "hari",
-                    "example": "senin / Monday",
-                    "opsional": false
-                }
-            ]
-        },
-        {
-            "nama": "Pinterest",
-            "tag": "Search",
-            "endpoint": "/api/v1/pin",
-            "parameter": [
-                {
-                    "params": "query",
-                    "example": "Boboiboy",
-                    "opsional": false
-                }
-            ]
-        },
-        {
-            "nama": "Groq Chat 3000 Token History",
-            "tag": "AI",
-            "endpoint": "/api/v1/llm",
-            "parameter": [
-                {
-                    "params": "groqKey",
-                    "example": null,
-                    "opsional": false
-                },
-                {
-                    "params": "model",
-                    "example": "gemma2-9b-it",
-                    "opsional": true
-                },
-                {
-                    "params": "user",
-                    "example": "Ricky",
-                    "opsional": false
-                },
-                {
-                    "params": "systemPrompt",
-                    "example": "kamu adalah Nirsky...",
-                    "opsional": true
-                },
-                {
-                    "params": "msg",
-                    "example": "hallo apa kabar",
-                    "opsional": false
-                }
-            ]
-        },
-        {
-            "nama": "AIO downloader",
-            "tag": "Downloader",
-            "endpoint": "/api/v1/aio-dl",
-            "parameter": [
-                {
-                    "params": "url",
-                    "example": "https://www.instagram.com/reel/DG7I2Ezz2sy/?igsh=MTFoN2Z1MDJpeGNj",
-                    "opsional": false
-                }
-            ]
-        }
-    ];
-
+    let endpointData = [];
     const endpointListSection = document.getElementById('endpointList');
     const searchEndpointInput = document.getElementById('searchEndpoint');
     const tryModal = document.getElementById('tryModal');
@@ -99,34 +12,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingIndicator = document.getElementById('loadingIndicator');
     const successSound = document.getElementById('successSound');
     const errorSound = document.getElementById('errorSound');
-
+    fetch('list.json')
+        .then(response => response.json())
+        .then(data => {
+            endpointData = data;
+            renderEndpointList(endpointData);
+        });
     function renderEndpointList(endpoints) {
         endpointListSection.innerHTML = '';
         endpoints.sort((a, b) => {
-            const tagA = a.tag.toUpperCase();
-            const tagB = b.tag.toUpperCase();
+            const tagA = a.tags[0].toUpperCase();
+            const tagB = b.tags[0].toUpperCase();
             const namaA = a.nama.toUpperCase();
             const namaB = b.nama.toUpperCase();
-            if (tagA < tagB) {
-                return -1;
-            }
-            if (tagA > tagB) {
-                return 1;
-            }
-            if (namaA < namaB) {
-                return -1;
-            }
-            if (namaA > namaB) {
-                return 1;
-            }
+            if (tagA < tagB) return -1;
+            if (tagA > tagB) return 1;
+            if (namaA < namaB) return -1;
+            if (namaA > namaB) return 1;
             return 0;
         });
         endpoints.forEach(endpoint => {
             const card = document.createElement('div');
             card.classList.add('endpoint-card');
+            let tagsHTML = '<div class="tag-container">';
+            endpoint.tags.forEach(tag => {
+                tagsHTML += `<span>${tag}</span>`;
+            });
+            tagsHTML += '</div>';
             card.innerHTML = `
                 <h3>${endpoint.nama}</h3>
-                <span class="tag">${endpoint.tag}</span>
+                ${tagsHTML}
                 <div class="endpoint-url">${endpoint.endpoint}</div>
                 <div class="button-container">
                     <button class="copy-url-button" data-url="${endpoint.endpoint}">Copy URL</button>
@@ -137,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         attachButtonEventListeners();
     }
-
     function attachButtonEventListeners() {
         document.querySelectorAll('.copy-url-button').forEach(button => {
             button.addEventListener('click', function() {
@@ -157,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
     function openTryModal(endpoint) {
         parameterInputsDiv.innerHTML = '';
         currentEndpointData = endpoint;
@@ -182,32 +95,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         tryModal.style.display = "block";
     }
-
     closeButton.onclick = function() {
         tryModal.style.display = "none";
     };
-
     window.onclick = function(event) {
         if (event.target == tryModal) {
             tryModal.style.display = "none";
         }
     };
-
     runButton.onclick = function() {
         runApiRequest();
     };
-
     copyResponseButton.onclick = function() {
         copyApiResponse();
     };
-
     copyEndpointButton.onclick = function() {
         copyApiEndpoint();
     };
-
     let currentEndpointData;
     let finalApiUrl;
-
     function runApiRequest() {
         if (!currentEndpointData) return;
         let apiUrl = currentEndpointData.endpoint;
@@ -289,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 errorSound.play();
             });
     }
-
     function copyApiResponse() {
         const responseText = responseContentDiv.textContent;
         navigator.clipboard.writeText(responseText).then(() => {
@@ -299,7 +204,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Gagal copy response API.');
         });
     }
-
     function copyApiEndpoint() {
         if (finalApiUrl) {
             navigator.clipboard.writeText(finalApiUrl).then(() => {
@@ -312,14 +216,11 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Tidak ada endpoint yang dapat di-copy. Jalankan "Try" terlebih dahulu.');
         }
     }
-
     searchEndpointInput.addEventListener('input', function() {
         const searchTerm = searchEndpointInput.value.toLowerCase();
         const filteredEndpoints = endpointData.filter(endpoint => {
-            return endpoint.nama.toLowerCase().includes(searchTerm) || endpoint.tag.toLowerCase().includes(searchTerm) || endpoint.endpoint.toLowerCase().includes(searchTerm);
+            return endpoint.nama.toLowerCase().includes(searchTerm) || endpoint.tags.some(tag => tag.toLowerCase().includes(searchTerm)) || endpoint.endpoint.toLowerCase().includes(searchTerm);
         });
         renderEndpointList(filteredEndpoints);
     });
-
-    renderEndpointList(endpointData);
 });

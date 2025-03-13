@@ -1,0 +1,87 @@
+[
+  {
+    "nama": "SaveTube",
+    "tags": ["Downloader"],
+    "endpoint": "/api/v1/savetube",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://youtu.be/3eDgG_AvOZk?si=HJ1GvDr8o1dNUKcB",
+        "opsional": false
+      },
+      {
+        "params": "format",
+        "example": "choose: 144, 240, 360, 480, 720, 1080, mp3",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Jadwal Anime",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/anime-jadwal",
+    "parameter": [
+      {
+        "params": "hari",
+        "example": "senin / Monday",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Pinterest",
+    "tags": ["Search"],
+    "endpoint": "/api/v1/pin",
+    "parameter": [
+      {
+        "params": "query",
+        "example": "Boboiboy",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Groq Chat 3000 Token History",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/llm",
+    "parameter": [
+      {
+        "params": "groqKey",
+        "example": null,
+        "opsional": false
+      },
+      {
+        "params": "model",
+        "example": "gemma2-9b-it",
+        "opsional": true
+      },
+      {
+        "params": "user",
+        "example": "Ricky",
+        "opsional": false
+      },
+      {
+        "params": "systemPrompt",
+        "example": "kamu adalah Nirsky...",
+        "opsional": true
+      },
+      {
+        "params": "msg",
+        "example": "hallo apa kabar",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "AIO downloader",
+    "tags": ["Downloader"],
+    "endpoint": "/api/v1/aio-dl",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://www.instagram.com/reel/DG7I2Ezz2sy/?igsh=MTFoN2Z1MDJpeGNj",
+        "opsional": false
+      }
+    ]
+  }
+]
