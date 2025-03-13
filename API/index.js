@@ -5,22 +5,19 @@ const { alldown } = require('alldown');
 const { handleTextQuery } = require('../lib/ai');
 const { pin } = require('../lib/pinterest');
 const { jadwal } = require('../lib/animeJadwal');
-const { savetube } = require('../lib/savetube');
 
-router.get('/savetube', async (req, res) =>{
-  let { url, format } = req.query;
-  if (!url) return res.json({ status: false, message: 'Masukkan parameter url' });
-  if (!format) {
-    format="240";
-  }
+router.get('/savetube', async (req, res) => {
+  const { url, format } = req.query;
+  if (!url) return res.status(400).errorJson("Masukkan parameter url");
+  if (!format) return res.status(400).errorJson("Masukkan parameter format");
   try {
-    const result = await savetube(url, format);
-    if (!result.status) return res.status(result.code).errorJson(result.error);
-    res.succesJson(result.result);
+    const response = await axios.get(`https://pursky.vercel.app/api/ytdl?url=${url}?si=HJ1GvDr8o1dNUKcB&format=${format}`);
+    if (response.status !== 200) return res.status(500).errorJson("Terjadi kesalahan saat mengunduh video");
+    return res.succesJson(response.data);
   } catch (error) {
-    res.status(500).errorJson(error.message);
+    return res.status(500).errorJson(error);
   }
-})
+});
 
 router.get('/anime-jadwal', async (req, res) => {
   const hari = req.query.hari;
