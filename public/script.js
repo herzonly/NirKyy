@@ -1,11 +1,44 @@
 document.addEventListener('DOMContentLoaded', function() {
     const endpointData = [
         {
+            "nama": "SaveTube",
+            "tag": "Downloader",
+            "endpoint": "/api/v1/savetube",
+            "parameter": [
+                {
+                    "params": "url",
+                    "example": "https://youtu.be/3eDgG_AvOZk?si=HJ1GvDr8o1dNUKcB",
+                    "opsional": false
+                },
+                {
+                    "params": "format",
+                    "example": "choose: 144, 240, 360, 480, 720, 1080, mp3",
+                    "opsional": false
+                }
+            ]
+        },
+        {
+            "nama": "Jadwal Anime",
+            "tag": "Tools",
+            "endpoint": "/api/v1/anime-jadwal",
+            "parameter": [
+                {
+                    "params": "hari",
+                    "example": "senin / Monday",
+                    "opsional": false
+                }
+            ]
+        },
+        {
             "nama": "Pinterest",
             "tag": "Search",
             "endpoint": "/api/v1/pin",
             "parameter": [
-                {"query":null}
+                {
+                    "params": "query",
+                    "example": "Boboiboy",
+                    "opsional": false
+                }
             ]
         },
         {
@@ -13,21 +46,46 @@ document.addEventListener('DOMContentLoaded', function() {
             "tag": "AI",
             "endpoint": "/api/v1/llm",
             "parameter": [
-                {"groqKey": null},
-                {"model": "gemma2-9b-it"},
-                {"user": null},
-                {"systemPrompt": "kamu adalah Nirsky..."},
-                {"msg": null}
+                {
+                    "params": "groqKey",
+                    "example": null,
+                    "opsional": false
+                },
+                {
+                    "params": "model",
+                    "example": "gemma2-9b-it",
+                    "opsional": true
+                },
+                {
+                    "params": "user",
+                    "example": "Ricky",
+                    "opsional": false
+                },
+                {
+                    "params": "systemPrompt",
+                    "example": "kamu adalah Nirsky...",
+                    "opsional": true
+                },
+                {
+                    "params": "msg",
+                    "example": "hallo apa kabar",
+                    "opsional": false
+                }
             ]
         },
         {
             "nama": "AIO downloader",
             "tag": "Downloader",
             "endpoint": "/api/v1/aio-dl",
-            "parameter": [{"url": null}]
+            "parameter": [
+                {
+                    "params": "url",
+                    "example": "https://www.instagram.com/reel/DG7I2Ezz2sy/?igsh=MTFoN2Z1MDJpeGNj",
+                    "opsional": false
+                }
+            ]
         }
     ];
-
 
     const endpointListSection = document.getElementById('endpointList');
     const searchEndpointInput = document.getElementById('searchEndpoint');
@@ -44,20 +102,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderEndpointList(endpoints) {
         endpointListSection.innerHTML = '';
-
         endpoints.sort((a, b) => {
             const tagA = a.tag.toUpperCase();
             const tagB = b.tag.toUpperCase();
             const namaA = a.nama.toUpperCase();
             const namaB = b.nama.toUpperCase();
-
             if (tagA < tagB) {
                 return -1;
             }
             if (tagA > tagB) {
                 return 1;
             }
-
             if (namaA < namaB) {
                 return -1;
             }
@@ -66,11 +121,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             return 0;
         });
-
         endpoints.forEach(endpoint => {
             const card = document.createElement('div');
             card.classList.add('endpoint-card');
-
             card.innerHTML = `
                 <h3>${endpoint.nama}</h3>
                 <span class="tag">${endpoint.tag}</span>
@@ -82,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             endpointListSection.appendChild(card);
         });
-
         attachButtonEventListeners();
     }
 
@@ -98,7 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         });
-
         document.querySelectorAll('.try-button').forEach(button => {
             button.addEventListener('click', function() {
                 const endpointData = JSON.parse(this.getAttribute('data-endpoint'));
@@ -112,38 +163,35 @@ document.addEventListener('DOMContentLoaded', function() {
         currentEndpointData = endpoint;
         responseContentDiv.innerHTML = '';
         responseContentDiv.className = '';
-
         if (endpoint.parameter && endpoint.parameter.length > 0) {
-            endpoint.parameter.forEach(paramDef => {
-                for (const paramName in paramDef) {
-                    const isRequired = paramDef[paramName] === null;
-                    const defaultValue = paramDef[paramName] !== null ? paramDef[paramName] : '';
-                    const label = document.createElement('label');
-                    label.textContent = `${paramName} ${isRequired ? '(Wajib)' : '(Opsional)'}:`;
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.name = paramName;
-                    input.placeholder = defaultValue !== '' ? `Default: ${defaultValue}` : `Masukkan ${paramName}`;
-                    input.value = defaultValue;
-                    input.required = isRequired;
-                    parameterInputsDiv.appendChild(label);
-                    parameterInputsDiv.appendChild(input);
-                }
+            endpoint.parameter.forEach(param => {
+                const paramName = param.params;
+                const defaultValue = param.example;
+                const required = param.opsional === false;
+                const label = document.createElement('label');
+                label.textContent = `${paramName} ${required ? '(Wajib)' : '(Opsional)'}:`;
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.name = paramName;
+                input.placeholder = defaultValue !== null ? `Default: ${defaultValue}` : `Masukkan ${paramName}`;
+                input.value = defaultValue !== null ? defaultValue : '';
+                input.required = required;
+                parameterInputsDiv.appendChild(label);
+                parameterInputsDiv.appendChild(input);
             });
         }
-
         tryModal.style.display = "block";
     }
 
     closeButton.onclick = function() {
         tryModal.style.display = "none";
-    }
+    };
 
     window.onclick = function(event) {
         if (event.target == tryModal) {
             tryModal.style.display = "none";
         }
-    }
+    };
 
     runButton.onclick = function() {
         runApiRequest();
@@ -162,33 +210,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function runApiRequest() {
         if (!currentEndpointData) return;
-
         let apiUrl = currentEndpointData.endpoint;
         let params = {};
         let hasRequiredParams = false;
-
         if (currentEndpointData.parameter && currentEndpointData.parameter.length > 0) {
             parameterInputsDiv.querySelectorAll('input').forEach(input => {
                 const paramName = input.name;
-                const paramDef = currentEndpointData.parameter.find(p => p.hasOwnProperty(paramName));
-                const isRequired = paramDef[paramName] === null;
-                const defaultValue = paramDef[paramName] !== null ? paramDef[paramName] : '';
-
+                const paramDef = currentEndpointData.parameter.find(p => p.params === paramName);
+                const required = paramDef.example === null;
+                const defaultValue = paramDef.example !== null ? paramDef.example : '';
                 if (input.value) {
                     params[paramName] = input.value;
-                } else if (!isRequired && defaultValue !== '') {
+                } else if (!required && defaultValue !== '') {
                     params[paramName] = defaultValue;
-                } else if (isRequired && !input.value) {
+                } else if (required && !input.value) {
                     hasRequiredParams = true;
                 }
             });
         }
-
         if (hasRequiredParams) {
             alert('Harap isi semua parameter wajib.');
             return;
         }
-
         Object.keys(params).forEach(paramName => {
             const urlParamPlaceholder = `{${paramName}}`;
             if (apiUrl.includes(urlParamPlaceholder)) {
@@ -196,15 +239,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 delete params[paramName];
             }
         });
-
         const queryParams = new URLSearchParams(params);
         finalApiUrl = queryParams.toString() ? `${apiUrl}?${queryParams.toString()}` : apiUrl;
-
-
         loadingIndicator.style.display = 'block';
         responseContentDiv.innerHTML = '';
         responseContentDiv.className = '';
-
         return fetch(finalApiUrl)
             .then(response => {
                 loadingIndicator.style.display = 'none';
@@ -240,8 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     responseContentDiv.appendChild(video);
                 } else if (typeof data === 'object') {
                     responseContentDiv.textContent = JSON.stringify(data, null, 2);
-                }
-                else {
+                } else {
                     responseContentDiv.textContent = data;
                 }
             })

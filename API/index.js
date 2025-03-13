@@ -4,6 +4,41 @@ const axios = require('axios');
 const { alldown } = require('alldown');
 const { handleTextQuery } = require('../lib/ai');
 const { pin } = require('../lib/pinterest');
+const { jadwal } = require('../lib/animeJadwal');
+const { savetube } = require('../lib/savetube');
+
+router.get('/savetube', async (req, res) =>{
+  let { url, format } = req.query;
+  if (!url) return res.json({ status: false, message: 'Masukkan parameter url' });
+  if (!format) {
+    format="240";
+  }
+  try {
+    const result = await savetube(url, format);
+    if (!result.status) return res.status(result.code).errorJson(result.error);
+    res.succesJson(result.result);
+  } catch (error) {
+    res.status(500).errorJson(error.message);
+  }
+})
+
+router.get('/anime-jadwal', async (req, res) => {
+  const hari = req.query.hari;
+
+  if (!hari) {
+    return res.status(400).errorJson("Hari tidak valid. Masukkan nama hari dalam bahasa Inggris atau Indonesia")
+  }
+
+  try {
+    const response = await jadwal(hari.trim());
+    if (response.includes("Hari tidak valid.")){
+      return res.status(400).errorJson(response)
+    }
+    return res.succesJson(response);
+  } catch (error) {
+    return res.status(500).errorJson({ error: error.message });
+  }
+});
 
 router.get('/pin', async (req, res) => {
   const { query } = req.query;
