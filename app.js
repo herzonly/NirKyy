@@ -26,6 +26,10 @@ function generateEndpointsHTML(data) {
             ${(ep.tags || []).map(t => `<span class="badge badge-secondary mr-1" style="background-color:#ff00ff;color:#fff;"><i class="fas fa-hashtag"></i> ${t}</span>`).join('')}
           </div>
           <div class="bg-dark p-2 mb-2" style="font-size:0.9em;overflow-x:auto;">${ep.endpoint}</div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-outline-info btn-sm mr-2 copy-url-button" data-url="${ep.endpoint}"><i class="fas fa-copy"></i> Copy URL</button>
+            <button class="btn btn-info btn-sm try-button" data-endpoint='${JSON.stringify(ep)}'><i class="fas fa-play"></i> Try</button>
+          </div>
         </div>
       </div>
     </div>`;
