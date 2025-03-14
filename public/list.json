@@ -1,5 +1,27 @@
 [
   {
+  "nama": "Meme Generator",
+  "tags": ["Tools"],
+  "endpoint": "/api/v1/memegen",
+  "parameter": [
+    {
+      "params": "text_atas",
+      "example": null,
+      "opsional": true
+    },
+    {
+      "params": "text_bawah",
+      "example": null,
+      "opsional": true
+    },
+    {
+      "params": "background",
+      "example": "https://nirkyy.koyeb.app/example.jpg",
+      "opsional": false
+    }
+  ]
+},
+  {
     "nama":"Random Susun Kata",
     "tags": ["Game"],
     "endpoint": "/api/v1/susunkata",
