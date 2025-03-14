@@ -28,10 +28,6 @@ body { font-family: 'Orbitron', sans-serif; background-color: #111; color: #00ff
 header { background-color: #222; padding: 20px; border-bottom: 2px solid #00ffff; display: flex; align-items: center; justify-content: space-between; }
 .header-left { display: flex; align-items: center; }
 #hamburger { font-size: 1.8em; cursor: pointer; color: #00ff7f; margin-right: 15px; }
-.search-container { margin-top: 20px; position: relative; text-align: center; }
-.search-container input[type="text"] { padding: 10px 35px 10px 10px; border: 2px solid #00ff7f; background-color: #333; color: #fff; border-radius: 5px; width: 70%; max-width: 500px; font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
-.search-container input[type="text"]:focus { border-color: #ff00ff; box-shadow: 0 0 8px #ff00ff; outline: none; }
-.search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 1.2em; color: #00ff7f; opacity: 0.8; }
 #sideMenu { position: fixed; top: 0; left: -250px; width: 250px; height: 100%; background-color: #222; padding: 20px; transition: left 0.3s ease; overflow-y: auto; z-index: 1100; }
 #sideMenu.active { left: 0; }
 #sideMenu h2 { color: #00ffff; margin-top: 0; }
@@ -39,6 +35,10 @@ header { background-color: #222; padding: 20px; border-bottom: 2px solid #00ffff
 #sideMenu li { margin-bottom: 15px; }
 #sideMenu li button { background-color: #00ff7f; color: #111; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; }
 #sideMenu li button:hover { background-color: #111; color: #00ff7f; border: 1px solid #ff00ff; }
+.search-container { margin-top: 20px; position: relative; text-align: center; }
+.search-container input[type="text"] { padding: 10px 35px 10px 10px; border: 2px solid #00ff7f; background-color: #333; color: #fff; border-radius: 5px; width: 70%; max-width: 500px; font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+.search-container input[type="text"]:focus { border-color: #ff00ff; box-shadow: 0 0 8px #ff00ff; outline: none; }
+.search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 1.2em; color: #00ff7f; opacity: 0.8; }
 main { padding: 20px; }
 #endpointListSection .card { border: 1px solid #00ff7f; background-color: #222; color: #00ff7f; transition: transform 0.3s ease, box-shadow 0.3s ease; margin-bottom: 15px; animation: cardFadeIn 0.5s ease-out forwards; }
 @keyframes cardFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -67,7 +67,7 @@ footer { text-align: center; padding: 20px; background-color: #222; color: #aaa;
 <body>
 <header>
   <div class="header-left">
-    <div id="hamburger"><i class="fas fa-bars"></i></div>
+    <div id="hamburger"><i class="fa-solid fa-bars"></i></div>
     <h1>NirKyy</h1>
   </div>
   <div id="container-0171bcc474ae933f061e3acb0c0eb62d"></div>
