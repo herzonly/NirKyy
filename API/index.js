@@ -11,7 +11,7 @@ router.get('/autogempa', async (req, res) => {
     const response = await axios.get('https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json');
     const data = response.data;
     if (data) {
-      res.succesJson(data.Infogempa);
+      res.succesJson(data.Infogempa.gempa);
     } else {
       res.status(404).errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
     }

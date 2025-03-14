@@ -256,7 +256,6 @@
     <div id="tagHopper"></div>
     <section id="endpointListSection"></section>
   </main>
-
   <!-- Modal untuk mencoba endpoint -->
   <div id="tryModal" class="modal">
     <div class="modal-dialog modal-dialog-centered">
@@ -283,16 +282,37 @@
             <h5>Contoh Kode Axios (GET):</h5>
             <pre id="axiosSnippet"><code>// Klik Run untuk menampilkan contoh kode Axios</code></pre>
           </div>
+           <script type="text/javascript">
+   atOptions = {
+     'key': '4dcfbf50e2f48de0c83e35f5e80554b7',
+     'format': 'iframe',
+     'height': 250,
+     'width': 300,
+     'params': {}
+   };
+ </script>
+<script type="text/javascript" src="//www.highperformanceformat.com/4dcfbf50e2f48de0c83e35f5e80554b7/invoke.js"></script>
         </div>
       </div>
     </div>
   </div>
-
+  <script type="text/javascript">
+	atOptions = {
+		'key' : 'e20cfff4d2952f01ceb4381793cb7a31',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/e20cfff4d2952f01ceb4381793cb7a31/invoke.js"></script>
   <footer>
-    <p>&copy; 2025 NirKyy. Free Karena saya buat juga tanpa biaya 🗿 | Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
+    <p>&copy; 2025 NirKyy. Selalu gratis, mohon jangan pake ads blocked🙏| Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
   </footer>
+  <!-- Audio Elements -->
   <audio id="successSound" src="success.mp3" preload="auto"></audio>
   <audio id="errorSound" src="error.mp3" preload="auto"></audio>
+  <audio id="loadSound" src="load.mp3" preload="auto"></audio>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
@@ -558,53 +578,71 @@
         loadingIndicator.style.display = 'block';
         responseHeader.textContent = '';
         responseBody.textContent = '';
-
-        axios.get(finalApiUrl)
-          .then(response => {
-            loadingIndicator.style.display = 'none';
-            let headers = '';
-            Object.entries(response.headers).forEach(([key, value]) => {
-              headers += `${key}: ${value}\n`;
-            });
-            const contentType = response.headers['content-type'] || '';
-            if (contentType.includes('application/json')) {
-              return { headers, body: JSON.stringify(response.data, null, 2), response };
-            } else if (contentType.startsWith('image/')) {
-              return { headers, body: '<Image>', type: 'image', url: response.config.url, response };
-            } else if (contentType.startsWith('video/')) {
-              return { headers, body: '<Video>', type: 'video', url: response.config.url, response };
-            } else {
-              return { headers, body: response.data, response };
-            }
-          })
-          .then(result => {
-            if (result.response.status >= 200 && result.response.status < 300) {
-              successSound.play();
-            } else {
+        
+        // Mainkan load.mp3 dan tunda 2 detik sebelum menjalankan request API
+        document.getElementById('loadSound').play();
+        setTimeout(() => {
+          axios.get(finalApiUrl)
+            .then(response => {
+              loadingIndicator.style.display = 'none';
+              let headers = '';
+              Object.entries(response.headers).forEach(([key, value]) => {
+                headers += `${key}: ${value}\n`;
+              });
+              const contentType = response.headers['content-type'] || '';
+              if (contentType.includes('application/json')) {
+                return { headers, body: JSON.stringify(response.data, null, 2), response };
+              } else if (contentType.startsWith('image/')) {
+                return { headers, body: '<Image>', type: 'image', url: response.config.url, response };
+              } else if (contentType.startsWith('video/')) {
+                return { headers, body: '<Video>', type: 'video', url: response.config.url, response };
+              } else {
+                return { headers, body: response.data, response };
+              }
+            })
+            .then(result => {
+              if (result.response.status >= 200 && result.response.status < 300) {
+                successSound.play();
+              } else {
+                errorSound.play();
+              }
+              responseHeader.textContent = result.headers;
+              if (result.type === 'image') {
+                responseBody.innerHTML = '';
+                const img = document.createElement('img');
+                img.src = result.url;
+                responseBody.appendChild(img);
+              } else if (result.type === 'video') {
+                responseBody.innerHTML = '';
+                const video = document.createElement('video');
+                video.src = result.url;
+                video.controls = true;
+                responseBody.appendChild(video);
+              } else {
+                responseBody.textContent = result.body;
+              }
+            })
+            .catch(error => {
+              loadingIndicator.style.display = 'none';
               errorSound.play();
-            }
-            responseHeader.textContent = result.headers;
-            if (result.type === 'image') {
-              responseBody.innerHTML = '';
-              const img = document.createElement('img');
-              img.src = result.url;
-              responseBody.appendChild(img);
-            } else if (result.type === 'video') {
-              responseBody.innerHTML = '';
-              const video = document.createElement('video');
-              video.src = result.url;
-              video.controls = true;
-              responseBody.appendChild(video);
-            } else {
-              responseBody.textContent = result.body;
-            }
-          })
-          .catch(error => {
-            loadingIndicator.style.display = 'none';
-            errorSound.play();
-            responseHeader.textContent = 'Error:';
-            responseBody.textContent = error.message;
-          });
+              if (error.response) {
+                let errHeaders = `Status: ${error.response.status} ${error.response.statusText}\n`;
+                Object.entries(error.response.headers).forEach(([key, value]) => {
+                  errHeaders += `${key}: ${value}\n`;
+                });
+                responseHeader.textContent = errHeaders;
+                // Tampilkan response error sebagai JSON jika memungkinkan
+                if (typeof error.response.data === 'object') {
+                  responseBody.textContent = JSON.stringify(error.response.data, null, 2);
+                } else {
+                  responseBody.textContent = error.response.data;
+                }
+              } else {
+                responseHeader.textContent = 'Error: No response';
+                responseBody.textContent = error.message;
+              }
+            });
+        }, 2000);
       }
 
       // Event listener untuk search endpoint
