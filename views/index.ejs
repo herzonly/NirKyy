@@ -13,14 +13,17 @@
   <meta property="og:description" content="Dokumentasi REST API NirKyy dengan gaya cyberpunk. Temukan endpoint, coba langsung, dan salin URL dengan mudah.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="nirkyy.koyeb.app">
-  <meta property="og:image" content="https://i.ibb.co.com/hFF2Rd8Z/62bfdd334ee4.jpg">
+  <meta property="og:image" content="https://i.ibb.co/hFF2Rd8Z/62bfdd334ee4.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="NirKyy - REST API Documentation">
   <meta name="twitter:description" content="Dokumentasi REST API NirKyy dengan gaya cyberpunk. Temukan endpoint, coba langsung, dan salin URL dengan mudah.">
   <meta name="twitter:site" content="@NirKyyDev">
-  <meta name="twitter:image" content="URL_LOGO_NIRKYY_DISINI">
+  <meta name="twitter:image" content="https://i.ibb.co/hFF2Rd8Z/62bfdd334ee4.jpg">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p0u6njOl6B/jfWzQ3j5ChTS3VXzl1NTdNy7BLk/fMkjkclmHTEv+ID8AGrqK3m6TnYIB8fN1YCEd79N3f9x0jg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
     body {
@@ -67,6 +70,7 @@
     .search-container {
       margin-top: 20px;
       position: relative;
+      text-align: center;
     }
     .search-container input[type="text"] {
       padding: 10px 35px 10px 10px;
@@ -86,15 +90,12 @@
     }
     .search-icon {
       position: absolute;
-      right: 10px;
+      right: 15px;
       top: 50%;
       transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2300ff7f"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>');
-      background-repeat: no-repeat;
-      background-size: contain;
-      opacity: 0.7;
+      font-size: 1.2em;
+      color: #00ff7f;
+      opacity: 0.8;
     }
     main { padding: 20px; }
     #tagHopper {
@@ -240,18 +241,18 @@
       text-shadow: 0 0 5px #ff00ff;
     }
   </style>
-   <script async="async" data-cfasync="false" src="//pl26111309.effectiveratecpm.com/0171bcc474ae933f061e3acb0c0eb62d/invoke.js"></script>
+  <script async="async" data-cfasync="false" src="//pl26111309.effectiveratecpm.com/0171bcc474ae933f061e3acb0c0eb62d/invoke.js"></script>
 </head>
 <body>
   <header>
     <img src="https://i.ibb.co.com/hFF2Rd8Z/62bfdd334ee4.jpg" alt="Logo NirKyy">
     <h1>NirKyy</h1>
-<div id="container-0171bcc474ae933f061e3acb0c0eb62d"></div>
+    <div id="container-0171bcc474ae933f061e3acb0c0eb62d"></div>
   </header>
   <main class="container">
     <div class="search-container">
       <input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag...">
-      <span class="search-icon"></span>
+      <i class="fas fa-search search-icon"></i>
     </div>
     <div id="tagHopper"></div>
     <section id="endpointListSection"></section>
@@ -267,7 +268,7 @@
         </div>
         <div class="modal-body">
           <div id="parameterInputs"></div>
-          <button id="runButton" class="btn btn-info btn-block">Run</button>
+          <button id="runButton" class="btn btn-info btn-block"><i class="fas fa-play"></i> Run</button>
           <div id="loadingIndicator" class="loading"></div>
           <div id="apiResponse" class="mt-3">
             <h5 class="text-cyber">Response Header:</h5>
@@ -275,8 +276,8 @@
             <h5 class="text-cyber">Response Body:</h5>
             <pre id="responseBody" class="p-2"></pre>
             <div class="d-flex justify-content-end mt-2">
-              <button id="copyResponseButton" class="btn btn-outline-info btn-sm mr-2">Copy Response</button>
-              <button id="copyEndpointButton" class="btn btn-info btn-sm">Copy Endpoint</button>
+              <button id="copyResponseButton" class="btn btn-outline-info btn-sm mr-2"><i class="fas fa-copy"></i> Copy Response</button>
+              <button id="copyEndpointButton" class="btn btn-info btn-sm"><i class="fas fa-link"></i> Copy Endpoint</button>
             </div>
           </div>
           <div id="axiosExample" class="axios-code mt-3">
@@ -337,7 +338,8 @@
         tagHopperSection.innerHTML = '';
         sortedTags.forEach(tag => {
           const btn = document.createElement('button');
-          btn.textContent = tag;
+          // Sertakan ikon hashtag di setiap tombol tag
+          btn.innerHTML = '<i class="fas fa-hashtag"></i> ' + tag;
           btn.className = 'tag-button';
           btn.addEventListener('click', () => {
             currentTag = tag;
@@ -349,11 +351,16 @@
         });
       }
 
-      function renderEndpointList(endpoints, selectedTag = null) {
+      // renderEndpointList kini menerima parameter ketiga untuk daftar endpoint yang sudah terfilter (jika ada)
+      function renderEndpointList(endpoints, selectedTag = null, endpointsToDisplay = null) {
         endpointListSection.innerHTML = '';
-        let filteredEndpoints = endpoints;
-        if (selectedTag) {
+        let filteredEndpoints;
+        if (endpointsToDisplay) {
+          filteredEndpoints = endpointsToDisplay;
+        } else if (selectedTag) {
           filteredEndpoints = endpoints.filter(ep => ep.tags.includes(selectedTag));
+        } else {
+          filteredEndpoints = endpoints;
         }
         if (filteredEndpoints.length === 0) {
           endpointListSection.innerHTML = '<p class="text-light">Endpoint tidak ditemukan.</p>';
@@ -381,7 +388,7 @@
           endpoint.tags.forEach(tag => {
             const span = document.createElement('span');
             span.className = 'badge badge-secondary mr-1';
-            span.textContent = tag;
+            span.innerHTML = '<i class="fas fa-hashtag"></i> ' + tag;
             tagsDiv.appendChild(span);
           });
           cardBody.appendChild(tagsDiv);
@@ -398,13 +405,13 @@
           
           const copyBtn = document.createElement('button');
           copyBtn.className = 'btn btn-outline-info btn-sm mr-2 copy-url-button';
-          copyBtn.textContent = 'Copy URL';
+          copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy URL';
           copyBtn.setAttribute('data-url', endpoint.endpoint);
           btnContainer.appendChild(copyBtn);
           
           const tryBtn = document.createElement('button');
           tryBtn.className = 'btn btn-info btn-sm try-button';
-          tryBtn.textContent = 'Try';
+          tryBtn.innerHTML = '<i class="fas fa-play"></i> Try';
           tryBtn.setAttribute('data-endpoint', JSON.stringify(endpoint));
           btnContainer.appendChild(tryBtn);
           
@@ -601,6 +608,7 @@
           });
       }
 
+      // Event listener untuk search endpoint
       searchEndpointInput.addEventListener('input', function() {
         const searchTerm = searchEndpointInput.value.trim().toLowerCase();
         const allEndpoints = currentTag ? endpointData.filter(ep => ep.tags.includes(currentTag)) : endpointData;
