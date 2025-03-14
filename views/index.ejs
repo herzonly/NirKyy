@@ -130,7 +130,6 @@ atOptions = {
 </footer>
 <audio id="successSound" src="success.mp3" preload="auto"></audio>
 <audio id="errorSound" src="error.mp3" preload="auto"></audio>
-<audio id="loadSound" src="load.mp3" preload="auto"></audio>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" defer></script>
 <script defer>
@@ -151,7 +150,6 @@ const loadingIndicator = document.getElementById('loadingIndicator');
 const axiosSnippetPre = document.getElementById('axiosSnippet');
 const successSound = document.getElementById('successSound');
 const errorSound = document.getElementById('errorSound');
-const loadSound = document.getElementById('loadSound');
 let currentEndpointData = null;
 function debounce(func, wait) {
 let timeout;
@@ -237,7 +235,6 @@ axiosSnippetPre.innerHTML = '<code>' + axiosCode + '</code>';
 loadingIndicator.style.display = 'block';
 responseHeader.textContent = '';
 responseBody.textContent = '';
-loadSound.play();
 axios.get(finalApiUrl)
 .then(r => {
 loadingIndicator.style.display = 'none';
