@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'views'));
 const endpoints = require('./list.json');
 function getUniqueTags(data) {
   let tags = new Set();
-  data.forEach(ep => { if(ep.tags && Array.isArray(ep.tags)) { ep.tags.forEach(tag => tags.add(tag)); } });
+  data.forEach(ep => { if (ep.tags && Array.isArray(ep.tags)) { ep.tags.forEach(tag => tags.add(tag)); } });
   return Array.from(tags).sort();
 }
 function generateEndpointsHTML(data) {
