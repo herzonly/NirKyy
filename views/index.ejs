@@ -31,10 +31,10 @@ header { background-color: #222; padding: 20px; border-bottom: 2px solid #00ffff
 #sideMenu { position: fixed; top: 0; left: -250px; width: 250px; height: 100%; background-color: #222; padding: 20px; transition: left 0.3s ease; overflow-y: auto; z-index: 1100; }
 #sideMenu.active { left: 0; }
 #sideMenu h2 { color: #00ffff; margin-top: 0; }
-#sideMenu ul { list-style: none; padding: 0; }
-#sideMenu li { margin-bottom: 15px; }
-#sideMenu li button { background-color: #00ff7f; color: #111; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; }
-#sideMenu li button:hover { background-color: #111; color: #00ff7f; border: 1px solid #ff00ff; }
+#tagList { list-style: none; padding: 0; }
+#tagList li { margin-bottom: 15px; }
+#tagList li button { background-color: #00ff7f; color: #111; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; }
+#tagList li button:hover { background-color: #111; color: #00ff7f; border: 1px solid #ff00ff; }
 .search-container { margin-top: 20px; position: relative; text-align: center; }
 .search-container input[type="text"] { padding: 10px 35px 10px 10px; border: 2px solid #00ff7f; background-color: #333; color: #fff; border-radius: 5px; width: 70%; max-width: 500px; font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
 .search-container input[type="text"]:focus { border-color: #ff00ff; box-shadow: 0 0 8px #ff00ff; outline: none; }
@@ -74,12 +74,7 @@ footer { text-align: center; padding: 20px; background-color: #222; color: #aaa;
 </header>
 <div id="sideMenu">
   <h2>Tags</h2>
-  <ul>
-    <li><button data-tags="">All</button></li>
-    <% tags.forEach(function(tag){ %>
-      <li><button data-tags="<%= tag %>"><%= tag %></button></li>
-    <% }); %>
-  </ul>
+  <ul id="tagList"></ul>
 </div>
 <main class="container">
   <div class="search-container">
@@ -132,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const searchEndpointInput = document.getElementById('searchEndpoint');
   const hamburger = document.getElementById('hamburger');
   const sideMenu = document.getElementById('sideMenu');
+  const tagList = document.getElementById('tagList');
   const tryModal = document.getElementById('tryModal');
   const closeButton = document.getElementById('closeButton');
   const parameterInputsDiv = document.getElementById('parameterInputs');
@@ -289,6 +285,16 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(e => console.error(e))
     .finally(() => { isFetching = false; });
   }
+  function loadTags() {
+    fetch('/tags')
+    .then(res => res.json())
+    .then(data => {
+      let html = '<li><button data-tags="">All</button></li>';
+      data.tags.forEach(tag => { html += `<li><button data-tags="${tag}">${tag}</button></li>`; });
+      document.getElementById('tagList').innerHTML = html;
+    })
+    .catch(console.error);
+  }
   searchEndpointInput.addEventListener('input', debounce(function() {
     const s = searchEndpointInput.value.trim();
     if (s) { searchData(s); } else { renderTags(); }
@@ -315,6 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   attachCardEvents();
   renderTags();
+  loadTags();
 });
 </script>
 </body>
