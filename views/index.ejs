@@ -241,18 +241,25 @@ loadingIndicator.style.display = 'none';
 let hdr = '';
 Object.entries(r.headers).forEach(([k, v]) => { hdr += k + ': ' + v + '\n'; });
 const ctype = r.headers['content-type'] || '';
-if (r.status >= 200 && r.status < 300) { successSound.play(); } else { errorSound.play(); }
+if(r.status >= 200 && r.status < 300) {
+  if(r.data && r.data.success === false) { errorSound.play(); responseHeader.textContent = hdr; responseBody.textContent = JSON.stringify(r.data, null, 2); return; }
+  else { successSound.play(); }
+} else { errorSound.play(); }
 responseHeader.textContent = hdr;
-if (ctype.includes('application/json')) { responseBody.textContent = JSON.stringify(r.data, null, 2); } else if (ctype.startsWith('image/')) { responseBody.innerHTML = ''; const img = document.createElement('img'); img.src = r.config.url; responseBody.appendChild(img); } else if (ctype.startsWith('video/')) { responseBody.innerHTML = ''; const vid = document.createElement('video'); vid.src = r.config.url; vid.controls = true; responseBody.appendChild(vid); } else { responseBody.textContent = r.data; }
+if(ctype.includes('application/json')) { responseBody.textContent = JSON.stringify(r.data, null, 2); }
+else if(ctype.startsWith('image/')) { responseBody.innerHTML = ''; const img = document.createElement('img'); img.src = r.config.url; responseBody.appendChild(img); }
+else if(ctype.startsWith('video/')) { responseBody.innerHTML = ''; const vid = document.createElement('video'); vid.src = r.config.url; vid.controls = true; responseBody.appendChild(vid); }
+else { responseBody.textContent = r.data; }
 })
 .catch(err => {
 loadingIndicator.style.display = 'none';
 errorSound.play();
-if (err.response) {
-let h = 'Status: ' + err.response.status + ' ' + err.response.statusText + '\n';
-Object.entries(err.response.headers).forEach(([k, v]) => { h += k + ': ' + v + '\n'; });
-responseHeader.textContent = h;
-if (typeof err.response.data === 'object') { responseBody.textContent = JSON.stringify(err.response.data, null, 2); } else { responseBody.textContent = err.response.data; }
+if(err.response) {
+  let h = 'Status: ' + err.response.status + ' ' + err.response.statusText + '\n';
+  Object.entries(err.response.headers).forEach(([k, v]) => { h += k + ': ' + v + '\n'; });
+  responseHeader.textContent = h;
+  if(typeof err.response.data === 'object') { responseBody.textContent = JSON.stringify(err.response.data, null, 2); }
+  else { responseBody.textContent = err.response.data; }
 } else { responseHeader.textContent = 'Error: No response'; responseBody.textContent = err.message; }
 });
 });
@@ -261,7 +268,7 @@ const t = responseHeader.textContent + '\n' + responseBody.textContent;
 navigator.clipboard.writeText(t).then(() => alert('Response API berhasil di-copy!')).catch(() => alert('Gagal copy response API.'));
 });
 copyEndpointButton.addEventListener('click', function() {
-if (finalApiUrl) {
+if(finalApiUrl) {
 navigator.clipboard.writeText(finalApiUrl).then(() => alert('Endpoint berhasil di-copy!')).catch(() => alert('Gagal copy endpoint.'));
 } else { alert('Tidak ada endpoint yang dapat di-copy. Jalankan "Try" terlebih dahulu.'); }
 });
@@ -278,13 +285,13 @@ fetch('/renderpage?tags=')
 const parser = new DOMParser();
 const doc = parser.parseFromString(h, 'text/html');
 const row = doc.querySelector('.row');
-if (row) endpointListSection.innerHTML = row.outerHTML;
+if(row) endpointListSection.innerHTML = row.outerHTML;
 })
 .catch(e => console.error(e));
 }
 searchEndpointInput.addEventListener('input', debounce(function() {
 const s = searchEndpointInput.value.trim();
-if (s) { searchData(s); } else { renderTags(); }
+if(s) { searchData(s); } else { renderTags(); }
 }, 300));
 attachCardEvents();
 renderTags();
