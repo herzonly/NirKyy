@@ -24,37 +24,40 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
-body { font-family: 'Orbitron', sans-serif; background-color: #111; color: #00ff7f; margin: 0; padding: 0; overflow-x: hidden; }
-header { background-color: #222; padding: 20px; border-bottom: 2px solid #00ffff; display: flex; align-items: center; justify-content: space-between; }
+/* Tema Neon Cyberpunk */
+body { font-family: 'Orbitron', sans-serif; background: linear-gradient(135deg, #0a0a0a, #111); color: #0ff; margin: 0; padding: 0; overflow-x: hidden; }
+header { background-color: #000; padding: 20px; border-bottom: 2px solid #0ff; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 0 20px #0ff; }
 .header-left { display: flex; align-items: center; }
-.search-container { margin-top: 20px; position: relative; text-align: center; }
-.search-container input[type="text"] { padding: 10px 35px 10px 10px; border: 2px solid #00ff7f; background-color: #333; color: #fff; border-radius: 5px; width: 70%; max-width: 500px; font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
-.search-container input[type="text"]:focus { border-color: #ff00ff; box-shadow: 0 0 8px #ff00ff; outline: none; }
-.search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 1.2em; color: #00ff7f; opacity: 0.8; }
+header h1 { margin: 0; font-size: 2.8em; color: #0ff; text-shadow: 0 0 20px #0ff; }
+.search-container { margin-top: 20px; text-align: center; }
+.search-container input[type="text"] { padding: 10px 35px 10px 10px; border: 2px solid #0ff; background-color: #000; color: #fff; border-radius: 5px; width: 70%; max-width: 500px; font-size: 1em; transition: border-color 0.3s, box-shadow 0.3s; }
+.search-container input[type="text"]:focus { border-color: #f0f; box-shadow: 0 0 10px #f0f; outline: none; }
+.search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 1.2em; color: #0ff; opacity: 0.8; }
 #tagButtons { margin-top: 20px; text-align: center; }
-#tagButtons button { margin: 5px; }
+#tagButtons button { margin: 5px; border: none; background-color: #0ff; color: #000; padding: 10px 15px; border-radius: 5px; font-size: 1em; transition: background-color 0.3s, color 0.3s; }
+#tagButtons button:hover { background-color: #f0f; color: #000; }
 main { padding: 20px; }
-#endpointListSection .card { border: 1px solid #00ff7f; background-color: #222; color: #00ff7f; transition: transform 0.3s ease, box-shadow 0.3s ease; margin-bottom: 15px; animation: cardFadeIn 0.5s ease-out forwards; }
+#endpointListSection .card { border: 1px solid #0ff; background-color: #000; color: #0ff; margin-bottom: 15px; animation: cardFadeIn 0.5s ease-out forwards; transition: transform 0.3s, box-shadow 0.3s; }
 @keyframes cardFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-#endpointListSection .card:hover { transform: translateY(-5px); box-shadow: 0 0 15px #00ff7f; }
-.card-header { background-color: #333; color: #00ffff; border-bottom: 1px solid #00ffff; }
+#endpointListSection .card:hover { transform: translateY(-5px); box-shadow: 0 0 15px #0ff; }
+.card-header { background-color: #111; color: #0ff; border-bottom: 1px solid #0ff; }
 .card-body { padding: 1.5rem; }
-.badge-secondary { background-color: #ff00ff; color: #fff; }
-pre { white-space: pre-wrap; background-color: #333; border: 1px solid #00ff7f; padding: 10px; border-radius: 5px; overflow-x: auto; color: #00ff7f; }
-.modal { display: none; position: fixed; z-index: 1050; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); animation: modalFadeIn 0.4s ease-out forwards; }
+.badge-secondary { background-color: #f0f; color: #000; padding: 5px 8px; border-radius: 3px; font-size: 0.9em; }
+.endpoint-box { background-color: #222; padding: 10px; border-radius: 5px; font-size: 0.9em; overflow-x: auto; }
+.modal { display: none; position: fixed; z-index: 1050; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); animation: modalFadeIn 0.4s ease-out forwards; }
 @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
-.modal-content { background-color: #222; color: #fff; border: 1px solid #00ffff; border-radius: 10px; }
-.modal-header, .modal-footer { padding: 1rem 1.5rem; border: none; }
-.modal-header { border-bottom: 1px solid #00ffff; }
-.modal-title { color: #00ffff; font-weight: bold; text-shadow: 0 0 5px #00ffff; }
+.modal-content { background-color: #111; color: #0ff; border: 1px solid #0ff; border-radius: 10px; }
+.modal-header, .modal-footer { padding: 1rem 1.5rem; }
+.modal-header { border-bottom: 1px solid #0ff; }
+.modal-title { color: #0ff; font-weight: bold; text-shadow: 0 0 10px #0ff; }
 .modal-body { padding: 1.5rem; }
-.loading { border: 6px solid #333; border-top: 6px solid #00ffff; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto; display: none; }
+.loading { border: 6px solid #111; border-top: 6px solid #0ff; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-footer { text-align: center; padding: 20px; background-color: #222; color: #aaa; border-top: 2px solid #00ffff; }
-.axios-code { background-color: #333; padding: 10px; border-radius: 5px; margin-top: 10px; overflow-x: auto; font-family: monospace; font-size: 0.9em; color: #00ff7f; border: 1px solid #00ff7f; }
-.btn-primary, .btn-info, .btn-outline-info { font-family: 'Orbitron', sans-serif; border: 1px solid #00ff7f; background-color: #00ff7f; color: #111; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
-.btn-primary:hover, .btn-info:hover, .btn-outline-info:hover, .btn-primary:focus, .btn-info:focus, .btn-outline-info:focus { background-color: #111; color: #00ff7f; border-color: #ff00ff; box-shadow: 0 0 5px #ff00ff; }
-.close.text-light { color: #ff00ff !important; text-shadow: 0 0 5px #ff00ff; }
+footer { text-align: center; padding: 20px; background-color: #000; color: #0ff; border-top: 2px solid #0ff; box-shadow: 0 -2px 10px #0ff; }
+.axios-code { background-color: #111; padding: 10px; border-radius: 5px; margin-top: 10px; overflow-x: auto; font-family: monospace; font-size: 0.9em; color: #0ff; border: 1px solid #0ff; }
+.btn-primary, .btn-info, .btn-outline-info { font-family: 'Orbitron', sans-serif; background-color: #0ff; color: #000; padding: 10px 15px; border-radius: 5px; border: none; transition: background-color 0.3s, color 0.3s; }
+.btn-primary:hover, .btn-info:hover, .btn-outline-info:hover, .btn-primary:focus, .btn-info:focus, .btn-outline-info:focus { background-color: #f0f; color: #000; }
+.close.text-light { color: #f0f; text-shadow: 0 0 10px #f0f; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
@@ -277,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('/tags')
     .then(res => res.json())
     .then(data => {
-      let html = '<button class="btn btn-primary m-1" data-tags="">All</button>';
+      let html = `<button class="btn btn-primary m-1" data-tags=""><i class="fa-solid fa-house"></i></button>`;
       data.tags.forEach(tag => { html += `<button class="btn btn-primary m-1" data-tags="${tag}">${tag}</button>`; });
       tagButtonsContainer.innerHTML = html;
     })
