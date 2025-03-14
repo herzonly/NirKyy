@@ -31,7 +31,7 @@ header img { max-height: 70px; margin-right: 20px; animation: logoPulse 2s infin
 @keyframes textGlitch { 0%, 100% { text-shadow: 0 0 10px #00ff7f; } 50% { text-shadow: -2px -2px 5px #ff00ff, 2px 2px 5px #00ffff; } }
 @keyframes logoPulse { from { opacity: 0.9; } to { opacity: 0.7; } }
 #hamburger { font-size: 1.8em; cursor: pointer; color: #00ff7f; }
-#sideMenu { position: fixed; top: 0; left: -250px; width: 250px; height: 100%; background-color: #222; padding: 20px; transition: left 0.3s ease; overflow-y: auto; }
+#sideMenu { position: fixed; top: 0; left: -250px; width: 250px; height: 100%; background-color: #222; padding: 20px; transition: left 0.3s ease; overflow-y: auto; z-index: 1100; }
 #sideMenu.active { left: 0; }
 #sideMenu h2 { color: #00ffff; margin-top: 0; }
 #sideMenu ul { list-style: none; padding: 0; }
@@ -69,57 +69,58 @@ footer { text-align: center; padding: 20px; background-color: #222; color: #aaa;
 </head>
 <body>
 <header>
-<div id="hamburger"><i class="fas fa-bars"></i></div>
-<h1>NirKyy</h1>
-<div id="container-0171bcc474ae933f061e3acb0c0eb62d"></div>
+  <div id="hamburger"><i class="fas fa-bars"></i></div>
+  <h1>NirKyy</h1>
+  <div id="container-0171bcc474ae933f061e3acb0c0eb62d"></div>
 </header>
 <div id="sideMenu">
-<h2>Tags</h2>
-<ul>
-<li><button data-tags="">All</button></li>
-<% tags.forEach(function(tag){ %>
-<li><button data-tags="<%= tag %>"><%= tag %></button></li>
-<% }); %>
-</ul>
+  <h2>Tags</h2>
+  <ul>
+    <li><button data-tags="">All</button></li>
+    <% tags.forEach(function(tag){ %>
+      <li><button data-tags="<%= tag %>"><%= tag %></button></li>
+    <% }); %>
+  </ul>
 </div>
 <main class="container">
-<div class="search-container">
-<input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag...">
-<i class="fas fa-search search-icon"></i>
-</div>
-<div id="endpointListSection"></div>
+  <div class="search-container">
+    <input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag...">
+    <i class="fas fa-search search-icon"></i>
+  </div>
+  <div id="endpointListSection"></div>
 </main>
-<div id="tryModal" class="modal">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title">Coba Endpoint</h5>
-<button type="button" class="close text-light" id="closeButton">&times;</button>
-</div>
-<div class="modal-body">
-<div id="parameterInputs"></div>
-<button id="runButton" class="btn btn-info btn-block"><i class="fas fa-play"></i> Run</button>
-<div id="loadingIndicator" class="loading"></div>
-<div id="apiResponse" class="mt-3">
-<h5 class="text-cyber">Response Header:</h5>
-<pre id="responseHeader" class="p-2"></pre>
-<h5 class="text-cyber">Response Body:</h5>
-<pre id="responseBody" class="p-2"></pre>
-<div class="d-flex justify-content-end mt-2">
-<button id="copyResponseButton" class="btn btn-outline-info btn-sm mr-2"><i class="fas fa-copy"></i> Copy Response</button>
-<button id="copyEndpointButton" class="btn btn-info btn-sm"><i class="fas fa-link"></i> Copy Endpoint</button>
-</div>
-</div>
-<div id="axiosExample" class="axios-code mt-3">
-<h5>Contoh Kode Axios (GET):</h5>
-<pre id="axiosSnippet"><code>// Klik Run untuk menampilkan contoh kode Axios</code></pre>
-</div>
-</div>
-</div>
-</div>
 <footer>
-<p>&copy; 2025 NirKyy. Selalu gratis, mohon jangan pake ads blocked🙏 | Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
+  <p>&copy; 2025 NirKyy. Selalu gratis, mohon jangan pake ads blocked🙏 | Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
 </footer>
+<div id="tryModal" class="modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Coba Endpoint</h5>
+        <button type="button" class="close text-light" id="closeButton">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="parameterInputs"></div>
+        <button id="runButton" class="btn btn-info btn-block"><i class="fas fa-play"></i> Run</button>
+        <div id="loadingIndicator" class="loading"></div>
+        <div id="apiResponse" class="mt-3">
+          <h5 class="text-cyber">Response Header:</h5>
+          <pre id="responseHeader" class="p-2"></pre>
+          <h5 class="text-cyber">Response Body:</h5>
+          <pre id="responseBody" class="p-2"></pre>
+          <div class="d-flex justify-content-end mt-2">
+            <button id="copyResponseButton" class="btn btn-outline-info btn-sm mr-2"><i class="fas fa-copy"></i> Copy Response</button>
+            <button id="copyEndpointButton" class="btn btn-info btn-sm"><i class="fas fa-link"></i> Copy Endpoint</button>
+          </div>
+        </div>
+        <div id="axiosExample" class="axios-code mt-3">
+          <h5>Contoh Kode Axios (GET):</h5>
+          <pre id="axiosSnippet"><code>// Klik Run untuk menampilkan contoh kode Axios</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <audio id="successSound" src="success.mp3" preload="auto"></audio>
 <audio id="errorSound" src="error.mp3" preload="auto"></audio>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
