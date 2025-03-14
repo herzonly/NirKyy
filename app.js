@@ -24,13 +24,13 @@ function generateEndpointsHTML(data) {
   let html = '<div class="row">';
   data.forEach(ep => {
     html += `<div class="col-md-6 mb-3">
-      <div class="card mb-3 neon-card">
-        <div class="card-header neon-header">${ep.nama}</div>
+      <div class="card mb-3" style="border:1px solid #00ff7f;background-color:#222;color:#00ff7f;">
+        <div class="card-header" style="background-color:#333;color:#00ffff;">${ep.nama}</div>
         <div class="card-body">
           <div class="mb-2">
-            ${(ep.tags || []).map(t => `<span class="badge badge-secondary neon-badge"><i class="fas fa-hashtag"></i> ${t}</span>`).join('')}
+            ${(ep.tags || []).map(t => `<span class="badge badge-secondary mr-1" style="background-color:#ff00ff;color:#fff;"><i class="fas fa-hashtag"></i> ${t}</span>`).join('')}
           </div>
-          <div class="bg-dark p-2 mb-2 endpoint-box">${ep.endpoint}</div>
+          <div class="bg-dark p-2 mb-2" style="font-size:0.9em;overflow-x:auto;">${ep.endpoint}</div>
           <div class="d-flex justify-content-end">
             <button class="btn btn-outline-info btn-sm mr-2 copy-url-button" data-url="${ep.endpoint}"><i class="fas fa-copy"></i> Copy URL</button>
             <button class="btn btn-info btn-sm try-button" data-endpoint='${JSON.stringify(ep)}'><i class="fas fa-play"></i> Try</button>
