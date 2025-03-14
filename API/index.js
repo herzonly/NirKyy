@@ -10,7 +10,7 @@ router.get('/autogempa', async (req, res) => {
   try {
     const response = await axios.get('https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json');
     const data = response.data;
-    if (data && data.Infogempa && Array.isArray(data.Infogempa)) {
+    if (data) {
       res.succesJson(data.Infogempa);
     } else {
       res.status(404).errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
@@ -18,6 +18,24 @@ router.get('/autogempa', async (req, res) => {
   } catch (error) {
     console.error('Terjadi kesalahan saat mengambil data autogempa:', error);
     res.status(500).errorJson({ message: 'Terjadi kesalahan saat mengambil data autogempa.' });
+  }
+});
+
+router.get('/susunkata', async (req, res) => {
+  try {
+    const response = await axios.get('https://raw.githubusercontent.com/BochilTeam/database/refs/heads/master/games/susunkata.json');
+    const data = response.data;
+
+    if (Array.isArray(data) && data.length > 0) {
+      const randomIndex = Math.floor(Math.random() * data.length);
+      const randomItem = data[randomIndex];
+      res.succesJson(randomItem);
+    } else {
+      res.status(404).errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
+    }
+  } catch (error) {
+    console.error('Terjadi kesalahan saat mengambil data:', error);
+    res.status(500).errorJson({ message: 'Terjadi kesalahan saat mengambil data.' });
   }
 });
 
