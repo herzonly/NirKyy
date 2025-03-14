@@ -1,13 +1,18 @@
 [
   {
+    "nama": "Auto Gempa",
+    "tags": ["tools"],
+    "endpoint": "/api/v1/autogempa",
+    "parameter": []
+  },
+  {
     "nama": "Random Asah Otak",
     "tags": ["Game"],
     "endpoint": "/api/v1/asahotak",
     "parameter": []
-    
   },
   {
-    "nama": "SaveTube",
+    "nama": "SaveTube Scraper",
     "tags": ["Downloader"],
     "endpoint": "/api/v1/savetube",
     "parameter": [
@@ -24,7 +29,7 @@
     ]
   },
   {
-    "nama": "Jadwal Anime",
+    "nama": "Jadwal-Anime Scraper",
     "tags": ["Tools"],
     "endpoint": "/api/v1/anime-jadwal",
     "parameter": [
@@ -36,7 +41,7 @@
     ]
   },
   {
-    "nama": "Pinterest",
+    "nama": "Pinterest Search",
     "tags": ["Search"],
     "endpoint": "/api/v1/pin",
     "parameter": [
@@ -80,7 +85,7 @@
     ]
   },
   {
-    "nama": "AIO downloader",
+    "nama": "Nayan All-IN-One",
     "tags": ["Downloader"],
     "endpoint": "/api/v1/aio-dl",
     "parameter": [

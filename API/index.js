@@ -6,6 +6,21 @@ const { handleTextQuery } = require('../lib/ai');
 const { pin } = require('../lib/pinterest');
 const { jadwal } = require('../lib/animeJadwal');
 
+router.get('/autogempa', async (req, res) => {
+  try {
+    const response = await axios.get('https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json');
+    const data = response.data;
+    if (data && data.Infogempa && Array.isArray(data.Infogempa)) {
+      res.succesJson(data.Infogempa);
+    } else {
+      res.status(404).errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
+    }
+  } catch (error) {
+    console.error('Terjadi kesalahan saat mengambil data autogempa:', error);
+    res.status(500).errorJson({ message: 'Terjadi kesalahan saat mengambil data autogempa.' });
+  }
+});
+
 router.get('/asahotak', async (req, res) => {
   try {
     const response = await axios.get('https://raw.githubusercontent.com/BochilTeam/database/refs/heads/master/games/asahotak.json');
