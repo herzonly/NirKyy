@@ -138,9 +138,7 @@
       color: #00ffff;
       border-bottom: 1px solid #00ffff;
     }
-    .card-body {
-      padding: 1.5rem;
-    }
+    .card-body { padding: 1.5rem; }
     .badge-secondary {
       background-color: #ff00ff;
       color: #fff;
@@ -177,13 +175,8 @@
       border-radius: 10px;
     }
     .modal-header,
-    .modal-footer {
-      padding: 1rem 1.5rem;
-      border: none;
-    }
-    .modal-header {
-      border-bottom: 1px solid #00ffff;
-    }
+    .modal-footer { padding: 1rem 1.5rem; border: none; }
+    .modal-header { border-bottom: 1px solid #00ffff; }
     .modal-title {
       color: #00ffff;
       font-weight: bold;
@@ -240,11 +233,18 @@
       color: #ff00ff !important;
       text-shadow: 0 0 5px #ff00ff;
     }
+    /* Jika perangkat atau user menginginkan animasi lebih ringan */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
-    <img src="https://i.ibb.co.com/hFF2Rd8Z/62bfdd334ee4.jpg" alt="Logo NirKyy">
+    <img src="https://i.ibb.co/hFF2Rd8Z/62bfdd334ee4.jpg" alt="Logo NirKyy">
     <h1>NirKyy</h1>
     <div id="container-0171bcc474ae933f061e3acb0c0eb62d"></div>
   </header>
@@ -282,30 +282,30 @@
             <h5>Contoh Kode Axios (GET):</h5>
             <pre id="axiosSnippet"><code>// Klik Run untuk menampilkan contoh kode Axios</code></pre>
           </div>
-           <script type="text/javascript">
-   atOptions = {
-     'key': '4dcfbf50e2f48de0c83e35f5e80554b7',
-     'format': 'iframe',
-     'height': 250,
-     'width': 300,
-     'params': {}
-   };
- </script>
-<script type="text/javascript" src="//www.highperformanceformat.com/4dcfbf50e2f48de0c83e35f5e80554b7/invoke.js"></script>
+          <script type="text/javascript">
+            atOptions = {
+              'key': '4dcfbf50e2f48de0c83e35f5e80554b7',
+              'format': 'iframe',
+              'height': 250,
+              'width': 300,
+              'params': {}
+            };
+          </script>
+          <script type="text/javascript" src="//www.highperformanceformat.com/4dcfbf50e2f48de0c83e35f5e80554b7/invoke.js"></script>
         </div>
       </div>
     </div>
   </div>
   <script type="text/javascript">
-	atOptions = {
-		'key' : 'e20cfff4d2952f01ceb4381793cb7a31',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/e20cfff4d2952f01ceb4381793cb7a31/invoke.js"></script>
+    atOptions = {
+      'key' : 'e20cfff4d2952f01ceb4381793cb7a31',
+      'format' : 'iframe',
+      'height' : 50,
+      'width' : 320,
+      'params' : {}
+    };
+  </script>
+  <script type="text/javascript" src="//www.highperformanceformat.com/e20cfff4d2952f01ceb4381793cb7a31/invoke.js"></script>
   <footer>
     <p>&copy; 2025 NirKyy. Selalu gratis, mohon jangan pake ads blocked🙏| Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
   </footer>
@@ -313,13 +313,12 @@
   <audio id="successSound" src="success.mp3" preload="auto"></audio>
   <audio id="errorSound" src="error.mp3" preload="auto"></audio>
   <audio id="loadSound" src="load.mp3" preload="auto"></audio>
-
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       let endpointData = [];
       let currentTag = null;
-      let currentEndpointData;
+      let currentEndpointData = null;
       let finalApiUrl = '';
       
       const endpointListSection = document.getElementById('endpointListSection');
@@ -337,6 +336,16 @@
       const axiosSnippetPre = document.getElementById('axiosSnippet');
       const successSound = document.getElementById('successSound');
       const errorSound = document.getElementById('errorSound');
+      const loadSound = document.getElementById('loadSound');
+
+      // Fungsi debounce untuk membatasi eksekusi event secara berlebihan
+      function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+      }
 
       // Ambil data endpoint dari list.json
       fetch('list.json')
@@ -355,22 +364,23 @@
         });
         const sortedTags = Array.from(tags).sort();
         tagHopperSection.innerHTML = '';
+        const fragment = document.createDocumentFragment();
         sortedTags.forEach(tag => {
           const btn = document.createElement('button');
-          // Sertakan ikon hashtag di setiap tombol tag
           btn.innerHTML = '<i class="fas fa-hashtag"></i> ' + tag;
           btn.className = 'tag-button';
           btn.addEventListener('click', () => {
             currentTag = tag;
-            document.querySelectorAll('.tag-button').forEach(b => b.classList.remove('active'));
+            // Hilangkan kelas active pada semua tombol
+            tagHopperSection.querySelectorAll('.tag-button').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             renderEndpointList(endpointData, tag);
           });
-          tagHopperSection.appendChild(btn);
+          fragment.appendChild(btn);
         });
+        tagHopperSection.appendChild(fragment);
       }
 
-      // renderEndpointList kini menerima parameter ketiga untuk daftar endpoint yang sudah terfilter (jika ada)
       function renderEndpointList(endpoints, selectedTag = null, endpointsToDisplay = null) {
         endpointListSection.innerHTML = '';
         let filteredEndpoints;
@@ -387,6 +397,7 @@
         }
         const row = document.createElement('div');
         row.className = 'row';
+        const fragment = document.createDocumentFragment();
         filteredEndpoints.forEach(endpoint => {
           const col = document.createElement('div');
           col.className = 'col-md-6 mb-3';
@@ -424,50 +435,46 @@
           
           const copyBtn = document.createElement('button');
           copyBtn.className = 'btn btn-outline-info btn-sm mr-2 copy-url-button';
-          copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy URL';
           copyBtn.setAttribute('data-url', endpoint.endpoint);
+          copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy URL';
           btnContainer.appendChild(copyBtn);
           
           const tryBtn = document.createElement('button');
           tryBtn.className = 'btn btn-info btn-sm try-button';
-          tryBtn.innerHTML = '<i class="fas fa-play"></i> Try';
           tryBtn.setAttribute('data-endpoint', JSON.stringify(endpoint));
+          tryBtn.innerHTML = '<i class="fas fa-play"></i> Try';
           btnContainer.appendChild(tryBtn);
           
           cardBody.appendChild(btnContainer);
           card.appendChild(cardBody);
           col.appendChild(card);
-          row.appendChild(col);
+          fragment.appendChild(col);
         });
+        row.appendChild(fragment);
         endpointListSection.appendChild(row);
-        attachButtonEventListeners();
       }
 
-      function attachButtonEventListeners() {
-        document.querySelectorAll('.copy-url-button').forEach(button => {
-          button.addEventListener('click', function() {
-            const url = this.getAttribute('data-url');
-            navigator.clipboard.writeText(url)
-              .then(() => alert('URL berhasil di-copy!'))
-              .catch(() => alert('Gagal copy URL.'));
-          });
-        });
-        document.querySelectorAll('.try-button').forEach(button => {
-          button.addEventListener('click', function() {
-            const endpoint = JSON.parse(this.getAttribute('data-endpoint'));
-            openTryModal(endpoint);
-          });
-        });
-      }
+      // Event delegation untuk tombol copy dan try
+      endpointListSection.addEventListener('click', function(event) {
+        const btn = event.target.closest('button');
+        if (!btn) return;
+        if (btn.classList.contains('copy-url-button')) {
+          const url = btn.getAttribute('data-url');
+          navigator.clipboard.writeText(url)
+            .then(() => alert('URL berhasil di-copy!'))
+            .catch(() => alert('Gagal copy URL.'));
+        } else if (btn.classList.contains('try-button')) {
+          const endpoint = JSON.parse(btn.getAttribute('data-endpoint'));
+          openTryModal(endpoint);
+        }
+      });
 
       function openTryModal(endpoint) {
         currentEndpointData = endpoint;
-        // Bersihkan input parameter dan response
         parameterInputsDiv.innerHTML = '';
         responseHeader.textContent = '';
         responseBody.textContent = '';
         axiosSnippetPre.innerHTML = `<code>// Klik Run untuk menampilkan contoh kode Axios</code>`;
-
         if (endpoint.parameter && endpoint.parameter.length > 0) {
           endpoint.parameter.forEach(param => {
             const paramName = param.params;
@@ -492,29 +499,25 @@
         tryModal.style.display = "block";
       }
 
-      // Event listener untuk menutup modal jika klik di luar modal
-      window.onclick = function(event) {
-        if (event.target == tryModal) {
+      // Menutup modal jika klik di luar modal
+      window.addEventListener('click', function(event) {
+        if (event.target === tryModal) {
           tryModal.style.display = "none";
         }
-      };
-
-      closeButton.onclick = function() {
+      });
+      closeButton.addEventListener('click', function() {
         tryModal.style.display = "none";
-      };
-
-      runButton.onclick = function() {
+      });
+      runButton.addEventListener('click', function() {
         runApiRequest();
-      };
-
-      copyResponseButton.onclick = function() {
+      });
+      copyResponseButton.addEventListener('click', function() {
         const responseText = responseHeader.textContent + "\n" + responseBody.textContent;
         navigator.clipboard.writeText(responseText)
           .then(() => alert('Response API berhasil di-copy!'))
           .catch(() => alert('Gagal copy response API.'));
-      };
-
-      copyEndpointButton.onclick = function() {
+      });
+      copyEndpointButton.addEventListener('click', function() {
         if(finalApiUrl) {
           navigator.clipboard.writeText(finalApiUrl)
             .then(() => alert('Endpoint berhasil di-copy!'))
@@ -522,16 +525,14 @@
         } else {
           alert('Tidak ada endpoint yang dapat di-copy. Jalankan "Try" terlebih dahulu.');
         }
-      };
+      });
 
       function runApiRequest() {
         if (!currentEndpointData) return;
-
         let apiUrl = currentEndpointData.endpoint;
         const params = {};
         let missingRequired = false;
         const inputs = parameterInputsDiv.querySelectorAll('input');
-        
         inputs.forEach(input => {
           const paramName = input.name;
           const paramDef = currentEndpointData.parameter.find(p => p.params === paramName);
@@ -546,13 +547,11 @@
             missingRequired = true;
           }
         });
-        
         if (missingRequired) {
           alert('Harap isi semua parameter wajib.');
           return;
         }
-        
-        // Gantikan placeholder {param} dalam URL
+        // Ganti placeholder di URL dengan nilai parameter
         Object.keys(params).forEach(paramName => {
           const placeholder = `{${paramName}}`;
           if (apiUrl.includes(placeholder)) {
@@ -560,27 +559,20 @@
             delete params[paramName];
           }
         });
-        
-        // Bangun URL akhir beserta query string jika ada parameter tersisa
         let baseUrl = `https://nirkyy.koyeb.app${apiUrl}`;
         const urlObj = new URL(baseUrl);
         Object.entries(params).forEach(([key, value]) => {
           urlObj.searchParams.append(key, value);
         });
         finalApiUrl = urlObj.href;
-        
-        // Contoh kode Axios
         let axiosCode = Object.keys(params).length > 0 ?
           `axios.get('${baseUrl}', {\n  params: ${JSON.stringify(params, null, 2)}\n})` :
           `axios.get('${baseUrl}')`;
         axiosSnippetPre.innerHTML = `<code>${axiosCode}</code>`;
-        
         loadingIndicator.style.display = 'block';
         responseHeader.textContent = '';
         responseBody.textContent = '';
-        
-        // Mainkan load.mp3 dan tunda 2 detik sebelum menjalankan request API
-        document.getElementById('loadSound').play();
+        loadSound.play();
         setTimeout(() => {
           axios.get(finalApiUrl)
             .then(response => {
@@ -631,7 +623,6 @@
                   errHeaders += `${key}: ${value}\n`;
                 });
                 responseHeader.textContent = errHeaders;
-                // Tampilkan response error sebagai JSON jika memungkinkan
                 if (typeof error.response.data === 'object') {
                   responseBody.textContent = JSON.stringify(error.response.data, null, 2);
                 } else {
@@ -645,8 +636,8 @@
         }, 2000);
       }
 
-      // Event listener untuk search endpoint
-      searchEndpointInput.addEventListener('input', function() {
+      // Debounce pencarian agar tidak render ulang terlalu sering
+      searchEndpointInput.addEventListener('input', debounce(function() {
         const searchTerm = searchEndpointInput.value.trim().toLowerCase();
         const allEndpoints = currentTag ? endpointData.filter(ep => ep.tags.includes(currentTag)) : endpointData;
         const filteredEndpoints = allEndpoints.filter(ep =>
@@ -655,7 +646,7 @@
           ep.endpoint.toLowerCase().includes(searchTerm)
         );
         renderEndpointList(endpointData, currentTag ? currentTag : null, filteredEndpoints);
-      });
+      }, 300));
     });
   </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
