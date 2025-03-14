@@ -27,6 +27,7 @@
 body { font-family: 'Orbitron', sans-serif; background-color: #111; color: #00ff7f; margin: 0; padding: 0; overflow-x: hidden; }
 header { background-color: #222; padding: 20px; border-bottom: 2px solid #00ffff; display: flex; align-items: center; justify-content: space-between; }
 .header-left { display: flex; align-items: center; }
+.header-left img { max-height: 70px; margin-right: 15px; }
 .search-container { margin-top: 20px; position: relative; text-align: center; }
 .search-container input[type="text"] { padding: 10px 35px 10px 10px; border: 2px solid #00ff7f; background-color: #333; color: #fff; border-radius: 5px; width: 70%; max-width: 500px; font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
 .search-container input[type="text"]:focus { border-color: #ff00ff; box-shadow: 0 0 8px #ff00ff; outline: none; }
@@ -61,6 +62,7 @@ footer { text-align: center; padding: 20px; background-color: #222; color: #aaa;
 <body>
 <header>
   <div class="header-left">
+    <img src="https://i.ibb.co/hFF2Rd8Z/62bfdd334ee4.jpg" alt="NirKyy Logo">
     <h1>NirKyy</h1>
   </div>
   <div id="container-0171bcc474ae933f061e3acb0c0eb62d"></div>
@@ -277,8 +279,8 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('/tags')
     .then(res => res.json())
     .then(data => {
-      let html = '<button class="btn btn-primary m-1" data-tags=""><i class="fa-solid fa-globe"></i> All</button>';
-      data.tags.forEach(tag => { html += `<button class="btn btn-primary m-1" data-tags="${tag}"><i class="fa-solid fa-tag"></i> ${tag}</button>`; });
+      let html = '<button class="btn btn-warning m-1" data-tags="">All</button>';
+      data.tags.forEach(tag => { html += `<button class="btn btn-primary m-1" data-tags="${tag}">${tag}</button>`; });
       tagButtonsContainer.innerHTML = html;
     })
     .catch(console.error);
