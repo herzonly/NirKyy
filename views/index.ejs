@@ -25,12 +25,13 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
 body { font-family: 'Orbitron', sans-serif; background-color: #111; color: #00ff7f; margin: 0; padding: 0; overflow-x: hidden; }
-header { background-color: #222; padding: 20px; border-bottom: 2px solid #00ffff; display: flex; justify-content: space-between; align-items: center; }
-header h1 { margin: 0; font-size: 2.5em; text-shadow: 0 0 10px #00ff7f; animation: textGlitch 1.5s infinite alternate; }
-header img { max-height: 70px; margin-right: 20px; animation: logoPulse 2s infinite alternate; }
-@keyframes textGlitch { 0%, 100% { text-shadow: 0 0 10px #00ff7f; } 50% { text-shadow: -2px -2px 5px #ff00ff, 2px 2px 5px #00ffff; } }
-@keyframes logoPulse { from { opacity: 0.9; } to { opacity: 0.7; } }
-#hamburger { font-size: 1.8em; cursor: pointer; color: #00ff7f; }
+header { background-color: #222; padding: 20px; border-bottom: 2px solid #00ffff; display: flex; align-items: center; justify-content: space-between; }
+.header-left { display: flex; align-items: center; }
+#hamburger { font-size: 1.8em; cursor: pointer; color: #00ff7f; margin-right: 15px; }
+.search-container { margin-top: 20px; position: relative; text-align: center; }
+.search-container input[type="text"] { padding: 10px 35px 10px 10px; border: 2px solid #00ff7f; background-color: #333; color: #fff; border-radius: 5px; width: 70%; max-width: 500px; font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+.search-container input[type="text"]:focus { border-color: #ff00ff; box-shadow: 0 0 8px #ff00ff; outline: none; }
+.search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 1.2em; color: #00ff7f; opacity: 0.8; }
 #sideMenu { position: fixed; top: 0; left: -250px; width: 250px; height: 100%; background-color: #222; padding: 20px; transition: left 0.3s ease; overflow-y: auto; z-index: 1100; }
 #sideMenu.active { left: 0; }
 #sideMenu h2 { color: #00ffff; margin-top: 0; }
@@ -38,10 +39,6 @@ header img { max-height: 70px; margin-right: 20px; animation: logoPulse 2s infin
 #sideMenu li { margin-bottom: 15px; }
 #sideMenu li button { background-color: #00ff7f; color: #111; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; }
 #sideMenu li button:hover { background-color: #111; color: #00ff7f; border: 1px solid #ff00ff; }
-.search-container { margin-top: 20px; position: relative; text-align: center; }
-.search-container input[type="text"] { padding: 10px 35px 10px 10px; border: 2px solid #00ff7f; background-color: #333; color: #fff; border-radius: 5px; width: 70%; max-width: 500px; font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
-.search-container input[type="text"]:focus { border-color: #ff00ff; box-shadow: 0 0 8px #ff00ff; outline: none; }
-.search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 1.2em; color: #00ff7f; opacity: 0.8; }
 main { padding: 20px; }
 #endpointListSection .card { border: 1px solid #00ff7f; background-color: #222; color: #00ff7f; transition: transform 0.3s ease, box-shadow 0.3s ease; margin-bottom: 15px; animation: cardFadeIn 0.5s ease-out forwards; }
 @keyframes cardFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -69,8 +66,10 @@ footer { text-align: center; padding: 20px; background-color: #222; color: #aaa;
 </head>
 <body>
 <header>
-  <div id="hamburger"><i class="fas fa-bars"></i></div>
-  <h1>NirKyy</h1>
+  <div class="header-left">
+    <div id="hamburger"><i class="fas fa-bars"></i></div>
+    <h1>NirKyy</h1>
+  </div>
   <div id="container-0171bcc474ae933f061e3acb0c0eb62d"></div>
 </header>
 <div id="sideMenu">
@@ -236,24 +235,24 @@ document.addEventListener('DOMContentLoaded', function() {
       let hdr = '';
       Object.entries(r.headers).forEach(([k, v]) => { hdr += k + ': ' + v + '\n'; });
       const ctype = r.headers['content-type'] || '';
-      if(r.status >= 200 && r.status < 300) {
-        if(r.data && r.data.success === false) { errorSound.play(); responseHeader.textContent = hdr; responseBody.textContent = JSON.stringify(r.data, null, 2); return; }
+      if (r.status >= 200 && r.status < 300) {
+        if (r.data && r.data.success === false) { errorSound.play(); responseHeader.textContent = hdr; responseBody.textContent = JSON.stringify(r.data, null, 2); return; }
         else { successSound.play(); }
       } else { errorSound.play(); }
       responseHeader.textContent = hdr;
-      if(ctype.includes('application/json')) { responseBody.textContent = JSON.stringify(r.data, null, 2); }
-      else if(ctype.startsWith('image/')) { responseBody.innerHTML = ''; const img = document.createElement('img'); img.src = r.config.url; responseBody.appendChild(img); }
-      else if(ctype.startsWith('video/')) { responseBody.innerHTML = ''; const vid = document.createElement('video'); vid.src = r.config.url; vid.controls = true; responseBody.appendChild(vid); }
+      if (ctype.includes('application/json')) { responseBody.textContent = JSON.stringify(r.data, null, 2); }
+      else if (ctype.startsWith('image/')) { responseBody.innerHTML = ''; const img = document.createElement('img'); img.src = r.config.url; responseBody.appendChild(img); }
+      else if (ctype.startsWith('video/')) { responseBody.innerHTML = ''; const vid = document.createElement('video'); vid.src = r.config.url; vid.controls = true; responseBody.appendChild(vid); }
       else { responseBody.textContent = r.data; }
     })
     .catch(err => {
       loadingIndicator.style.display = 'none';
       errorSound.play();
-      if(err.response) {
+      if (err.response) {
         let h = 'Status: ' + err.response.status + ' ' + err.response.statusText + '\n';
         Object.entries(err.response.headers).forEach(([k, v]) => { h += k + ': ' + v + '\n'; });
         responseHeader.textContent = h;
-        if(typeof err.response.data === 'object') { responseBody.textContent = JSON.stringify(err.response.data, null, 2); }
+        if (typeof err.response.data === 'object') { responseBody.textContent = JSON.stringify(err.response.data, null, 2); }
         else { responseBody.textContent = err.response.data; }
       } else { responseHeader.textContent = 'Error: No response'; responseBody.textContent = err.message; }
     });
@@ -263,12 +262,12 @@ document.addEventListener('DOMContentLoaded', function() {
     navigator.clipboard.writeText(t).then(() => alert('Response API berhasil di-copy!')).catch(() => alert('Gagal copy response API.'));
   });
   copyEndpointButton.addEventListener('click', function() {
-    if(finalApiUrl) {
+    if (finalApiUrl) {
       navigator.clipboard.writeText(finalApiUrl).then(() => alert('Endpoint berhasil di-copy!')).catch(() => alert('Gagal copy endpoint.'));
     } else { alert('Tidak ada endpoint yang dapat di-copy. Jalankan "Try" terlebih dahulu.'); }
   });
   function searchData(term) {
-    if(isFetching) return;
+    if (isFetching) return;
     isFetching = true;
     fetch('/search?term=' + encodeURIComponent(term))
     .then(r => r.text())
@@ -277,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .finally(() => { isFetching = false; });
   }
   function renderTags() {
-    if(isFetching) return;
+    if (isFetching) return;
     isFetching = true;
     fetch('/renderpage?tags=')
     .then(r => r.text())
@@ -285,21 +284,21 @@ document.addEventListener('DOMContentLoaded', function() {
       const parser = new DOMParser();
       const doc = parser.parseFromString(h, 'text/html');
       const row = doc.querySelector('.row');
-      if(row) endpointListSection.innerHTML = row.outerHTML;
+      if (row) endpointListSection.innerHTML = row.outerHTML;
     })
     .catch(e => console.error(e))
     .finally(() => { isFetching = false; });
   }
   searchEndpointInput.addEventListener('input', debounce(function() {
     const s = searchEndpointInput.value.trim();
-    if(s) { searchData(s); } else { renderTags(); }
+    if (s) { searchData(s); } else { renderTags(); }
   }, 300));
   hamburger.addEventListener('click', function() {
     sideMenu.classList.toggle('active');
   });
   sideMenu.addEventListener('click', function(e) {
     const btn = e.target.closest('button');
-    if(btn) {
+    if (btn) {
       const tags = btn.getAttribute('data-tags');
       searchEndpointInput.value = '';
       fetch('/renderpage?tags=' + encodeURIComponent(tags))
@@ -308,7 +307,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const parser = new DOMParser();
         const doc = parser.parseFromString(h, 'text/html');
         const row = doc.querySelector('.row');
-        if(row) endpointListSection.innerHTML = row.outerHTML;
+        if (row) endpointListSection.innerHTML = row.outerHTML;
       })
       .catch(e => console.error(e));
       sideMenu.classList.remove('active');
