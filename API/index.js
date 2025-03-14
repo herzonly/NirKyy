@@ -5,6 +5,84 @@ const { alldown } = require('alldown');
 const { handleTextQuery } = require('../lib/ai');
 const { pin } = require('../lib/pinterest');
 const { jadwal } = require('../lib/animeJadwal');
+const crypto = require('crypto');
+
+router.get('/savetube', async (req, res) => {
+  const link = req.query.url;
+  const format = req.query.format || '360';
+  const availableFormats = ['144', '240', '360', '480', '720', '1080', 'mp3'];
+  const headers = {
+    'accept': '*/*',
+    'content-type': 'application/json',
+    'origin': 'https://yt.savetube.me',
+    'referer': 'https://yt.savetube.me/',
+    'user-agent': 'Postify/1.0.0'
+  };
+  
+  if (!link) return res.errorJson({ error: "Linknya mana? Yakali download kagak ada linknya 🗿" });
+  try {
+    new URL(link);
+  } catch (_) {
+    return res.json({ error: "Lu masukin link apaan sih 🗿 Link Youtube aja bree, kan lu mau download youtube 👍🏻" });
+  }
+  if (!availableFormats.includes(format)) return res.json({ error: "Formatnya kagak ada bree, pilih yang udah disediain aja yak, jangan nyari yang gak ada 🗿", availableFormats });
+  
+  const patterns = [
+    /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/v\/([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
+    /youtu\.be\/([a-zA-Z0-9_-]{11})/
+  ];
+  let id = null;
+  for (let pattern of patterns) {
+    if (pattern.test(link)) {
+      id = link.match(pattern)[1];
+      break;
+    }
+  }
+  if (!id) return res.errorJson({ error: "Kagak bisa ekstrak link youtubenya nih, btw link youtubenya yang bener yak.. biar kagak kejadian begini lagi 😂" });
+  
+  try {
+    const getCDN = await axios.get("https://media.savetube.me/api/random-cdn", { headers });
+    const cdn = getCDN.data.cdn;
+    const infoResponse = await axios.post(`https://${cdn}/v2/info`, { url: `https://www.youtube.com/watch?v=${id}` }, { headers });
+    const encData = infoResponse.data.data;
+    
+    const secretKey = Buffer.from("C5D58EF67A7584E4A29F6C35BBC4EB12", "hex");
+    const bufferData = Buffer.from(encData, "base64");
+    const iv = bufferData.slice(0, 16);
+    const content = bufferData.slice(16);
+    const decipher = crypto.createDecipheriv("aes-128-cbc", secretKey, iv);
+    let decrypted = decipher.update(content);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    const videoInfo = JSON.parse(decrypted.toString());
+    
+    const downloadResponse = await axios.post(`https://${cdn}/download`, {
+      id,
+      downloadType: format === 'mp3' ? 'audio' : 'video',
+      quality: format === 'mp3' ? '128' : format,
+      key: videoInfo.key
+    }, { headers });
+    
+    return res.json({
+      success: true,
+      title: videoInfo.title || "Gak tau 🤷🏻",
+      type: format === 'mp3' ? 'audio' : 'video',
+      format: format,
+      thumbnail: videoInfo.thumbnail || `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
+      download: downloadResponse.data.data.downloadUrl,
+      id: id,
+      key: videoInfo.key,
+      duration: videoInfo.duration,
+      quality: format === 'mp3' ? '128' : format,
+      downloaded: downloadResponse.data.data.downloaded || false
+    });
+    
+  } catch (error) {
+    return res.errorJson({ error: error.message });
+  }
+});
 
 router.get('/memegen', async (req, res) => {
   const { text_atas, text_bawah, background } = req.query;
@@ -14,18 +92,18 @@ router.get('/memegen', async (req, res) => {
     const bawah = text_bawah ? encodeURIComponent(text_bawah) : ' ';
     url += `/${atas}/${bawah}.png`;
   } else {
-    return res.status(400).errorJson({ error: 'Parameter text-atas atau text-bawah harus diisi.' });
+    return res.errorJson({ error: 'Parameter text-atas atau text-bawah harus diisi.' });
   }
   if (background) {
     url += `?background=${encodeURIComponent(background)}`;
   }
   try {
     const response = await axios.get(url, { responseType: 'arraybuffer' });
-    res.set('Content-Type', 'image/png'); 
+    res.set('Content-Type', 'image/png');
     res.send(Buffer.from(response.data));
   } catch (error) {
     console.error('Error saat memanggil API memegen:', error);
-    res.status(500).errorJson({ error: 'Terjadi kesalahan saat memproses permintaan.' });
+    res.errorJson({ error: 'Terjadi kesalahan saat memproses permintaan.' });
   }
 });
 
@@ -33,22 +111,20 @@ router.get('/autogempa', async (req, res) => {
   try {
     const response = await axios.get('https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json');
     const data = response.data;
-
     if (data && data.Infogempa && data.Infogempa.gempa) {
       data.Infogempa.gempa.Shakemap = "https://data.bmkg.go.id/DataMKG/TEWS/" + data.Infogempa.gempa.Shakemap;
       res.succesJson(data.Infogempa.gempa);
     } else {
-      res.status(404).errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
+      res.errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
     }
   } catch (error) {
     console.error('Terjadi kesalahan saat mengambil data autogempa:', error);
-
     if (error.response) {
-      res.status(error.response.status).errorJson({ message: `Kesalahan server: ${error.response.statusText}` });
+      res.errorJson({ message: `Kesalahan server: ${error.response.statusText}` });
     } else if (error.request) {
-      res.status(500).errorJson({ message: 'Tidak dapat terhubung ke server BMKG.' });
+      res.errorJson({ message: 'Tidak dapat terhubung ke server BMKG.' });
     } else {
-      res.status(500).errorJson({ message: 'Terjadi kesalahan saat mengambil data autogempa.' });
+      res.errorJson({ message: 'Terjadi kesalahan saat mengambil data autogempa.' });
     }
   }
 });
@@ -57,17 +133,16 @@ router.get('/susunkata', async (req, res) => {
   try {
     const response = await axios.get('https://raw.githubusercontent.com/BochilTeam/database/refs/heads/master/games/susunkata.json');
     const data = response.data;
-
     if (Array.isArray(data) && data.length > 0) {
       const randomIndex = Math.floor(Math.random() * data.length);
       const randomItem = data[randomIndex];
       res.succesJson(randomItem);
     } else {
-      res.status(404).errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
+      res.errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
     }
   } catch (error) {
     console.error('Terjadi kesalahan saat mengambil data:', error);
-    res.status(500).errorJson({ message: 'Terjadi kesalahan saat mengambil data.' });
+    res.errorJson({ message: 'Terjadi kesalahan saat mengambil data.' });
   }
 });
 
@@ -75,90 +150,74 @@ router.get('/asahotak', async (req, res) => {
   try {
     const response = await axios.get('https://raw.githubusercontent.com/BochilTeam/database/refs/heads/master/games/asahotak.json');
     const data = response.data;
-
     if (Array.isArray(data) && data.length > 0) {
       const randomIndex = Math.floor(Math.random() * data.length);
       const randomItem = data[randomIndex];
       res.succesJson(randomItem);
     } else {
-      res.status(404).errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
+      res.errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
     }
   } catch (error) {
     console.error('Terjadi kesalahan saat mengambil data:', error);
-    res.status(500).errorJson({ message: 'Terjadi kesalahan saat mengambil data.' });
-  }
-});
-
-router.get('/savetube', async (req, res) => {
-  const { url, format } = req.query;
-  if (!url) return res.status(400).errorJson("Masukkan parameter url");
-  if (!format) return res.status(400).errorJson("Masukkan parameter format");
-  try {
-    const response = await axios.get(`https://pursky.vercel.app/api/ytdl?url=${url}?si=HJ1GvDr8o1dNUKcB&format=${format}`);
-    if (response.status !== 200) return res.status(500).errorJson("Terjadi kesalahan saat mengunduh video");
-    return res.succesJson(response.data);
-  } catch (error) {
-    return res.status(500).errorJson(error);
+    res.errorJson({ message: 'Terjadi kesalahan saat mengambil data.' });
   }
 });
 
 router.get('/anime-jadwal', async (req, res) => {
   const hari = req.query.hari;
-
   if (!hari) {
-    return res.status(400).errorJson("Hari tidak valid. Masukkan nama hari dalam bahasa Inggris atau Indonesia")
+    return res.errorJson("Hari tidak valid. Masukkan nama hari dalam bahasa Inggris atau Indonesia")
   }
-
   try {
     const response = await jadwal(hari.trim());
-    if (response.includes("Hari tidak valid.")){
-      return res.status(400).errorJson(response)
+    if (response.includes("Hari tidak valid.")) {
+      return res.errorJson(response)
     }
     return res.succesJson(response);
   } catch (error) {
-    return res.status(500).errorJson({ error: error.message });
+    return res.errorJson({ error: error.message });
   }
 });
 
 router.get('/pin', async (req, res) => {
   const { query } = req.query;
-  if (!query) return res.status(400).errorJson("Search query cannot be empty.");
+  if (!query) return res.errorJson("Search query cannot be empty.");
   try {
     const result = await pin.search(query);
     if (result.status) {
       return res.succesJson(result.result);
     } else {
-      return res.status(result.code).errorJson(result.result);
+      return res.errorJson(result.result);
     }
   } catch (error) {
-    return res.status(500).errorJson(error.message);
+    return res.errorJson(error.message);
   }
 });
 
 router.get('/llm', async (req, res) => {
   let { groqKey, model = 'gemma2-9b-it', systemPrompt = " ", msg, user } = req.query;
-  if (!groqKey) return res.status(400).errorJson("groqKey is required");
-  if (!msg) return res.status(400).errorJson("msg is required");
-  if (!user) return res.status(400).errorJson("user is required");
+  if (!groqKey) return res.errorJson("groqKey is required");
+  if (!msg) return res.errorJson("msg is required");
+  if (!user) return res.errorJson("user is required");
   if (groqKey.includes('Bearer')) groqKey = groqKey.replace('Bearer ', '').trim();
   try {
     const response = await handleTextQuery({ groqKey, model, systemPrompt, msg, user });
-    if (response.reply.includes('API Error')) return res.status(401).errorJson(response.reply);
+    if (response.reply.includes('API Error')) return res.errorJson(response.reply);
     return res.succesJson(response);
   } catch (error) {
-    return res.status(500).errorJson(error);
+    return res.errorJson(error);
   }
 });
 
 router.get('/aio-dl', async (req, res) => {
   const query = req.query.url;
-  if (!query) return res.status(400).errorJson("Masukkan parameter url");
+  if (!query) return res.errorJson("Masukkan parameter url");
   try {
     const data = await alldown(query);
-    if (!data.data) return res.status(500).errorJson("Terjadi kesalahan saat mengunduh video");
+    if (!data.data) return res.errorJson("Terjadi kesalahan saat mengunduh video");
     return res.succesJson(data.data);
   } catch (error) {
-    return res.status(500).errorJson(error);
+    return res.errorJson(error);
   }
 });
 
