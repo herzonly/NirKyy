@@ -20,9 +20,7 @@
   <meta name="twitter:site" content="@NirKyyDev">
   <meta name="twitter:image" content="https://i.ibb.co/hFF2Rd8Z/62bfdd334ee4.jpg">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <!-- Font Awesome CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p0u6njOl6B/jfWzQ3j5ChTS3VXzl1NTdNy7BLk/fMkjkclmHTEv+ID8AGrqK3m6TnYIB8fN1YCEd79N3f9x0jg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p0u6njOl6B/jfWzQ3j5ChTS3VXzl1NTdNy7BLk/fMkjkclmHTEv+ID8AGrqK3m6TnYIB8fN1YCEd79N3f9x0jg==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
@@ -129,6 +127,10 @@
       margin-bottom: 15px;
       animation: cardFadeIn 0.5s ease-out forwards;
     }
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     #endpointListSection .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 0 15px #00ff7f;
@@ -233,7 +235,6 @@
       color: #ff00ff !important;
       text-shadow: 0 0 5px #ff00ff;
     }
-    /* Jika perangkat atau user menginginkan animasi lebih ringan */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation: none !important;
@@ -256,7 +257,6 @@
     <div id="tagHopper"></div>
     <section id="endpointListSection"></section>
   </main>
-  <!-- Modal untuk mencoba endpoint -->
   <div id="tryModal" class="modal">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -282,7 +282,7 @@
             <h5>Contoh Kode Axios (GET):</h5>
             <pre id="axiosSnippet"><code>// Klik Run untuk menampilkan contoh kode Axios</code></pre>
           </div>
-          <script type="text/javascript">
+          <script type="text/javascript" async>
             atOptions = {
               'key': '4dcfbf50e2f48de0c83e35f5e80554b7',
               'format': 'iframe',
@@ -291,12 +291,12 @@
               'params': {}
             };
           </script>
-          <script type="text/javascript" src="//www.highperformanceformat.com/4dcfbf50e2f48de0c83e35f5e80554b7/invoke.js"></script>
+          <script type="text/javascript" src="//www.highperformanceformat.com/4dcfbf50e2f48de0c83e35f5e80554b7/invoke.js" async></script>
         </div>
       </div>
     </div>
   </div>
-  <script type="text/javascript">
+  <script type="text/javascript" async>
     atOptions = {
       'key' : 'e20cfff4d2952f01ceb4381793cb7a31',
       'format' : 'iframe',
@@ -305,22 +305,18 @@
       'params' : {}
     };
   </script>
-  <script type="text/javascript" src="//www.highperformanceformat.com/e20cfff4d2952f01ceb4381793cb7a31/invoke.js"></script>
+  <script type="text/javascript" src="//www.highperformanceformat.com/e20cfff4d2952f01ceb4381793cb7a31/invoke.js" async></script>
   <footer>
-    <p>&copy; 2025 NirKyy. Selalu gratis, mohon jangan pake ads blocked🙏| Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
+    <p>&copy; 2025 NirKyy. Selalu gratis, mohon jangan pake ads blocked🙏 | Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
   </footer>
-  <!-- Audio Elements -->
   <audio id="successSound" src="success.mp3" preload="auto"></audio>
   <audio id="errorSound" src="error.mp3" preload="auto"></audio>
   <audio id="loadSound" src="load.mp3" preload="auto"></audio>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script defer>
     document.addEventListener('DOMContentLoaded', function() {
-      let endpointData = [];
-      let currentTag = null;
-      let currentEndpointData = null;
       let finalApiUrl = '';
-      
       const endpointListSection = document.getElementById('endpointListSection');
       const searchEndpointInput = document.getElementById('searchEndpoint');
       const tagHopperSection = document.getElementById('tagHopper');
@@ -337,8 +333,8 @@
       const successSound = document.getElementById('successSound');
       const errorSound = document.getElementById('errorSound');
       const loadSound = document.getElementById('loadSound');
+      let currentEndpointData = null;
 
-      // Fungsi debounce untuk membatasi eksekusi event secara berlebihan
       function debounce(func, wait) {
         let timeout;
         return function(...args) {
@@ -347,178 +343,171 @@
         };
       }
 
-      // Ambil data endpoint dari list.json
-      fetch('list.json')
-        .then(response => response.json())
-        .then(data => {
-          endpointData = data;
-          renderTagHopper(endpointData);
-          renderEndpointList(endpointData);
-        })
-        .catch(err => console.error(err));
-
-      function renderTagHopper(endpoints) {
-        const tags = new Set();
-        endpoints.forEach(endpoint => {
-          endpoint.tags.forEach(tag => tags.add(tag));
+      function attachCardEvents() {
+        endpointListSection.addEventListener('click', function(e) {
+          const btn = e.target.closest('button');
+          if (!btn) return;
+          if (btn.classList.contains('copy-url-button')) {
+            const url = btn.getAttribute('data-url');
+            navigator.clipboard.writeText(url)
+              .then(() => alert('URL berhasil di-copy!'))
+              .catch(() => alert('Gagal copy URL.'));
+          } else if (btn.classList.contains('try-button')) {
+            const data = btn.getAttribute('data-endpoint');
+            if (data) {
+              const endpoint = JSON.parse(data);
+              openTryModal(endpoint);
+            }
+          }
         });
-        const sortedTags = Array.from(tags).sort();
-        tagHopperSection.innerHTML = '';
-        const fragment = document.createDocumentFragment();
-        sortedTags.forEach(tag => {
-          const btn = document.createElement('button');
-          btn.innerHTML = '<i class="fas fa-hashtag"></i> ' + tag;
-          btn.className = 'tag-button';
-          btn.addEventListener('click', () => {
-            currentTag = tag;
-            // Hilangkan kelas active pada semua tombol
-            tagHopperSection.querySelectorAll('.tag-button').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderEndpointList(endpointData, tag);
-          });
-          fragment.appendChild(btn);
-        });
-        tagHopperSection.appendChild(fragment);
       }
-
-      function renderEndpointList(endpoints, selectedTag = null, endpointsToDisplay = null) {
-        endpointListSection.innerHTML = '';
-        let filteredEndpoints;
-        if (endpointsToDisplay) {
-          filteredEndpoints = endpointsToDisplay;
-        } else if (selectedTag) {
-          filteredEndpoints = endpoints.filter(ep => ep.tags.includes(selectedTag));
-        } else {
-          filteredEndpoints = endpoints;
-        }
-        if (filteredEndpoints.length === 0) {
-          endpointListSection.innerHTML = '<p class="text-light">Endpoint tidak ditemukan.</p>';
-          return;
-        }
-        const row = document.createElement('div');
-        row.className = 'row';
-        const fragment = document.createDocumentFragment();
-        filteredEndpoints.forEach(endpoint => {
-          const col = document.createElement('div');
-          col.className = 'col-md-6 mb-3';
-          const card = document.createElement('div');
-          card.className = 'card mb-3';
-          
-          // Header card
-          const cardHeader = document.createElement('div');
-          cardHeader.className = 'card-header';
-          cardHeader.textContent = endpoint.nama;
-          card.appendChild(cardHeader);
-          
-          // Body card
-          const cardBody = document.createElement('div');
-          cardBody.className = 'card-body';
-          const tagsDiv = document.createElement('div');
-          tagsDiv.className = 'mb-2';
-          endpoint.tags.forEach(tag => {
-            const span = document.createElement('span');
-            span.className = 'badge badge-secondary mr-1';
-            span.innerHTML = '<i class="fas fa-hashtag"></i> ' + tag;
-            tagsDiv.appendChild(span);
-          });
-          cardBody.appendChild(tagsDiv);
-          
-          const urlDiv = document.createElement('div');
-          urlDiv.className = 'bg-dark p-2 mb-2';
-          urlDiv.style.fontSize = '0.9em';
-          urlDiv.style.overflowX = 'auto';
-          urlDiv.textContent = endpoint.endpoint;
-          cardBody.appendChild(urlDiv);
-          
-          const btnContainer = document.createElement('div');
-          btnContainer.className = 'd-flex justify-content-end';
-          
-          const copyBtn = document.createElement('button');
-          copyBtn.className = 'btn btn-outline-info btn-sm mr-2 copy-url-button';
-          copyBtn.setAttribute('data-url', endpoint.endpoint);
-          copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy URL';
-          btnContainer.appendChild(copyBtn);
-          
-          const tryBtn = document.createElement('button');
-          tryBtn.className = 'btn btn-info btn-sm try-button';
-          tryBtn.setAttribute('data-endpoint', JSON.stringify(endpoint));
-          tryBtn.innerHTML = '<i class="fas fa-play"></i> Try';
-          btnContainer.appendChild(tryBtn);
-          
-          cardBody.appendChild(btnContainer);
-          card.appendChild(cardBody);
-          col.appendChild(card);
-          fragment.appendChild(col);
-        });
-        row.appendChild(fragment);
-        endpointListSection.appendChild(row);
-      }
-
-      // Event delegation untuk tombol copy dan try
-      endpointListSection.addEventListener('click', function(event) {
-        const btn = event.target.closest('button');
-        if (!btn) return;
-        if (btn.classList.contains('copy-url-button')) {
-          const url = btn.getAttribute('data-url');
-          navigator.clipboard.writeText(url)
-            .then(() => alert('URL berhasil di-copy!'))
-            .catch(() => alert('Gagal copy URL.'));
-        } else if (btn.classList.contains('try-button')) {
-          const endpoint = JSON.parse(btn.getAttribute('data-endpoint'));
-          openTryModal(endpoint);
-        }
-      });
 
       function openTryModal(endpoint) {
         currentEndpointData = endpoint;
         parameterInputsDiv.innerHTML = '';
         responseHeader.textContent = '';
         responseBody.textContent = '';
-        axiosSnippetPre.innerHTML = `<code>// Klik Run untuk menampilkan contoh kode Axios</code>`;
+        axiosSnippetPre.innerHTML = '<code>// Klik Run untuk menampilkan contoh kode Axios</code>';
         if (endpoint.parameter && endpoint.parameter.length > 0) {
           endpoint.parameter.forEach(param => {
             const paramName = param.params;
             const defaultValue = param.example || '';
             const required = (param.opsional === false);
-            const inputDiv = document.createElement('div');
-            inputDiv.className = 'mb-3';
+            const div = document.createElement('div');
+            div.className = 'mb-3';
             const label = document.createElement('label');
-            label.textContent = `${paramName} ${required ? '(Wajib)' : '(Opsional)'}:`;
+            label.textContent = paramName + (required ? ' (Wajib):' : ' (Opsional):');
             const input = document.createElement('input');
             input.type = 'text';
             input.className = 'form-control bg-dark text-light';
             input.name = paramName;
-            input.placeholder = defaultValue ? `Default: ${defaultValue}` : `Masukkan ${paramName}`;
+            input.placeholder = defaultValue ? 'Default: ' + defaultValue : 'Masukkan ' + paramName;
             input.value = defaultValue;
             if (required) input.required = true;
-            inputDiv.appendChild(label);
-            inputDiv.appendChild(input);
-            parameterInputsDiv.appendChild(inputDiv);
+            div.appendChild(label);
+            div.appendChild(input);
+            parameterInputsDiv.appendChild(div);
           });
         }
-        tryModal.style.display = "block";
+        tryModal.style.display = 'block';
       }
 
-      // Menutup modal jika klik di luar modal
       window.addEventListener('click', function(event) {
         if (event.target === tryModal) {
-          tryModal.style.display = "none";
+          tryModal.style.display = 'none';
         }
       });
+
       closeButton.addEventListener('click', function() {
-        tryModal.style.display = "none";
+        tryModal.style.display = 'none';
       });
+
       runButton.addEventListener('click', function() {
-        runApiRequest();
+        if (!currentEndpointData) return;
+        let apiUrl = currentEndpointData.endpoint;
+        const params = {};
+        let missingRequired = false;
+        const inputs = parameterInputsDiv.querySelectorAll('input');
+        inputs.forEach(input => {
+          const paramName = input.name;
+          const def = currentEndpointData.parameter.find(p => p.params === paramName);
+          const required = (def.opsional === false);
+          const defaultValue = def.example || '';
+          const val = input.value.trim();
+          if (val) {
+            params[paramName] = val;
+          } else if (!required && defaultValue) {
+            params[paramName] = defaultValue;
+          } else if (required && !val) {
+            missingRequired = true;
+          }
+        });
+        if (missingRequired) {
+          alert('Harap isi semua parameter wajib.');
+          return;
+        }
+        Object.keys(params).forEach(paramName => {
+          const placeholder = '{' + paramName + '}';
+          if (apiUrl.includes(placeholder)) {
+            apiUrl = apiUrl.replace(placeholder, params[paramName]);
+            delete params[paramName];
+          }
+        });
+        let baseUrl = apiUrl;
+        const urlObj = new URL(window.location.origin + baseUrl);
+        Object.entries(params).forEach(([k, v]) => {
+          urlObj.searchParams.append(k, v);
+        });
+        finalApiUrl = urlObj.href;
+        let axiosCode = Object.keys(params).length > 0
+          ? "axios.get('" + baseUrl + "', {\n  params: " + JSON.stringify(params, null, 2) + "\n})"
+          : "axios.get('" + baseUrl + "')";
+        axiosSnippetPre.innerHTML = '<code>' + axiosCode + '</code>';
+        loadingIndicator.style.display = 'block';
+        responseHeader.textContent = '';
+        responseBody.textContent = '';
+        loadSound.play();
+        axios.get(finalApiUrl)
+          .then(r => {
+            loadingIndicator.style.display = 'none';
+            let hdr = '';
+            Object.entries(r.headers).forEach(([k, v]) => {
+              hdr += k + ': ' + v + '\n';
+            });
+            const ctype = r.headers['content-type'] || '';
+            if (r.status >= 200 && r.status < 300) {
+              successSound.play();
+            } else {
+              errorSound.play();
+            }
+            responseHeader.textContent = hdr;
+            if (ctype.includes('application/json')) {
+              responseBody.textContent = JSON.stringify(r.data, null, 2);
+            } else if (ctype.startsWith('image/')) {
+              responseBody.innerHTML = '';
+              const img = document.createElement('img');
+              img.src = r.config.url;
+              responseBody.appendChild(img);
+            } else if (ctype.startsWith('video/')) {
+              responseBody.innerHTML = '';
+              const vid = document.createElement('video');
+              vid.src = r.config.url;
+              vid.controls = true;
+              responseBody.appendChild(vid);
+            } else {
+              responseBody.textContent = r.data;
+            }
+          })
+          .catch(err => {
+            loadingIndicator.style.display = 'none';
+            errorSound.play();
+            if (err.response) {
+              let h = 'Status: ' + err.response.status + ' ' + err.response.statusText + '\n';
+              Object.entries(err.response.headers).forEach(([k, v]) => {
+                h += k + ': ' + v + '\n';
+              });
+              responseHeader.textContent = h;
+              if (typeof err.response.data === 'object') {
+                responseBody.textContent = JSON.stringify(err.response.data, null, 2);
+              } else {
+                responseBody.textContent = err.response.data;
+              }
+            } else {
+              responseHeader.textContent = 'Error: No response';
+              responseBody.textContent = err.message;
+            }
+          });
       });
+
       copyResponseButton.addEventListener('click', function() {
-        const responseText = responseHeader.textContent + "\n" + responseBody.textContent;
-        navigator.clipboard.writeText(responseText)
+        const t = responseHeader.textContent + '\n' + responseBody.textContent;
+        navigator.clipboard.writeText(t)
           .then(() => alert('Response API berhasil di-copy!'))
           .catch(() => alert('Gagal copy response API.'));
       });
+
       copyEndpointButton.addEventListener('click', function() {
-        if(finalApiUrl) {
+        if (finalApiUrl) {
           navigator.clipboard.writeText(finalApiUrl)
             .then(() => alert('Endpoint berhasil di-copy!'))
             .catch(() => alert('Gagal copy endpoint.'));
@@ -527,129 +516,51 @@
         }
       });
 
-      function runApiRequest() {
-        if (!currentEndpointData) return;
-        let apiUrl = currentEndpointData.endpoint;
-        const params = {};
-        let missingRequired = false;
-        const inputs = parameterInputsDiv.querySelectorAll('input');
-        inputs.forEach(input => {
-          const paramName = input.name;
-          const paramDef = currentEndpointData.parameter.find(p => p.params === paramName);
-          const required = (paramDef.opsional === false);
-          const defaultValue = paramDef.example || '';
-          const trimmedValue = input.value.trim();
-          if (trimmedValue) {
-            params[paramName] = trimmedValue;
-          } else if (!required && defaultValue) {
-            params[paramName] = defaultValue;
-          } else if (required && !trimmedValue) {
-            missingRequired = true;
-          }
-        });
-        if (missingRequired) {
-          alert('Harap isi semua parameter wajib.');
-          return;
-        }
-        // Ganti placeholder di URL dengan nilai parameter
-        Object.keys(params).forEach(paramName => {
-          const placeholder = `{${paramName}}`;
-          if (apiUrl.includes(placeholder)) {
-            apiUrl = apiUrl.replace(placeholder, params[paramName]);
-            delete params[paramName];
-          }
-        });
-        let baseUrl = `https://nirkyy.koyeb.app${apiUrl}`;
-        const urlObj = new URL(baseUrl);
-        Object.entries(params).forEach(([key, value]) => {
-          urlObj.searchParams.append(key, value);
-        });
-        finalApiUrl = urlObj.href;
-        let axiosCode = Object.keys(params).length > 0 ?
-          `axios.get('${baseUrl}', {\n  params: ${JSON.stringify(params, null, 2)}\n})` :
-          `axios.get('${baseUrl}')`;
-        axiosSnippetPre.innerHTML = `<code>${axiosCode}</code>`;
-        loadingIndicator.style.display = 'block';
-        responseHeader.textContent = '';
-        responseBody.textContent = '';
-        loadSound.play();
-        setTimeout(() => {
-          axios.get(finalApiUrl)
-            .then(response => {
-              loadingIndicator.style.display = 'none';
-              let headers = '';
-              Object.entries(response.headers).forEach(([key, value]) => {
-                headers += `${key}: ${value}\n`;
-              });
-              const contentType = response.headers['content-type'] || '';
-              if (contentType.includes('application/json')) {
-                return { headers, body: JSON.stringify(response.data, null, 2), response };
-              } else if (contentType.startsWith('image/')) {
-                return { headers, body: '<Image>', type: 'image', url: response.config.url, response };
-              } else if (contentType.startsWith('video/')) {
-                return { headers, body: '<Video>', type: 'video', url: response.config.url, response };
-              } else {
-                return { headers, body: response.data, response };
-              }
-            })
-            .then(result => {
-              if (result.response.status >= 200 && result.response.status < 300) {
-                successSound.play();
-              } else {
-                errorSound.play();
-              }
-              responseHeader.textContent = result.headers;
-              if (result.type === 'image') {
-                responseBody.innerHTML = '';
-                const img = document.createElement('img');
-                img.src = result.url;
-                responseBody.appendChild(img);
-              } else if (result.type === 'video') {
-                responseBody.innerHTML = '';
-                const video = document.createElement('video');
-                video.src = result.url;
-                video.controls = true;
-                responseBody.appendChild(video);
-              } else {
-                responseBody.textContent = result.body;
-              }
-            })
-            .catch(error => {
-              loadingIndicator.style.display = 'none';
-              errorSound.play();
-              if (error.response) {
-                let errHeaders = `Status: ${error.response.status} ${error.response.statusText}\n`;
-                Object.entries(error.response.headers).forEach(([key, value]) => {
-                  errHeaders += `${key}: ${value}\n`;
-                });
-                responseHeader.textContent = errHeaders;
-                if (typeof error.response.data === 'object') {
-                  responseBody.textContent = JSON.stringify(error.response.data, null, 2);
-                } else {
-                  responseBody.textContent = error.response.data;
-                }
-              } else {
-                responseHeader.textContent = 'Error: No response';
-                responseBody.textContent = error.message;
-              }
-            });
-        }, 2000);
+      function searchData(term) {
+        fetch('/search?term=' + encodeURIComponent(term))
+          .then(r => r.text())
+          .then(html => {
+            endpointListSection.innerHTML = html;
+          })
+          .catch(e => console.error(e));
       }
 
-      // Debounce pencarian agar tidak render ulang terlalu sering
+      function renderTags() {
+        fetch('/renderpage?tags=')
+          .then(r => r.text())
+          .then(h => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(h, 'text/html');
+            const row = doc.querySelector('.row');
+            if (row) endpointListSection.innerHTML = row.outerHTML;
+          })
+          .catch(e => console.error(e));
+      }
+
+      function loadTagButtons() {
+        fetch('/renderpage?tags=')
+          .then(r => r.text())
+          .then(h => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(h, 'text/html');
+            const row = doc.querySelector('.row');
+            if (row) endpointListSection.innerHTML = row.outerHTML;
+          })
+          .catch(e => console.error(e));
+      }
+
       searchEndpointInput.addEventListener('input', debounce(function() {
-        const searchTerm = searchEndpointInput.value.trim().toLowerCase();
-        const allEndpoints = currentTag ? endpointData.filter(ep => ep.tags.includes(currentTag)) : endpointData;
-        const filteredEndpoints = allEndpoints.filter(ep =>
-          ep.nama.toLowerCase().includes(searchTerm) ||
-          ep.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
-          ep.endpoint.toLowerCase().includes(searchTerm)
-        );
-        renderEndpointList(endpointData, currentTag ? currentTag : null, filteredEndpoints);
+        const s = searchEndpointInput.value.trim();
+        if (s) {
+          searchData(s);
+        } else {
+          renderTags();
+        }
       }, 300));
+
+      attachCardEvents();
+      loadTagButtons();
     });
   </script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
