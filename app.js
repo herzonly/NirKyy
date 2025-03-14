@@ -15,6 +15,11 @@ app.set('json spaces', 2);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 const endpoints = require('./list.json');
+function getUniqueTags(data) {
+  let tags = new Set();
+  data.forEach(ep => { if(ep.tags && Array.isArray(ep.tags)) { ep.tags.forEach(tag => tags.add(tag)); } });
+  return Array.from(tags).sort();
+}
 function generateEndpointsHTML(data) {
   let html = '<div class="row">';
   data.forEach(ep => {
@@ -53,7 +58,7 @@ function filterEndpointsByTags(tags) {
   return endpoints.filter(ep => ep.tags.some(tag => arrTags.includes(tag.toLowerCase())));
 }
 app.use("/api/v1", require("./API/index.js"));
-app.get('/', (req, res) => { res.render('index'); });
+app.get('/', (req, res) => { res.render('index', { tags: getUniqueTags(endpoints) }); });
 app.get('/search', (req, res) => {
   const term = req.query.term || '';
   const filtered = filterEndpointsByTerm(term);
