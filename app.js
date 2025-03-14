@@ -59,9 +59,7 @@ function filterEndpointsByTags(tags) {
 }
 app.use("/api/v1", require("./API/index.js"));
 app.get('/', (req, res) => { res.render('index'); });
-app.get('/tags', (req, res) => {
-  res.json({ tags: getUniqueTags(endpoints) });
-});
+app.get('/tags', (req, res) => { res.json({ tags: getUniqueTags(endpoints) }); });
 app.get('/search', (req, res) => {
   const term = req.query.term || '';
   const filtered = filterEndpointsByTerm(term);

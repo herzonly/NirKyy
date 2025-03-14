@@ -27,18 +27,12 @@
 body { font-family: 'Orbitron', sans-serif; background-color: #111; color: #00ff7f; margin: 0; padding: 0; overflow-x: hidden; }
 header { background-color: #222; padding: 20px; border-bottom: 2px solid #00ffff; display: flex; align-items: center; justify-content: space-between; }
 .header-left { display: flex; align-items: center; }
-#hamburger { font-size: 1.8em; cursor: pointer; color: #00ff7f; margin-right: 15px; }
-#sideMenu { position: fixed; top: 0; left: -250px; width: 250px; height: 100%; background-color: #222; padding: 20px; transition: left 0.3s ease; overflow-y: auto; z-index: 1100; }
-#sideMenu.active { left: 0; }
-#sideMenu h2 { color: #00ffff; margin-top: 0; }
-#tagList { list-style: none; padding: 0; }
-#tagList li { margin-bottom: 15px; }
-#tagList li button { background-color: #00ff7f; color: #111; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; }
-#tagList li button:hover { background-color: #111; color: #00ff7f; border: 1px solid #ff00ff; }
 .search-container { margin-top: 20px; position: relative; text-align: center; }
 .search-container input[type="text"] { padding: 10px 35px 10px 10px; border: 2px solid #00ff7f; background-color: #333; color: #fff; border-radius: 5px; width: 70%; max-width: 500px; font-size: 1em; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
 .search-container input[type="text"]:focus { border-color: #ff00ff; box-shadow: 0 0 8px #ff00ff; outline: none; }
 .search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 1.2em; color: #00ff7f; opacity: 0.8; }
+#tagButtons { margin-top: 20px; text-align: center; }
+#tagButtons button { margin: 5px; }
 main { padding: 20px; }
 #endpointListSection .card { border: 1px solid #00ff7f; background-color: #222; color: #00ff7f; transition: transform 0.3s ease, box-shadow 0.3s ease; margin-bottom: 15px; animation: cardFadeIn 0.5s ease-out forwards; }
 @keyframes cardFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -67,20 +61,16 @@ footer { text-align: center; padding: 20px; background-color: #222; color: #aaa;
 <body>
 <header>
   <div class="header-left">
-    <div id="hamburger"><i class="fa-solid fa-bars"></i></div>
     <h1>NirKyy</h1>
   </div>
   <div id="container-0171bcc474ae933f061e3acb0c0eb62d"></div>
 </header>
-<div id="sideMenu">
-  <h2>Tags</h2>
-  <ul id="tagList"></ul>
-</div>
 <main class="container">
   <div class="search-container">
     <input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag...">
     <i class="fas fa-search search-icon"></i>
   </div>
+  <div id="tagButtons"></div>
   <div id="endpointListSection"></div>
 </main>
 <footer>
@@ -125,9 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let isFetching = false;
   const endpointListSection = document.getElementById('endpointListSection');
   const searchEndpointInput = document.getElementById('searchEndpoint');
-  const hamburger = document.getElementById('hamburger');
-  const sideMenu = document.getElementById('sideMenu');
-  const tagList = document.getElementById('tagList');
+  const tagButtonsContainer = document.getElementById('tagButtons');
   const tryModal = document.getElementById('tryModal');
   const closeButton = document.getElementById('closeButton');
   const parameterInputsDiv = document.getElementById('parameterInputs');
@@ -289,9 +277,9 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('/tags')
     .then(res => res.json())
     .then(data => {
-      let html = '<li><button data-tags="">All</button></li>';
-      data.tags.forEach(tag => { html += `<li><button data-tags="${tag}">${tag}</button></li>`; });
-      document.getElementById('tagList').innerHTML = html;
+      let html = '<button class="btn btn-primary m-1" data-tags="">All</button>';
+      data.tags.forEach(tag => { html += `<button class="btn btn-primary m-1" data-tags="${tag}">${tag}</button>`; });
+      tagButtonsContainer.innerHTML = html;
     })
     .catch(console.error);
   }
@@ -299,10 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const s = searchEndpointInput.value.trim();
     if (s) { searchData(s); } else { renderTags(); }
   }, 300));
-  hamburger.addEventListener('click', function() {
-    sideMenu.classList.toggle('active');
-  });
-  sideMenu.addEventListener('click', function(e) {
+  tagButtonsContainer.addEventListener('click', function(e) {
     const btn = e.target.closest('button');
     if (btn) {
       const tags = btn.getAttribute('data-tags');
@@ -316,7 +301,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (row) endpointListSection.innerHTML = row.outerHTML;
       })
       .catch(e => console.error(e));
-      sideMenu.classList.remove('active');
     }
   });
   attachCardEvents();
