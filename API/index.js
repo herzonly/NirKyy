@@ -6,6 +6,24 @@ const { handleTextQuery } = require('../lib/ai');
 const { pin } = require('../lib/pinterest');
 const { jadwal } = require('../lib/animeJadwal');
 
+router.get('/asahotak', async (req, res) => {
+  try {
+    const response = await axios.get('https://raw.githubusercontent.com/BochilTeam/database/refs/heads/master/games/asahotak.json');
+    const data = response.data;
+
+    if (Array.isArray(data) && data.length > 0) {
+      const randomIndex = Math.floor(Math.random() * data.length);
+      const randomItem = data[randomIndex];
+      res.succesJson(randomItem);
+    } else {
+      res.status(404).errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
+    }
+  } catch (error) {
+    console.error('Terjadi kesalahan saat mengambil data:', error);
+    res.status(500).errorJson({ message: 'Terjadi kesalahan saat mengambil data.' });
+  }
+});
+
 router.get('/savetube', async (req, res) => {
   const { url, format } = req.query;
   if (!url) return res.status(400).errorJson("Masukkan parameter url");

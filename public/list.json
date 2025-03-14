@@ -1,5 +1,12 @@
 [
   {
+    "nama": "Random Asah Otak",
+    "tags": ["Game"],
+    "endpoint": "/api/v1/asahotak",
+    "parameter": []
+    
+  },
+  {
     "nama": "SaveTube",
     "tags": ["Downloader"],
     "endpoint": "/api/v1/savetube",
