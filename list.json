@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Imagine",
+  "tags": ["AI"],
+  "endpoint": "/api/v1/imagine",
+  "parameter": [
+    {
+      "params": "prompt",
+      "example": "a girl is crying",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "SimiSimi Chat",
   "tags": ["Fun"],
   "endpoint": "/api/v1/simsimi",

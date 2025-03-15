@@ -8,6 +8,26 @@ const { jadwal } = require('../lib/animeJadwal.js');
 const crypto = require('crypto');
 const alicia = require('../lib/alicia.js');
 
+router.get('/imagine', async (req, res) => {
+  const prompt = req.query.prompt;
+  if (!prompt) {
+    return res.errorJson({ error: "Parameter 'prompt' harus disediakan." });
+  }
+  try {
+    const apiUrl = 'https://raw.githubusercontent.com/MOHAMMAD-NAYAN/Nayan/main/api.json';
+    const apiResponse = await axios.get(apiUrl);
+    const baseApiUrl = apiResponse.data.api;
+    const imageUrlResponse = await axios.get(`${baseApiUrl}/nayan/img?prompt=${encodeURIComponent(prompt)}`, {
+      responseType: 'stream',
+    });
+    res.setHeader('Content-Type', imageUrlResponse.headers['content-type']);
+    imageUrlResponse.data.pipe(res);
+  } catch (error) {
+    console.error("Error calling image generation API:", error);
+    res.errorJson({ error: "Terjadi kesalahan saat memproses permintaan gambar." });
+  }
+});
+
 router.get('/simsimi', async (req, res) => {
   const msg = req.query.msg;
   const id = req.query.lang || "id";
