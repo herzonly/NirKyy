@@ -19,7 +19,7 @@ router.get('/imagine', async (req, res) => {
     const baseApiUrl = apiResponse.data.api;
     const imageUrlResponse = await axios.get(`${baseApiUrl}/nayan/img?prompt=${encodeURIComponent(prompt)}`);
     const response = await axios.get(imageUrlResponse.data.imageUrls,{responseType: "arraybuffer"})
-    res.setHeader('Content-Type', imageUrlResponse.headers['content-type']);
+    res.setHeader('Content-Type', response.headers['content-type']);
     res.send(Buffer.from(response.data))
   } catch (error) {
     console.error("Error calling image generation API:", error);
