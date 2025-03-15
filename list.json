@@ -1,5 +1,22 @@
 [
   {
+  "nama": "SimiSimi Chat",
+  "tags": ["Fun"],
+  "endpoint": "/api/v1/simsimi",
+  "parameter": [
+    {
+      "params": "msg",
+      "example": "Halo Simi!",
+      "opsional": false
+    },
+    {
+      "params": "lang",
+      "example": "id",
+      "opsional": true
+    }
+  ]
+},
+  {
   "nama": "Unlimited Chat Alicia AI",
   "tags": ["AI"],
   "endpoint": "/api/v1/alicia",
