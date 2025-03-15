@@ -6,7 +6,24 @@ const { handleTextQuery } = require('../lib/ai');
 const { pin } = require('../lib/pinterest');
 const { jadwal } = require('../lib/animeJadwal');
 const crypto = require('crypto');
+const alicia = require('../lib/alicia');
 
+router.get('/alicia', async (req, res) => {
+  const user = req.query.user;
+  const msg = req.query.msg;
+
+  if (!user || !msg) {
+    return res.errorJson({ error: "Parameter 'user' dan 'msg' harus disediakan." });
+  }
+
+  try {
+    const response = await alicia.botika(user, msg);
+    res.succesJson({ response });
+  } catch (error) {
+    console.error("Error calling alicia.botika:", error);
+    res.errorJson({ error: "Terjadi kesalahan saat memproses permintaan." });
+  }
+});
 router.get('/ytdl', async (req, res) => {
   const link = req.query.url;
   const format = req.query.format || '360';

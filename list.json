@@ -1,5 +1,22 @@
 [
   {
+  "nama": "Unlimited Chat Alicia AI",
+  "tags": ["AI"],
+  "endpoint": "/api/v1/alicia",
+  "parameter": [
+    {
+      "params": "user",
+      "example": "pengguna123",
+      "opsional": false
+    },
+    {
+      "params": "msg",
+      "example": "Halo Alicia!",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Meme Generator",
   "tags": ["Tools"],
   "endpoint": "/api/v1/memegen",
