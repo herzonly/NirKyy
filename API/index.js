@@ -18,9 +18,14 @@ router.get('/imagine', async (req, res) => {
     const apiResponse = await axios.get(apiUrl);
     const baseApiUrl = apiResponse.data.api;
     const imageUrlResponse = await axios.get(`${baseApiUrl}/nayan/img?prompt=${encodeURIComponent(prompt)}`);
-    const response = await axios.get(imageUrlResponse.data.imageUrls[0],{responseType: "arraybuffer"})
-    res.setHeader('Content-Type', response.headers['content-type']);
-    res.send(Buffer.from(response.data))
+    const response = await axios.get(imageUrlResponse.data.imageUrls[0], {
+      responseType: "arraybuffer",
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.6943.138 Mobile Safari/537.36'
+      }
+    });
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.send(Buffer.from(response.data));
   } catch (error) {
     console.error("Error calling image generation API:", error);
     res.errorJson({ error: "Terjadi kesalahan saat memproses permintaan gambar." });
