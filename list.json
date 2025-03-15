@@ -81,7 +81,7 @@
     ]
   },
   {
-    "nama": "Groq AI 3000 Token History",
+    "nama": "Groq Chat 3000 Token History",
     "tags": ["AI"],
     "endpoint": "/api/v1/llm",
     "parameter": [
@@ -120,28 +120,6 @@
       {
         "params": "url",
         "example": "https://www.instagram.com/reel/DG7I2Ezz2sy/?igsh=MTFoN2Z1MDJpeGNj",
-        "opsional": false
-      }
-    ]
-  },
-    {
-    "nama": "LuminAI 1500 Token History",
-    "tags": ["AI"],
-    "endpoint": "/api/v1/luminai",
-    "parameter": [
-      {
-        "params": "systemPrompt",
-        "example": null,
-        "opsional": true
-      },
-      {
-        "params": "msg",
-        "example": null,
-        "opsional": false
-      },
-      {
-        "params": "user",
-        "example": null,
         "opsional": false
       }
     ]

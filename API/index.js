@@ -6,20 +6,6 @@ const { handleTextQuery } = require('../lib/ai');
 const { pin } = require('../lib/pinterest');
 const { jadwal } = require('../lib/animeJadwal');
 const crypto = require('crypto');
-const { luminaAI } = require('../lib/luminai')
-
-router.get('/luminai', async (req, res) => {
-  let { systemPrompt = "", msg, user } = req.query;
-  if (!msg) return res.errorJson("msg is required");
-  if (!user) return res.errorJson("user is required");
-  try {
-    const response = await luminaAI({ groqKey, model, systemPrompt, msg, user });
-    if (response.reply.includes('API Error')) return res.errorJson(response.reply);
-    return res.succesJson(response);
-  } catch (error) {
-    return res.errorJson(error);
-  }
-});
 
 router.get('/ytdl', async (req, res) => {
   const link = req.query.url;
