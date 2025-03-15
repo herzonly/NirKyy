@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const { alldown } = require('alldown');
-const { handleTextQuery } = require('../lib/ai');
-const { pin } = require('../lib/pinterest');
-const { jadwal } = require('../lib/animeJadwal');
+const { handleTextQuery } = require('../lib/ai.js');
+const { pin } = require('../lib/pinterest.js');
+const { jadwal } = require('../lib/animeJadwal.js');
 const crypto = require('crypto');
-const alicia = require('../lib/alicia');
+const alicia = require('../lib/alicia.js');
 
 router.get('/alicia', async (req, res) => {
   const user = req.query.user;
