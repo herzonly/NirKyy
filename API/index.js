@@ -7,6 +7,7 @@ const { pin } = require('../lib/pinterest.js');
 const { jadwal } = require('../lib/animeJadwal.js');
 const crypto = require('crypto');
 const alicia = require('../lib/alicia.js');
+const gq = require('../lib/genrateQuery.js');
 
 router.get('/imagine', async (req, res) => {
   const prompt = req.query.prompt;
@@ -51,6 +52,24 @@ router.get('/simsimi', async (req, res) => {
   } catch (error) {
     console.error("Error calling SimSimi API:", error);
     res.errorJson({ error: "Terjadi kesalahan saat memproses permintaan SimSimi." });
+  }
+});
+
+router.get('/generate-query', async (req, res) => {
+  const user = req.query.user;
+  const msg = req.query.msg;
+
+  if (!user || !msg) {
+    return res.errorJson({ error: "Parameter 'user' dan 'msg' harus disediakan." });
+  }
+
+  try {
+    let response = await gq.botika(user, msg);
+    response = response.replace(/Alicia:/i, "").trim();
+    res.succesJson(JSON.parse(response));
+  } catch (error) {
+    console.error("Error calling alicia.botika:", error);
+    res.errorJson({ error: "Terjadi kesalahan saat memproses permintaan." });
   }
 });
 

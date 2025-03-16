@@ -28,6 +28,23 @@
     }
   ]
 },
+{
+  "nama": "AI generator Query",
+  "tags": ["AI"],
+  "endpoint": "/api/v1/generate-query",
+  "parameter": [
+    {
+      "params": "user",
+      "example": "pengguna123",
+      "opsional": false
+    },
+    {
+      "params": "msg",
+      "example": "tolong Carikan gambar burung",
+      "opsional": false
+    }
+  ]
+},
   {
   "nama": "Unlimited Chat Alicia AI",
   "tags": ["AI"],
