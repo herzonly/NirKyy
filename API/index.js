@@ -63,13 +63,15 @@ router.get('/alicia', async (req, res) => {
   }
 
   try {
-    const response = await alicia.botika(user, msg);
+    let response = await alicia.botika(user, msg);
+    response = response.replace(/Alicia:/i, "").trim();
     res.succesJson({ response });
   } catch (error) {
     console.error("Error calling alicia.botika:", error);
     res.errorJson({ error: "Terjadi kesalahan saat memproses permintaan." });
   }
 });
+
 router.get('/ytdl', async (req, res) => {
   const link = req.query.url;
   const format = req.query.format || '360';
