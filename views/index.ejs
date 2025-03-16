@@ -213,7 +213,7 @@
           if (apiUrl.includes(placeholder)) { apiUrl = apiUrl.replace(placeholder, params[paramName]); delete params[paramName]; }
         });
         let baseUrl = apiUrl;
-        const urlObj = new URL("https://nirkyy.koyeb.app" + baseUrl);
+        const urlObj = new URL(baseUrl);
         Object.entries(params).forEach(([k, v]) => { urlObj.searchParams.append(k, v); });
         finalApiUrl = urlObj.href;
         let axiosCode;
