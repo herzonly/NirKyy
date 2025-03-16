@@ -42,7 +42,7 @@ router.get('/simsimi', async (req, res) => {
   }
 
   try {
-    const response = await axios.post('https://simsimi.vn/v2/simtalk', `text=${encodeURIComponent(msg)}&lc=${id}`, {
+    const response = await axios.post('https://simsimi.vn/web/simtalk', `text=${encodeURIComponent(msg)}&lc=${id}`, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
