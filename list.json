@@ -6,7 +6,7 @@
   "parameter": [
     {
       "params": "prompt",
-      "example": "a girl is crying",
+      "example": "Vast rice fields with flowing rivers",
       "opsional": false
     }
   ]
