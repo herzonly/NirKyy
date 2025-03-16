@@ -144,18 +144,18 @@
     ]
   },
   {
-    "nama": "Groq Chat 3000 Token History",
+    "nama": "Groq + token History",
     "tags": ["AI"],
     "endpoint": "/api/v1/llm",
     "parameter": [
       {
         "params": "groqKey",
-        "example": null,
+        "example": "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",
         "opsional": false
       },
       {
         "params": "model",
-        "example": "gemma2-9b-it",
+        "example": "mistral-saba-24b",
         "opsional": true
       },
       {
