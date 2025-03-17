@@ -18,7 +18,7 @@ router.get('/khodam', async (req, res) => {
   }
 
   try {
-    const apiUrl = `https://express-vercel-ytdl.vercel.app/khodam?nama=${nama}`;
+    const apiUrl = `https://express-vercel-ytdl.vercel.app/khodam?nama=${encodeURIComponent(nama)}`;
     const response = await axios.get(apiUrl, { responseType: 'stream' });
 
     res.setHeader('Content-Type', 'image/jpeg');
