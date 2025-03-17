@@ -1,6 +1,18 @@
 [
   {
-  "nama": "Cek Khodam Image",
+  "nama": "Arti Nama (Image)",
+  "tags": ["Fun"],
+  "endpoint": "/api/v1/khodam",
+  "parameter": [
+    {
+      "params": "nama",
+      "example": "PurPur",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Cek Khodam (Image)",
   "tags": ["Fun"],
   "endpoint": "/api/v1/khodam",
   "parameter": [
