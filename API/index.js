@@ -8,6 +8,21 @@ const { jadwal } = require('../lib/animeJadwal.js');
 const crypto = require('crypto');
 const alicia = require('../lib/alicia.js');
 const gq = require('../lib/genrateQuery.js');
+const snapsave = require('../lib/snapsave.js')
+
+
+router.get('/snapsave', async (req, res) => {
+  const url = req.query.url;
+  if (!url) {
+    return res.errorJson({ error: "Parameter 'url' harus disediakan." });
+  }
+  try {
+    await snapsave(url, res);
+  } catch (error) {
+    console.error("Error processing snapsave request:", error);
+    res.errorJson({ error: "Terjadi kesalahan saat memproses permintaan snapsave." });
+  }
+});
 
 router.get('/imagine', async (req, res) => {
   const prompt = req.query.prompt;
