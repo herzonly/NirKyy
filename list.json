@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Cek Khodam WEB",
+  "tags": ["Fun"],
+  "endpoint": "/api/v1/khodam",
+  "parameter": [
+    {
+      "params": "nama",
+      "example": "PurPur",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Snapsave (Ig, tiktok, FB)",
   "tags": ["Downloader"],
   "endpoint": "/api/v1/snapsave",
