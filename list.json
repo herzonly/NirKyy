@@ -1,6 +1,6 @@
 [
   {
-  "nama": "Cek Khodam WEB",
+  "nama": "Cek Khodam Image",
   "tags": ["Fun"],
   "endpoint": "/api/v1/khodam",
   "parameter": [
