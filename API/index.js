@@ -17,7 +17,7 @@ router.get('/snapsave', async (req, res) => {
     return res.errorJson({ error: "Parameter 'url' harus disediakan." });
   }
   try {
-    await snapsave(url, res);
+    await snapsave(req, res);
   } catch (error) {
     console.error("Error processing snapsave request:", error);
     res.errorJson({ error: "Terjadi kesalahan saat memproses permintaan snapsave." });
