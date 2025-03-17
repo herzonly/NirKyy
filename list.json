@@ -2,7 +2,7 @@
   {
   "nama": "Arti Nama (Image)",
   "tags": ["Fun"],
-  "endpoint": "/api/v1/khodam",
+  "endpoint": "/api/v1/artinama",
   "parameter": [
     {
       "params": "nama",
