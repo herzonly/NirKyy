@@ -2,7 +2,7 @@
   {
   "nama": "TextPro Single",
   "tags": ["Maker"],
-  "endpoint": "/textpro-single",
+  "endpoint": "/api/v1/textpro-single",
   "parameter": [
     {
       "params": "text",
