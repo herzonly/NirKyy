@@ -1,5 +1,27 @@
 [
   {
+  "nama": "Product generator",
+  "tags": ["Maker"],
+  "endpoint": "/api/v1/produk",
+  "parameter": [
+    {
+      "params": "gambar",
+      "example": "https://nirkyy.koyeb.app/example.jpg",
+      "opsional": false
+    },
+    {
+      "params": "nama",
+      "example": "Di jual loli Murah bang",
+      "opsional": false
+    },
+    {
+      "params": "harga",
+      "example": "Rp 5.000.000.00",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Arti Nama (Image)",
   "tags": ["Fun"],
   "endpoint": "/api/v1/artinama",
