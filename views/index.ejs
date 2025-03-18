@@ -100,7 +100,7 @@
           </div>
           <div id="axiosExample" class="axios-code mt-3">
             <h5>Contoh Kode Axios (GET):</h5>
-            <pre id="axiosSnippet"><code>axios.get('https://nirkyy.koyeb.app/your-endpoint')
+            <pre id="axiosSnippet"><code>axios.get('https://nirkyy.koyeb.app/your-endpoint', { responseType: 'arraybuffer' })
 .then(response => {
   console.log(response);
 })
@@ -165,7 +165,7 @@
         parameterInputsDiv.innerHTML = '';
         responseHeader.textContent = '';
         responseBody.textContent = '';
-        axiosSnippetPre.innerHTML = '<code>axios.get(\'https://nirkyy.koyeb.app' + endpoint.endpoint + '\')\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});</code>';
+        axiosSnippetPre.innerHTML = '<code>axios.get(\'https://nirkyy.koyeb.app' + endpoint.endpoint + '\', { responseType: \'arraybuffer\' })\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});</code>';
         if (endpoint.parameter && endpoint.parameter.length > 0) {
           endpoint.parameter.forEach(param => {
             const paramName = param.params;
@@ -218,9 +218,9 @@
         finalApiUrl = urlObj.href;
         let axiosCode;
         if (Object.keys(params).length > 0) {
-          axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "', {\n  params: " + JSON.stringify(params, null, 2) + "\n})\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
+          axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "', {\n  params: " + JSON.stringify(params, null, 2) + ",\n  responseType: 'arraybuffer'\n})\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
         } else {
-          axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "')\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
+          axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "', { responseType: 'arraybuffer' })\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
         }
         axiosSnippetPre.innerHTML = '<code>' + axiosCode + '</code>';
         loadingIndicator.style.display = 'block';
@@ -238,8 +238,23 @@
           } else { errorSound.play(); }
           responseHeader.textContent = hdr;
           if (ctype.includes('application/json')) { responseBody.textContent = JSON.stringify(r.data, null, 2); }
-          else if (ctype.startsWith('image/')) { responseBody.innerHTML = ''; const img = document.createElement('img'); img.src = r.config.url; responseBody.appendChild(img); }
-          else if (ctype.startsWith('video/')) { responseBody.innerHTML = ''; const vid = document.createElement('video'); vid.src = r.config.url; vid.controls = true; responseBody.appendChild(vid); }
+          else if (ctype.startsWith('image/')) {
+            responseBody.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = r.config.url;
+            img.style.maxWidth = '100%';
+            img.style.height = 'auto';
+            responseBody.appendChild(img);
+          }
+          else if (ctype.startsWith('video/')) {
+            responseBody.innerHTML = '';
+            const vid = document.createElement('video');
+            vid.src = r.config.url;
+            vid.controls = true;
+            vid.style.maxWidth = '100%';
+            vid.style.height = 'auto';
+            responseBody.appendChild(vid);
+          }
           else { responseBody.textContent = r.data; }
         })
         .catch(err => {
