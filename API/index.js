@@ -8,24 +8,7 @@ const { jadwal } = require('../lib/animeJadwal.js');
 const crypto = require('crypto');
 const alicia = require('../lib/alicia.js');
 const gq = require('../lib/genrateQuery.js');
-const snapsave = require('../lib/snapsave.js');
-const {textpro} = require("nayan-api-server");
-
-router.get('/textpro-single', async (req, res) => {
-  const url = req.query.url;
-  const text = req.query.text;
-  if (!url || !text) {
-    return res.errorJson('URL and text parameters are required.');
-  }
-
-  try {
-    const data = await textpro(url, [text]);
-    res.succesJson(data);
-  } catch (err) {
-    res.errorJson(err.toString());
-  }
-});
-
+const snapsave = require('../lib/snapsave.js')
 
 router.get('/artinama', async (req, res) => {
   const nama = req.query.nama;
