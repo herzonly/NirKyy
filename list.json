@@ -1,4 +1,21 @@
 [
+   {
+    "nama": "AMDL Scraper",
+    "tags": ["Downloader"],
+    "endpoint": "/api/v1/amdl",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://youtu.be/3eDgG_AvOZk?si=HJ1GvDr8o1dNUKcB",
+        "opsional": false
+      },
+      {
+        "params": "format",
+        "example": "480",
+        "opsional": false
+      }
+    ]
+  },
   {
   "nama": "Arti Nama (Image)",
   "tags": ["Fun"],

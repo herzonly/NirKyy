@@ -9,6 +9,20 @@ const crypto = require('crypto');
 const alicia = require('../lib/alicia.js');
 const gq = require('../lib/genrateQuery.js');
 const snapsave = require('../lib/snapsave.js')
+const { amdl } = require('../lib/amdl.js')
+
+router.get('/amdl', async (req, res) => {
+  const url = req.query.url;
+  if (!url) {
+    return res.errorJson({ error: "Parameter 'url' harus disediakan." });
+  }
+  try {
+    await amdl(req, res);
+  } catch (error) {
+    console.error("Error processing amdl request:", error);
+    res.errorJson({ error: "Terjadi kesalahan saat memproses permintaan amdl." });
+  }
+});
 
 router.get('/artinama', async (req, res) => {
   const nama = req.query.nama;
