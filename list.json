@@ -1,5 +1,22 @@
 [
   {
+  "nama": "TextPro Single",
+  "tags": ["Maker"],
+  "endpoint": "/textpro-single",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "NirKyy",
+      "opsional": false
+    },
+    {
+      "params": "url",
+      "example": "https://textpro.me/neon-text-effect-online-879.html",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Arti Nama (Image)",
   "tags": ["Fun"],
   "endpoint": "/api/v1/artinama",
