@@ -10,27 +10,6 @@ const alicia = require('../lib/alicia.js');
 const gq = require('../lib/genrateQuery.js');
 const snapsave = require('../lib/snapsave.js')
 
-router.get('/produk', async (req, res) => {
-  const nama = req.query.nama;
-  const harga = req.query.harga;
-  const gambar = req.query.gambar;
-
-  if (!nama || !harga || !gambar) {
-    return res.errorJson({ error: "Parameter 'nama', 'harga', dan 'gambar' harus disediakan." });
-  }
-
-  try {
-    const apiUrl = `https://express-vercel-ytdl.vercel.app/produk?gambar=${gambar}&nama=${nama}&harga=${harga}`;
-    const response = await axios.get(apiUrl, { responseType: 'stream' });
-
-    res.setHeader('Content-Type', 'image/jpeg');
-    response.data.pipe(res);
-  } catch (error) {
-    console.error("Error fetching or streaming produk image:", error);
-    res.errorJson({ error: "Gagal mengambil atau mengirim gambar produk." });
-  }
-});
-
 router.get('/artinama', async (req, res) => {
   const nama = req.query.nama;
 
