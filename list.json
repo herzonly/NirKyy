@@ -1,5 +1,22 @@
 [
   {
+  "nama": "Brats Image Generator",
+  "tags": ["Maker"],
+  "endpoint": "/api/v1/brats",
+  "parameter": [
+    {
+      "params": "host",
+      "example": "1",
+      "opsional": false
+    },
+    {
+      "params": "text",
+      "example": "Ishh ape bende tuhh",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Arti Nama (Image)",
   "tags": ["Fun"],
   "endpoint": "/api/v1/artinama",
@@ -100,7 +117,7 @@
 },
   {
   "nama": "Meme Generator",
-  "tags": ["Tools"],
+  "tags": ["maker"],
   "endpoint": "/api/v1/memegen",
   "parameter": [
     {
@@ -122,19 +139,19 @@
 },
   {
     "nama":"Random Susun Kata",
-    "tags": ["Game"],
+    "tags": ["Fun"],
     "endpoint": "/api/v1/susunkata",
     "parameter": []
   },
   {
     "nama": "Auto Gempa",
-    "tags": ["Tools"],
+    "tags": ["Info"],
     "endpoint": "/api/v1/autogempa",
     "parameter": []
   },
   {
     "nama": "Random Asah Otak",
-    "tags": ["Game"],
+    "tags": ["Fun"],
     "endpoint": "/api/v1/asahotak",
     "parameter": []
   },
@@ -157,7 +174,7 @@
   },
   {
     "nama": "Jadwal-Anime Scraper",
-    "tags": ["Tools"],
+    "tags": ["Info"],
     "endpoint": "/api/v1/anime-jadwal",
     "parameter": [
       {
