@@ -42,7 +42,7 @@
     .card-header { background-color: #0f0f0f; color: #00ffff; border-bottom: 1px solid #00ffff; }
     .card-body { padding: 1.5rem; }
     .badge-secondary { background-color: #ff00ff; color: #fff; }
-    pre { white-space: pre-wrap; background-color: #333; border: 1px solid #39ff14; padding: 10px; border-radius: 5px; overflow-x: auto; color: #39ff14; }
+    pre { white-space: pre-wrap; background-color: #333; border: 1px solid #39ff14; padding: 10px; border-radius: 5px; overflow-x: auto; color: #39ff14; position: relative; }
     .modal { display: none; position: fixed; z-index: 1050; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); animation: modalFadeIn 0.4s ease-out forwards; }
     @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
     .modal-content { background-color: #222; color: #fff; border: 1px solid #00ffff; border-radius: 10px; }
@@ -53,9 +53,10 @@
     .loading { border: 6px solid #333; border-top: 6px solid #00ffff; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 20px auto; display: none; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     footer { text-align: center; padding: 20px; background-color: #222; color: #aaa; border-top: 2px solid #00ffff; }
-    .axios-code { background-color: #333; padding: 10px; border-radius: 5px; margin-top: 10px; overflow-x: auto; font-family: monospace; font-size: 0.9em; color: #39ff14; border: 1px solid #39ff14; }
+    .axios-code { background-color: #333; padding: 10px; border-radius: 5px; margin-top: 10px; overflow-x: auto; font-family: monospace; font-size: 0.9em; color: #39ff14; border: 1px solid #39ff14; position: relative; }
     .btn-primary, .btn-info, .btn-outline-info { font-family: 'Orbitron', sans-serif; border: 1px solid #39ff14; background-color: #39ff14; color: #111; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
     .btn-primary:hover, .btn-info:hover, .btn-outline-info:hover, .btn-primary:focus, .btn-info:focus, .btn-outline-info:focus { background-color: #0f0f0f; color: #00ffff; border-color: #ff00ff; box-shadow: 0 0 5px #ff00ff; }
+    .copy-btn { position: absolute; top: 5px; right: 5px; background: transparent; border: none; color: #00ffff; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -90,23 +91,28 @@
           <div id="loadingIndicator" class="loading"></div>
           <div id="apiResponse" class="mt-3">
             <h5 class="text-cyber">Response Header:</h5>
-            <pre id="responseHeader" class="p-2"></pre>
+            <div class="position-relative">
+              <pre id="responseHeader" class="p-2"></pre>
+              <button id="copyResponseHeaderButton" class="copy-btn">Salin Sekarang</button>
+            </div>
             <h5 class="text-cyber">Response Body:</h5>
-            <pre id="responseBody" class="p-2"></pre>
-            <div class="d-flex justify-content-end mt-2">
-              <button id="copyResponseButton" class="btn btn-outline-info btn-sm mr-2"><i class="fas fa-copy"></i> Copy Response</button>
-              <button id="copyEndpointButton" class="btn btn-info btn-sm"><i class="fas fa-link"></i> Copy Endpoint</button>
+            <div class="position-relative">
+              <pre id="responseBody" class="p-2"></pre>
+              <button id="copyResponseBodyButton" class="copy-btn">Salin Sekarang</button>
             </div>
           </div>
           <div id="axiosExample" class="axios-code mt-3">
             <h5>Contoh Kode Axios (GET):</h5>
-            <pre id="axiosSnippet"><code>axios.get('https://nirkyy.koyeb.app/your-endpoint', { responseType: 'arraybuffer' })
+            <div class="position-relative">
+              <pre id="axiosSnippet"><code>axios.get('https://nirkyy.koyeb.app/your-endpoint', { responseType: 'arraybuffer' })
 .then(response => {
   console.log(response);
 })
 .catch(error => {
   console.error(error);
 });</code></pre>
+              <button id="copyExampleButton" class="copy-btn">Salin Sekarang</button>
+            </div>
           </div>
         </div>
       </div>
@@ -130,10 +136,11 @@
       const runButton = document.getElementById('runButton');
       const responseHeader = document.getElementById('responseHeader');
       const responseBody = document.getElementById('responseBody');
-      const copyResponseButton = document.getElementById('copyResponseButton');
-      const copyEndpointButton = document.getElementById('copyEndpointButton');
+      const axiosSnippet = document.getElementById('axiosSnippet').querySelector('code');
+      const copyResponseHeaderButton = document.getElementById('copyResponseHeaderButton');
+      const copyResponseBodyButton = document.getElementById('copyResponseBodyButton');
+      const copyExampleButton = document.getElementById('copyExampleButton');
       const loadingIndicator = document.getElementById('loadingIndicator');
-      const axiosSnippetPre = document.getElementById('axiosSnippet');
       const successSound = document.getElementById('successSound');
       const errorSound = document.getElementById('errorSound');
       let currentEndpointData = null;
@@ -165,34 +172,27 @@
         parameterInputsDiv.innerHTML = '';
         responseHeader.textContent = '';
         responseBody.textContent = '';
-        axiosSnippetPre.innerHTML = '<code>axios.get(\'https://nirkyy.koyeb.app' + endpoint.endpoint + '\', { responseType: \'arraybuffer\' })\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});</code>';
-        if (endpoint.parameter && endpoint.parameter.length > 0) {
-          endpoint.parameter.forEach(param => {
-            const paramName = param.params;
-            const defaultValue = param.example || '';
-            const required = (param.opsional === false);
-            const div = document.createElement('div');
-            div.className = 'mb-3';
-            const label = document.createElement('label');
-            label.textContent = paramName + (required ? ' (Wajib):' : ' (Opsional):');
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.className = 'form-control bg-dark text-light';
-            input.name = paramName;
-            input.placeholder = defaultValue ? 'Default: ' + defaultValue : 'Masukkan ' + paramName;
-            input.value = defaultValue;
-            if (required) input.required = true;
-            div.appendChild(label);
-            div.appendChild(input);
-            parameterInputsDiv.appendChild(div);
-          });
-        }
+        axiosSnippet.innerText = "axios.get('https://nirkyy.koyeb.app" + endpoint.endpoint + "', { responseType: 'arraybuffer' })\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
+        // Reset copy button visibility for response body
+        copyResponseBodyButton.style.display = 'block';
         tryModal.style.display = 'block';
       }
+      function clearRunData() {
+        responseHeader.textContent = '';
+        responseBody.textContent = '';
+        axiosSnippet.innerText = '';
+        finalApiUrl = '';
+      }
       window.addEventListener('click', function(event) {
-        if (event.target === tryModal) { tryModal.style.display = 'none'; }
+        if (event.target === tryModal) { 
+          tryModal.style.display = 'none'; 
+          clearRunData();
+        }
       });
-      closeButton.addEventListener('click', function() { tryModal.style.display = 'none'; });
+      closeButton.addEventListener('click', function() { 
+        tryModal.style.display = 'none'; 
+        clearRunData();
+      });
       runButton.addEventListener('click', function() {
         if (!currentEndpointData) return;
         let apiUrl = currentEndpointData.endpoint;
@@ -216,13 +216,6 @@
         const urlObj = new URL("https://nirkyy.koyeb.app" + baseUrl);
         Object.entries(params).forEach(([k, v]) => { urlObj.searchParams.append(k, v); });
         finalApiUrl = urlObj.href;
-        let axiosCode;
-        if (Object.keys(params).length > 0) {
-          axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "', {\n  params: " + JSON.stringify(params, null, 2) + ",\n  responseType: 'arraybuffer'\n})\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
-        } else {
-          axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "', { responseType: 'arraybuffer' })\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
-        }
-        axiosSnippetPre.innerHTML = '<code>' + axiosCode + '</code>';
         loadingIndicator.style.display = 'block';
         responseHeader.textContent = '';
         responseBody.textContent = '';
@@ -232,19 +225,35 @@
           let hdr = '';
           Object.entries(r.headers).forEach(([k, v]) => { hdr += k + ': ' + v + '\n'; });
           const ctype = r.headers['content-type'] || '';
-          if (r.status >= 200 && r.status < 300) {
-            if (r.data && r.data.success === false) { errorSound.play(); responseHeader.textContent = hdr; responseBody.textContent = JSON.stringify(r.data, null, 2); return; }
-            else { successSound.play(); }
-          } else { errorSound.play(); }
+          // Update axios example code based on response type
+          let axiosCode;
+          if (Object.keys(params).length > 0) {
+            if (ctype.includes('application/json')) {
+              axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "', {\n  params: " + JSON.stringify(params, null, 2) + "\n})\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
+            } else {
+              axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "', {\n  params: " + JSON.stringify(params, null, 2) + ",\n  responseType: 'arraybuffer'\n})\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
+            }
+          } else {
+            if (ctype.includes('application/json')) {
+              axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "')\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
+            } else {
+              axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "', { responseType: 'arraybuffer' })\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
+            }
+          }
+          axiosSnippet.innerText = axiosCode;
+          successSound.play();
           responseHeader.textContent = hdr;
-          if (ctype.includes('application/json')) { responseBody.textContent = JSON.stringify(r.data, null, 2); }
-          else if (ctype.startsWith('image/')) {
+          if (ctype.includes('application/json')) {
+            responseBody.textContent = JSON.stringify(r.data, null, 2);
+            copyResponseBodyButton.style.display = 'block';
+          } else if (ctype.startsWith('image/')) {
             responseBody.innerHTML = '';
             const img = document.createElement('img');
             img.src = r.config.url;
             img.style.maxWidth = '100%';
             img.style.height = 'auto';
             responseBody.appendChild(img);
+            copyResponseBodyButton.style.display = 'none';
           }
           else if (ctype.startsWith('video/')) {
             responseBody.innerHTML = '';
@@ -254,6 +263,7 @@
             vid.style.maxWidth = '100%';
             vid.style.height = 'auto';
             responseBody.appendChild(vid);
+            copyResponseBodyButton.style.display = 'none';
           }
           else { responseBody.textContent = r.data; }
         })
@@ -269,14 +279,26 @@
           } else { responseHeader.textContent = 'Error: No response'; responseBody.textContent = err.message; }
         });
       });
-      copyResponseButton.addEventListener('click', function() {
-        const t = responseHeader.textContent + '\n' + responseBody.textContent;
-        navigator.clipboard.writeText(t).then(() => alert('Response API berhasil di-copy!')).catch(() => alert('Gagal copy response API.'));
+      copyResponseHeaderButton.addEventListener('click', function() {
+        const text = responseHeader.textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Response Header berhasil disalin!');
+          responseHeader.textContent = '';
+        }).catch(() => alert('Gagal menyalin Response Header.'));
       });
-      copyEndpointButton.addEventListener('click', function() {
-        if (finalApiUrl) {
-          navigator.clipboard.writeText(finalApiUrl).then(() => alert('Endpoint berhasil di-copy!')).catch(() => alert('Gagal copy endpoint.'));
-        } else { alert('Tidak ada endpoint yang dapat di-copy. Jalankan "Try" terlebih dahulu.'); }
+      copyResponseBodyButton.addEventListener('click', function() {
+        const text = responseBody.textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Response Body berhasil disalin!');
+          responseBody.textContent = '';
+        }).catch(() => alert('Gagal menyalin Response Body.'));
+      });
+      copyExampleButton.addEventListener('click', function() {
+        const text = axiosSnippet.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Contoh kode berhasil disalin!');
+          axiosSnippet.innerText = '';
+        }).catch(() => alert('Gagal menyalin contoh kode.'));
       });
       function searchData(term) {
         if (isFetching) return;
