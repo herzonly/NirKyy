@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Gemini-2.0-flash",
+  "tags": ["AI"],
+  "endpoint": "/api/v1/gemini",
+  "parameter": [
+    {
+      "params": "prompt",
+      "example": "Sebutkan ciri ciri kedewasaan bagi pria",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Sound of Text",
   "tags": ["Maker"],
   "endpoint": "/api/v1/soundoftext",
