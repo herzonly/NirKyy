@@ -1,5 +1,17 @@
 [
   {
+  "nama": "DeepSeek-R1",
+  "tags": ["AI"],
+  "endpoint": "/api/v1/deepseek",
+  "parameter": [
+    {
+      "params": "query",
+      "example": "Ihh lu siapa sih",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Speechma Text to Speech",
   "tags": ["Maker"],
   "endpoint": "/api/v1/speechma",
