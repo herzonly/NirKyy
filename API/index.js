@@ -11,7 +11,7 @@ const gq = require('../lib/genrateQuery.js');
 const snapsave = require('../lib/snapsave.js')
 const speechma = require('../lib/speechma.js')
 
-app.get('/soundoftext', async (req, res) => {
+router.get('/soundoftext', async (req, res) => {
   const text = req.query.text;
   if (!text) {
     return res.status(400).send('Parameter "text" is required.');
