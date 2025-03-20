@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Sound of Text",
+  "tags": ["Maker"],
+  "endpoint": "/soundoftext",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Gak bahaya tah?",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "DeepSeek-R1",
   "tags": ["AI"],
   "endpoint": "/api/v1/deepseek",
