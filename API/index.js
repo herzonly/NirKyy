@@ -11,7 +11,7 @@ const gq = require('../lib/genrateQuery.js');
 const snapsave = require('../lib/snapsave.js')
 const speechma = require('../lib/speechma.js')
 
-router.get('/tes', speechma);
+router.get('/speechma', speechma);
 router.get('/brats', async (req, res) => {
   const host = req.query.host;
   const text = req.query.text;

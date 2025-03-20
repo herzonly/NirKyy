@@ -1,5 +1,32 @@
 [
   {
+  "nama": "Speechma Text to Speech",
+  "tags": ["Maker"],
+  "endpoint": "/api/v1/speechma",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Hallo semuanya, apa kabar?!",
+      "opsional": false
+    },
+    {
+      "params": "voice",
+      "example": "voice-110",
+      "opsional": true
+    },
+    {
+      "params": "pitch",
+      "example": 0,
+      "opsional": true
+    },
+    {
+      "params": "rate",
+      "example": 0,
+      "opsional": true
+    }
+  ]
+},
+  {
   "nama": "Brats Image Generator",
   "tags": ["Maker"],
   "endpoint": "/api/v1/brats",
