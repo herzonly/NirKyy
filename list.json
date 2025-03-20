@@ -117,7 +117,7 @@
 },
   {
   "nama": "Meme Generator",
-  "tags": ["maker"],
+  "tags": ["Maker"],
   "endpoint": "/api/v1/memegen",
   "parameter": [
     {
