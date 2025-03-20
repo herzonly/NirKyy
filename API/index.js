@@ -11,6 +11,9 @@ const gq = require('../lib/genrateQuery.js');
 const snapsave = require('../lib/snapsave.js')
 const speechma = require('../lib/speechma.js')
 const imagine = require('../lib/imagine.js')
+const gemini = require('../lib/toolbaz.js')
+
+router.get('/gemini',gemini)
 
 router.get('/soundoftext', async (req, res) => {
   const text = req.query.text;
