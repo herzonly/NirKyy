@@ -4,8 +4,8 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-const succesJson = (json) => ({ author: "NirKyy", success: true, data: json });
-const errorJson = (json) => ({ author: "NirKyy", success: false, error: json });
+const succesJson = (json) => ({ success: true, data: json });
+const errorJson = (json) => ({ success: false, error: json });
 
 app.use((req, res, next) => {
   res.succesJson = (json) => res.status(200).json(succesJson(json));
