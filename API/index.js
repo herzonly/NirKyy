@@ -10,6 +10,7 @@ const alicia = require('../lib/alicia.js');
 const gq = require('../lib/genrateQuery.js');
 const snapsave = require('../lib/snapsave.js')
 const speechma = require('../lib/speechma.js')
+const imagine = require('../lib/imagine.js')
 
 router.get('/soundoftext', async (req, res) => {
   const text = req.query.text;
@@ -181,29 +182,8 @@ router.get('/snapsave', async (req, res) => {
   }
 });
 
-router.get('/imagine', async (req, res) => {
-  const prompt = req.query.prompt;
-  if (!prompt) {
-    return res.errorJson({ error: "Parameter 'prompt' harus disediakan." });
-  }
-  try {
-    const apiUrl = 'https://raw.githubusercontent.com/MOHAMMAD-NAYAN/Nayan/main/api.json';
-    const apiResponse = await axios.get(apiUrl);
-    const baseApiUrl = apiResponse.data.api;
-    const imageUrlResponse = await axios.get(`${baseApiUrl}/nayan/img?prompt=${encodeURIComponent(prompt)}`);
-    const response = await axios.get(imageUrlResponse.data.imageUrls[0], {
-      responseType: "arraybuffer",
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.6943.138 Mobile Safari/537.36'
-      }
-    });
-    res.setHeader('Content-Type', 'image/jpeg');
-    res.send(Buffer.from(response.data));
-  } catch (error) {
-    console.error("Error calling image generation API:", error);
-    res.errorJson({ error: "Terjadi kesalahan saat memproses permintaan gambar." });
-  }
-});
+
+router.get('/imagine', imagine)
 
 router.get('/simsimi', async (req, res) => {
   const msg = req.query.msg;
