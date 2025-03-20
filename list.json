@@ -2,7 +2,7 @@
   {
   "nama": "Sound of Text",
   "tags": ["Maker"],
-  "endpoint": "/soundoftext",
+  "endpoint": "/api/v1/soundoftext",
   "parameter": [
     {
       "params": "text",
