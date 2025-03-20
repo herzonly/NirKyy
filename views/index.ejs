@@ -203,16 +203,12 @@
         tryModal.style.display = 'block';
       }
       window.addEventListener('click', function(event) {
-        // Jika loading sedang berlangsung, jangan tutup modal
-        if (loadingIndicator.style.display !== 'none') return;
         if (event.target === tryModal) { 
           tryModal.style.display = 'none';
           clearModalData();
         }
       });
       closeButton.addEventListener('click', function() { 
-        // Jika loading sedang berlangsung, jangan izinkan penutupan modal
-        if (loadingIndicator.style.display !== 'none') return;
         tryModal.style.display = 'none';
         clearModalData();
       });
@@ -227,12 +223,7 @@
         copyAxiosButton.style.display = 'none';
       }
       runButton.addEventListener('click', function() {
-        // Jika loading sedang berlangsung, jangan jalankan lagi
-        if (loadingIndicator.style.display !== 'none') return;
         if (!currentEndpointData) return;
-        // Nonaktifkan tombol Run dan Close selama loading
-        runButton.disabled = true;
-        closeButton.disabled = true;
         let apiUrl = currentEndpointData.endpoint;
         const params = {};
         let missingRequired = false;
@@ -245,12 +236,7 @@
           const val = input.value.trim();
           if (val) { params[paramName] = val; } else if (!required && defaultValue) { params[paramName] = defaultValue; } else if (required && !val) { missingRequired = true; }
         });
-        if (missingRequired) { 
-          alert('Harap isi semua parameter wajib.');
-          runButton.disabled = false;
-          closeButton.disabled = false;
-          return; 
-        }
+        if (missingRequired) { alert('Harap isi semua parameter wajib.'); return; }
         Object.keys(params).forEach(paramName => {
           const placeholder = '{' + paramName + '}';
           if (apiUrl.includes(placeholder)) { apiUrl = apiUrl.replace(placeholder, params[paramName]); delete params[paramName]; }
@@ -271,11 +257,7 @@
           Object.entries(r.headers).forEach(([k, v]) => { hdr += k + ': ' + v + '\n'; });
           const ctype = r.headers['content-type'] || '';
           if (r.status >= 200 && r.status < 300) {
-            if (r.data && r.data.success === false) { errorSound.play(); responseHeader.textContent = hdr; responseBody.textContent = JSON.stringify(r.data, null, 2); 
-              runButton.disabled = false;
-              closeButton.disabled = false;
-              return;
-            }
+            if (r.data && r.data.success === false) { errorSound.play(); responseHeader.textContent = hdr; responseBody.textContent = JSON.stringify(r.data, null, 2); return; }
             else { successSound.play(); }
           } else { errorSound.play(); }
           responseHeader.textContent = hdr;
@@ -301,11 +283,13 @@
             responseBody.appendChild(vid);
           }
           else { responseBody.textContent = r.data; }
+          // Tampilkan tombol salin Response Body hanya jika bukan media
           if(responseBody.textContent.trim() !== "" && !ctype.startsWith('image/') && !ctype.startsWith('video')) {
             copyResponseBody.style.display = 'block';
           } else {
             copyResponseBody.style.display = 'none';
           }
+          // Perbarui contoh kode Axios berdasarkan tipe respon
           let axiosCode;
           if (ctype.includes('application/json')) {
             if (Object.keys(params).length > 0) {
@@ -322,9 +306,6 @@
           }
           axiosSnippetPre.innerHTML = '<code>' + axiosCode + '</code>';
           copyAxiosButton.style.display = 'block';
-          // Aktifkan kembali tombol Run dan Close setelah loading selesai
-          runButton.disabled = false;
-          closeButton.disabled = false;
         })
         .catch(err => {
           loadingIndicator.style.display = 'none';
@@ -338,10 +319,9 @@
           } else { responseHeader.textContent = 'Error: No response'; responseBody.textContent = err.message; }
           if(responseHeader.textContent.trim() !== "") { copyResponseHeader.style.display = 'block'; }
           if(responseBody.textContent.trim() !== "") { copyResponseBody.style.display = 'block'; }
-          runButton.disabled = false;
-          closeButton.disabled = false;
         });
       });
+      // Event listener untuk tombol salin
       copyResponseHeader.addEventListener('click', function() {
         navigator.clipboard.writeText(responseHeader.textContent).then(() => alert('Response Header berhasil di-copy!')).catch(() => alert('Gagal copy Response Header.'));
       });
