@@ -56,24 +56,6 @@
     .axios-code { background-color: #333; padding: 10px; border-radius: 5px; margin-top: 10px; overflow-x: auto; font-family: monospace; font-size: 0.9em; color: #39ff14; border: 1px solid #39ff14; }
     .btn-primary, .btn-info, .btn-outline-info { font-family: 'Orbitron', sans-serif; border: 1px solid #39ff14; background-color: #39ff14; color: #111; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
     .btn-primary:hover, .btn-info:hover, .btn-outline-info:hover, .btn-primary:focus, .btn-info:focus, .btn-outline-info:focus { background-color: #0f0f0f; color: #00ffff; border-color: #ff00ff; box-shadow: 0 0 5px #ff00ff; }
-    #overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      color: white;
-      font-size: 1.5em;
-    }
-    #overlay p {
-      margin-top: 10px;
-    }
   </style>
 </head>
 <body>
@@ -93,8 +75,7 @@
     <div id="endpointListSection"></div>
   </main>
   <footer>
-    <p>&copy; 2025 NirKyy. API Bakal tetep aktif selama Koyeb gratis🗿🙏 |
-    Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
+    <p>&copy; 2025 NirKyy. API Bakal tetep aktif selama Koyeb gratis🗿🙏 | Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
   </footer>
   <div id="tryModal" class="modal">
     <div class="modal-dialog modal-dialog-centered">
@@ -134,10 +115,6 @@
       </div>
     </div>
   </div>
-  <div id="overlay">
-    <div class="loading"></div>
-    <p>Tunggu Jangan keluar dari halaman coy</p>
-  </div>
   <audio id="successSound" src="success.mp3" preload="auto"></audio>
   <audio id="errorSound" src="error.mp3" preload="auto"></audio>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -160,12 +137,13 @@
       const loadingIndicator = document.getElementById('loadingIndicator');
       const successSound = document.getElementById('successSound');
       const errorSound = document.getElementById('errorSound');
+      // Tombol salin terintegrasi
       const copyResponseHeader = document.getElementById('copyResponseHeader');
       const copyResponseBody = document.getElementById('copyResponseBody');
       const copyEndpointButton = document.getElementById('copyEndpointButton');
       const copyAxiosButton = document.getElementById('copyAxiosButton');
-      const overlay = document.getElementById('overlay');
       let currentEndpointData = null;
+      
       function debounce(func, wait) {
         let timeout;
         return function(...args) {
@@ -196,6 +174,7 @@
         responseBody.textContent = '';
         axiosSnippetPre.innerHTML = '<code></code>';
         finalApiUrl = '';
+        // Sembunyikan tombol salin saat buka modal
         copyResponseHeader.style.display = 'none';
         copyResponseBody.style.display = 'none';
         copyEndpointButton.style.display = 'none';
@@ -224,12 +203,12 @@
         tryModal.style.display = 'block';
       }
       window.addEventListener('click', function(event) {
-        if (event.target === tryModal) {
+        if (event.target === tryModal) { 
           tryModal.style.display = 'none';
           clearModalData();
         }
       });
-      closeButton.addEventListener('click', function() {
+      closeButton.addEventListener('click', function() { 
         tryModal.style.display = 'none';
         clearModalData();
       });
@@ -251,33 +230,29 @@
         const inputs = parameterInputsDiv.querySelectorAll('input');
         inputs.forEach(input => {
           const paramName = input.name;
-          const def = currentEndpointData.parameter.find(p =>
-            p.params === paramName);
+          const def = currentEndpointData.parameter.find(p => p.params === paramName);
           const required = (def.opsional === false);
           const defaultValue = def.example || '';
           const val = input.value.trim();
           if (val) { params[paramName] = val; } else if (!required && defaultValue) { params[paramName] = defaultValue; } else if (required && !val) { missingRequired = true; }
         });
-        if (missingRequired) {
-          alert('Harap isi semua parameter wajib.'); return; }
+        if (missingRequired) { alert('Harap isi semua parameter wajib.'); return; }
         Object.keys(params).forEach(paramName => {
           const placeholder = '{' + paramName + '}';
-          if (apiUrl.includes(placeholder)) { apiUrl = apiUrl.replace(placeholder, params[paramName]);
-            delete params[paramName]; }
+          if (apiUrl.includes(placeholder)) { apiUrl = apiUrl.replace(placeholder, params[paramName]); delete params[paramName]; }
         });
         let baseUrl = apiUrl;
         const urlObj = new URL("https://nirkyy.koyeb.app" + baseUrl);
         Object.entries(params).forEach(([k, v]) => { urlObj.searchParams.append(k, v); });
         finalApiUrl = urlObj.href;
+        // Sembunyikan tombol salin endpoint jika ada data
         if(finalApiUrl) { copyEndpointButton.style.display = 'block'; }
         loadingIndicator.style.display = 'block';
-        overlay.style.display = 'flex';
         responseHeader.textContent = '';
         responseBody.textContent = '';
         axios.get(finalApiUrl)
         .then(r => {
           loadingIndicator.style.display = 'none';
-          overlay.style.display = 'none';
           let hdr = '';
           Object.entries(r.headers).forEach(([k, v]) => { hdr += k + ': ' + v + '\n'; });
           const ctype = r.headers['content-type'] || '';
@@ -308,11 +283,13 @@
             responseBody.appendChild(vid);
           }
           else { responseBody.textContent = r.data; }
+          // Tampilkan tombol salin Response Body hanya jika bukan media
           if(responseBody.textContent.trim() !== "" && !ctype.startsWith('image/') && !ctype.startsWith('video')) {
             copyResponseBody.style.display = 'block';
           } else {
             copyResponseBody.style.display = 'none';
           }
+          // Perbarui contoh kode Axios berdasarkan tipe respon
           let axiosCode;
           if (ctype.includes('application/json')) {
             if (Object.keys(params).length > 0) {
@@ -332,7 +309,6 @@
         })
         .catch(err => {
           loadingIndicator.style.display = 'none';
-          overlay.style.display = 'none';
           errorSound.play();
           if (err.response) {
             let h = 'Status: ' + err.response.status + ' ' + err.response.statusText + '\n';
@@ -345,6 +321,7 @@
           if(responseBody.textContent.trim() !== "") { copyResponseBody.style.display = 'block'; }
         });
       });
+      // Event listener untuk tombol salin
       copyResponseHeader.addEventListener('click', function() {
         navigator.clipboard.writeText(responseHeader.textContent).then(() => alert('Response Header berhasil di-copy!')).catch(() => alert('Gagal copy Response Header.'));
       });
