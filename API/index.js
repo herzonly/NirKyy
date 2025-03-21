@@ -252,83 +252,6 @@ router.get('/alicia', async (req, res) => {
   }
 });
 
-router.get('/ytdl', async (req, res) => {
-  const link = req.query.url;
-  const format = req.query.format || '360';
-  const availableFormats = ['144', '240', '360', '480', '720', '1080', 'mp3'];
-  const headers = {
-    'accept': '*/*',
-    'content-type': 'application/json',
-    'origin': 'https://yt.savetube.me',
-    'referer': 'https://yt.savetube.me/',
-    'user-agent': 'Postify/1.0.0'
-  };
-  
-  if (!link) return res.errorJson({ error: "Linknya mana? Yakali download kagak ada linknya 🗿" });
-  try {
-    new URL(link);
-  } catch (_) {
-    return res.json({ error: "Lu masukin link apaan sih 🗿 Link Youtube aja bree, kan lu mau download youtube 👍🏻" });
-  }
-  if (!availableFormats.includes(format)) return res.json({ error: "Formatnya kagak ada bree, pilih yang udah disediain aja yak, jangan nyari yang gak ada 🗿", availableFormats });
-  
-  const patterns = [
-    /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
-    /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
-    /youtube\.com\/v\/([a-zA-Z0-9_-]{11})/,
-    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
-    /youtu\.be\/([a-zA-Z0-9_-]{11})/
-  ];
-  let id = null;
-  for (let pattern of patterns) {
-    if (pattern.test(link)) {
-      id = link.match(pattern)[1];
-      break;
-    }
-  }
-  if (!id) return res.errorJson({ error: "Kagak bisa ekstrak link youtubenya nih, btw link youtubenya yang bener yak.. biar kagak kejadian begini lagi 😂" });
-  
-  try {
-    const getCDN = await axios.get("https://media.savetube.me/api/random-cdn", { headers });
-    const cdn = getCDN.data.cdn;
-    const infoResponse = await axios.post(`https://${cdn}/v2/info`, { url: `https://www.youtube.com/watch?v=${id}` }, { headers });
-    const encData = infoResponse.data.data;
-    
-    const secretKey = Buffer.from("C5D58EF67A7584E4A29F6C35BBC4EB12", "hex");
-    const bufferData = Buffer.from(encData, "base64");
-    const iv = bufferData.slice(0, 16);
-    const content = bufferData.slice(16);
-    const decipher = crypto.createDecipheriv("aes-128-cbc", secretKey, iv);
-    let decrypted = decipher.update(content);
-    decrypted = Buffer.concat([decrypted, decipher.final()]);
-    const videoInfo = JSON.parse(decrypted.toString());
-    
-    const downloadResponse = await axios.post(`https://${cdn}/download`, {
-      id,
-      downloadType: format === 'mp3' ? 'audio' : 'video',
-      quality: format === 'mp3' ? '128' : format,
-      key: videoInfo.key
-    }, { headers });
-    
-    return res.json({
-      success: true,
-      title: videoInfo.title || "Gak tau 🤷🏻",
-      type: format === 'mp3' ? 'audio' : 'video',
-      format: format,
-      thumbnail: videoInfo.thumbnail || `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
-      download: downloadResponse.data.data.downloadUrl,
-      id: id,
-      key: videoInfo.key,
-      duration: videoInfo.duration,
-      quality: format === 'mp3' ? '128' : format,
-      downloaded: downloadResponse.data.data.downloaded || false
-    });
-    
-  } catch (error) {
-    return res.errorJson({ error: error.message });
-  }
-});
-
 router.get('/memegen', async (req, res) => {
   const { text_atas, text_bawah, background } = req.query;
   let url = 'https://api.memegen.link/images/custom';
@@ -413,7 +336,29 @@ router.get('/savetube', async (req, res) => {
   if (!url) return res.errorJson("Masukkan parameter url");
   if (!format) return res.errorJson("Masukkan parameter format");
   try {
-    const response = await axios.get(`https://pursky.vercel.app/api/ytdl?url=${url}?si=HJ1GvDr8o1dNUKcB&format=${format}`);
+    const response = await axios.get(`https://pursky.vercel.app/api/ytdl?url=${url}&si=HJ1GvDr8o1dNUKcB&format=${format}`);
+    if (response.status !== 200) return res.errorJson("Terjadi kesalahan saat mengunduh video");
+    return res.succesJson(response.data);
+  } catch (error) {
+    return res.errorJson(error.message || "Terjadi kesalahan yang tidak diketahui");
+  }
+});
+
+router.get('/savetube', async (req, res) => {
+  const { url, format } = req.query;
+  if (!url) return res.errorJson("Masukkan parameter url");
+  if (!format) return res.errorJson("Masukkan parameter format");
+  try {
+    let response;
+    try {
+      response = await axios.get(`https://pursky.vercel.app/api/ytdl?url=${url}?si=HJ1GvDr8o1dNUKcB&format=${format}`);
+    } catch (firstError) {
+      try {
+        response = await axios.get(`https://pursky.vercel.app/api/ytdl?url=${url}?si=HJ1GvDr8o1dNUKcB&format=${format}`);
+      } catch (secondError) {
+        return res.errorJson(secondError);
+      }
+    }
     if (response.status !== 200) return res.errorJson("Terjadi kesalahan saat mengunduh video");
     return res.succesJson(response.data);
   } catch (error) {
