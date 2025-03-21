@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Remove Background",
+  "tags": ["Tools"],
+  "endpoint": "/api/v1/removebg",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://nirkyy.koyeb.app/example.jpg",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "LuminAI Chat",
   "tags": ["AI"],
   "endpoint": "/api/v1/luminai",
@@ -30,7 +42,7 @@
 },
   {
   "nama": "Sound of Text",
-  "tags": ["Maker"],
+  "tags": ["Tools"],
   "endpoint": "/api/v1/soundoftext",
   "parameter": [
     {
@@ -54,7 +66,7 @@
 },
   {
   "nama": "Speechma Text to Speech",
-  "tags": ["Maker"],
+  "tags": ["Tools"],
   "endpoint": "/api/v1/speechma",
   "parameter": [
     {
@@ -81,7 +93,7 @@
 },
   {
   "nama": "Brats Image Generator",
-  "tags": ["Maker"],
+  "tags": ["Tools"],
   "endpoint": "/api/v1/brats",
   "parameter": [
     {
@@ -197,7 +209,7 @@
 },
   {
   "nama": "Meme Generator",
-  "tags": ["Maker"],
+  "tags": ["Tools"],
   "endpoint": "/api/v1/memegen",
   "parameter": [
     {
