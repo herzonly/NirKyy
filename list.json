@@ -1,5 +1,22 @@
 [
   {
+  "nama": "LuminAI Chat",
+  "tags": ["AI"],
+  "endpoint": "/api/v1/luminai",
+  "parameter": [
+    {
+      "params": "prompt",
+      "example": "Jangan panggil aku anak sigma paman, namaku siva bukan sigma",
+      "opsional": false
+    },
+    {
+      "params": "web",
+      "example": "false",
+      "opsional": true
+    }
+  ]
+},
+  {
   "nama": "Gemini-2.0-flash",
   "tags": ["AI"],
   "endpoint": "/api/v1/gemini",
