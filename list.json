@@ -1,7 +1,7 @@
 [
   {
   "nama": "Nulis Buku",
-  "tags": ["Teks"],
+  "tags": ["Tools"],
   "endpoint": "/api/v1/nulis",
   "parameter": [
     {
