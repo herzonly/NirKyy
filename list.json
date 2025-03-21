@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Nulis Buku",
+  "tags": ["Teks"],
+  "endpoint": "/api/v1/nulis",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Anjay Alok wkakakaa",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Remove Background",
   "tags": ["Tools"],
   "endpoint": "/api/v1/removebg",
