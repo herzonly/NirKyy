@@ -13,7 +13,7 @@ const speechma = require('../lib/speechma.js')
 const imagine = require('../lib/imagine.js')
 const gemini = require('../lib/toolbaz.js')
 const luminai = require('../lib/luminai.js')
-const rmbg = require('../lib/pinterest.js')
+const rmbg = require('../lib/removebg.js')
 
 router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
