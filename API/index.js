@@ -12,6 +12,9 @@ const snapsave = require('../lib/snapsave.js')
 const speechma = require('../lib/speechma.js')
 const imagine = require('../lib/imagine.js')
 const gemini = require('../lib/toolbaz.js')
+const luminai = require('../lib/luminai.js')
+
+router.get('/luminai', luminai)
 
 router.get('/gemini',gemini)
 
