@@ -15,7 +15,7 @@ const gemini = require('../lib/toolbaz.js')
 const luminai = require('../lib/luminai.js')
 const rmbg = require('../lib/pinterest.js')
 
-rourer.get('/removebg', rmbg)
+router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
