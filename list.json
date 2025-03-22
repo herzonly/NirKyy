@@ -2,7 +2,7 @@
     {
     "nama": "Anime Search",
     "tags": ["Search"],
-    "endpoint": "/anime-search",
+    "endpoint": "/api/v1/anime-search",
     "parameter": [
       {
         "params": "q",
