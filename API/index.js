@@ -24,7 +24,7 @@ router.get('/gemini',gemini)
 router.get('/anime-search', async (req, res) => {
   const { q } = req.query;
   if (!q) {
-    return res.status(400).send('Masukkan judul anime yang ingin dicari');
+    return res.errorJson('Masukkan judul anime yang ingin dicari');
   }
 
   try {
@@ -32,7 +32,7 @@ router.get('/anime-search', async (req, res) => {
     const result = response.data.data;
 
     if (result.length === 0) {
-      return res.status(404).send('Anime tidak ditemukan.');
+      return res.errorJson('Anime tidak ditemukan.');
     }
 
     const anime = result[0];
@@ -45,7 +45,7 @@ router.get('/anime-search', async (req, res) => {
     const genres = anime.genres.map(genre => genre.name).join(', ');
     const themes = anime.themes.map(theme => theme.name).join(', ');
 
-    res.json({
+    res.succesJson({
       thumbnail: anime.images.jpg.image_url,
       title: anime.title,
       genre: genres,
@@ -56,7 +56,7 @@ router.get('/anime-search', async (req, res) => {
     });
   } catch (error) {
     console.error('Error searching for anime:', error);
-    res.status(500).send('Terjadi kesalahan saat mencari anime.');
+    res.errorJson('Terjadi kesalahan saat mencari anime.');
   }
 });
 
@@ -155,7 +155,7 @@ router.get('/deepseek', async (req, res) => {
     res.succesJson(response.data);
   } catch (error) {
     console.error('Error calling Deepinfra API:', error);
-    res.errorJsonjson({ error: 'Failed to process the request' });
+    res.errorJson({ error: 'Failed to process the request' });
   }
 });
 
