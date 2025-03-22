@@ -1,5 +1,22 @@
 [
   {
+  "nama": "Cek Kecocokan",
+  "tags": ["Fun"],
+  "endpoint": "/api/v1/kecocokan",
+  "parameter": [
+    {
+      "params": "nama1",
+      "example": "Ricky",
+      "opsional": false
+    },
+    {
+      "params": "nama2",
+      "example": "Nirsa",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Upscale Image",
   "tags": ["Tools"],
   "endpoint": "/api/v1/upscale",

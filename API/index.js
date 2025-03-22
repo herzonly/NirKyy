@@ -22,6 +22,20 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
+router.get('/kecocokan', async (req, res) => {
+  const { nama1, nama2 } = req.query;
+  try {
+    const response = await axios.get(`https://express-vercel-ytdl.vercel.app/kecocokan?nama1=${nama1}&nama2=${nama2}`, {
+      responseType: 'arraybuffer'
+    });
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.send(response.data);
+  } catch (error) {
+    console.error('Error fetching image:', error);
+    res.errorJson('Failed to fetch image');
+  }
+});
+
 router.get('/anime-search', async (req, res) => {
   const { q } = req.query;
   if (!q) {
