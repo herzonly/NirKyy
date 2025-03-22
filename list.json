@@ -1,4 +1,16 @@
 [
+    {
+    "nama": "Anime Search",
+    "tags": ["Search"],
+    "endpoint": "/anime-search",
+    "parameter": [
+      {
+        "params": "q",
+        "example": "Solo leveling",
+        "opsional": false
+      }
+    ]
+  },
   {
   "nama": "Nulis Buku",
   "tags": ["Tools"],
