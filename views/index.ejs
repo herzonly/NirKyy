@@ -82,7 +82,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Coba Endpoint</h5>
-          <button type="button" class="close text-light" id="closeButton">&times;</button>
+          <button type="button" class="close text-light" id="closeButton">×</button>
         </div>
         <div class="modal-body">
           <div id="parameterInputs"></div>
@@ -200,14 +200,16 @@
         tryModal.style.display = 'block';
       }
       window.addEventListener('click', function(event) {
-        if (event.target === tryModal) { 
+        if (event.target === tryModal && loadingIndicator.style.display !== 'block') {
           tryModal.style.display = 'none';
           clearModalData();
         }
       });
-      closeButton.addEventListener('click', function() { 
-        tryModal.style.display = 'none';
-        clearModalData();
+      closeButton.addEventListener('click', function() {
+        if (loadingIndicator.style.display !== 'block') {
+          tryModal.style.display = 'none';
+          clearModalData();
+        }
       });
       function clearModalData() {
         responseHeader.textContent = '';
@@ -220,7 +222,10 @@
         copyAxiosButton.style.display = 'none';
       }
       runButton.addEventListener('click', function() {
+        if (loadingIndicator.style.display === 'block') return;
         if (!currentEndpointData) return;
+        runButton.disabled = true;
+        closeButton.disabled = true;
         let apiUrl = currentEndpointData.endpoint;
         const params = {};
         let missingRequired = false;
@@ -233,7 +238,7 @@
           const val = input.value.trim();
           if (val) { params[paramName] = val; } else if (!required && defaultValue) { params[paramName] = defaultValue; } else if (required && !val) { missingRequired = true; }
         });
-        if (missingRequired) { alert('Harap isi semua parameter wajib.'); return; }
+        if (missingRequired) { alert('Harap isi semua parameter wajib.'); runButton.disabled = false; closeButton.disabled = false; return; }
         Object.keys(params).forEach(paramName => {
           const placeholder = '{' + paramName + '}';
           if (apiUrl.includes(placeholder)) { apiUrl = apiUrl.replace(placeholder, params[paramName]); delete params[paramName]; }
@@ -253,24 +258,19 @@
           Object.entries(r.headers).forEach(([k, v]) => { hdr += k + ': ' + v + '\n'; });
           const ctype = r.headers['content-type'] || '';
           if (r.status >= 200 && r.status < 300) {
-            if (r.data && r.data.success === false) { errorSound.play(); responseHeader.textContent = hdr; responseBody.textContent = JSON.stringify(r.data, null, 2); return; }
+            if (r.data && r.data.success === false) { errorSound.play(); responseHeader.textContent = hdr; responseBody.textContent = JSON.stringify(r.data, null, 2); }
             else { successSound.play(); }
           } else { errorSound.play(); }
           responseHeader.textContent = hdr;
           if(hdr.trim() !== "") { copyResponseHeader.style.display = 'block'; }
-          if (ctype.includes('application/json')) {
-            responseBody.textContent = JSON.stringify(r.data, null, 2);
-          }
+          if (ctype.includes('application/json')) { responseBody.textContent = JSON.stringify(r.data, null, 2); }
           else if (ctype.startsWith('image/')) {
             responseBody.textContent = 'memuat...';
             const img = document.createElement('img');
             img.src = r.config.url;
             img.style.maxWidth = '100%';
             img.style.height = 'auto';
-            img.onload = function() {
-              responseBody.innerHTML = '';
-              responseBody.appendChild(img);
-            };
+            img.onload = function() { responseBody.innerHTML = ''; responseBody.appendChild(img); };
           }
           else if (ctype.startsWith('video/')) {
             responseBody.textContent = 'memuat...';
@@ -279,17 +279,11 @@
             vid.controls = true;
             vid.style.maxWidth = '100%';
             vid.style.height = 'auto';
-            vid.onloadeddata = function() {
-              responseBody.innerHTML = '';
-              responseBody.appendChild(vid);
-            };
+            vid.onloadeddata = function() { responseBody.innerHTML = ''; responseBody.appendChild(vid); };
           }
           else { responseBody.textContent = r.data; }
-          if(responseBody.textContent.trim() !== "" && !ctype.startsWith('image/') && !ctype.startsWith('video')) {
-            copyResponseBody.style.display = 'block';
-          } else {
-            copyResponseBody.style.display = 'none';
-          }
+          if(responseBody.textContent.trim() !== "" && !ctype.startsWith('image/') && !ctype.startsWith('video')) { copyResponseBody.style.display = 'block'; }
+          else { copyResponseBody.style.display = 'none'; }
           let axiosCode;
           if (ctype.includes('application/json')) {
             if (Object.keys(params).length > 0) {
@@ -306,6 +300,8 @@
           }
           axiosSnippetPre.innerHTML = '<code>' + axiosCode + '</code>';
           copyAxiosButton.style.display = 'block';
+          runButton.disabled = false;
+          closeButton.disabled = false;
         })
         .catch(err => {
           loadingIndicator.style.display = 'none';
@@ -319,6 +315,8 @@
           } else { responseHeader.textContent = 'Error: No response'; responseBody.textContent = err.message; }
           if(responseHeader.textContent.trim() !== "") { copyResponseHeader.style.display = 'block'; }
           if(responseBody.textContent.trim() !== "") { copyResponseBody.style.display = 'block'; }
+          runButton.disabled = false;
+          closeButton.disabled = false;
         });
       });
       copyResponseHeader.addEventListener('click', function() {
