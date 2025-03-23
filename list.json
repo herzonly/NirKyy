@@ -1,5 +1,16 @@
 [
   {
+  "endpoint": "/api/v1/gpt-4o-latest",
+  "tags": ["AI"],
+  "parameter": [
+    {
+      "params": "prompt",
+      "example": "Aku kenapa Suka kamu hehe",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Cek Kecocokan",
   "tags": ["Fun"],
   "endpoint": "/api/v1/kecocokan",
