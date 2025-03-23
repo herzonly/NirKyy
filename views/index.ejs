@@ -137,13 +137,11 @@
       const loadingIndicator = document.getElementById('loadingIndicator');
       const successSound = document.getElementById('successSound');
       const errorSound = document.getElementById('errorSound');
-      // Tombol salin terintegrasi
       const copyResponseHeader = document.getElementById('copyResponseHeader');
       const copyResponseBody = document.getElementById('copyResponseBody');
       const copyEndpointButton = document.getElementById('copyEndpointButton');
       const copyAxiosButton = document.getElementById('copyAxiosButton');
       let currentEndpointData = null;
-      
       function debounce(func, wait) {
         let timeout;
         return function(...args) {
@@ -174,7 +172,6 @@
         responseBody.textContent = '';
         axiosSnippetPre.innerHTML = '<code></code>';
         finalApiUrl = '';
-        // Sembunyikan tombol salin saat buka modal
         copyResponseHeader.style.display = 'none';
         copyResponseBody.style.display = 'none';
         copyEndpointButton.style.display = 'none';
@@ -245,7 +242,6 @@
         const urlObj = new URL("https://nirkyy.koyeb.app" + baseUrl);
         Object.entries(params).forEach(([k, v]) => { urlObj.searchParams.append(k, v); });
         finalApiUrl = urlObj.href;
-        // Sembunyikan tombol salin endpoint jika ada data
         if(finalApiUrl) { copyEndpointButton.style.display = 'block'; }
         loadingIndicator.style.display = 'block';
         responseHeader.textContent = '';
@@ -266,30 +262,34 @@
             responseBody.textContent = JSON.stringify(r.data, null, 2);
           }
           else if (ctype.startsWith('image/')) {
-            responseBody.innerHTML = '';
+            responseBody.textContent = 'memuat...';
             const img = document.createElement('img');
             img.src = r.config.url;
             img.style.maxWidth = '100%';
             img.style.height = 'auto';
-            responseBody.appendChild(img);
+            img.onload = function() {
+              responseBody.innerHTML = '';
+              responseBody.appendChild(img);
+            };
           }
           else if (ctype.startsWith('video/')) {
-            responseBody.innerHTML = '';
+            responseBody.textContent = 'memuat...';
             const vid = document.createElement('video');
             vid.src = r.config.url;
             vid.controls = true;
             vid.style.maxWidth = '100%';
             vid.style.height = 'auto';
-            responseBody.appendChild(vid);
+            vid.onloadeddata = function() {
+              responseBody.innerHTML = '';
+              responseBody.appendChild(vid);
+            };
           }
           else { responseBody.textContent = r.data; }
-          // Tampilkan tombol salin Response Body hanya jika bukan media
           if(responseBody.textContent.trim() !== "" && !ctype.startsWith('image/') && !ctype.startsWith('video')) {
             copyResponseBody.style.display = 'block';
           } else {
             copyResponseBody.style.display = 'none';
           }
-          // Perbarui contoh kode Axios berdasarkan tipe respon
           let axiosCode;
           if (ctype.includes('application/json')) {
             if (Object.keys(params).length > 0) {
@@ -321,7 +321,6 @@
           if(responseBody.textContent.trim() !== "") { copyResponseBody.style.display = 'block'; }
         });
       });
-      // Event listener untuk tombol salin
       copyResponseHeader.addEventListener('click', function() {
         navigator.clipboard.writeText(responseHeader.textContent).then(() => alert('Response Header berhasil di-copy!')).catch(() => alert('Gagal copy Response Header.'));
       });
