@@ -390,19 +390,6 @@ router.get('/savetube', async (req, res) => {
   if (!url) return res.errorJson("Masukkan parameter url");
   if (!format) return res.errorJson("Masukkan parameter format");
   try {
-    const response = await axios.get(`https://pursky.vercel.app/api/ytdl?url=${url}&si=HJ1GvDr8o1dNUKcB&format=${format}`);
-    if (response.status !== 200) return res.errorJson("Terjadi kesalahan saat mengunduh video");
-    return res.succesJson(response.data);
-  } catch (error) {
-    return res.errorJson(error.message || "Terjadi kesalahan yang tidak diketahui");
-  }
-});
-
-router.get('/savetube', async (req, res) => {
-  const { url, format } = req.query;
-  if (!url) return res.errorJson("Masukkan parameter url");
-  if (!format) return res.errorJson("Masukkan parameter format");
-  try {
     let response;
     try {
       response = await axios.get(`https://pursky.vercel.app/api/ytdl?url=${url}?si=HJ1GvDr8o1dNUKcB&format=${format}`);
