@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Jadwal TV",
+  "tags": ["Tools"],
+  "endpoint": "/api/v1/jadwaltv",
+  "parameter": [
+    {
+      "params": "channel",
+      "example": "Antv",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "GPT-4o Latest",
   "tags": ["AI"],
   "endpoint": "/api/v1/gpt-4o-latest",
