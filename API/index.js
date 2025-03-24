@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const { alldown } = require('alldown');
+const cheerio = require('cheerio');
 const { handleTextQuery } = require('../lib/ai.js');
 const { pin } = require('../lib/pinterest.js');
 const { jadwal } = require('../lib/animeJadwal.js');
@@ -17,15 +18,60 @@ const rmbg = require('../lib/removebg.js')
 const nulis = require('../lib/nulis.js')
 const upscale = require('../lib/upscale.js')
 const chatgpt = require('../lib/chatgpt.js')
-const jadwaltv = require('../lib/jadwaltv.js')
 
-router.get('/jadwaltv', jadwaltv)
 router.get('/gpt-4o-latest', chatgpt)
 router.get('/upscale', upscale)
 router.get('/nulis', nulis)
 router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
+
+router.get('/jadwaltv', async (req, res) => {
+  const channel = req.query.channel ? req.query.channel.toLowerCase().trim() : '';
+  if (!channel) {
+    return res.status(400).json({ error: 'Channel parameter is required' });
+  }
+
+  const url = `https://www.jadwaltv.net/channel/${channel}`;
+  try {
+    const { data: html } = await axios.get(url);
+    const $ = cheerio.load(html);
+    const result = [];
+    $('tr.jklIv').each((i, el) => {
+      const time = $(el).find('td').first().text().trim();
+      const program = $(el).find('td').last().text().trim();
+      result.push({ time, program });
+    });
+    res.succesJson(result);
+  } catch (err) {
+    res.errorJson({ error: err.toString() });
+  }
+});
+
+router.get('/tangga-lagu', async (req, res) => {
+    try {
+        const { data } = await axios.get('https://www.jadwaltv.net/tangga-lagu-youtube-tangga-lagu-indonesia-terbaru');
+        const $ = cheerio.load(data);
+        const songs = [];
+
+        $('tr').each((_, el) => {
+            const rank = $(el).find('td:nth-child(1)').text().trim();
+            const img = $(el).find('td:nth-child(2) img').attr('data-src') || $(el).find('td:nth-child(2) img').attr('src');
+            const title = $(el).find('td:nth-child(3) strong').text().trim();
+            const artist = $(el).find('td:nth-child(3) span').text().trim();
+            const youtube = $(el).find('td:nth-child(4) a').attr('href');
+            const spotify = $(el).find('td:nth-child(5) a').attr('href');
+
+            if (rank && title && img.startsWith('http')) {
+                songs.push({ rank, img, title, artist, youtube, spotify });
+            }
+        });
+
+        res.succesJson(songs);
+    } catch (error) {
+        res.errorJson({ error: 'Failed to fetch data' });
+    }
+});
 
 router.get('/kecocokan', async (req, res) => {
   const { nama1, nama2 } = req.query;

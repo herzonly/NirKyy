@@ -1,60 +1,66 @@
 [
   {
-  "nama": "Jadwal TV",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/jadwaltv",
-  "parameter": [
-    {
-      "params": "channel",
-      "example": "Antv",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Tangga Lagu",
+    "tags": ["Info"],
+    "endpoint": "/api/v1/tangga-lagu",
+    "parameter": []
+  },
   {
-  "nama": "GPT-4o Latest",
-  "tags": ["AI"],
-  "endpoint": "/api/v1/gpt-4o-latest",
-  "parameter": [
-    {
-      "params": "prompt",
-      "example": "Aku cinta AI aku sayang AI",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Jadwal TV",
+    "tags": ["Info"],
+    "endpoint": "/api/v1/jadwaltv",
+    "parameter": [
+      {
+        "params": "channel",
+        "example": "Antv",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Cek Kecocokan",
-  "tags": ["Fun"],
-  "endpoint": "/api/v1/kecocokan",
-  "parameter": [
-    {
-      "params": "nama1",
-      "example": "Ricky",
-      "opsional": false
-    },
-    {
-      "params": "nama2",
-      "example": "Nirsa",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "GPT-4o Latest",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/gpt-4o-latest",
+    "parameter": [
+      {
+        "params": "prompt",
+        "example": "Aku cinta AI aku sayang AI",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Upscale Image",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/upscale",
-  "parameter": [
-    {
-      "params": "url",
-      "example": "https://nirkyy.koyeb.app/example.jpg",
-      "opsional": false
-    }
-  ]
-},
-    {
+    "nama": "Cek Kecocokan",
+    "tags": ["Fun"],
+    "endpoint": "/api/v1/kecocokan",
+    "parameter": [
+      {
+        "params": "nama1",
+        "example": "Ricky",
+        "opsional": false
+      },
+      {
+        "params": "nama2",
+        "example": "Nirsa",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Upscale Image",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/upscale",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://nirkyy.koyeb.app/example.jpg",
+        "opsional": false
+      }
+    ]
+  },
+  {
     "nama": "Anime Search",
-    "tags": ["Search"],
+    "tags": ["Tools"],
     "endpoint": "/api/v1/anime-search",
     "parameter": [
       {
@@ -65,249 +71,249 @@
     ]
   },
   {
-  "nama": "Nulis Buku",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/nulis",
-  "parameter": [
-    {
-      "params": "text",
-      "example": "Anjay Alok wkakakaa",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Nulis Buku",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/nulis",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Anjay Alok wkakakaa",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Remove Background",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/removebg",
-  "parameter": [
-    {
-      "params": "url",
-      "example": "https://nirkyy.koyeb.app/example.jpg",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Remove Background",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/removebg",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://nirkyy.koyeb.app/example.jpg",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "LuminAI Chat",
-  "tags": ["AI"],
-  "endpoint": "/api/v1/luminai",
-  "parameter": [
-    {
-      "params": "prompt",
-      "example": "Jangan panggil aku anak sigma paman, namaku siva bukan sigma",
-      "opsional": false
-    },
-    {
-      "params": "web",
-      "example": "true",
-      "opsional": true
-    }
-  ]
-},
+    "nama": "LuminAI Chat",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/luminai",
+    "parameter": [
+      {
+        "params": "prompt",
+        "example": "Jangan panggil aku anak sigma paman, namaku siva bukan sigma",
+        "opsional": false
+      },
+      {
+        "params": "web",
+        "example": "true",
+        "opsional": true
+      }
+    ]
+  },
   {
-  "nama": "Gemini-2.0-flash",
-  "tags": ["AI"],
-  "endpoint": "/api/v1/gemini",
-  "parameter": [
-    {
-      "params": "prompt",
-      "example": "Sebutkan ciri ciri kedewasaan bagi pria",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Gemini-2.0-flash",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/gemini",
+    "parameter": [
+      {
+        "params": "prompt",
+        "example": "Sebutkan ciri ciri kedewasaan bagi pria",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Sound of Text",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/soundoftext",
-  "parameter": [
-    {
-      "params": "text",
-      "example": "Gak bahaya tah?",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Sound of Text",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/soundoftext",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Gak bahaya tah?",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "DeepSeek-R1",
-  "tags": ["AI"],
-  "endpoint": "/api/v1/deepseek",
-  "parameter": [
-    {
-      "params": "query",
-      "example": "Ihh lu siapa sih",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "DeepSeek-R1",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/deepseek",
+    "parameter": [
+      {
+        "params": "query",
+        "example": "Ihh lu siapa sih",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Speechma Text to Speech",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/speechma",
-  "parameter": [
-    {
-      "params": "text",
-      "example": "Hallo semuanya, apa kabar?!",
-      "opsional": false
-    },
-    {
-      "params": "voice",
-      "example": "voice-110",
-      "opsional": true
-    },
-    {
-      "params": "pitch",
-      "example": 0,
-      "opsional": true
-    },
-    {
-      "params": "rate",
-      "example": 0,
-      "opsional": true
-    }
-  ]
-},
+    "nama": "Speechma Text to Speech",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/speechma",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Hallo semuanya, apa kabar?!",
+        "opsional": false
+      },
+      {
+        "params": "voice",
+        "example": "voice-110",
+        "opsional": true
+      },
+      {
+        "params": "pitch",
+        "example": 0,
+        "opsional": true
+      },
+      {
+        "params": "rate",
+        "example": 0,
+        "opsional": true
+      }
+    ]
+  },
   {
-  "nama": "Brats Image Generator",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/brats",
-  "parameter": [
-    {
-      "params": "host",
-      "example": "1",
-      "opsional": false
-    },
-    {
-      "params": "text",
-      "example": "Ishh ape bende tuhh",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Brats Image Generator",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/brats",
+    "parameter": [
+      {
+        "params": "host",
+        "example": "1",
+        "opsional": false
+      },
+      {
+        "params": "text",
+        "example": "Ishh ape bende tuhh",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Arti Nama (Image)",
-  "tags": ["Fun"],
-  "endpoint": "/api/v1/artinama",
-  "parameter": [
-    {
-      "params": "nama",
-      "example": "PurPur",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Arti Nama (Image)",
+    "tags": ["Fun"],
+    "endpoint": "/api/v1/artinama",
+    "parameter": [
+      {
+        "params": "nama",
+        "example": "PurPur",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Cek Khodam (Image)",
-  "tags": ["Fun"],
-  "endpoint": "/api/v1/khodam",
-  "parameter": [
-    {
-      "params": "nama",
-      "example": "PurPur",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Cek Khodam (Image)",
+    "tags": ["Fun"],
+    "endpoint": "/api/v1/khodam",
+    "parameter": [
+      {
+        "params": "nama",
+        "example": "PurPur",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Snapsave (Ig, tiktok, FB)",
-  "tags": ["Downloader"],
-  "endpoint": "/api/v1/snapsave",
-  "parameter": [
-    {
-      "params": "url",
-      "example": "https://www.instagram.com/reel/DG7I2Ezz2sy/?igsh=MTFoN2Z1MDJpeGNj",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Snapsave (Ig, tiktok, FB)",
+    "tags": ["Downloader"],
+    "endpoint": "/api/v1/snapsave",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://www.instagram.com/reel/DG7I2Ezz2sy/?igsh=MTFoN2Z1MDJpeGNj",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Imagine",
-  "tags": ["AI"],
-  "endpoint": "/api/v1/imagine",
-  "parameter": [
-    {
-      "params": "prompt",
-      "example": "Vast rice fields with flowing rivers",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Imagine",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/imagine",
+    "parameter": [
+      {
+        "params": "prompt",
+        "example": "Vast rice fields with flowing rivers",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "SimiSimi Chat",
-  "tags": ["Fun"],
-  "endpoint": "/api/v1/simsimi",
-  "parameter": [
-    {
-      "params": "msg",
-      "example": "Halo Simi!",
-      "opsional": false
-    },
-    {
-      "params": "lang",
-      "example": "id",
-      "opsional": true
-    }
-  ]
-},
-{
-  "nama": "AI generator Query",
-  "tags": ["AI"],
-  "endpoint": "/api/v1/generate-query",
-  "parameter": [
-    {
-      "params": "user",
-      "example": "pengguna123",
-      "opsional": false
-    },
-    {
-      "params": "msg",
-      "example": "tolong Carikan gambar burung",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "SimiSimi Chat",
+    "tags": ["Fun"],
+    "endpoint": "/api/v1/simsimi",
+    "parameter": [
+      {
+        "params": "msg",
+        "example": "Halo Simi!",
+        "opsional": false
+      },
+      {
+        "params": "lang",
+        "example": "id",
+        "opsional": true
+      }
+    ]
+  },
   {
-  "nama": "Unlimited Chat Alicia AI",
-  "tags": ["AI"],
-  "endpoint": "/api/v1/alicia",
-  "parameter": [
-    {
-      "params": "user",
-      "example": "pengguna123",
-      "opsional": false
-    },
-    {
-      "params": "msg",
-      "example": "Halo Alicia!",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "AI generator Query",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/generate-query",
+    "parameter": [
+      {
+        "params": "user",
+        "example": "pengguna123",
+        "opsional": false
+      },
+      {
+        "params": "msg",
+        "example": "tolong Carikan gambar burung",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Meme Generator",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/memegen",
-  "parameter": [
-    {
-      "params": "text_atas",
-      "example": null,
-      "opsional": true
-    },
-    {
-      "params": "text_bawah",
-      "example": null,
-      "opsional": true
-    },
-    {
-      "params": "background",
-      "example": "https://nirkyy.koyeb.app/example.jpg",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Unlimited Chat Alicia AI",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/alicia",
+    "parameter": [
+      {
+        "params": "user",
+        "example": "pengguna123",
+        "opsional": false
+      },
+      {
+        "params": "msg",
+        "example": "Halo Alicia!",
+        "opsional": false
+      }
+    ]
+  },
   {
-    "nama":"Random Susun Kata",
+    "nama": "Meme Generator",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/memegen",
+    "parameter": [
+      {
+        "params": "text_atas",
+        "example": null,
+        "opsional": true
+      },
+      {
+        "params": "text_bawah",
+        "example": null,
+        "opsional": true
+      },
+      {
+        "params": "background",
+        "example": "https://nirkyy.koyeb.app/example.jpg",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Random Susun Kata",
     "tags": ["Fun"],
     "endpoint": "/api/v1/susunkata",
     "parameter": []
@@ -355,7 +361,7 @@
   },
   {
     "nama": "Pinterest Search",
-    "tags": ["Search"],
+    "tags": ["Tools"],
     "endpoint": "/api/v1/pin",
     "parameter": [
       {
