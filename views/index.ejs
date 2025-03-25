@@ -26,18 +26,31 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* Variabel CSS untuk tema */
+    :root {
+      --bg-color: #f5f5f5;
+      --text-color: #333;
+      --accent-color: #007bff;
+      --border-color: #ddd;
+    }
+    .dark-theme {
+      --bg-color: #111;
+      --text-color: #ccc;
+      --accent-color: #00aced;
+      --border-color: #444;
+    }
     body {
       font-family: 'Orbitron', sans-serif;
-      background-color: #111;
-      color: #39ff14;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       margin: 0;
       padding: 0;
       overflow-x: hidden;
     }
     header {
-      background-color: #222;
+      background-color: var(--bg-color);
       padding: 10px 20px;
-      border-bottom: 2px solid #00ffff;
+      border-bottom: 2px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -55,7 +68,15 @@
       font-size: 1.5rem;
       margin: 0;
     }
-    /* Container lebih lebar */
+    /* Tombol toggle tema */
+    #themeToggle {
+      background-color: transparent;
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
     main.container-fluid {
       padding: 20px 40px;
     }
@@ -66,9 +87,9 @@
     }
     .search-container input[type="text"] {
       padding: 10px 35px 10px 10px;
-      border: 2px solid #39ff14;
-      background-color: #333;
-      color: #fff;
+      border: 2px solid var(--accent-color);
+      background-color: var(--bg-color);
+      color: var(--text-color);
       border-radius: 5px;
       width: 100%;
       max-width: 600px;
@@ -76,65 +97,60 @@
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .search-container input[type="text"]:focus {
-      border-color: #00ffff;
-      box-shadow: 0 0 8px #00ffff;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 8px var(--accent-color);
       outline: none;
     }
-    /* Hamburger Dropdown untuk Tags */
     .dropdown {
       margin: 10px 0;
     }
     .dropdown-toggle {
-      background-color: #222;
-      color: #39ff14;
-      border: 1px solid #39ff14;
+      background-color: var(--bg-color);
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
       padding: 8px 12px;
       border-radius: 5px;
     }
     .dropdown-menu {
-      background-color: #1a1a1a;
-      border: 1px solid #39ff14;
+      background-color: var(--bg-color);
+      border: 1px solid var(--accent-color);
     }
     .dropdown-item {
-      color: #39ff14;
+      color: var(--accent-color);
       padding: 8px 12px;
     }
     .dropdown-item:hover {
-      background-color: #333;
+      background-color: var(--border-color);
     }
     #endpointListSection .card {
-      border: 1px solid #39ff14;
-      background-color: #1a1a1a;
-      color: #39ff14;
+      border: 1px solid var(--accent-color);
+      background-color: var(--bg-color);
+      color: var(--text-color);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       margin-bottom: 15px;
-      animation: cardFadeIn 0.5s ease-out forwards;
-    }
-    @keyframes cardFadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
     }
     #endpointListSection .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 0 15px #00ffff;
+      box-shadow: 0 0 15px var(--accent-color);
     }
     .card-header {
-      background-color: #0f0f0f;
-      color: #00ffff;
-      border-bottom: 1px solid #00ffff;
+      background-color: var(--border-color);
+      color: var(--accent-color);
+      border-bottom: 1px solid var(--accent-color);
     }
     .card-body {
       padding: 1.5rem;
     }
     pre {
       white-space: pre-wrap;
-      background-color: #333;
-      border: 1px solid #39ff14;
+      background-color: var(--border-color);
+      border: 1px solid var(--accent-color);
       padding: 10px;
       border-radius: 5px;
       overflow-x: auto;
-      color: #39ff14;
+      color: var(--text-color);
     }
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -145,13 +161,11 @@
       height: 100%;
       overflow: auto;
       background-color: rgba(0,0,0,0.8);
-      animation: modalFadeIn 0.4s ease-out forwards;
     }
-    @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
     .modal-content {
-      background-color: #222;
-      color: #fff;
-      border: 1px solid #00ffff;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--accent-color);
       border-radius: 10px;
     }
     .modal-header, .modal-footer {
@@ -159,69 +173,82 @@
       border: none;
     }
     .modal-header {
-      border-bottom: 1px solid #00ffff;
+      border-bottom: 1px solid var(--accent-color);
     }
     .modal-title {
-      color: #00ffff;
+      color: var(--accent-color);
       font-weight: bold;
-      text-shadow: 0 0 5px #00ffff;
     }
     .modal-body {
       padding: 1.5rem;
     }
-    /* Loading box dengan animasi titik */
-    .loading {
-      font-size: 1em;
-      color: #fff;
-      background-color: #333;
-      padding: 10px;
-      border: 1px solid #39ff14;
-      border-radius: 5px;
-      text-align: center;
-      width: 150px;
-      margin: 20px auto;
-    }
     footer {
       text-align: center;
       padding: 20px;
-      background-color: #222;
-      color: #aaa;
-      border-top: 2px solid #00ffff;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border-top: 2px solid var(--accent-color);
     }
     .axios-code {
-      background-color: #333;
+      background-color: var(--border-color);
       padding: 10px;
       border-radius: 5px;
       margin-top: 10px;
       overflow-x: auto;
       font-family: monospace;
       font-size: 0.9em;
-      color: #39ff14;
-      border: 1px solid #39ff14;
+      color: var(--text-color);
+      border: 1px solid var(--accent-color);
     }
     .btn-primary, .btn-info, .btn-outline-info {
       font-family: 'Orbitron', sans-serif;
-      border: 1px solid #39ff14;
-      background-color: #39ff14;
-      color: #111;
+      border: 1px solid var(--accent-color);
+      background-color: var(--accent-color);
+      color: var(--bg-color);
       transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
     .btn-primary:hover, .btn-info:hover, .btn-outline-info:hover,
     .btn-primary:focus, .btn-info:focus, .btn-outline-info:focus {
-      background-color: #0f0f0f;
-      color: #00ffff;
-      border-color: #ff00ff;
-      box-shadow: 0 0 5px #ff00ff;
+      background-color: var(--bg-color);
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+      box-shadow: 0 0 5px var(--accent-color);
+    }
+    /* Loading Animation dengan 2 roda gigi */
+    .loading {
+      text-align: center;
+      margin: 20px auto;
+    }
+    .gear {
+      font-size: 2.5em;
+      margin: 0 10px;
+      display: inline-block;
+    }
+    .gear1 {
+      animation: rotate-clockwise 1.5s linear infinite;
+    }
+    .gear2 {
+      animation: rotate-counterclockwise 1.5s linear infinite;
+    }
+    @keyframes rotate-clockwise {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes rotate-counterclockwise {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
     }
   </style>
 </head>
-<body>
+<body class="dark-theme">
   <header>
     <div class="header-left">
       <img src="/logo.jpg" alt="Logo NirKyy">
       <h1 class="header-title">NirKyy</h1>
     </div>
-    <!-- Menu Hamburger yang ditempatkan di kanan atas -->
+    <!-- Tombol toggle tema -->
+    <button id="themeToggle">Terang</button>
+    <!-- Menu Dropdown untuk Tags -->
     <div class="dropdown">
       <button class="btn dropdown-toggle" type="button" id="dropdownTags" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bars"></i> Tags
@@ -248,26 +275,29 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Coba Endpoint</h5>
-          <button type="button" class="close text-light" id="closeButton">×</button>
+          <button type="button" class="close" id="closeButton">×</button>
         </div>
         <div class="modal-body">
           <div id="parameterInputs"></div>
           <button id="runButton" class="btn btn-info btn-block"><i class="fas fa-play"></i> Run</button>
-          <!-- Loading box untuk API call -->
-          <div id="loadingIndicator" class="loading" style="display:none;">Memuat</div>
+          <!-- Loading Animation: 2 Roda Gigi -->
+          <div id="loadingIndicator" class="loading" style="display:none;">
+            <i class="fas fa-cog gear gear1"></i>
+            <i class="fas fa-cog gear gear2"></i>
+          </div>
           <div id="apiResponse" class="mt-3">
             <div style="position: relative;">
-              <h5 class="text-cyber">Response Header:</h5>
+              <h5>Response Header:</h5>
               <button id="copyResponseHeader" class="btn btn-link btn-sm" style="position: absolute; right: 5px; top: 5px; display: none;">Salin</button>
             </div>
-            <pre id="responseHeader" class="p-2" style="position: relative;"></pre>
+            <pre id="responseHeader" class="p-2"></pre>
             <div style="position: relative;">
-              <h5 class="text-cyber">Response Body:</h5>
+              <h5>Response Body:</h5>
               <button id="copyResponseBody" class="btn btn-link btn-sm" style="position: absolute; right: 5px; top: 5px; display: none;">Salin</button>
             </div>
-            <pre id="responseBody" class="p-2" style="position: relative;"></pre>
+            <pre id="responseBody" class="p-2"></pre>
             <div style="position: relative;">
-              <h5 class="text-cyber">Endpoint:</h5>
+              <h5>Endpoint:</h5>
               <button id="copyEndpointButton" class="btn btn-link btn-sm" style="position: absolute; right: 5px; top: 5px; display: none;">Salin</button>
             </div>
           </div>
@@ -296,7 +326,6 @@
     document.addEventListener('DOMContentLoaded', function() {
       let finalApiUrl = '';
       let isFetching = false;
-      let globalLoadingInterval;
 
       const endpointListSection = document.getElementById('endpointListSection');
       const searchEndpointInput = document.getElementById('searchEndpoint');
@@ -315,30 +344,26 @@
       const copyResponseBody = document.getElementById('copyResponseBody');
       const copyEndpointButton = document.getElementById('copyEndpointButton');
       const copyAxiosButton = document.getElementById('copyAxiosButton');
+      const themeToggle = document.getElementById('themeToggle');
       let currentEndpointData = null;
 
-      // Debounce function untuk menghindari pencarian berlebih
+      // Toggle tema antara gelap dan terang
+      themeToggle.addEventListener('click', function() {
+        document.body.classList.toggle('dark-theme');
+        if(document.body.classList.contains('dark-theme')){
+          themeToggle.textContent = 'Terang';
+        } else {
+          themeToggle.textContent = 'Gelap';
+        }
+      });
+
+      // Debounce untuk pencarian
       function debounce(func, wait) {
         let timeout;
         return function(...args) {
           clearTimeout(timeout);
           timeout = setTimeout(() => func.apply(this, args), wait);
         };
-      }
-
-      // Fungsi untuk menjalankan animasi loading pada elemen target tertentu
-      function startLoadingAnimationForElement(element) {
-        let dots = 0;
-        element.textContent = 'Memuat';
-        return setInterval(() => {
-          dots = (dots + 1) % 4;
-          element.textContent = 'Memuat' + '.'.repeat(dots);
-        }, 500);
-      }
-
-      // Fungsi untuk menghentikan animasi loading global
-      function stopGlobalLoadingAnimation() {
-        clearInterval(globalLoadingInterval);
       }
 
       function attachCardEvents() {
@@ -383,7 +408,7 @@
             label.textContent = paramName + (required ? ' (Wajib):' : ' (Opsional):');
             const input = document.createElement('input');
             input.type = 'text';
-            input.className = 'form-control bg-dark text-light';
+            input.className = 'form-control';
             input.name = paramName;
             input.placeholder = defaultValue ? 'Default: ' + defaultValue : 'Masukkan ' + paramName;
             input.value = defaultValue;
@@ -463,15 +488,13 @@
         finalApiUrl = urlObj.href;
         if(finalApiUrl) { copyEndpointButton.style.display = 'block'; }
 
-        // Tampilkan loading indicator global (bukan media)
+        // Tampilkan loading animation (2 roda gigi)
         loadingIndicator.style.display = 'block';
-        globalLoadingInterval = startLoadingAnimationForElement(loadingIndicator);
         responseHeader.textContent = '';
         responseBody.textContent = '';
 
         axios.get(finalApiUrl)
         .then(r => {
-          stopGlobalLoadingAnimation();
           loadingIndicator.style.display = 'none';
           let hdr = '';
           Object.entries(r.headers).forEach(([k, v]) => { hdr += k + ': ' + v + '\n'; });
@@ -490,46 +513,35 @@
           responseHeader.textContent = hdr;
           if(hdr.trim() !== "") { copyResponseHeader.style.display = 'block'; }
 
-          // Jika response berupa JSON, tampilkan sebagai teks
           if (ctype.includes('application/json')) {
             responseBody.textContent = JSON.stringify(r.data, null, 2);
           }
-          // Jika response berupa image
           else if (ctype.startsWith('image/')) {
-            responseBody.innerHTML = '<div class="loading" id="mediaLoading">Memuat</div>';
-            const mediaLoading = document.getElementById('mediaLoading');
-            const mediaInterval = startLoadingAnimationForElement(mediaLoading);
+            responseBody.innerHTML = '<div class="loading">Memuat gambar...</div>';
             const img = document.createElement('img');
             img.src = r.config.url;
             img.style.maxWidth = '100%';
             img.style.height = 'auto';
             img.onload = function() {
-              clearInterval(mediaInterval);
               responseBody.innerHTML = '';
               responseBody.appendChild(img);
             };
             img.onerror = function() {
-              clearInterval(mediaInterval);
               responseBody.textContent = 'Image format rusak';
             };
           }
-          // Jika response berupa video
           else if (ctype.startsWith('video/')) {
-            responseBody.innerHTML = '<div class="loading" id="mediaLoading">Memuat</div>';
-            const mediaLoading = document.getElementById('mediaLoading');
-            const mediaInterval = startLoadingAnimationForElement(mediaLoading);
+            responseBody.innerHTML = '<div class="loading">Memuat video...</div>';
             const vid = document.createElement('video');
             vid.src = r.config.url;
             vid.controls = true;
             vid.style.maxWidth = '100%';
             vid.style.height = 'auto';
             vid.onloadeddata = function() {
-              clearInterval(mediaInterval);
               responseBody.innerHTML = '';
               responseBody.appendChild(vid);
             };
             vid.onerror = function() {
-              clearInterval(mediaInterval);
               responseBody.textContent = 'Video format rusak';
             };
           }
@@ -562,7 +574,6 @@
           closeButton.disabled = false;
         })
         .catch(err => {
-          stopGlobalLoadingAnimation();
           loadingIndicator.style.display = 'none';
           errorSound.play();
           if (err.response) {
