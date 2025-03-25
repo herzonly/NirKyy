@@ -24,19 +24,34 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    /* Global Styles */
     body {
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Roboto', sans-serif;
       background-color: #111;
       color: #39ff14;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
     }
-    header {
+    a {
+      color: #39ff14;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #00ffff;
+    }
+    header, footer {
       background-color: #222;
-      padding: 10px 20px;
+    }
+    header, footer, .modal-content {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    
+    /* Header */
+    header {
+      padding: 15px 30px;
       border-bottom: 2px solid #00ffff;
       display: flex;
       align-items: center;
@@ -52,20 +67,21 @@
       margin-right: 15px;
     }
     .header-title {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffff;
     }
-    /* Container lebih lebar */
+    /* Container */
     main.container-fluid {
-      padding: 20px 40px;
+      padding: 30px 50px;
     }
     .search-container {
       margin-top: 20px;
-      position: relative;
       text-align: center;
     }
     .search-container input[type="text"] {
-      padding: 10px 35px 10px 10px;
+      padding: 12px 15px;
       border: 2px solid #39ff14;
       background-color: #333;
       color: #fff;
@@ -77,10 +93,10 @@
     }
     .search-container input[type="text"]:focus {
       border-color: #00ffff;
-      box-shadow: 0 0 8px #00ffff;
+      box-shadow: 0 0 10px #00ffff;
       outline: none;
     }
-    /* Hamburger Dropdown untuk Tags */
+    /* Dropdown Tags */
     .dropdown {
       margin: 10px 0;
     }
@@ -90,6 +106,10 @@
       border: 1px solid #39ff14;
       padding: 8px 12px;
       border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .dropdown-toggle:hover {
+      background-color: #333;
     }
     .dropdown-menu {
       background-color: #1a1a1a;
@@ -98,16 +118,19 @@
     .dropdown-item {
       color: #39ff14;
       padding: 8px 12px;
+      transition: background-color 0.2s;
     }
     .dropdown-item:hover {
       background-color: #333;
     }
+    /* Card Styles */
     #endpointListSection .card {
       border: 1px solid #39ff14;
       background-color: #1a1a1a;
       color: #39ff14;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
       margin-bottom: 15px;
+      border-radius: 5px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       animation: cardFadeIn 0.5s ease-out forwards;
     }
     @keyframes cardFadeIn {
@@ -122,6 +145,7 @@
       background-color: #0f0f0f;
       color: #00ffff;
       border-bottom: 1px solid #00ffff;
+      font-weight: 500;
     }
     .card-body {
       padding: 1.5rem;
@@ -134,7 +158,9 @@
       border-radius: 5px;
       overflow-x: auto;
       color: #39ff14;
+      margin-bottom: 0;
     }
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -164,14 +190,13 @@
     .modal-title {
       color: #00ffff;
       font-weight: bold;
-      text-shadow: 0 0 5px #00ffff;
+      font-family: 'Orbitron', sans-serif;
     }
     .modal-body {
       padding: 1.5rem;
     }
-    /* Loading box dengan animasi titik */
-    .loading {
-      display: none;
+    /* Loading Styles */
+    .loading, .media-loading {
       font-size: 1em;
       color: #fff;
       background-color: #333;
@@ -182,13 +207,7 @@
       width: 150px;
       margin: 20px auto;
     }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #222;
-      color: #aaa;
-      border-top: 2px solid #00ffff;
-    }
+    /* Axios code block */
     .axios-code {
       background-color: #333;
       padding: 10px;
@@ -200,6 +219,7 @@
       color: #39ff14;
       border: 1px solid #39ff14;
     }
+    /* Button Styles */
     .btn-primary, .btn-info, .btn-outline-info {
       font-family: 'Orbitron', sans-serif;
       border: 1px solid #39ff14;
@@ -214,6 +234,14 @@
       border-color: #ff00ff;
       box-shadow: 0 0 5px #ff00ff;
     }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+      border-top: 2px solid #00ffff;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
@@ -222,7 +250,7 @@
       <img src="/logo.jpg" alt="Logo NirKyy">
       <h1 class="header-title">NirKyy</h1>
     </div>
-    <!-- Menu Hamburger yang ditempatkan di kanan atas -->
+    <!-- Menu Hamburger untuk Tags -->
     <div class="dropdown">
       <button class="btn dropdown-toggle" type="button" id="dropdownTags" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bars"></i> Tags
@@ -235,12 +263,11 @@
   <main class="container-fluid">
     <div class="search-container">
       <input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag">
-      <i class="fas fa-search search-icon"></i>
     </div>
     <div id="endpointListSection"></div>
   </main>
   <footer>
-    <p>&copy; 2025 NirKyy. API Bakal tetep aktif selama Koyeb gratis🗿🙏 | Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
+    <p>&copy; 2025 NirKyy. API Bakal tetap aktif selama Koyeb gratis🗿🙏 | Join Saluran <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p>
   </footer>
   
   <!-- Modal Try Endpoint -->
@@ -261,12 +288,12 @@
               <h5 class="text-cyber">Response Header:</h5>
               <button id="copyResponseHeader" class="btn btn-link btn-sm" style="position: absolute; right: 5px; top: 5px; display: none;">Salin</button>
             </div>
-            <pre id="responseHeader" class="p-2" style="position: relative;"></pre>
+            <pre id="responseHeader" class="p-2"></pre>
             <div style="position: relative;">
               <h5 class="text-cyber">Response Body:</h5>
               <button id="copyResponseBody" class="btn btn-link btn-sm" style="position: absolute; right: 5px; top: 5px; display: none;">Salin</button>
             </div>
-            <pre id="responseBody" class="p-2" style="position: relative;"></pre>
+            <pre id="responseBody" class="p-2"></pre>
             <div style="position: relative;">
               <h5 class="text-cyber">Endpoint:</h5>
               <button id="copyEndpointButton" class="btn btn-link btn-sm" style="position: absolute; right: 5px; top: 5px; display: none;">Salin</button>
@@ -327,12 +354,12 @@
       }
       
       // Animasi loading teks "Memuat..."
-      function startLoadingAnimation() {
+      function startLoadingAnimation(el) {
         let dots = 0;
-        loadingIndicator.textContent = 'Memuat';
+        el.textContent = 'Memuat';
         loadingInterval = setInterval(() => {
           dots = (dots + 1) % 4;
-          loadingIndicator.textContent = 'Memuat' + '.'.repeat(dots);
+          el.textContent = 'Memuat' + '.'.repeat(dots);
         }, 500);
       }
       
@@ -463,7 +490,7 @@
         if(finalApiUrl) { copyEndpointButton.style.display = 'block'; }
         
         loadingIndicator.style.display = 'block';
-        startLoadingAnimation();
+        startLoadingAnimation(loadingIndicator);
         responseHeader.textContent = '';
         responseBody.textContent = '';
         
@@ -492,38 +519,33 @@
             responseBody.textContent = JSON.stringify(r.data, null, 2);
           }
           else if (ctype.startsWith('image/')) {
-            responseBody.innerHTML = '<div class="loading" id="mediaLoading">Memuat</div>';
-            startLoadingAnimation();
+            // Tampilkan loading khusus untuk media di response body
+            responseBody.innerHTML = '<div class="media-loading">Memuat media...</div>';
             const img = document.createElement('img');
             img.src = r.config.url;
             img.style.maxWidth = '100%';
             img.style.height = 'auto';
             img.onload = function() {
-              stopLoadingAnimation();
               responseBody.innerHTML = '';
               responseBody.appendChild(img);
             };
             img.onerror = function() {
-              stopLoadingAnimation();
-              responseBody.textContent = 'Image format rusak';
+              responseBody.innerHTML = 'Image format rusak';
             };
           }
           else if (ctype.startsWith('video/')) {
-            responseBody.innerHTML = '<div class="loading" id="mediaLoading">Memuat</div>';
-            startLoadingAnimation();
+            responseBody.innerHTML = '<div class="media-loading">Memuat media...</div>';
             const vid = document.createElement('video');
             vid.src = r.config.url;
             vid.controls = true;
             vid.style.maxWidth = '100%';
             vid.style.height = 'auto';
             vid.onloadeddata = function() {
-              stopLoadingAnimation();
               responseBody.innerHTML = '';
               responseBody.appendChild(vid);
             };
             vid.onerror = function() {
-              stopLoadingAnimation();
-              responseBody.textContent = 'Video format rusak';
+              responseBody.innerHTML = 'Video format rusak';
             };
           }
           else {
