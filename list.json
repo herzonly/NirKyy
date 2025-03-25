@@ -1,5 +1,22 @@
 [
   {
+  "nama": "Gemini Translate",
+  "tags": ["AI"],
+  "endpoint": "/api/v1/gemini-translate",
+  "parameter": [
+    {
+      "params": "lang",
+      "example": "en",
+      "opsional": false
+    },
+    {
+      "params": "text",
+      "example": "sayang.. kamu kok... kamu manis kaya madu. heheh!",
+      "opsional": false
+    }
+  ]
+},
+  {
     "nama": "Tangga Lagu",
     "tags": ["Info"],
     "endpoint": "/api/v1/tangga-lagu",
