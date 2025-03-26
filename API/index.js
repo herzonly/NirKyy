@@ -30,7 +30,7 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
-app.get('/anime-popular', async (req, res) => {
+router.get('/anime-popular', async (req, res) => {
   try {
     const response = await axios.get('https://myanimelist.net/topanime.php?type=bypopularity', {
       headers: {
