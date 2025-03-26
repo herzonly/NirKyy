@@ -94,7 +94,7 @@ router.get('/kecocokan', async (req, res) => {
 router.get('/anime-search', async (req, res) => {
   const { q } = req.query;
   if (!q) {
-    return res.errorJson('Masukkan judul anime yang ingin dicari');
+    return res.errorJson('Masukkan judul anime yang ingin dicari', 400);
   }
 
   try {
@@ -102,7 +102,7 @@ router.get('/anime-search', async (req, res) => {
     const result = response.data.data;
 
     if (result.length === 0) {
-      return res.errorJson('Anime tidak ditemukan.');
+      return res.errorJson('Anime tidak ditemukan.', 404);
     }
 
     const anime = result[0];
@@ -235,7 +235,7 @@ router.get('/brats', async (req, res) => {
   const text = req.query.text;
 
   if (!host || !text) {
-    return res.errorJson({ error: "Parameter 'host' dan 'text' harus disediakan." });
+    return res.errorJson({ error: "Parameter 'host' dan 'text' harus disediakan." },400);
   }
 
   try {
@@ -253,7 +253,7 @@ router.get('/artinama', async (req, res) => {
   const nama = req.query.nama;
 
   if (!nama) {
-    return res.errorJson({ error: "Parameter 'nama' harus disediakan." });
+    return res.errorJson({ error: "Parameter 'nama' harus disediakan." },400);
   }
 
   try {
@@ -272,7 +272,7 @@ router.get('/khodam', async (req, res) => {
   const nama = req.query.nama;
 
   if (!nama) {
-    return res.errorJson({ error: "Parameter 'nama' harus disediakan." });
+    return res.errorJson({ error: "Parameter 'nama' harus disediakan." },400);
   }
 
   try {
@@ -290,7 +290,7 @@ router.get('/khodam', async (req, res) => {
 router.get('/snapsave', async (req, res) => {
   const url = req.query.url;
   if (!url) {
-    return res.errorJson({ error: "Parameter 'url' harus disediakan." });
+    return res.errorJson({ error: "Parameter 'url' harus disediakan." },400);
   }
   try {
     await snapsave(req, res);
@@ -308,7 +308,7 @@ router.get('/simsimi', async (req, res) => {
   const id = req.query.lang || "id";
 
   if (!msg) {
-    return res.errorJson({ error: "Parameter 'msg' harus disediakan." });
+    return res.errorJson({ error: "Parameter 'msg' harus disediakan." },400);
   }
 
   try {
@@ -330,7 +330,7 @@ router.get('/generate-query', async (req, res) => {
   const msg = req.query.msg;
 
   if (!user || !msg) {
-    return res.errorJson({ error: "Parameter 'user' dan 'msg' harus disediakan." });
+    return res.errorJson({ error: "Parameter 'user' dan 'msg' harus disediakan." },400);
   }
 
   try {
@@ -348,7 +348,7 @@ router.get('/alicia', async (req, res) => {
   const msg = req.query.msg;
 
   if (!user || !msg) {
-    return res.errorJson({ error: "Parameter 'user' dan 'msg' harus disediakan." });
+    return res.errorJson({ error: "Parameter 'user' dan 'msg' harus disediakan." },400);
   }
 
   try {
@@ -369,7 +369,7 @@ router.get('/memegen', async (req, res) => {
     const bawah = text_bawah ? encodeURIComponent(text_bawah) : ' ';
     url += `/${atas}/${bawah}.png`;
   } else {
-    return res.errorJson({ error: 'Parameter text-atas atau text-bawah harus diisi.' });
+    return res.errorJson({ error: 'Parameter text-atas atau text-bawah harus diisi.' },400);
   }
   if (background) {
     url += `?background=${encodeURIComponent(background)}`;
@@ -392,7 +392,7 @@ router.get('/autogempa', async (req, res) => {
       data.Infogempa.gempa.Shakemap = "https://data.bmkg.go.id/DataMKG/TEWS/" + data.Infogempa.gempa.Shakemap;
       res.succesJson(data.Infogempa.gempa);
     } else {
-      res.errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
+      res.errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' },404);
     }
   } catch (error) {
     console.error('Terjadi kesalahan saat mengambil data autogempa:', error);
@@ -415,7 +415,7 @@ router.get('/susunkata', async (req, res) => {
       const randomItem = data[randomIndex];
       res.succesJson(randomItem);
     } else {
-      res.errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
+      res.errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' },404);
     }
   } catch (error) {
     console.error('Terjadi kesalahan saat mengambil data:', error);
@@ -432,7 +432,7 @@ router.get('/asahotak', async (req, res) => {
       const randomItem = data[randomIndex];
       res.succesJson(randomItem);
     } else {
-      res.errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' });
+      res.errorJson({ message: 'Data tidak ditemukan atau format tidak valid.' },404);
     }
   } catch (error) {
     console.error('Terjadi kesalahan saat mengambil data:', error);
@@ -442,8 +442,8 @@ router.get('/asahotak', async (req, res) => {
 
 router.get('/savetube', async (req, res) => {
   const { url, format } = req.query;
-  if (!url) return res.errorJson("Masukkan parameter url");
-  if (!format) return res.errorJson("Masukkan parameter format");
+  if (!url) return res.errorJson("Masukkan parameter url",400);
+  if (!format) return res.errorJson("Masukkan parameter format",400);
   try {
     let response;
     try {
@@ -465,12 +465,12 @@ router.get('/savetube', async (req, res) => {
 router.get('/anime-jadwal', async (req, res) => {
   const hari = req.query.hari;
   if (!hari) {
-    return res.errorJson("Hari tidak valid. Masukkan nama hari dalam bahasa Inggris atau Indonesia")
+    return res.errorJson("Hari tidak valid. Masukkan nama hari dalam bahasa Inggris atau Indonesia",400)
   }
   try {
     const response = await jadwal(hari.trim());
     if (response.includes("Hari tidak valid.")) {
-      return res.errorJson(response)
+      return res.errorJson(response,400)
     }
     return res.succesJson(response);
   } catch (error) {
@@ -480,7 +480,7 @@ router.get('/anime-jadwal', async (req, res) => {
 
 router.get('/pin', async (req, res) => {
   const { query } = req.query;
-  if (!query) return res.errorJson("Search query cannot be empty.");
+  if (!query) return res.errorJson("Search query cannot be empty.",400);
   try {
     const result = await pin.search(query);
     if (result.status) {
@@ -495,9 +495,9 @@ router.get('/pin', async (req, res) => {
 
 router.get('/llm', async (req, res) => {
   let { groqKey, model = 'gemma2-9b-it', systemPrompt = " ", msg, user } = req.query;
-  if (!groqKey) return res.errorJson("groqKey is required");
-  if (!msg) return res.errorJson("msg is required");
-  if (!user) return res.errorJson("user is required");
+  if (!groqKey) return res.errorJson("groqKey is required",400);
+  if (!msg) return res.errorJson("msg is required",400);
+  if (!user) return res.errorJson("user is required",400);
   if (groqKey.includes('Bearer')) groqKey = groqKey.replace('Bearer ', '').trim();
   try {
     const response = await handleTextQuery({ groqKey, model, systemPrompt, msg, user });
@@ -510,7 +510,7 @@ router.get('/llm', async (req, res) => {
 
 router.get('/aio-dl', async (req, res) => {
   const query = req.query.url;
-  if (!query) return res.errorJson("Masukkan parameter url");
+  if (!query) return res.errorJson("Masukkan parameter url",400);
   try {
     const data = await alldown(query);
     if (!data.data) return res.errorJson("Terjadi kesalahan saat mengunduh video");

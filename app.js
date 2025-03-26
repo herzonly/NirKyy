@@ -9,7 +9,7 @@ const errorJson = (json) => ({ published_By:"NirKyy", success: false, error: jso
 
 app.use((req, res, next) => {
   res.succesJson = (json) => res.status(200).json(succesJson(json));
-  res.errorJson = (json) => res.json(errorJson(json));
+  res.errorJson = (json, status) => res.status(status||500).json(errorJson(json));
   next();
 });
 
