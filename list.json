@@ -1,5 +1,11 @@
 [
   {
+  "nama": "Anime Popular",
+  "tags": ["Info"],
+  "endpoint": "/api/v1/anime-popular",
+  "parameter": []
+},
+  {
   "nama": "Yanz GPT",
   "tags": ["AI"],
   "endpoint": "/api/v1/yanzgpt",
