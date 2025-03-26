@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Yanz GPT",
+  "tags": ["AI"],
+  "endpoint": "/api/v1/yanzgpt",
+  "parameter": [
+    {
+      "params": "prompt",
+      "example": "apa kabar",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Gemini Translate",
   "tags": ["AI"],
   "endpoint": "/api/v1/gemini-translate",
