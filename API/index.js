@@ -18,8 +18,10 @@ const rmbg = require('../lib/removebg.js')
 const nulis = require('../lib/nulis.js')
 const upscale = require('../lib/upscale.js')
 const chatgpt = require('../lib/chatgpt.js')
-const translate = require('../lib/translate.js')
+const translate = require('../lib/translate.js');
+const yanzGPT = require('../lib/yanzGPT.js')
 
+router.get('/yanzgpt', yanzGPT);
 router.get('/gemini-translate', translate)
 router.get('/gpt-4o-latest', chatgpt)
 router.get('/upscale', upscale)
