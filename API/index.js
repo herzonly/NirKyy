@@ -32,64 +32,55 @@ router.get('/gemini',gemini)
 
 router.get('/text2img', async (req, res) => {
   const { prompt, model } = req.query;
-  if (!prompt) {
-    return res.status(400).json({ error: 'Prompt is required' });
-  }
+  if (!prompt) return res.status(400).json({ error: 'Prompt is required' });
 
   const task_id = crypto.randomUUID();
   const baseURL = "https://magichour.ai";
   const defaultModel = "ai-anime-generator";
   const selectedModel = model || defaultModel;
 
-  const getRandomProxy = async () => {
+  const getRandomProxies = async (count) => {
     try {
       const proxyListResponse = await axios.get('https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=1000&country=all');
       const proxies = proxyListResponse.data.split('\n').filter(Boolean);
-      return proxies.length > 0 ? proxies[Math.floor(Math.random() * proxies.length)] : null;
+      return proxies.length >= count ? proxies.sort(() => 0.5 - Math.random()).slice(0, count) : null;
     } catch {
       return null;
     }
   };
 
-  let attempt = 0;
-  let success = false;
-  let lastError = null;
+  const proxies = await getRandomProxies(3);
+  if (!proxies) return res.errorJson({ error: "No valid proxies available" });
 
-  while (attempt < 2 && !success) {
-    attempt++;
-    const proxy = await getRandomProxy();
-    if (!proxy) {
-      lastError = new Error('No valid proxy found');
-      continue;
-    }
-
-    const agent = {
-      proxy: {
-        host: proxy.split(':')[0],
-        port: parseInt(proxy.split(':')[1]),
-      },
-    };
-
-    try {
-      await axios.post(
-        `${baseURL}/api/free-tools/v1/ai-image-generator`,
-        { prompt, orientation: "square", tool: selectedModel, task_id },
-        {
-          ...agent,
-          headers: {
-            Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json",
-            "x-timezone-offset": "-420",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.40 Mobile Safari/537.36"
-          }
+  const createRequest = (proxy) => {
+    return axios.post(
+      `${baseURL}/api/free-tools/v1/ai-image-generator`,
+      { prompt, orientation: "square", tool: selectedModel, task_id },
+      {
+        proxy: { host: proxy.split(':')[0], port: parseInt(proxy.split(':')[1]) },
+        timeout: 5000,
+        httpsAgent: { rejectUnauthorized: false },
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+          "x-timezone-offset": "-420",
+          "User-Agent": "Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.40 Mobile Safari/537.36"
         }
-      );
+      }
+    ).then(() => proxy);
+  };
 
-      const poll = async () => {
+  try {
+    const proxyUsed = await Promise.any(proxies.map(createRequest));
+
+    const poll = async () => {
+      while (true) {
         const statusResponse = await axios.get(
           `${baseURL}/api/free-tools/v1/ai-image-generator/${task_id}/status`,
           {
-            ...agent,
+            proxy: { host: proxyUsed.split(':')[0], port: parseInt(proxyUsed.split(':')[1]) },
+            timeout: 5000,
+            httpsAgent: { rejectUnauthorized: false },
             headers: {
               Accept: "application/json, text/plain, */*",
               "x-timezone-offset": "-420",
@@ -100,20 +91,14 @@ router.get('/text2img', async (req, res) => {
 
         if (statusResponse.data.status === "SUCCESS") return statusResponse.data;
         await new Promise((resolve) => setTimeout(resolve, 2000));
-        return await poll();
-      };
+      }
+    };
 
-      const result = await poll();
-      res.succesJson(result);
-      success = true;
+    const result = await poll();
+    res.succesJson(result);
 
-    } catch (error) {
-      lastError = error;
-    }
-  }
-
-  if (!success) {
-    res.errorJson({ error: lastError.message });
+  } catch (error) {
+    res.errorJson({ error: error.message });
   }
 });
 
