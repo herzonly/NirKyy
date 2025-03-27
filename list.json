@@ -1,22 +1,5 @@
 [
   {
-  "nama": "Text to Image",
-  "tags": ["AI"],
-  "endpoint": "/api/v1/text2img",
-  "parameter": [
-    {
-      "params": "prompt",
-      "example": "A girl is sad and daydreaming in her room",
-      "opsional": false
-    },
-    {
-      "params": "model",
-      "example": "ai-anime-generator",
-      "opsional": true
-    }
-  ]
-},
-  {
   "nama": "Anime Popular",
   "tags": ["Info"],
   "endpoint": "/api/v1/anime-popular",
