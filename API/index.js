@@ -35,51 +35,85 @@ router.get('/text2img', async (req, res) => {
   if (!prompt) {
     return res.status(400).json({ error: 'Prompt is required' });
   }
+
   const task_id = crypto.randomUUID();
   const baseURL = "https://magichour.ai";
   const defaultModel = "ai-anime-generator";
   const selectedModel = model || defaultModel;
-  try {
-    await axios.post(
-      `${baseURL}/api/free-tools/v1/ai-image-generator`,
-      {
-        prompt: prompt,
-        orientation: "square",
-        tool: selectedModel,
-        task_id: task_id
+
+  const getRandomProxy = async () => {
+    try {
+      const proxyListResponse = await axios.get('https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=1000&country=all');
+      const proxies = proxyListResponse.data.split('\n').filter(Boolean);
+      return proxies.length > 0 ? proxies[Math.floor(Math.random() * proxies.length)] : null;
+    } catch {
+      return null;
+    }
+  };
+
+  let attempt = 0;
+  let success = false;
+  let lastError = null;
+
+  while (attempt < 2 && !success) {
+    attempt++;
+    const proxy = await getRandomProxy();
+    if (!proxy) {
+      lastError = new Error('No valid proxy found');
+      continue;
+    }
+
+    const agent = {
+      proxy: {
+        host: proxy.split(':')[0],
+        port: parseInt(proxy.split(':')[1]),
       },
-      {
-        headers: {
-          Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json",
-          "x-timezone-offset": "-420",
-          "User-Agent":
-            "Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.40 Mobile Safari/537.36"
-        }
-      }
-    );
-    const poll = async () => {
-      const statusResponse = await axios.get(
-        `${baseURL}/api/free-tools/v1/ai-image-generator/${task_id}/status`,
+    };
+
+    try {
+      await axios.post(
+        `${baseURL}/api/free-tools/v1/ai-image-generator`,
+        { prompt, orientation: "square", tool: selectedModel, task_id },
         {
+          ...agent,
           headers: {
             Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
             "x-timezone-offset": "-420",
-            "User-Agent":
-              "Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.40 Mobile Safari/537.36"
+            "User-Agent": "Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.40 Mobile Safari/537.36"
           }
         }
       );
-      if (statusResponse.data.status === "SUCCESS") {
-        return statusResponse.data;
-      }
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      return await poll();
-    };
-    const result = await poll();
-    res.succesJson(result);
-  } catch (error) {
-    res.errorJson({ error: error.message });
+
+      const poll = async () => {
+        const statusResponse = await axios.get(
+          `${baseURL}/api/free-tools/v1/ai-image-generator/${task_id}/status`,
+          {
+            ...agent,
+            headers: {
+              Accept: "application/json, text/plain, */*",
+              "x-timezone-offset": "-420",
+              "User-Agent": "Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.40 Mobile Safari/537.36"
+            }
+          }
+        );
+
+        if (statusResponse.data.status === "SUCCESS") return statusResponse.data;
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        return await poll();
+      };
+
+      const result = await poll();
+      res.succesJson(result);
+      success = true;
+
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  if (!success) {
+    res.errorJson({ error: lastError.message });
   }
 });
 
