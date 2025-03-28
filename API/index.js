@@ -201,7 +201,14 @@ router.get('/soundoftext', async (req, res) => {
       },
     });
     response.data.id = "https://files.soundoftext.com/"+response.data.id+".mp3"
-    res.succesJson(response.data.id);
+        res.setHeader('Content-Type', 'audio/mpeg');
+    axios.get(response.data.id, { responseType: 'stream' })
+        .then(audioStream => {
+            audioStream.pipe(res);
+        })
+        .catch(error => {
+            res.errorJson('Error streaming audio');
+        });
   } catch (error) {
     console.error('Error calling Sound of Text API:', error);
     if (error.response) {
