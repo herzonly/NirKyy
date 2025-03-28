@@ -430,7 +430,7 @@
       },
       {
         "params": "model",
-        "example": "mistral-saba-24b",
+        "example": "gemma2-9b-it",
         "opsional": true
       },
       {
