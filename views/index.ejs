@@ -368,6 +368,7 @@
         const responseBody = document.getElementById('responseBody');
         const axiosSnippetPre = document.getElementById('axiosSnippet');
         const loadingIndicator = document.getElementById('loadingIndicator');
+        // Audio play dipicu secara manual oleh pengguna, sehingga play() tidak dipanggil otomatis.
         const successSound = document.getElementById('successSound');
         const errorSound = document.getElementById('errorSound');
         const copyResponseHeader = document.getElementById('copyResponseHeader');
@@ -534,14 +535,14 @@
               const ctype = r.headers['content-type'] || '';
               if (r.status >= 200 && r.status < 300) {
                 if (r.data && r.data.success === false) {
-                  try { errorSound.play(); } catch (e) {}
+                  // Penggunaan play() dihilangkan agar tidak terjadi error.
                   responseHeader.textContent = hdr;
                   responseBody.textContent = JSON.stringify(r.data, null, 2);
                 } else {
-                  try { successSound.play(); } catch (e) {}
+                  // Penggunaan play() dihilangkan agar tidak terjadi error.
                 }
               } else {
-                try { errorSound.play(); } catch (e) {}
+                // Penggunaan play() dihilangkan agar tidak terjadi error.
               }
               responseHeader.textContent = hdr;
               if (hdr.trim() !== '') {
@@ -642,7 +643,7 @@
             })
             .catch((err) => {
               loadingIndicator.style.display = 'none';
-              try { errorSound.play(); } catch (e) {}
+              // Penggunaan play() dihilangkan agar tidak terjadi error.
               if (err.response) {
                 let h = 'Status: ' + err.response.status + ' ' + err.response.statusText + '\n';
                 Object.entries(err.response.headers).forEach(([k, v]) => {
