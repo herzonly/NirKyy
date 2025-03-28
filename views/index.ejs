@@ -368,7 +368,6 @@
         const responseBody = document.getElementById('responseBody');
         const axiosSnippetPre = document.getElementById('axiosSnippet');
         const loadingIndicator = document.getElementById('loadingIndicator');
-        // Audio play dipicu secara manual oleh pengguna, sehingga play() tidak dipanggil otomatis.
         const successSound = document.getElementById('successSound');
         const errorSound = document.getElementById('errorSound');
         const copyResponseHeader = document.getElementById('copyResponseHeader');
@@ -535,14 +534,9 @@
               const ctype = r.headers['content-type'] || '';
               if (r.status >= 200 && r.status < 300) {
                 if (r.data && r.data.success === false) {
-                  // Penggunaan play() dihilangkan agar tidak terjadi error.
                   responseHeader.textContent = hdr;
                   responseBody.textContent = JSON.stringify(r.data, null, 2);
-                } else {
-                  // Penggunaan play() dihilangkan agar tidak terjadi error.
                 }
-              } else {
-                // Penggunaan play() dihilangkan agar tidak terjadi error.
               }
               responseHeader.textContent = hdr;
               if (hdr.trim() !== '') {
@@ -554,7 +548,7 @@
               } else if (ctype.startsWith('image/')) {
                 responseBody.innerHTML = '<div class="loading">Memuat gambar...</div>';
                 const img = document.createElement('img');
-                img.src = r.config.url;
+                img.src = finalApiUrl;
                 img.style.maxWidth = '100%';
                 img.style.height = 'auto';
                 img.onload = function () {
@@ -567,7 +561,7 @@
               } else if (ctype.startsWith('video/')) {
                 responseBody.innerHTML = '<div class="loading">Memuat video...</div>';
                 const vid = document.createElement('video');
-                vid.src = r.config.url;
+                vid.src = finalApiUrl;
                 vid.controls = true;
                 vid.style.maxWidth = '100%';
                 vid.style.height = 'auto';
@@ -579,19 +573,13 @@
                   responseBody.textContent = 'Video format rusak';
                 };
               } else if (ctype.startsWith('audio/')) {
-                responseBody.innerHTML = '<div class="loading">Memuat audio...</div>';
+                // Memperbaiki agar audio menggunakan finalApiUrl dan langsung ditampilkan
+                responseBody.innerHTML = '';
                 const aud = document.createElement('audio');
-                aud.src = r.config.url;
+                aud.src = finalApiUrl;
                 aud.controls = true;
-                aud.style.maxWidth = '100%';
-                aud.style.height = 'auto';
-                aud.onloadeddata = function () {
-                  responseBody.innerHTML = '';
-                  responseBody.appendChild(aud);
-                };
-                aud.onerror = function () {
-                  responseBody.textContent = 'Audio format rusak';
-                };
+                aud.style.width = '100%';
+                responseBody.appendChild(aud);
               } else {
                 responseBody.textContent = r.data;
               }
@@ -643,7 +631,6 @@
             })
             .catch((err) => {
               loadingIndicator.style.display = 'none';
-              // Penggunaan play() dihilangkan agar tidak terjadi error.
               if (err.response) {
                 let h = 'Status: ' + err.response.status + ' ' + err.response.statusText + '\n';
                 Object.entries(err.response.headers).forEach(([k, v]) => {
