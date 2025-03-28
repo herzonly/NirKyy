@@ -1,17 +1,5 @@
 [
   {
-  "nama": "Spotify Downloader",
-  "tags": ["Downloader"],
-  "endpoint": "/api/v1/spotifydl",
-  "parameter": [
-    {
-      "params": "url",
-      "example": "https://open.spotify.com/intl-id/track/3wHU5wfyf0uw6TpiE98Jxn",
-      "opsional": false
-    }
-  ]
-},
-  {
   "nama": "Anime Popular",
   "tags": ["Info"],
   "endpoint": "/api/v1/anime-popular",

@@ -20,9 +20,7 @@ const upscale = require('../lib/upscale.js')
 const chatgpt = require('../lib/chatgpt.js')
 const translate = require('../lib/translate.js');
 const yanzGPT = require('../lib/yanzGPT.js')
-const spotify = require('../lib/spotify.js')
 
-router.get('/spotifydl', spotify);
 router.get('/yanzgpt', yanzGPT);
 router.get('/gemini-translate', translate)
 router.get('/gpt-4o-latest', chatgpt)
