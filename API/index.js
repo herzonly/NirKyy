@@ -38,20 +38,24 @@ router.get('/wikipedia-random', async (req, res) => {
         const { data } = await axios.get(url);
         const $ = cheerio.load(data);
         
-        const title = $('span.mw-page-title-main').text().trim() || "";
-        const description = $('p').first().text().trim().replace(/\[\d+\]/g, '') || "";
+        const judul = $('span.mw-page-title-main').text().trim() || "";
+        const deskripsi = $('p')
+            .first()
+            .text()
+            .trim()
+            .replace(/\[\d+\]/g, '') || "";
         
-        const images = $('img.mw-file-element')
+        const gambar = $('span[typeof="mw:File"] img')
             .map((i, el) => `https:${$(el).attr('src')}`)
             .get();
         
-        res.succesJson({
-            title,
-            description,
-            images
+        res.json({
+            judul,
+            deskripsi,
+            gambar
         });
     } catch (error) {
-        res.errorJson({ error: 'Gagal mengambil data' });
+        res.status(500).json({ error: 'Gagal mengambil data' });
     }
 });
 
