@@ -39,23 +39,19 @@ router.get('/wikipedia-random', async (req, res) => {
         const $ = cheerio.load(data);
         
         const title = $('span.mw-page-title-main').text().trim() || "";
-        const description = $('p')
-            .map((i, el) => $(el).text().trim().replace(/\[\d+\]/g, ''))
-            .get()
-            .filter(text => text.length > 0)
-            .join('\n\n') || "";
+        const description = $('p').first().text().trim().replace(/\[\d+\]/g, '') || "";
         
-        const images = $('figure.mw-default-size img')
+        const images = $('img.mw-file-element')
             .map((i, el) => `https:${$(el).attr('src')}`)
             .get();
         
-        res.json({
+        res.succesJson({
             title,
             description,
             images
         });
     } catch (error) {
-        res.status(500).json({ error: 'Gagal mengambil data' });
+        res.errorJson({ error: 'Gagal mengambil data' });
     }
 });
 
