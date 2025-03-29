@@ -1,5 +1,11 @@
 [
   {
+  "nama": "Wikipedia Random",
+  "tags": ["Info"],
+  "endpoint": "/api/v1/wikipedia-random",
+  "parameter": []
+},
+  {
   "nama": "Spotify Downloader",
   "tags": ["Downloader"],
   "endpoint": "/api/v1/spotifydl",
