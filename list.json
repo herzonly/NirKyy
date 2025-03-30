@@ -1,17 +1,5 @@
 [
   {
-  "nama": "Anime Diffusion",
-  "tags": ["AI"],
-  "endpoint": "/api/v1/animediff",
-  "parameter": [
-    {
-      "params": "prompt",
-      "example": "Girl eating candy",
-      "opsional": false
-    }
-  ]
-},
-  {
   "nama": "Wikipedia Random",
   "tags": ["Info"],
   "endpoint": "/api/v1/wikipedia-random",
