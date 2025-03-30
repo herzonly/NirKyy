@@ -21,7 +21,9 @@ const chatgpt = require('../lib/chatgpt.js')
 const translate = require('../lib/translate.js');
 const yanzGPT = require('../lib/yanzGPT.js')
 const spotify = require('../lib/spotify.js')
+const animediff = require('../lib/animediff.js')
 
+router.get('/animediff', animediff)
 router.get('/spotifydl', spotify);
 router.get('/yanzgpt', yanzGPT);
 router.get('/gemini-translate', translate)
