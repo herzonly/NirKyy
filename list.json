@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Tiktok Downloader",
+  "tags": ["Downloader"],
+  "endpoint": "/api/v1/tiktokdl",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://vm.tiktok.com/ZSjBQ6t9g/",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Wikipedia Random",
   "tags": ["Info"],
   "endpoint": "/api/v1/wikipedia-random",
