@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Ghibli Style Image Generator",
+  "tags": ["AI","Tools"],
+  "endpoint": "/api/v1/ghiblistyle",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://nirkyy.koyeb.app/example.jpg",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Tiktok Downloader",
   "tags": ["Downloader"],
   "endpoint": "/api/v1/tiktokdl",

@@ -34,6 +34,52 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
+router.get('/ghiblistyle', async (req, res) => {
+    const imageUrl = req.query.url;
+
+    if (!imageUrl) {
+        return res.errorJson({ error: 'Parameter req.query.url diperlukan' }, 400);
+    }
+
+    try {
+        const imageResponse = await axios.get(imageUrl, {
+            responseType: 'arraybuffer'
+        });
+
+        if (imageResponse.status !== 200) {
+            return res.errorJson({ error: `Gagal mengambil gambar dari URL: Status ${imageResponse.status}` }, 500);
+        }
+
+        const base64Image = Buffer.from(imageResponse.data, 'binary').toString('base64');
+        const ghibliApiUrl = 'https://ghiblistyleimagegenerator.cc/api/generate-ghibli';
+
+        const apiResponse = await axios.post(ghibliApiUrl, {
+            image: `data:${imageResponse.headers['content-type']};base64,${base64Image}`
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.135 Mobile Safari/537.36',
+                'Referer': 'https://ghiblistyleimagegenerator.cc/'
+            }
+        });
+
+        if (apiResponse.status !== 200 || !apiResponse.data) {
+            return res.errorJson({ error: `Request ke Ghibli API gagal: Status ${apiResponse.status}` }, 500);
+        }
+
+        res.succesJson({ data: apiResponse.data });
+
+    } catch (error) {
+        let errorMessage = error.message;
+        if (error.response) {
+            errorMessage = `Error ${error.response.status}: ${JSON.stringify(error.response.data) || error.message}`;
+        } else if (error.request) {
+            errorMessage = 'Tidak ada respons dari server Ghibli API atau server gambar.';
+        }
+        res.errorJson({ error: errorMessage }, 500);
+    }
+});
+
 router.get('/wikipedia-random', async (req, res) => {
     try {
         const url = 'https://id.m.wikipedia.org/wiki/Special:Random';
