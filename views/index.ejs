@@ -1,373 +1,536 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NirKyy - REST API Documentation</title><meta name="google-site-verification" content="J-VFugOfjbkh7eTymofIL-zoG7ne6R91Q-G4gnTEEDw"><meta name="description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta name="keywords" content="REST API, dokumentasi API, Collection API, NirKyy, endpoint, API documentation, web API, fetch API, coba API"><meta name="author" content="NirKyy Developer"><meta name="robots" content="index, follow"><meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"><meta property="og:title" content="NirKyy - REST API Documentation"><meta property="og:description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta property="og:type" content="website"><meta property="og:url" content="nirkyy.koyeb.app"><meta property="og:image" content="/logo.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="NirKyy - REST API Documentation"><meta name="twitter:description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta name="twitter:site" content="@NirKyyDev"><meta name="twitter:image" content="/logo.jpg"><link rel="icon" href="favicon.ico" type="image/x-icon"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet"><style>:root{--bg-color:#111;--text-color:#ccc;--accent-color:#00aced;--border-color:#444}body{font-family:Orbitron,sans-serif;background-color:var(--bg-color);color:var(--text-color);margin:0;padding:0;overflow-x:hidden}header{background-color:var(--bg-color);padding:10px 20px;border-bottom:2px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}.header-left{display:flex;align-items:center}.header-left img{max-height:70px;margin-right:15px}.header-title{font-size:1.5rem;margin:0}main.container-fluid{padding:20px 40px}.search-container{margin-top:20px;position:relative;text-align:center}.search-container input[type=text]{padding:10px 35px 10px 10px;border:2px solid var(--accent-color);background-color:var(--bg-color);color:var(--text-color);border-radius:5px;width:100%;max-width:600px;font-size:1em;transition:border-color .3s ease,box-shadow .3s ease}.search-container input[type=text]:focus{border-color:var(--accent-color);box-shadow:0 0 8px var(--accent-color);outline:0}.dropdown{margin:10px 0}.dropdown-toggle{background-color:var(--bg-color);color:var(--accent-color);border:1px solid var(--accent-color);padding:8px 12px;border-radius:5px}.dropdown-menu{background-color:var(--bg-color);border:1px solid var(--accent-color)}.dropdown-item{color:var(--accent-color);padding:8px 12px}.dropdown-item:hover{background-color:var(--border-color)}#endpointListSection .card{border:1px solid var(--accent-color);background-color:var(--bg-color);color:var(--text-color);transition:transform .3s ease,box-shadow .3s ease;margin-bottom:15px}#endpointListSection .card:hover{transform:translateY(-5px);box-shadow:0 0 15px var(--accent-color)}.card-header{background-color:var(--border-color);color:var(--accent-color);border-bottom:1px solid var(--accent-color)}.card-body{padding:1.5rem}pre{white-space:pre-wrap;background-color:var(--border-color);border:1px solid var(--accent-color);padding:10px;border-radius:5px;overflow-x:auto;color:var(--text-color)}.modal{display:none;position:fixed;z-index:1050;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,.8)}.modal-dialog{margin:1.75rem auto}.modal-content{background-color:var(--bg-color);color:var(--text-color);border:1px solid var(--accent-color);border-radius:10px}.modal-footer,.modal-header{padding:1rem 1.5rem;border:none}.modal-header{border-bottom:1px solid var(--accent-color)}.modal-title{color:var(--accent-color);font-weight:700}.modal-body{padding:1.5rem}footer{text-align:center;padding:20px;background-color:var(--bg-color);color:var(--text-color);border-top:2px solid var(--accent-color)}.axios-code{background-color:var(--border-color);padding:10px;border-radius:5px;margin-top:10px;overflow-x:auto;font-family:monospace;font-size:.9em;color:var(--text-color);border:1px solid var(--accent-color)}.btn-info,.btn-outline-info,.btn-primary{font-family:Orbitron,sans-serif;border:1px solid var(--accent-color);background-color:var(--accent-color);color:var(--bg-color);transition:background-color .3s ease,color .3s ease,border-color .3s ease}.btn-info:focus,.btn-info:hover,.btn-outline-info:focus,.btn-outline-info:hover,.btn-primary:focus,.btn-primary:hover{background-color:var(--bg-color);color:var(--accent-color);border-color:var(--accent-color);box-shadow:0 0 5px var(--accent-color)}.loading{text-align:center;margin:20px auto}.gear{font-size:2.5em;margin:0 10px;display:inline-block}.gear1{animation:rotate-clockwise 1.5s linear infinite}.gear2{animation:rotate-counterclockwise 1.5s linear infinite}@keyframes rotate-clockwise{from{transform:rotate(0)}to{transform:rotate(360deg)}}@keyframes rotate-counterclockwise{from{transform:rotate(0)}to{transform:rotate(-360deg)}}#whatsappModal .modal-content{text-align:center;padding:2rem}#whatsappModal .modal-title{font-size:1.75rem;margin-bottom:1rem}#whatsappModal .modal-body{font-size:1.1rem}#whatsappModal .modal-footer{border-top:none}#whatsappModal .btn-close{font-size:1.2rem;background-color:var(--accent-color);color:var(--bg-color);border:none;padding:.5rem 1rem;border-radius:5px}</style></head><body><header><div class="header-left"><img src="/logo.jpg" alt="Logo NirKyy"><h1 class="header-title">NirKyy</h1></div><div class="dropdown"><button class="btn dropdown-toggle" type="button" id="dropdownTags" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i>Tags</button><div class="dropdown-menu" aria-labelledby="dropdownTags" id="tagButtons"></div></div></header><main class="container-fluid"><div class="search-container"><input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag"><i class="fas fa-search search-icon"></i></div><div id="endpointListSection"></div></main><footer><p>&copy; 2025 NirKyy. API Bakal tetep aktif selama Koyeb gratis🗿🙏 | Join Saluran<a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank">WhatsApp</a></p></footer><div id="tryModal" class="modal"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Coba Endpoint</h5><button type="button" class="close" id="closeButton">×</button></div><div class="modal-body"><div id="parameterInputs"></div><button id="runButton" class="btn btn-info btn-block"><i class="fas fa-play"></i>Run</button><div id="loadingIndicator" class="loading" style="display:none"><i class="fas fa-cog gear gear1"></i><i class="fas fa-cog gear gear2"></i></div><div id="apiResponse" class="mt-3"><div style="position:relative"><h5>Response Header:</h5><button id="copyResponseHeader" class="btn btn-link btn-sm" style="position:absolute;right:5px;top:5px;display:none">Salin</button></div><pre id="responseHeader" class="p-2"></pre><div style="position:relative"><h5>Response Body:</h5><button id="copyResponseBody" class="btn btn-link btn-sm" style="position:absolute;right:5px;top:5px;display:none">Salin</button></div><pre id="responseBody" class="p-2"></pre><div style="position:relative"><h5>Endpoint:</h5><button id="copyEndpointButton" class="btn btn-link btn-sm" style="position:absolute;right:5px;top:5px;display:none">Salin</button></div></div><div id="axiosExample" class="axios-code mt-3"><div style="position:relative"><h5>Contoh Kode Axios (GET):</h5><button id="copyAxiosButton" class="btn btn-link btn-sm" style="position:absolute;right:5px;top:5px;display:none">Salin</button></div><pre id="axiosSnippet"><code></code></pre></div></div></div></div></div><div id="whatsappModal" class="modal"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header" style="border-bottom:none"><h5 class="modal-title"><i class="fab fa-whatsapp"></i>Gabung Saluran WhatsApp!</h5><button type="button" class="close" id="closeWhatsAppModal">×</button></div><div class="modal-body"><p style="font-size:1.1rem">Dapatkan update API terbaru dan diskusi seru seputar NirKyy. Yuk, gabung ke saluran WhatsApp kami!</p></div><div class="modal-footer" style="justify-content:center;border-top:none"><a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" class="btn btn-primary">Gabung Sekarang</a></div></div></div></div><audio id="successSound" src="success.mp3" preload="auto"></audio><audio id="errorSound" src="error.mp3" preload="auto"></audio><script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer="defer"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" defer="defer"></script><script defer="defer">document.addEventListener('DOMContentLoaded', function() {
-      let finalApiUrl = '';
-      let isFetching = false;
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NirKyy - REST API Documentation</title><meta name="google-site-verification" content="J-VFugOfjbkh7eTymofIL-zoG7ne6R91Q-G4gnTEEDw"><meta name="description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta name="keywords" content="REST API, dokumentasi API, Collection API, NirKyy, endpoint, API documentation, web API, fetch API, coba API"><meta name="author" content="NirKyy Developer"><meta name="robots" content="index, follow"><meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"><meta property="og:title" content="NirKyy - REST API Documentation"><meta property="og:description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta property="og:type" content="website"><meta property="og:url" content="nirkyy.koyeb.app"><meta property="og:image" content="/logo.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="NirKyy - REST API Documentation"><meta name="twitter:description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta name="twitter:site" content="@NirKyyDev"><meta name="twitter:image" content="/logo.jpg"><link rel="icon" href="favicon.ico" type="image/x-icon"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"><style>:root{--bg-color:#1a1a1a;--text-color:#e0e0e0;--accent-color:#00aced;--border-color:#444;--card-bg-color:#252525;--header-bg-color:#111;--code-bg-color:#333;--link-color:var(--accent-color);--link-hover-color:#0095c7}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";background-color:var(--bg-color);color:var(--text-color);margin:0;padding:0;overflow-x:hidden;line-height:1.6}header{background-color:var(--header-bg-color);padding:15px 25px;border-bottom:2px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}.header-left{display:flex;align-items:center;gap:15px}.header-left img{max-height:55px}.header-title{font-size:1.6rem;margin:0;font-weight:600;color:var(--text-color)}main.container-fluid{padding:25px}.search-container{margin-top:20px;margin-bottom:30px;position:relative;text-align:center}.search-container input[type=text]{padding:12px 40px 12px 15px;border:1px solid var(--border-color);background-color:var(--card-bg-color);color:var(--text-color);border-radius:8px;width:100%;max-width:600px;font-size:1em;transition:border-color .3s ease,box-shadow .3s ease}.search-container input[type=text]:focus{border-color:var(--accent-color);box-shadow:0 0 8px rgba(0,172,237,.5);outline:0}.search-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--accent-color);pointer-events:none;margin-left:auto;margin-right:auto;left:0;right:0;width:fit-content;padding-left:calc(100% - 50px);max-width:calc(600px - 30px)}.dropdown{margin:10px 0}.dropdown-toggle{background-color:transparent;color:var(--accent-color);border:1px solid var(--accent-color);padding:8px 15px;border-radius:5px;font-size:.9rem;transition:background-color .2s ease,color .2s ease}.dropdown-toggle:focus,.dropdown-toggle:hover{background-color:rgba(0,172,237,.1);color:var(--accent-color);border-color:var(--accent-color);box-shadow:none}.dropdown-menu{background-color:var(--card-bg-color);border:1px solid var(--border-color);border-radius:5px;box-shadow:0 4px 8px rgba(0,0,0,.2)}.dropdown-item{color:var(--text-color);padding:10px 15px;font-size:.9rem}.dropdown-item:focus,.dropdown-item:hover{background-color:var(--border-color);color:var(--accent-color)}#endpointListSection .card{border:1px solid var(--border-color);background-color:var(--card-bg-color);color:var(--text-color);transition:transform .2s ease,box-shadow .2s ease;margin-bottom:20px;border-radius:8px;overflow:hidden}#endpointListSection .card:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(0,172,237,.2);border-color:var(--accent-color)}.card-header{background-color:rgba(0,172,237,.1);color:var(--accent-color);border-bottom:1px solid var(--border-color);font-weight:600;padding:.75rem 1.25rem;font-size:1.1rem}.card-body{padding:1.5rem}.card-body p{margin-bottom:.8rem;font-size:.95rem}.card-body .btn{margin-top:10px;margin-right:5px}.axios-code pre,pre{white-space:pre-wrap;word-wrap:break-word;background-color:var(--code-bg-color);border:1px solid var(--border-color);padding:15px;border-radius:5px;overflow-x:auto;color:#f0f0f0;font-family:SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;font-size:.9em;margin-top:10px;position:relative}.modal{display:none;position:fixed;z-index:1050;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,.7)}.modal-dialog{margin:1.75rem auto;max-width:700px}.modal-content{background-color:var(--card-bg-color);color:var(--text-color);border:1px solid var(--border-color);border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,.3)}.modal-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center}.modal-header .close{color:var(--text-color);opacity:.7;text-shadow:none;background:0 0;border:none;font-size:1.5rem}.modal-header .close:hover{opacity:1}.modal-title{color:var(--accent-color);font-weight:600;font-size:1.25rem}.modal-body{padding:1.5rem}.modal-body h5{color:var(--text-color);font-size:1rem;margin-top:1rem;margin-bottom:.5rem;font-weight:600}#parameterInputs .mb-3 label{font-weight:500;font-size:.9rem;margin-bottom:.3rem;display:block}#parameterInputs .form-control{background-color:var(--bg-color);color:var(--text-color);border:1px solid var(--border-color);border-radius:5px}#parameterInputs .form-control:focus{background-color:var(--bg-color);color:var(--text-color);border-color:var(--accent-color);box-shadow:0 0 5px rgba(0,172,237,.4)}.modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--border-color)}.loading{text-align:center;margin:30px auto;color:var(--accent-color)}.gear{font-size:2.5em;margin:0 10px;display:inline-block}.gear1{animation:rotate-clockwise 1.5s linear infinite}.gear2{animation:rotate-counterclockwise 1.5s linear infinite}@keyframes rotate-clockwise{from{transform:rotate(0)}to{transform:rotate(360deg)}}@keyframes rotate-counterclockwise{from{transform:rotate(0)}to{transform:rotate(-360deg)}}.btn{font-weight:500;border-radius:5px;padding:.5rem 1rem;font-size:.9rem;transition:background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease;cursor:pointer}.btn-info,.btn-primary{border:1px solid var(--accent-color);background-color:var(--accent-color);color:#fff}.btn-info:focus,.btn-info:hover,.btn-primary:focus,.btn-primary:hover{background-color:var(--link-hover-color);border-color:var(--link-hover-color);color:#fff;box-shadow:0 0 8px rgba(0,172,237,.3)}.btn-outline-info{border:1px solid var(--accent-color);color:var(--accent-color);background-color:transparent}.btn-outline-info:focus,.btn-outline-info:hover{background-color:rgba(0,172,237,.1);color:var(--accent-color);border-color:var(--accent-color);box-shadow:none}.btn-link.btn-sm{color:var(--accent-color);font-size:.8rem;padding:2px 5px;text-decoration:none;border:none;background:0 0;opacity:.7}.btn-link.btn-sm:hover{opacity:1;text-decoration:underline;background:0 0}#apiResponse>div[style*="position:relative"],#axiosExample>div[style*="position:relative"]{position:relative;margin-bottom:.5rem}#apiResponse>div[style*="position:relative"] h5,#axiosExample>div[style*="position:relative"] h5{margin-bottom:.2rem}#apiResponse button[id^=copy],#axiosExample button[id^=copy]{position:absolute;right:10px;top:0;display:none;z-index:5}footer{text-align:center;padding:25px;background-color:var(--header-bg-color);color:var(--text-color);border-top:2px solid var(--border-color);font-size:.9rem;margin-top:30px}footer a{color:var(--accent-color);text-decoration:none;margin-left:5px}footer a:hover{text-decoration:underline;color:var(--link-hover-color)}#whatsappModal .modal-content{text-align:center;padding:1.5rem}#whatsappModal .modal-header{border-bottom:none;justify-content:space-between;padding-bottom:0}#whatsappModal .modal-title{font-size:1.5rem;margin-bottom:0;text-align:left}#whatsappModal .modal-title i{margin-right:10px}#whatsappModal .modal-body{font-size:1rem;padding-top:.5rem;text-align:left;margin-bottom:1rem}#whatsappModal .modal-footer{border-top:none;justify-content:center;padding-top:0}#whatsappModal .btn-primary{padding:.6rem 1.5rem}#whatsappModal .close{font-size:1.5rem}@media (max-width:768px){.header-left img{max-height:45px}.header-title{font-size:1.3rem}main.container-fluid{padding:20px 15px}.card-body{padding:1rem}.modal-dialog{margin:1rem auto}.axios-code pre,pre{padding:10px;font-size:.85em}}</style></head><body><header><div class="header-left"><img src="/logo.jpg" alt="Logo NirKyy"><h1 class="header-title">NirKyy</h1></div><div class="dropdown"><button class="btn dropdown-toggle" type="button" id="dropdownTags" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i>Tags</button><div class="dropdown-menu" aria-labelledby="dropdownTags" id="tagButtons"></div></div></header><main class="container-fluid"><div class="search-container"><input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag..."><i class="fas fa-search search-icon"></i></div><div id="endpointListSection"><div class="loading"><i class="fas fa-cog gear gear1"></i><i class="fas fa-cog gear gear2"></i><p>Loading Endpoints...</p></div></div></main><footer><p>© 2025 NirKyy. API Bakal tetep aktif selama Koyeb gratis🗿🙏 | Join Saluran<a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer">WhatsApp</a></p></footer><div id="tryModal" class="modal" aria-modal="true" role="dialog"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Coba Endpoint</h5><button type="button" class="close" id="closeButton" aria-label="Close">×</button></div><div class="modal-body"><div id="parameterInputs"></div><button id="runButton" class="btn btn-info btn-block mt-3 mb-3"><i class="fas fa-play"></i>Run</button><div id="loadingIndicator" class="loading" style="display:none"><i class="fas fa-cog gear gear1"></i><i class="fas fa-cog gear gear2"></i></div><div id="apiResponse" class="mt-3"><div style="position:relative"><h5>Endpoint URL:</h5><button id="copyEndpointButton" class="btn btn-link btn-sm" style="display:none">Salin</button></div><div style="position:relative"><h5>Response Header:</h5><button id="copyResponseHeader" class="btn btn-link btn-sm" style="display:none">Salin</button></div><pre id="responseHeader" class="p-2"></pre><div style="position:relative"><h5>Response Body:</h5><button id="copyResponseBody" class="btn btn-link btn-sm" style="display:none">Salin</button></div><pre id="responseBody" class="p-2"></pre></div><div id="axiosExample" class="axios-code mt-3"><div style="position:relative"><h5>Contoh Kode Axios (GET):</h5><button id="copyAxiosButton" class="btn btn-link btn-sm" style="display:none">Salin</button></div><pre id="axiosSnippet"><code></code></pre></div></div></div></div></div><div id="whatsappModal" class="modal" aria-modal="true" role="dialog"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title"><i class="fab fa-whatsapp"></i>Gabung Saluran WhatsApp!</h5><button type="button" class="close" id="closeWhatsAppModal" aria-label="Close">×</button></div><div class="modal-body"><p>Dapatkan update API terbaru dan diskusi seru seputar NirKyy. Yuk, gabung ke saluran WhatsApp kami!</p></div><div class="modal-footer"><a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Gabung Sekarang</a></div></div></div></div><audio id="successSound" src="success.mp3" preload="auto"></audio><audio id="errorSound" src="error.mp3" preload="auto"></audio><script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer="defer"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" defer="defer"></script><script defer="defer">// Existing Javascript code goes here (no changes needed based on request)
+        document.addEventListener('DOMContentLoaded', function() {
+          let finalApiUrl = '';
+          let isFetching = false;
 
-      const endpointListSection = document.getElementById('endpointListSection');
-      const searchEndpointInput = document.getElementById('searchEndpoint');
-      const tagButtonsContainer = document.getElementById('tagButtons');
-      const tryModal = document.getElementById('tryModal');
-      const closeButton = document.getElementById('closeButton');
-      const parameterInputsDiv = document.getElementById('parameterInputs');
-      const runButton = document.getElementById('runButton');
-      const responseHeader = document.getElementById('responseHeader');
-      const responseBody = document.getElementById('responseBody');
-      const axiosSnippetPre = document.getElementById('axiosSnippet');
-      const loadingIndicator = document.getElementById('loadingIndicator');
-      const successSound = document.getElementById('successSound');
-      const errorSound = document.getElementById('errorSound');
-      const copyResponseHeader = document.getElementById('copyResponseHeader');
-      const copyResponseBody = document.getElementById('copyResponseBody');
-      const copyEndpointButton = document.getElementById('copyEndpointButton');
-      const copyAxiosButton = document.getElementById('copyAxiosButton');
-      let currentEndpointData = null;
+          const endpointListSection = document.getElementById('endpointListSection');
+          const searchEndpointInput = document.getElementById('searchEndpoint');
+          const tagButtonsContainer = document.getElementById('tagButtons');
+          const tryModal = document.getElementById('tryModal');
+          const closeButton = document.getElementById('closeButton');
+          const parameterInputsDiv = document.getElementById('parameterInputs');
+          const runButton = document.getElementById('runButton');
+          const responseHeader = document.getElementById('responseHeader');
+          const responseBody = document.getElementById('responseBody');
+          const axiosSnippetPre = document.getElementById('axiosSnippet').querySelector('code'); // Target code element
+          const loadingIndicator = document.getElementById('loadingIndicator');
+          const successSound = document.getElementById('successSound');
+          const errorSound = document.getElementById('errorSound');
+          const copyResponseHeader = document.getElementById('copyResponseHeader');
+          const copyResponseBody = document.getElementById('copyResponseBody');
+          const copyEndpointButton = document.getElementById('copyEndpointButton');
+          const copyAxiosButton = document.getElementById('copyAxiosButton');
+          let currentEndpointData = null;
 
-      // Tampilkan modal WhatsApp pada saat halaman pertama kali dibuka
-      const whatsappModal = document.getElementById('whatsappModal');
-      const closeWhatsAppModal = document.getElementById('closeWhatsAppModal');
-      whatsappModal.style.display = 'block';
+          // Tampilkan modal WhatsApp pada saat halaman pertama kali dibuka
+          const whatsappModal = document.getElementById('whatsappModal');
+          const closeWhatsAppModal = document.getElementById('closeWhatsAppModal');
+           // Optional: Show only once using localStorage
+           // if (!localStorage.getItem('whatsappModalShown')) {
+                 whatsappModal.style.display = 'block';
+           //      localStorage.setItem('whatsappModalShown', 'true');
+           // }
 
-      closeWhatsAppModal.addEventListener('click', function() {
-        whatsappModal.style.display = 'none';
-      });
 
-      // Debounce untuk pencarian
-      function debounce(func, wait) {
-        let timeout;
-        return function(...args) {
-          clearTimeout(timeout);
-          timeout = setTimeout(() => func.apply(this, args), wait);
-        };
-      }
-
-      function attachCardEvents() {
-        endpointListSection.addEventListener('click', function(e) {
-          const btn = e.target.closest('button');
-          if (!btn) return;
-          if (btn.classList.contains('copy-url-button')) {
-            const url = btn.getAttribute('data-url');
-            navigator.clipboard.writeText(url)
-              .then(() => alert('URL berhasil di-copy!'))
-              .catch(() => alert('Gagal copy URL.'));
-          } else if (btn.classList.contains('try-button')) {
-            const data = btn.getAttribute('data-endpoint');
-            if (data) {
-              const endpoint = JSON.parse(data);
-              openTryModal(endpoint);
-            }
-          }
-        });
-      }
-
-      function openTryModal(endpoint) {
-        currentEndpointData = endpoint;
-        parameterInputsDiv.innerHTML = '';
-        responseHeader.textContent = '';
-        responseBody.textContent = '';
-        axiosSnippetPre.innerHTML = '<code></code>';
-        finalApiUrl = '';
-        copyResponseHeader.style.display = 'none';
-        copyResponseBody.style.display = 'none';
-        copyEndpointButton.style.display = 'none';
-        copyAxiosButton.style.display = 'none';
-
-        if (endpoint.parameter && endpoint.parameter.length > 0) {
-          endpoint.parameter.forEach(param => {
-            const paramName = param.params;
-            const defaultValue = param.example || '';
-            const required = (param.opsional === false);
-            const div = document.createElement('div');
-            div.className = 'mb-3';
-            const label = document.createElement('label');
-            label.textContent = paramName + (required ? ' (Wajib):' : ' (Opsional):');
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.className = 'form-control';
-            input.name = paramName;
-            input.placeholder = defaultValue ? 'Default: ' + defaultValue : 'Masukkan ' + paramName;
-            input.value = defaultValue;
-            if (required) input.required = true;
-            div.appendChild(label);
-            div.appendChild(input);
-            parameterInputsDiv.appendChild(div);
+          closeWhatsAppModal.addEventListener('click', function() {
+            whatsappModal.style.display = 'none';
           });
-        }
-        tryModal.style.display = 'block';
-      }
+          // Close modal if clicked outside
+           whatsappModal.addEventListener('click', function(event) {
+              if (event.target === whatsappModal) {
+                  whatsappModal.style.display = 'none';
+              }
+           });
 
-      window.addEventListener('click', function(event) {
-        if (event.target === tryModal && loadingIndicator.style.display !== 'block') {
-          tryModal.style.display = 'none';
-          clearModalData();
-        }
-      });
 
-      closeButton.addEventListener('click', function() {
-        if (loadingIndicator.style.display !== 'block') {
-          tryModal.style.display = 'none';
-          clearModalData();
-        }
-      });
-
-      function clearModalData() {
-        responseHeader.textContent = '';
-        responseBody.textContent = '';
-        axiosSnippetPre.innerHTML = '<code></code>';
-        finalApiUrl = '';
-        copyResponseHeader.style.display = 'none';
-        copyResponseBody.style.display = 'none';
-        copyEndpointButton.style.display = 'none';
-        copyAxiosButton.style.display = 'none';
-      }
-
-      runButton.addEventListener('click', function() {
-        if (loadingIndicator.style.display === 'block') return;
-        if (!currentEndpointData) return;
-        runButton.disabled = true;
-        closeButton.disabled = true;
-        let apiUrl = currentEndpointData.endpoint;
-        const params = {};
-        let missingRequired = false;
-        const inputs = parameterInputsDiv.querySelectorAll('input');
-        inputs.forEach(input => {
-          const paramName = input.name;
-          const def = currentEndpointData.parameter.find(p => p.params === paramName);
-          const required = (def.opsional === false);
-          const defaultValue = def.example || '';
-          const val = input.value.trim();
-          if (val) {
-            params[paramName] = val;
-          } else if (!required && defaultValue) {
-            params[paramName] = defaultValue;
-          } else if (required && !val) {
-            missingRequired = true;
-          }
-        });
-        if (missingRequired) {
-          alert('Harap isi semua parameter wajib.');
-          runButton.disabled = false;
-          closeButton.disabled = false;
-          return;
-        }
-        Object.keys(params).forEach(paramName => {
-          const placeholder = '{' + paramName + '}';
-          if (apiUrl.includes(placeholder)) {
-            apiUrl = apiUrl.replace(placeholder, params[paramName]);
-            delete params[paramName];
-          }
-        });
-        let baseUrl = apiUrl;
-        const urlObj = new URL("https://nirkyy.koyeb.app" + baseUrl);
-        Object.entries(params).forEach(([k, v]) => { urlObj.searchParams.append(k, v); });
-        finalApiUrl = urlObj.href;
-        if(finalApiUrl) { copyEndpointButton.style.display = 'block'; }
-
-        // Tampilkan loading animation (2 roda gigi)
-        loadingIndicator.style.display = 'block';
-        responseHeader.textContent = '';
-        responseBody.textContent = '';
-
-        axios.get(finalApiUrl)
-        .then(r => {
-          loadingIndicator.style.display = 'none';
-          let hdr = '';
-          Object.entries(r.headers).forEach(([k, v]) => { hdr += k + ': ' + v + '\n'; });
-          const ctype = r.headers['content-type'] || '';
-          if (r.status >= 200 && r.status < 300) {
-            if (r.data && r.data.success === false) {
-              errorSound.play();
-              responseHeader.textContent = hdr;
-              responseBody.textContent = JSON.stringify(r.data, null, 2);
-            } else {
-              successSound.play();
-            }
-          } else {
-            errorSound.play();
-          }
-          responseHeader.textContent = hdr;
-          if(hdr.trim() !== "") { copyResponseHeader.style.display = 'block'; }
-
-          if (ctype.includes('application/json')) {
-            responseBody.textContent = JSON.stringify(r.data, null, 2);
-          }
-          else if (ctype.startsWith('image/')) {
-            responseBody.innerHTML = '<div class="loading">Memuat gambar...</div>';
-            const img = document.createElement('img');
-            img.src = r.config.url;
-            img.style.maxWidth = '100%';
-            img.style.height = 'auto';
-            img.onload = function() {
-              responseBody.innerHTML = '';
-              responseBody.appendChild(img);
-            };
-            img.onerror = function() {
-              responseBody.textContent = 'Image format rusak';
+          // Debounce untuk pencarian
+          function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+              clearTimeout(timeout);
+              timeout = setTimeout(() => func.apply(this, args), wait);
             };
           }
-          else if (ctype.startsWith('video/')) {
-            responseBody.innerHTML = '<div class="loading">Memuat video...</div>';
-            const vid = document.createElement('video');
-            vid.src = r.config.url;
-            vid.controls = true;
-            vid.style.maxWidth = '100%';
-            vid.style.height = 'auto';
-            vid.onloadeddata = function() {
-              responseBody.innerHTML = '';
-              responseBody.appendChild(vid);
-            };
-            vid.onerror = function() {
-              responseBody.textContent = 'Video format rusak';
-            };
-          }
-          else {
-            responseBody.textContent = r.data;
-          }
-          if(responseBody.textContent.trim() !== "" && !ctype.startsWith('image/') && !ctype.startsWith('video')) {
-            copyResponseBody.style.display = 'block';
-          } else {
-            copyResponseBody.style.display = 'none';
-          }
 
-          let axiosCode;
-          if (ctype.includes('application/json')) {
-            if (Object.keys(params).length > 0) {
-              axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "', {\n  params: " + JSON.stringify(params, null, 2) + "\n})\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
-            } else {
-              axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "')\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
-            }
-          } else {
-            if (Object.keys(params).length > 0) {
-              axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "', {\n  params: " + JSON.stringify(params, null, 2) + ",\n  responseType: 'arraybuffer'\n})\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
-            } else {
-              axiosCode = "axios.get('https://nirkyy.koyeb.app" + baseUrl + "', { responseType: 'arraybuffer' })\n.then(response => {\n  console.log(response);\n})\n.catch(error => {\n  console.error(error);\n});";
-            }
-          }
-          axiosSnippetPre.innerHTML = '<code>' + axiosCode + '</code>';
-          copyAxiosButton.style.display = 'block';
-          runButton.disabled = false;
-          closeButton.disabled = false;
-        })
-        .catch(err => {
-          loadingIndicator.style.display = 'none';
-          errorSound.play();
-          if (err.response) {
-            let h = 'Status: ' + err.response.status + ' ' + err.response.statusText + '\n';
-            Object.entries(err.response.headers).forEach(([k, v]) => { h += k + ': ' + v + '\n'; });
-            responseHeader.textContent = h;
-            if (typeof err.response.data === 'object') {
-              responseBody.textContent = JSON.stringify(err.response.data, null, 2);
-            } else {
-              responseBody.textContent = err.response.data;
-            }
-          } else {
-            responseHeader.textContent = 'Error: No response';
-            responseBody.textContent = err.message;
-          }
-          if(responseHeader.textContent.trim() !== "") {
-            copyResponseHeader.style.display = 'block';
-          }
-          if(responseBody.textContent.trim() !== "") {
-            copyResponseBody.style.display = 'block';
-          }
-          runButton.disabled = false;
-          closeButton.disabled = false;
-        });
-      });
-
-      copyResponseHeader.addEventListener('click', function() {
-        navigator.clipboard.writeText(responseHeader.textContent)
-          .then(() => alert('Response Header berhasil di-copy!'))
-          .catch(() => alert('Gagal copy Response Header.'));
-      });
-
-      copyResponseBody.addEventListener('click', function() {
-        navigator.clipboard.writeText(responseBody.textContent)
-          .then(() => alert('Response Body berhasil di-copy!'))
-          .catch(() => alert('Gagal copy Response Body.'));
-      });
-
-      copyEndpointButton.addEventListener('click', function() {
-        if (finalApiUrl) {
-          navigator.clipboard.writeText(finalApiUrl)
-            .then(() => alert('Endpoint berhasil di-copy!'))
-            .catch(() => alert('Gagal copy endpoint.'));
-        } else {
-          alert('Tidak ada endpoint yang dapat di-copy. Jalankan "Try" terlebih dahulu.');
-        }
-      });
-
-      copyAxiosButton.addEventListener('click', function() {
-        const codeText = axiosSnippetPre.textContent;
-        navigator.clipboard.writeText(codeText)
-          .then(() => alert('Contoh kode Axios berhasil di-copy!'))
-          .catch(() => alert('Gagal copy kode Axios.'));
-      });
-
-      function searchData(term) {
-        if (isFetching) return;
-        isFetching = true;
-        fetch('/search?term=' + encodeURIComponent(term))
-          .then(r => r.text())
-          .then(html => { endpointListSection.innerHTML = html; })
-          .catch(e => console.error(e))
-          .finally(() => { isFetching = false; });
-      }
-
-      function renderTags() {
-        if (isFetching) return;
-        isFetching = true;
-        fetch('/renderpage?tags=')
-          .then(r => r.text())
-          .then(h => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(h, 'text/html');
-            const row = doc.querySelector('.row');
-            if (row) endpointListSection.innerHTML = row.outerHTML;
-          })
-          .catch(e => console.error(e))
-          .finally(() => { isFetching = false; });
-      }
-
-      function loadTags() {
-        fetch('/tags')
-          .then(res => res.json())
-          .then(data => {
-            let html = '<a class="dropdown-item" href="#" data-tags="">All</a>';
-            data.tags.forEach(tag => {
-              html += `<a class="dropdown-item" href="#" data-tags="${tag}">${tag}</a>`;
+          function attachCardEvents() {
+            endpointListSection.addEventListener('click', function(e) {
+              const btn = e.target.closest('button');
+              if (!btn) return;
+              if (btn.classList.contains('copy-url-button')) {
+                const url = btn.getAttribute('data-url');
+                navigator.clipboard.writeText(url)
+                  .then(() => alert('URL berhasil di-copy!'))
+                  .catch(() => alert('Gagal copy URL.'));
+              } else if (btn.classList.contains('try-button')) {
+                const data = btn.getAttribute('data-endpoint');
+                if (data) {
+                  try {
+                     const endpoint = JSON.parse(data);
+                     openTryModal(endpoint);
+                  } catch (parseError){
+                      console.error("Failed to parse endpoint data:", parseError);
+                      alert("Gagal memuat data endpoint.");
+                  }
+                }
+              }
             });
-            tagButtonsContainer.innerHTML = html;
-          })
-          .catch(console.error);
-      }
+          }
 
-      searchEndpointInput.addEventListener('input', debounce(function() {
-        const s = searchEndpointInput.value.trim();
-        if (s) {
-          searchData(s);
-        } else {
-          renderTags();
-        }
-      }, 300));
+         function clearModalData() {
+            responseHeader.textContent = '';
+            responseBody.textContent = '';
+             // Clear image/video if previously loaded
+             const imgChild = responseBody.querySelector('img');
+             if (imgChild) responseBody.removeChild(imgChild);
+             const vidChild = responseBody.querySelector('video');
+             if (vidChild) responseBody.removeChild(vidChild);
 
-      tagButtonsContainer.addEventListener('click', function(e) {
-        e.preventDefault();
-        const btn = e.target.closest('a');
-        if (btn) {
-          const tags = btn.getAttribute('data-tags');
-          searchEndpointInput.value = '';
-          fetch('/renderpage?tags=' + encodeURIComponent(tags))
-            .then(r => r.text())
-            .then(h => {
-              const parser = new DOMParser();
-              const doc = parser.parseFromString(h, 'text/html');
-              const row = doc.querySelector('.row');
-              if (row) endpointListSection.innerHTML = row.outerHTML;
+            axiosSnippetPre.textContent = ''; // Clear code content
+            finalApiUrl = '';
+            copyResponseHeader.style.display = 'none';
+            copyResponseBody.style.display = 'none';
+            copyEndpointButton.style.display = 'none';
+            copyAxiosButton.style.display = 'none';
+            parameterInputsDiv.innerHTML = ''; // Clear old inputs
+          }
+
+
+          function openTryModal(endpoint) {
+            currentEndpointData = endpoint;
+            clearModalData(); // Clear previous modal state
+
+
+            if (endpoint.parameter && endpoint.parameter.length > 0) {
+              endpoint.parameter.forEach(param => {
+                const paramName = param.params;
+                const defaultValue = param.example || '';
+                const required = (param.opsional === false); // Strict check for false
+                const div = document.createElement('div');
+                div.className = 'mb-3';
+                const label = document.createElement('label');
+                label.htmlFor = `param-${paramName}`; // Add 'for' attribute
+                label.textContent = paramName + (required ? ' (Wajib)' : ' (Opsional)'); // No colon needed, styled by CSS margin
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'form-control';
+                input.id = `param-${paramName}`; // Add id for label
+                input.name = paramName;
+                input.placeholder = defaultValue ? 'Contoh: ' + defaultValue : 'Masukkan ' + paramName; // Use Contoh instead of Default
+                input.value = ''; // Start empty, let user fill or use placeholder/logic below
+                // input.value = defaultValue; // Pre-fill with default? Decided against for clarity.
+                if (required) input.required = true; // Keep required attribute for potential browser validation
+                div.appendChild(label);
+                div.appendChild(input);
+                parameterInputsDiv.appendChild(div);
+              });
+            } else {
+                 parameterInputsDiv.innerHTML = '<p>Endpoint ini tidak memerlukan parameter.</p>'; // Inform user
+            }
+            tryModal.style.display = 'block';
+            tryModal.focus(); // Focus modal for accessibility
+          }
+
+          // Close modal on clicking outside, only if not loading
+          window.addEventListener('click', function(event) {
+            if (event.target === tryModal && loadingIndicator.style.display !== 'block') {
+              tryModal.style.display = 'none';
+              clearModalData();
+            }
+          });
+
+          // Close modal on button click, only if not loading
+          closeButton.addEventListener('click', function() {
+            if (loadingIndicator.style.display !== 'block') {
+              tryModal.style.display = 'none';
+              clearModalData();
+            }
+          });
+
+
+          runButton.addEventListener('click', function() {
+            if (loadingIndicator.style.display === 'block') return; // Prevent multiple clicks while loading
+            if (!currentEndpointData) return;
+
+            runButton.disabled = true;
+            closeButton.disabled = true; // Disable close while running
+
+            let apiUrl = currentEndpointData.endpoint;
+            const params = {};
+            let missingRequired = false;
+            const inputs = parameterInputsDiv.querySelectorAll('input');
+
+            inputs.forEach(input => {
+              const paramName = input.name;
+              const paramDef = currentEndpointData.parameter.find(p => p.params === paramName);
+              const required = paramDef && (paramDef.opsional === false);
+              const val = input.value.trim();
+
+              if (required && !val) {
+                missingRequired = true;
+                input.style.borderColor = 'red'; // Highlight missing required field
+              } else {
+                 input.style.borderColor = ''; // Reset border color
+                  if (val) { // Only add if value is provided
+                     params[paramName] = val;
+                  }
+              }
+            });
+
+            if (missingRequired) {
+              alert('Harap isi semua parameter wajib.');
+              runButton.disabled = false;
+              closeButton.disabled = false;
+              return;
+            }
+
+            // Replace path parameters first
+            Object.keys(params).forEach(paramName => {
+              const placeholder = '{' + paramName + '}';
+              if (apiUrl.includes(placeholder)) {
+                apiUrl = apiUrl.replace(placeholder, encodeURIComponent(params[paramName])); // URL-encode path params
+                delete params[paramName]; // Remove from query params
+              }
+            });
+
+            // Construct URL with remaining query parameters
+            // Use a robust method to build the URL
+            let finalUrl;
+             try {
+                 const baseUrl = "https://nirkyy.koyeb.app"; // Ensure HTTPS
+                 const urlObj = new URL(baseUrl + apiUrl);
+
+                 // Add remaining params as query strings
+                 Object.entries(params).forEach(([k, v]) => {
+                    urlObj.searchParams.append(k, v);
+                 });
+                  finalUrl = urlObj.toString(); // Get the full URL string
+             } catch (urlError) {
+                 console.error("Error constructing URL:", urlError);
+                 alert("Terjadi kesalahan saat membuat URL endpoint.");
+                  runButton.disabled = false;
+                  closeButton.disabled = false;
+                 return;
+             }
+
+             finalApiUrl = finalUrl; // Store for copy button
+
+            // Tampilkan loading animation
+            loadingIndicator.style.display = 'block';
+            responseHeader.textContent = '';
+            responseBody.textContent = ''; // Clear previous text content
+             // Clear previous image/video
+             const imgChild = responseBody.querySelector('img');
+             if (imgChild) responseBody.removeChild(imgChild);
+             const vidChild = responseBody.querySelector('video');
+             if (vidChild) responseBody.removeChild(vidChild);
+            axiosSnippetPre.textContent = ''; // Clear previous snippet
+            copyResponseHeader.style.display = 'none';
+            copyResponseBody.style.display = 'none';
+            copyEndpointButton.style.display = 'none';
+            copyAxiosButton.style.display = 'none';
+
+
+            axios.get(finalApiUrl, { responseType: 'arraybuffer' }) // Request as arraybuffer to handle binary data properly
+            .then(async r => { // Make async to handle blob/text conversion
+              loadingIndicator.style.display = 'none';
+
+               // Process Headers
+              let hdr = `Status: ${r.status} ${r.statusText}\n`;
+              Object.entries(r.headers).forEach(([k, v]) => { hdr += k + ': ' + v + '\n'; });
+              responseHeader.textContent = hdr.trim();
+               if (responseHeader.textContent) copyResponseHeader.style.display = 'block';
+
+
+               // Determine content type
+              const ctype = r.headers['content-type'] || '';
+              let responseData = r.data; // ArrayBuffer
+
+              // Handle Response Body based on Content-Type
+              if (ctype.includes('application/json')) {
+                   try {
+                       // Convert ArrayBuffer to string, then parse JSON
+                       const jsonString = new TextDecoder().decode(responseData);
+                       const jsonData = JSON.parse(jsonString);
+                       responseBody.textContent = JSON.stringify(jsonData, null, 2);
+                       copyResponseBody.style.display = 'block';
+                        // Check for success flag within JSON *after* displaying it
+                        if (jsonData && jsonData.success === false) {
+                            errorSound.play();
+                        } else {
+                           successSound.play();
+                        }
+                   } catch (e) {
+                       console.error("JSON parsing error:", e);
+                       responseBody.textContent = "Error parsing JSON response.";
+                       errorSound.play();
+                   }
+
+              } else if (ctype.startsWith('image/')) {
+                 responseBody.innerHTML = ''; // Clear previous content
+                 const blob = new Blob([responseData], { type: ctype });
+                 const img = document.createElement('img');
+                 img.src = URL.createObjectURL(blob);
+                 img.style.maxWidth = '100%';
+                 img.style.height = 'auto';
+                 img.onload = () => URL.revokeObjectURL(img.src); // Clean up blob URL
+                 img.onerror = () => responseBody.textContent = 'Gagal memuat gambar.';
+                 responseBody.appendChild(img);
+                 copyResponseBody.style.display = 'none'; // No text to copy for images
+                 successSound.play();
+
+              } else if (ctype.startsWith('video/')) {
+                 responseBody.innerHTML = '';
+                 const blob = new Blob([responseData], { type: ctype });
+                 const vid = document.createElement('video');
+                 vid.src = URL.createObjectURL(blob);
+                 vid.controls = true;
+                 vid.style.maxWidth = '100%';
+                 vid.style.height = 'auto';
+                 vid.onloadeddata = () => URL.revokeObjectURL(vid.src); // Clean up
+                 vid.onerror = () => responseBody.textContent = 'Gagal memuat video.';
+                 responseBody.appendChild(vid);
+                 copyResponseBody.style.display = 'none'; // No text to copy for video
+                 successSound.play();
+
+              } else if (ctype.startsWith('text/')) {
+                    // Handle plain text or HTML
+                   responseBody.textContent = new TextDecoder().decode(responseData);
+                   copyResponseBody.style.display = 'block';
+                   successSound.play();
+              }
+              else {
+                  // Fallback for other types (e.g., zip, pdf - show message)
+                   responseBody.textContent = `Tipe konten (${ctype}) tidak dapat ditampilkan langsung. Ukuran: ${responseData.byteLength} bytes.`;
+                   copyResponseBody.style.display = 'none'; // Can't really copy binary meaningfully here
+                   successSound.play(); // Still a successful request
+              }
+
+                // Generate Axios Snippet
+              let axiosCode;
+              const axiosConfig = {};
+               if (Object.keys(params).length > 0) {
+                 axiosConfig.params = params;
+              }
+               // Always use arraybuffer if it's not explicitly JSON in the response CType
+               if (!ctype.includes('application/json')) {
+                  axiosConfig.responseType = 'arraybuffer';
+              }
+
+              const configString = Object.keys(axiosConfig).length > 0
+                 ? `, ${JSON.stringify(axiosConfig, null, 2)}`
+                 : '';
+
+              axiosCode = `axios.get('${finalApiUrl}'${configString})
+.then(response => {
+  console.log('Status:', response.status);
+  console.log('Headers:', response.headers);
+  // Handle response.data based on responseType and content-type
+  // If responseType was 'arraybuffer', you might need:
+  // const blob = new Blob([response.data], { type: response.headers['content-type'] });
+  // const url = URL.createObjectURL(blob);
+  // console.log('Blob URL:', url);
+  console.log('Data:', response.data);
+})
+.catch(error => {
+  console.error('Axios Error:', error);
+   if (error.response) {
+       console.error('Error Response Status:', error.response.status);
+       console.error('Error Response Headers:', error.response.headers);
+       // Try to decode error response body if available
+       if (error.response.data instanceof ArrayBuffer) {
+          try {
+             const errorString = new TextDecoder().decode(error.response.data);
+             console.error('Error Response Data:', errorString);
+          } catch {
+              console.error('Error Response Data (raw):', error.response.data);
+          }
+       } else {
+          console.error('Error Response Data:', error.response.data);
+       }
+   } else if (error.request) {
+       console.error('Error Request:', error.request);
+   } else {
+       console.error('Error Message:', error.message);
+   }
+});`;
+
+              axiosSnippetPre.textContent = axiosCode; // Set text content of <code>
+              copyAxiosButton.style.display = 'block';
+              if (finalApiUrl) copyEndpointButton.style.display = 'block'; // Show copy endpoint URL
+
+
             })
-            .catch(e => console.error(e));
-        }
-      });
+            .catch(err => {
+              loadingIndicator.style.display = 'none';
+              errorSound.play();
+              console.error("API Request Error:", err);
 
-      attachCardEvents();
-      renderTags();
-      loadTags();
-    });</script></body></html>
+              if (err.response) {
+                // Server responded with a status code outside 2xx range
+                let h = `Status: ${err.response.status} ${err.response.statusText}\n`;
+                Object.entries(err.response.headers).forEach(([k, v]) => { h += k + ': ' + v + '\n'; });
+                responseHeader.textContent = h.trim();
+
+                // Try to decode error body (might be JSON, text, etc.)
+                 if (err.response.data instanceof ArrayBuffer) {
+                     try {
+                        const errorText = new TextDecoder().decode(err.response.data);
+                         // Try parsing as JSON first
+                         try {
+                             const errorJson = JSON.parse(errorText);
+                             responseBody.textContent = JSON.stringify(errorJson, null, 2);
+                         } catch {
+                             // If not JSON, display as text
+                             responseBody.textContent = errorText;
+                         }
+                     } catch (decodeError) {
+                         console.error("Error decoding error response:", decodeError);
+                         responseBody.textContent = "Gagal membaca response error (binary?).";
+                     }
+                 } else if (typeof err.response.data === 'object') {
+                     responseBody.textContent = JSON.stringify(err.response.data, null, 2);
+                 } else {
+                     responseBody.textContent = err.response.data || 'Tidak ada body response error.';
+                 }
+
+              } else if (err.request) {
+                // Request was made but no response received
+                responseHeader.textContent = 'Error: Tidak ada response dari server.';
+                responseBody.textContent = 'Cek koneksi internet atau URL endpoint.';
+                 console.error("No response received:", err.request);
+              } else {
+                // Something happened in setting up the request
+                responseHeader.textContent = 'Error: Gagal melakukan request.';
+                responseBody.textContent = err.message;
+                 console.error("Request setup error:", err.message);
+              }
+               if(responseHeader.textContent) copyResponseHeader.style.display = 'block';
+               if(responseBody.textContent) copyResponseBody.style.display = 'block';
+               if (finalApiUrl) copyEndpointButton.style.display = 'block'; // Show copy endpoint even on error
+
+
+            })
+            .finally(() => {
+               // Re-enable buttons regardless of success or failure
+                 runButton.disabled = false;
+                 closeButton.disabled = false;
+            });
+          });
+
+          copyResponseHeader.addEventListener('click', function() {
+            navigator.clipboard.writeText(responseHeader.textContent)
+              .then(() => alert('Response Header berhasil di-copy!'))
+              .catch(() => alert('Gagal copy Response Header.'));
+          });
+
+          copyResponseBody.addEventListener('click', function() {
+              // Handle copying for different content types if needed
+              // For now, just copy text content
+              if (responseBody.querySelector('img') || responseBody.querySelector('video')) {
+                  alert("Tidak dapat menyalin gambar atau video sebagai teks.");
+                  return;
+              }
+            navigator.clipboard.writeText(responseBody.textContent)
+              .then(() => alert('Response Body berhasil di-copy!'))
+              .catch(() => alert('Gagal copy Response Body.'));
+          });
+
+          copyEndpointButton.addEventListener('click', function() {
+            if (finalApiUrl) {
+              navigator.clipboard.writeText(finalApiUrl)
+                .then(() => alert('Endpoint URL berhasil di-copy!'))
+                .catch(() => alert('Gagal copy endpoint URL.'));
+            } else {
+              alert('Tidak ada URL endpoint yang dapat di-copy. Jalankan "Run" terlebih dahulu.');
+            }
+          });
+
+          copyAxiosButton.addEventListener('click', function() {
+            const codeText = axiosSnippetPre.textContent;
+            navigator.clipboard.writeText(codeText)
+              .then(() => alert('Contoh kode Axios berhasil di-copy!'))
+              .catch(() => alert('Gagal copy kode Axios.'));
+          });
+
+          // Fetch function (search or filter by tag)
+          function fetchData(url, targetElement) {
+              if (isFetching) return;
+              isFetching = true;
+              targetElement.innerHTML = `<div class="loading"><i class="fas fa-cog gear gear1"></i><i class="fas fa-cog gear gear2"></i><p>Loading...</p></div>`; // Show loading indicator
+
+              fetch(url)
+                  .then(r => {
+                      if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+                      return r.text();
+                  })
+                  .then(html => {
+                      // Inject the HTML content, assuming it contains the .row structure
+                      targetElement.innerHTML = html;
+                       // Re-attach events if needed, handled by the main listener now
+                  })
+                  .catch(e => {
+                      console.error("Fetch error:", e);
+                      targetElement.innerHTML = `<p class="text-danger text-center">Gagal memuat data. Coba lagi nanti.</p>`;
+                  })
+                  .finally(() => { isFetching = false; });
+          }
+
+
+          // Function to load initial endpoints or filter by tag
+          function renderEndpoints(tag = '') {
+               const url = `/renderpage?tags=${encodeURIComponent(tag)}`;
+               fetchData(url, endpointListSection);
+           }
+
+
+          function loadTags() {
+            fetch('/tags')
+              .then(res => {
+                  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                   return res.json();
+              })
+              .then(data => {
+                 if (!data || !Array.isArray(data.tags)) {
+                      console.error("Invalid tag data received:", data);
+                     throw new Error("Format data tag tidak valid.");
+                  }
+                let html = '<a class="dropdown-item" href="#" data-tags="">Semua</a>'; // Change 'All' to 'Semua'
+                data.tags.forEach(tag => {
+                  html += `<a class="dropdown-item" href="#" data-tags="${tag}">${tag}</a>`;
+                });
+                tagButtonsContainer.innerHTML = html;
+              })
+              .catch(e => {
+                    console.error("Failed to load tags:", e);
+                    tagButtonsContainer.innerHTML = '<span class="dropdown-item text-muted">Gagal memuat tag</span>';
+               });
+          }
+
+          // Search Input Event Listener
+          searchEndpointInput.addEventListener('input', debounce(function() {
+            const searchTerm = searchEndpointInput.value.trim();
+            const url = searchTerm ? `/search?term=${encodeURIComponent(searchTerm)}` : '/renderpage?tags='; // Search or show all
+            fetchData(url, endpointListSection);
+          }, 300));
+
+
+          // Tag Buttons Event Listener
+          tagButtonsContainer.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default anchor behavior
+            const link = e.target.closest('a.dropdown-item');
+            if (link && !isFetching) {
+              const tags = link.getAttribute('data-tags');
+              searchEndpointInput.value = ''; // Clear search input when tag is clicked
+              renderEndpoints(tags); // Fetch and render based on tag
+              // Update dropdown button text (optional)
+               document.getElementById('dropdownTags').innerHTML = `<i class="fas fa-bars"></i> ${tags || 'Semua'}`;
+               // Close dropdown manually if needed (Bootstrap might handle this)
+                $('.dropdown-toggle').dropdown('hide');
+            }
+          });
+
+          // Initial Load
+          attachCardEvents(); // Attach the main event listener once
+          renderEndpoints(); // Load all endpoints initially
+          loadTags(); // Load tags for the dropdown
+        });</script></body></html>
