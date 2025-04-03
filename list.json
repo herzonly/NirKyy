@@ -1,7 +1,19 @@
 [
   {
+  "nama": "Fire Logo Generator",
+  "tags": ["Maker"],
+  "endpoint": "/api/v1/fireLogo",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Ihh takutnyee",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Fancy Text Generator",
-  "tags": ["Tools"],
+  "tags": ["Maker"],
   "endpoint": "/api/v1/fancytext",
   "parameter": [
     {
@@ -13,7 +25,7 @@
 },
   {
   "nama": "Ghibli Style Image Generator",
-  "tags": ["AI","Tools"],
+  "tags": ["AI","Maker"],
   "endpoint": "/api/v1/ghiblistyle",
   "parameter": [
     {
@@ -73,7 +85,7 @@
 },
   {
   "nama": "Gemini Translate",
-  "tags": ["AI"],
+  "tags": ["AI","Tools"],
   "endpoint": "/api/v1/gemini-translate",
   "parameter": [
     {
@@ -347,7 +359,7 @@
   },
   {
     "nama": "AI generator Query",
-    "tags": ["AI"],
+    "tags": ["AI","Tools"],
     "endpoint": "/api/v1/generate-query",
     "parameter": [
       {
@@ -381,7 +393,7 @@
   },
   {
     "nama": "Meme Generator",
-    "tags": ["Tools"],
+    "tags": ["Maker"],
     "endpoint": "/api/v1/memegen",
     "parameter": [
       {
