@@ -1,4 +1,547 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NirKyy - REST API Documentation</title><meta name="google-site-verification" content="J-VFugOfjbkh7eTymofIL-zoG7ne6R91Q-G4gnTEEDw"><meta name="description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta name="keywords" content="REST API, dokumentasi API, Collection API, NirKyy, endpoint, API documentation, web API, fetch API, coba API"><meta name="author" content="NirKyy Developer"><meta name="robots" content="index, follow"><meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"><meta property="og:title" content="NirKyy - REST API Documentation"><meta property="og:description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta property="og:type" content="website"><meta property="og:url" content="nirkyy.koyeb.app"><meta property="og:image" content="/logo.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="NirKyy - REST API Documentation"><meta name="twitter:description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta name="twitter:site" content="@NirKyyDev"><meta name="twitter:image" content="/logo.jpg"><link rel="icon" href="favicon.ico" type="image/x-icon"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"><style>:root{--bg-color:#1a1a1a;--text-color:#e0e0e0;--accent-color:#00aced;--border-color:#444;--card-bg-color:#222;--code-bg-color:#282c34;--hover-bg-color:#333}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";background-color:var(--bg-color);color:var(--text-color);margin:0;padding:0;overflow-x:hidden;line-height:1.6}header{background-color:var(--bg-color);padding:15px 20px;border-bottom:2px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}.header-left{display:flex;align-items:center;margin-bottom:10px}.header-left img{max-height:60px;margin-right:15px}.header-title{font-size:1.8rem;font-weight:700;margin:0;color:var(--text-color)}main.container-fluid{padding:25px 20px}.search-container{margin-top:10px;margin-bottom:30px;position:relative;text-align:center}.search-container input[type=text]{padding:12px 40px 12px 15px;border:1px solid var(--border-color);background-color:var(--card-bg-color);color:var(--text-color);border-radius:25px;width:100%;max-width:600px;font-size:1em;transition:border-color .3s ease,box-shadow .3s ease}.search-container input[type=text]::placeholder{color:#888}.search-container input[type=text]:focus{border-color:var(--accent-color);box-shadow:0 0 8px rgba(0,172,237,.5);outline:0}.search-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--accent-color);margin-left:auto;margin-right:auto;left:0;right:0;max-width:570px;pointer-events:none;text-align:right}.dropdown{margin:10px 0}.dropdown-toggle{background-color:transparent;color:var(--accent-color);border:1px solid var(--accent-color);padding:8px 15px;border-radius:20px;transition:background-color .3s ease,color .3s ease}.dropdown-toggle:focus,.dropdown-toggle:hover{background-color:var(--accent-color);color:var(--bg-color);box-shadow:none}.dropdown-menu{background-color:var(--card-bg-color);border:1px solid var(--border-color);border-radius:8px}.dropdown-item{color:var(--text-color);padding:10px 15px;transition:background-color .2s ease,color .2s ease}.dropdown-item:hover{background-color:var(--hover-bg-color);color:var(--accent-color)}#endpointListSection .card{border:1px solid var(--border-color);background-color:var(--card-bg-color);color:var(--text-color);transition:transform .3s ease,box-shadow .3s ease;margin-bottom:20px;border-radius:8px;overflow:hidden}#endpointListSection .card:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,172,237,.2);border-color:var(--accent-color)}.card-header{background-color:rgba(0,172,237,.1);color:var(--accent-color);border-bottom:1px solid var(--border-color);font-weight:700;padding:.8rem 1.25rem}.card-body{padding:1.5rem}.card-body p{margin-bottom:.8rem}.card-body .btn{margin-top:10px;margin-right:5px}pre{white-space:pre-wrap;word-wrap:break-word;background-color:var(--code-bg-color);border:1px solid var(--border-color);padding:15px;border-radius:5px;overflow-x:auto;color:#abb2bf;font-family:"Fira Code",Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace;font-size:.9em;line-height:1.5}.modal{display:none;position:fixed;z-index:1050;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,.85)}.modal-dialog{margin:1.75rem auto;max-width:700px}.modal-content{background-color:var(--card-bg-color);color:var(--text-color);border:1px solid var(--border-color);border-radius:10px}.modal-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center}.modal-title{color:var(--accent-color);font-weight:700;font-size:1.25rem}.modal-header .close{color:var(--text-color);opacity:.7;text-shadow:none;font-size:1.5rem}.modal-header .close:hover{color:var(--accent-color);opacity:1}.modal-body{padding:1.5rem}.modal-body label{font-weight:700;margin-bottom:.5rem;display:block}.modal-body .form-control{background-color:var(--bg-color);border:1px solid var(--border-color);color:var(--text-color);border-radius:5px}.modal-body .form-control:focus{background-color:var(--bg-color);color:var(--text-color);border-color:var(--accent-color);box-shadow:0 0 5px rgba(0,172,237,.3)}.modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--border-color)}footer{text-align:center;padding:25px 20px;background-color:var(--bg-color);color:#aaa;border-top:2px solid var(--border-color);margin-top:40px;font-size:.9em}footer a{color:var(--accent-color);text-decoration:none;margin-left:5px}footer a:hover{text-decoration:underline}.axios-code{margin-top:20px}.modal-section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.modal-section-header h5{margin-bottom:0;font-size:1rem;font-weight:700}.copy-button{background:0 0;border:1px solid var(--accent-color);color:var(--accent-color);padding:3px 8px;font-size:.8em;border-radius:4px;cursor:pointer;transition:background-color .2s ease,color .2s ease;display:none}.copy-button:hover{background-color:var(--accent-color);color:var(--card-bg-color)}.copy-button i{margin-right:4px}.btn{font-family:inherit;border-radius:20px;padding:10px 20px;font-weight:700;transition:background-color .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease}.btn-info,.btn-primary{border:1px solid var(--accent-color);background-color:var(--accent-color);color:var(--bg-color)}.btn-info:focus,.btn-info:hover,.btn-primary:focus,.btn-primary:hover{background-color:var(--bg-color);color:var(--accent-color);border-color:var(--accent-color);box-shadow:0 0 8px rgba(0,172,237,.4)}.btn-outline-info{border:1px solid var(--accent-color);color:var(--accent-color);background-color:transparent}.btn-outline-info:focus,.btn-outline-info:hover{background-color:var(--accent-color);color:var(--bg-color);box-shadow:0 0 8px rgba(0,172,237,.4)}.loading{text-align:center;margin:30px auto;color:var(--accent-color)}.gear{font-size:2.5em;margin:0 10px;display:inline-block;color:var(--accent-color)}.gear1{animation:rotate-clockwise 1.5s linear infinite}.gear2{animation:rotate-counterclockwise 1.5s linear infinite}@keyframes rotate-clockwise{from{transform:rotate(0)}to{transform:rotate(360deg)}}@keyframes rotate-counterclockwise{from{transform:rotate(0)}to{transform:rotate(-360deg)}}#whatsappModal .modal-content{text-align:center;padding:2rem}#whatsappModal .modal-title{font-size:1.5rem;margin-bottom:1rem;width:100%;text-align:center}#whatsappModal .modal-body{font-size:1.05rem;margin-bottom:1.5rem}#whatsappModal .modal-footer{border-top:none;justify-content:center}#whatsappModal .modal-header{border-bottom:none;padding-bottom:0}#whatsappModal .close{position:absolute;top:15px;right:20px}@media (max-width:768px){.header-title{font-size:1.5rem}main.container-fluid{padding:20px 15px}.modal-dialog{max-width:90%}}@media (max-width:576px){header{padding:10px 15px;flex-direction:column;align-items:flex-start}.header-left{margin-bottom:15px}.header-title{font-size:1.4rem}main.container-fluid{padding:15px 10px}.card-body{padding:1.2rem}.modal-title{font-size:1.1rem}.btn{padding:8px 16px;font-size:.9rem}pre{padding:10px;font-size:.85em}.search-container input[type=text]{padding:10px 35px 10px 12px;font-size:.95em}}</style></head><body><header><div class="header-left"><img src="/logo.jpg" alt="Logo NirKyy"><h1 class="header-title">NirKyy API</h1></div><div class="dropdown"><button class="btn dropdown-toggle" type="button" id="dropdownTags" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tags"></i>Tags</button><div class="dropdown-menu" aria-labelledby="dropdownTags" id="tagButtons"></div></div></header><main class="container-fluid"><div class="search-container"><input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag..."><i class="fas fa-search search-icon"></i></div><div id="endpointListSection" class="row"></div></main><footer><p>© 2025 NirKyy. API Bakal tetep aktif selama Koyeb gratis 🗿🙏 | Join Saluran<a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer">WhatsApp</a></p></footer><div id="tryModal" class="modal" tabindex="-1" role="dialog"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Coba Endpoint</h5><button type="button" class="close" id="closeButton" aria-label="Close"><span aria-hidden="true">×</span></button></div><div class="modal-body"><div id="parameterInputs"></div><button id="runButton" class="btn btn-info btn-block mt-3 mb-3"><i class="fas fa-play"></i>Run</button><div id="loadingIndicator" class="loading" style="display:none"><i class="fas fa-cog gear gear1"></i><i class="fas fa-cog gear gear2"></i><span>Memproses...</span></div><div id="apiResponse" class="mt-3"><div class="modal-section-header"><h5>Response Header:</h5><button id="copyResponseHeader" class="copy-button"><i class="fas fa-copy"></i>Salin</button></div><pre id="responseHeader"></pre><div class="modal-section-header mt-3"><h5>Response Body:</h5><button id="copyResponseBody" class="copy-button"><i class="fas fa-copy"></i>Salin</button></div><pre id="responseBody"></pre><div class="modal-section-header mt-3"><h5>Endpoint URL:</h5><button id="copyEndpointButton" class="copy-button"><i class="fas fa-copy"></i>Salin</button></div><pre id="finalUrlDisplay" style="font-size:.85em;word-break:break-all;display:none"></pre></div><div class="axios-code mt-3"><div class="modal-section-header"><h5>Contoh Kode Axios (GET):</h5><button id="copyAxiosButton" class="copy-button"><i class="fas fa-copy"></i>Salin</button></div><pre id="axiosSnippet"><code></code></pre></div></div></div></div></div><div id="whatsappModal" class="modal" tabindex="-1" role="dialog"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title"><i class="fab fa-whatsapp"></i>Gabung Saluran WhatsApp!</h5><button type="button" class="close" id="closeWhatsAppModal" aria-label="Close"><span aria-hidden="true">×</span></button></div><div class="modal-body"><p>Dapatkan update API terbaru dan diskusi seru seputar NirKyy. Yuk, gabung ke saluran WhatsApp kami!</p></div><div class="modal-footer"><a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Gabung Sekarang</a></div></div></div></div><audio id="successSound" src="success.mp3" preload="auto"></audio><audio id="errorSound" src="error.mp3" preload="auto"></audio><script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer="defer"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" defer="defer"></script><script defer="defer">// Hapus defer="defer"
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NirKyy - REST API Documentation</title>
+    <meta name="google-site-verification" content="J-VFugOfjbkh7eTymofIL-zoG7ne6R91Q-G4gnTEEDw">
+    <meta name="description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web">
+    <meta name="keywords" content="REST API, dokumentasi API, Collection API, NirKyy, endpoint, API documentation, web API, fetch API, coba API">
+    <meta name="author" content="NirKyy Developer">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta property="og:title" content="NirKyy - REST API Documentation">
+    <meta property="og:description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="nirkyy.koyeb.app">
+    <meta property="og:image" content="/logo.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NirKyy - REST API Documentation">
+    <meta name="twitter:description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web">
+    <meta name="twitter:site" content="@NirKyyDev">
+    <meta name="twitter:image" content="/logo.jpg">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --accent-color: #00aced;
+            --border-color: #444;
+            --card-bg-color: #222;
+            --code-bg-color: #282c34;
+            --hover-bg-color: #333
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.6
+        }
+        header {
+            background-color: var(--bg-color);
+            padding: 15px 20px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px
+        }
+        .header-left img {
+            max-height: 60px;
+            margin-right: 15px
+        }
+        .header-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--text-color)
+        }
+        main.container-fluid {
+            padding: 25px 20px
+        }
+        .search-container {
+            margin-top: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            text-align: center
+        }
+        .search-container input[type=text] {
+            padding: 12px 40px 12px 15px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg-color);
+            color: var(--text-color);
+            border-radius: 25px;
+            width: 100%;
+            max-width: 600px;
+            font-size: 1em;
+            transition: border-color .3s ease, box-shadow .3s ease
+        }
+        .search-container input[type=text]::placeholder {
+            color: #888
+        }
+        .search-container input[type=text]:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(0, 172, 237, .5);
+            outline: 0
+        }
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-color);
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            max-width: 570px;
+            pointer-events: none;
+            text-align: right
+        }
+        .dropdown {
+            margin: 10px 0
+        }
+        .dropdown-toggle {
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background-color .3s ease, color .3s ease
+        }
+        .dropdown-toggle:focus,
+        .dropdown-toggle:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            box-shadow: none
+        }
+        .dropdown-menu {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px
+        }
+        .dropdown-item {
+            color: var(--text-color);
+            padding: 10px 15px;
+            transition: background-color .2s ease, color .2s ease
+        }
+        .dropdown-item:hover {
+            background-color: var(--hover-bg-color);
+            color: var(--accent-color)
+        }
+        #endpointListSection .card {
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg-color);
+            color: var(--text-color);
+            transition: transform .3s ease, box-shadow .3s ease;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden
+        }
+        #endpointListSection .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 172, 237, .2);
+            border-color: var(--accent-color)
+        }
+        .card-header {
+            background-color: rgba(0, 172, 237, .1);
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 700;
+            padding: .8rem 1.25rem
+        }
+        .card-body {
+            padding: 1.5rem
+        }
+        .card-body p {
+            margin-bottom: .8rem
+        }
+        .card-body .btn {
+            margin-top: 10px;
+            margin-right: 5px
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: var(--code-bg-color);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            color: #abb2bf;
+            font-family: "Fira Code", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+            font-size: .9em;
+            line-height: 1.5
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1050;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, .85)
+        }
+        .modal-dialog {
+            margin: 1.75rem auto;
+            max-width: 700px
+        }
+        .modal-content {
+            background-color: var(--card-bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px
+        }
+        .modal-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+        .modal-title {
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 1.25rem
+        }
+        .modal-header .close {
+            color: var(--text-color);
+            opacity: .7;
+            text-shadow: none;
+            font-size: 1.5rem
+        }
+        .modal-header .close:hover {
+            color: var(--accent-color);
+            opacity: 1
+        }
+        .modal-body {
+            padding: 1.5rem
+        }
+        .modal-body label {
+            font-weight: 700;
+            margin-bottom: .5rem;
+            display: block
+        }
+        .modal-body .form-control {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 5px
+        }
+        .modal-body .form-control:focus {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(0, 172, 237, .3)
+        }
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border-color)
+        }
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            background-color: var(--bg-color);
+            color: #aaa;
+            border-top: 2px solid var(--border-color);
+            margin-top: 40px;
+            font-size: .9em
+        }
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin-left: 5px
+        }
+        footer a:hover {
+            text-decoration: underline
+        }
+        .axios-code {
+            margin-top: 20px
+        }
+        .modal-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px
+        }
+        .modal-section-header h5 {
+            margin-bottom: 0;
+            font-size: 1rem;
+            font-weight: 700
+        }
+        .copy-button {
+            background: 0 0;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 3px 8px;
+            font-size: .8em;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color .2s ease, color .2s ease;
+            display: none
+        }
+        .copy-button:hover {
+            background-color: var(--accent-color);
+            color: var(--card-bg-color)
+        }
+        .copy-button i {
+            margin-right: 4px
+        }
+        .btn {
+            font-family: inherit;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: 700;
+            transition: background-color .3s ease, color .3s ease, border-color .3s ease, box-shadow .3s ease
+        }
+        .btn-info,
+        .btn-primary {
+            border: 1px solid var(--accent-color);
+            background-color: var(--accent-color);
+            color: var(--bg-color)
+        }
+        .btn-info:focus,
+        .btn-info:hover,
+        .btn-primary:focus,
+        .btn-primary:hover {
+            background-color: var(--bg-color);
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(0, 172, 237, .4)
+        }
+        .btn-outline-info {
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            background-color: transparent
+        }
+        .btn-outline-info:focus,
+        .btn-outline-info:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 8px rgba(0, 172, 237, .4)
+        }
+        .loading {
+            text-align: center;
+            margin: 30px auto;
+            color: var(--accent-color)
+        }
+        .gear {
+            font-size: 2.5em;
+            margin: 0 10px;
+            display: inline-block;
+            color: var(--accent-color)
+        }
+        .gear1 {
+            animation: rotate-clockwise 1.5s linear infinite
+        }
+        .gear2 {
+            animation: rotate-counterclockwise 1.5s linear infinite
+        }
+        @keyframes rotate-clockwise {
+            from {
+                transform: rotate(0)
+            }
+            to {
+                transform: rotate(360deg)
+            }
+        }
+        @keyframes rotate-counterclockwise {
+            from {
+                transform: rotate(0)
+            }
+            to {
+                transform: rotate(-360deg)
+            }
+        }
+        #whatsappModal .modal-content {
+            text-align: center;
+            padding: 2rem
+        }
+        #whatsappModal .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            width: 100%;
+            text-align: center
+        }
+        #whatsappModal .modal-body {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem
+        }
+        #whatsappModal .modal-footer {
+            border-top: none;
+            justify-content: center
+        }
+        #whatsappModal .modal-header {
+            border-bottom: none;
+            padding-bottom: 0
+        }
+        #whatsappModal .close {
+            position: absolute;
+            top: 15px;
+            right: 20px
+        }
+        @media (max-width:768px) {
+            .header-title {
+                font-size: 1.5rem
+            }
+            main.container-fluid {
+                padding: 20px 15px
+            }
+            .modal-dialog {
+                max-width: 90%
+            }
+        }
+        @media (max-width:576px) {
+            header {
+                padding: 10px 15px;
+                flex-direction: column;
+                align-items: flex-start
+            }
+            .header-left {
+                margin-bottom: 15px
+            }
+            .header-title {
+                font-size: 1.4rem
+            }
+            main.container-fluid {
+                padding: 15px 10px
+            }
+            .card-body {
+                padding: 1.2rem
+            }
+            .modal-title {
+                font-size: 1.1rem
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: .9rem
+            }
+            pre {
+                padding: 10px;
+                font-size: .85em
+            }
+            .search-container input[type=text] {
+                padding: 10px 35px 10px 12px;
+                font-size: .95em
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="/logo.jpg" alt="Logo NirKyy">
+            <h1 class="header-title">NirKyy API</h1>
+        </div>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="dropdownTags" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-tags"></i> Tags
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownTags" id="tagButtons"></div>
+        </div>
+    </header>
+    <main class="container-fluid">
+        <div class="search-container">
+            <input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        <div id="endpointListSection" class="row"></div>
+    </main>
+    <footer>
+        <p>© 2025 NirKyy. API Bakal tetep aktif selama Koyeb gratis 🗿🙏 | Join Saluran<a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
+    </footer>
+    <div id="tryModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Coba Endpoint</h5>
+                    <button type="button" class="close" id="closeButton" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="parameterInputs"></div>
+                    <button id="runButton" class="btn btn-info btn-block mt-3 mb-3">
+                        <i class="fas fa-play"></i>Run
+                    </button>
+                    <div id="loadingIndicator" class="loading" style="display:none">
+                        <i class="fas fa-cog gear gear1"></i>
+                        <i class="fas fa-cog gear gear2"></i>
+                        <span>Memproses...</span>
+                    </div>
+                    <div id="apiResponse" class="mt-3">
+                        <div class="modal-section-header">
+                            <h5>Response Header:</h5>
+                            <button id="copyResponseHeader" class="copy-button">
+                                <i class="fas fa-copy"></i>Salin
+                            </button>
+                        </div>
+                        <pre id="responseHeader"></pre>
+                        <div class="modal-section-header mt-3">
+                            <h5>Response Body:</h5>
+                            <button id="copyResponseBody" class="copy-button">
+                                <i class="fas fa-copy"></i>Salin
+                            </button>
+                        </div>
+                        <pre id="responseBody"></pre>
+                        <div class="modal-section-header mt-3">
+                            <h5>Endpoint URL:</h5>
+                            <button id="copyEndpointButton" class="copy-button">
+                                <i class="fas fa-copy"></i>Salin
+                            </button>
+                        </div>
+                        <pre id="finalUrlDisplay" style="font-size:.85em;word-break:break-all;display:none"></pre>
+                    </div>
+                    <div class="axios-code mt-3">
+                        <div class="modal-section-header">
+                            <h5>Contoh Kode Axios (GET):</h5>
+                            <button id="copyAxiosButton" class="copy-button">
+                                <i class="fas fa-copy"></i>Salin
+                            </button>
+                        </div>
+                        <pre id="axiosSnippet"><code></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="whatsappModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fab fa-whatsapp"></i>Gabung Saluran WhatsApp!</h5>
+                    <button type="button" class="close" id="closeWhatsAppModal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Dapatkan update API terbaru dan diskusi seru seputar NirKyy. Yuk, gabung ke saluran WhatsApp kami!</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Gabung Sekarang</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <audio id="successSound" src="success.mp3" preload="auto"></audio>
+    <audio id="errorSound" src="error.mp3" preload="auto"></audio>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer="defer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" defer="defer"></script>
+    <script>
     document.addEventListener('DOMContentLoaded', function() {
         let finalApiUrl = '';
         let isFetching = false;
@@ -10,29 +553,26 @@
         const closeButton = document.getElementById('closeButton');
         const parameterInputsDiv = document.getElementById('parameterInputs');
         const runButton = document.getElementById('runButton');
-        const responseHeaderPre = document.getElementById('responseHeader'); // Ganti nama variabel
-        const responseBodyPre = document.getElementById('responseBody');   // Ganti nama variabel
-        const axiosSnippetPre = document.getElementById('axiosSnippet').querySelector('code'); // Target elemen code
+        const responseHeaderPre = document.getElementById('responseHeader');
+        const responseBodyPre = document.getElementById('responseBody');
+        const axiosSnippetPre = document.getElementById('axiosSnippet').querySelector('code');
         const loadingIndicator = document.getElementById('loadingIndicator');
         const successSound = document.getElementById('successSound');
         const errorSound = document.getElementById('errorSound');
-        const copyResponseHeaderBtn = document.getElementById('copyResponseHeader'); // Ganti nama variabel
-        const copyResponseBodyBtn = document.getElementById('copyResponseBody');   // Ganti nama variabel
-        const copyEndpointButtonBtn = document.getElementById('copyEndpointButton'); // Ganti nama variabel
-        const copyAxiosButtonBtn = document.getElementById('copyAxiosButton');     // Ganti nama variabel
-        const finalUrlDisplayPre = document.getElementById('finalUrlDisplay'); // Elemen baru untuk URL
+        const copyResponseHeaderBtn = document.getElementById('copyResponseHeader');
+        const copyResponseBodyBtn = document.getElementById('copyResponseBody');
+        const copyEndpointButtonBtn = document.getElementById('copyEndpointButton');
+        const copyAxiosButtonBtn = document.getElementById('copyAxiosButton');
+        const finalUrlDisplayPre = document.getElementById('finalUrlDisplay');
         let currentEndpointData = null;
 
-        // Tampilkan modal WhatsApp pada saat halaman pertama kali dibuka
         const whatsappModal = document.getElementById('whatsappModal');
         const closeWhatsAppModal = document.getElementById('closeWhatsAppModal');
-        // Gunakan Bootstrap JS untuk menampilkan modal jika tersedia, atau fallback ke display style
         if (typeof $ !== 'undefined' && typeof $.fn.modal !== 'undefined') {
             $('#whatsappModal').modal('show');
         } else {
             whatsappModal.style.display = 'block';
         }
-
 
         closeWhatsAppModal.addEventListener('click', function() {
              if (typeof $ !== 'undefined' && typeof $.fn.modal !== 'undefined') {
@@ -42,7 +582,6 @@
             }
         });
 
-        // Debounce untuk pencarian
         function debounce(func, wait) {
             let timeout;
             return function(...args) {
@@ -52,24 +591,19 @@
         }
 
         function attachCardEvents() {
-             // Hapus event listener lama jika ada sebelum menambah yang baru
-            // (Penting jika fungsi ini dipanggil ulang)
-            // endpointListSection.removeEventListener('click', handleCardClick); // Perlu definisikan handleCardClick
-            endpointListSection.addEventListener('click', function handleCardClick(e) { // Beri nama handler jika perlu remove
+            endpointListSection.addEventListener('click', function handleCardClick(e) {
                 const btn = e.target.closest('button');
                 if (!btn) return;
 
-                // Tombol Copy URL di Card (jika ada, contoh)
-                if (btn.classList.contains('copy-url-button')) { // Pastikan class ini ada di HTML card jika diperlukan
+                if (btn.classList.contains('copy-url-button')) {
                     const urlToCopy = btn.getAttribute('data-url');
                     if (urlToCopy) {
                         navigator.clipboard.writeText(urlToCopy)
-                            .then(() => { alert('URL berhasil disalin!'); }) // Ganti alert dengan notifikasi yang lebih baik jika bisa
+                            .then(() => { alert('URL berhasil disalin!'); })
                             .catch(() => { alert('Gagal menyalin URL.'); });
                     }
                 }
-                // Tombol Try It Out
-                else if (btn.classList.contains('try-button')) { // Pastikan class ini ada di HTML card
+                else if (btn.classList.contains('try-button')) {
                     const data = btn.getAttribute('data-endpoint');
                     if (data) {
                         try {
@@ -84,47 +618,44 @@
             });
         }
 
-
         function openTryModal(endpoint) {
             currentEndpointData = endpoint;
-            parameterInputsDiv.innerHTML = ''; // Kosongkan input lama
+            parameterInputsDiv.innerHTML = '';
             responseHeaderPre.textContent = '';
             responseBodyPre.textContent = '';
-            axiosSnippetPre.textContent = ''; // Kosongkan snippet
-            finalUrlDisplayPre.textContent = ''; // Kosongkan URL display
-            finalUrlDisplayPre.style.display = 'none'; // Sembunyikan
-            finalApiUrl = ''; // Reset URL final
-            // Sembunyikan semua tombol copy
+            axiosSnippetPre.textContent = '';
+            finalUrlDisplayPre.textContent = '';
+            finalUrlDisplayPre.style.display = 'none';
+            finalApiUrl = '';
             copyResponseHeaderBtn.style.display = 'none';
             copyResponseBodyBtn.style.display = 'none';
             copyEndpointButtonBtn.style.display = 'none';
             copyAxiosButtonBtn.style.display = 'none';
-            loadingIndicator.style.display = 'none'; // Pastikan loading tersembunyi
-            runButton.disabled = false; // Aktifkan tombol run
-            closeButton.disabled = false; // Aktifkan tombol close
+            loadingIndicator.style.display = 'none';
+            runButton.disabled = false;
+            closeButton.disabled = false;
 
-            // Buat input parameter
             if (endpoint.parameter && endpoint.parameter.length > 0) {
                 endpoint.parameter.forEach(param => {
                     const paramName = param.params;
                     const defaultValue = param.example || '';
-                    const isRequired = (param.opsional === false); // Lebih eksplisit
-                    const description = param.desc || `Masukkan nilai untuk ${paramName}`; // Deskripsi jika ada
+                    const isRequired = (param.opsional === false);
+                    const description = param.desc || `Masukkan nilai untuk ${paramName}`;
 
                     const div = document.createElement('div');
-                    div.className = 'form-group mb-3'; // Gunakan form-group bootstrap
+                    div.className = 'form-group mb-3';
 
                     const label = document.createElement('label');
-                    label.htmlFor = `param-${paramName}`; // Kaitkan label dengan input
-                    label.textContent = `${paramName}${isRequired ? '*' : ''}:`; // Tandai wajib *
+                    label.htmlFor = `param-${paramName}`;
+                    label.textContent = `${paramName}${isRequired ? '*' : ''}:`;
 
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.className = 'form-control';
-                    input.id = `param-${paramName}`; // ID untuk label
+                    input.id = `param-${paramName}`;
                     input.name = paramName;
                     input.placeholder = description + (defaultValue ? ` (contoh: ${defaultValue})` : '');
-                    input.value = ''; // Jangan isi default value langsung, user bisa isi
+                    input.value = defaultValue; // Set value ke example jika ada
                     if (isRequired) {
                         input.required = true;
                         label.title = "Parameter ini wajib diisi.";
@@ -140,7 +671,6 @@
                  parameterInputsDiv.innerHTML = '<p class="text-muted">Endpoint ini tidak memerlukan parameter.</p>';
             }
 
-             // Tampilkan modal menggunakan Bootstrap JS
              if (typeof $ !== 'undefined' && typeof $.fn.modal !== 'undefined') {
                 $('#tryModal').modal('show');
              } else {
@@ -148,7 +678,6 @@
              }
         }
 
-        // Tutup modal dengan klik di luar area atau tombol close
         window.addEventListener('click', function(event) {
             if (event.target === tryModal && loadingIndicator.style.display !== 'block') {
                 closeAndClearModal();
@@ -167,12 +696,10 @@
             } else {
                 tryModal.style.display = 'none';
             }
-            clearModalData(); // Panggil fungsi clear setelah modal ditutup
+            clearModalData();
         }
 
-
         function clearModalData() {
-            // Tidak perlu mengosongkan input di sini, karena openTryModal sudah melakukannya
             responseHeaderPre.textContent = '';
             responseBodyPre.textContent = '';
             axiosSnippetPre.textContent = '';
@@ -183,17 +710,15 @@
             copyResponseBodyBtn.style.display = 'none';
             copyEndpointButtonBtn.style.display = 'none';
             copyAxiosButtonBtn.style.display = 'none';
-            currentEndpointData = null; // Hapus referensi data endpoint saat modal ditutup
+            currentEndpointData = null;
         }
 
-
         runButton.addEventListener('click', function() {
-            if (loadingIndicator.style.display === 'block' || !currentEndpointData) return; // Cek ganda
+            if (loadingIndicator.style.display === 'block' || !currentEndpointData) return;
 
             runButton.disabled = true;
-            closeButton.disabled = true; // Nonaktifkan close saat loading
-            loadingIndicator.style.display = 'block'; // Tampilkan loading
-            // Kosongkan hasil sebelumnya & sembunyikan tombol copy
+            closeButton.disabled = true;
+            loadingIndicator.style.display = 'block';
             responseHeaderPre.textContent = '';
             responseBodyPre.textContent = '';
             axiosSnippetPre.textContent = '';
@@ -203,7 +728,6 @@
             copyResponseBodyBtn.style.display = 'none';
             copyEndpointButtonBtn.style.display = 'none';
             copyAxiosButtonBtn.style.display = 'none';
-
 
             let apiUrlTemplate = currentEndpointData.endpoint;
             const queryParams = {};
@@ -219,19 +743,17 @@
 
                  if (isRequired && !value) {
                     missingRequired = true;
-                    input.classList.add('is-invalid'); // Tambah style error bootstrap
+                    input.classList.add('is-invalid');
                     if (!firstMissingField) firstMissingField = input;
                  } else {
-                    input.classList.remove('is-invalid'); // Hapus style error jika valid
+                    input.classList.remove('is-invalid');
                  }
 
                 if (value) {
                     const placeholder = `{${paramName}}`;
                     if (apiUrlTemplate.includes(placeholder)) {
-                        // Ganti path parameter
                         apiUrlTemplate = apiUrlTemplate.replace(placeholder, encodeURIComponent(value));
                     } else {
-                        // Tambahkan sebagai query parameter
                         queryParams[paramName] = value;
                     }
                 }
@@ -239,20 +761,19 @@
 
             if (missingRequired) {
                 alert('Harap isi semua parameter wajib (*).');
-                if (firstMissingField) firstMissingField.focus(); // Fokus ke input pertama yang kosong
-                loadingIndicator.style.display = 'none'; // Sembunyikan loading
+                if (firstMissingField) firstMissingField.focus();
+                loadingIndicator.style.display = 'none';
                 runButton.disabled = false;
                 closeButton.disabled = false;
                 return;
             }
 
-            // Buat URL final
             try {
-                 const urlObj = new URL(apiUrlTemplate, window.location.origin); // Gunakan base URL halaman
+                 const urlObj = new URL(apiUrlTemplate, window.location.origin);
                  Object.entries(queryParams).forEach(([key, value]) => {
                      urlObj.searchParams.append(key, value);
                  });
-                 finalApiUrl = urlObj.pathname + urlObj.search; // Ambil path dan query saja
+                 finalApiUrl = urlObj.pathname + urlObj.search;
             } catch (e) {
                  console.error("Error creating URL:", e);
                  alert("Terjadi kesalahan saat membuat URL endpoint.");
@@ -262,18 +783,14 @@
                  return;
             }
 
-
-            // Tampilkan URL Final
             finalUrlDisplayPre.textContent = finalApiUrl;
             finalUrlDisplayPre.style.display = 'block';
-            if (finalApiUrl) { copyEndpointButtonBtn.style.display = 'inline-block'; } // Tampilkan tombol copy URL
+            if (finalApiUrl) { copyEndpointButtonBtn.style.display = 'inline-block'; }
 
-            // Buat request Axios
             axios.get(finalApiUrl)
-                .then(response => { // Ganti nama variabel agar tidak konflik
+                .then(response => {
                     loadingIndicator.style.display = 'none';
 
-                    // Format Headers
                     let headersText = `Status: ${response.status} ${response.statusText}\n`;
                     Object.entries(response.headers).forEach(([key, value]) => {
                         headersText += `${key}: ${value}\n`;
@@ -283,43 +800,40 @@
 
                     const contentType = response.headers['content-type'] || '';
 
-                    // Mainkan suara berdasarkan status atau data success
                     if (response.status >= 200 && response.status < 300 && (!response.data || response.data.success !== false)) {
                         successSound.play().catch(e => console.warn("Gagal memainkan suara sukses:", e));
                     } else {
                         errorSound.play().catch(e => console.warn("Gagal memainkan suara error:", e));
                     }
 
-                    // Tampilkan Response Body berdasarkan Content-Type
-                    responseBodyPre.innerHTML = ''; // Kosongkan dulu
+                    responseBodyPre.innerHTML = '';
                     if (contentType.includes('application/json')) {
-                        responseBodyPre.textContent = JSON.stringify(response.data, null, 2); // Pretty print JSON
+                        responseBodyPre.textContent = JSON.stringify(response.data, null, 2);
                     } else if (contentType.startsWith('image/')) {
                         responseBodyPre.innerHTML = '<div class="loading">Memuat gambar...</div>';
                         const img = document.createElement('img');
-                        img.src = response.config.url; // URL yang diminta
+                        img.src = response.config.url;
                         img.style.maxWidth = '100%';
                         img.style.height = 'auto';
-                        img.style.display = 'block'; // Pastikan gambar block level
+                        img.style.display = 'block';
                         img.style.marginTop = '10px';
                         img.onload = () => { responseBodyPre.innerHTML = ''; responseBodyPre.appendChild(img); };
                         img.onerror = () => { responseBodyPre.textContent = 'Gagal memuat gambar (format rusak atau URL tidak valid).'; };
                     } else if (contentType.startsWith('video/')) {
                          responseBodyPre.innerHTML = '<div class="loading">Memuat video...</div>';
                          const vid = document.createElement('video');
-                         vid.src = response.config.url; // URL yang diminta
+                         vid.src = response.config.url;
                          vid.controls = true;
                          vid.style.maxWidth = '100%';
                          vid.style.height = 'auto';
-                         vid.style.display = 'block'; // Pastikan video block level
+                         vid.style.display = 'block';
                          vid.style.marginTop = '10px';
                          vid.onloadeddata = () => { responseBodyPre.innerHTML = ''; responseBodyPre.appendChild(vid); };
                          vid.onerror = () => { responseBodyPre.textContent = 'Gagal memuat video (format rusak atau URL tidak valid).'; };
                     } else if (contentType.startsWith('text/')) {
-                         responseBodyPre.textContent = response.data; // Tampilkan sebagai teks biasa
+                         responseBodyPre.textContent = response.data;
                     }
                     else {
-                        // Jika tipe tidak dikenali, coba tampilkan sebagai teks atau beri pesan
                          if (typeof response.data === 'string' || typeof response.data === 'number') {
                             responseBodyPre.textContent = response.data;
                          } else {
@@ -327,18 +841,16 @@
                          }
                     }
 
-                    // Tampilkan tombol copy body jika ada konten teks
                      if (responseBodyPre.textContent.trim() && !contentType.startsWith('image/') && !contentType.startsWith('video/')) {
                          copyResponseBodyBtn.style.display = 'inline-block';
                     }
 
-                    // Generate Axios Code Snippet
                     let axiosCode = '';
-                    const requestUrl = window.location.origin + finalApiUrl; // URL lengkap
+                    const requestUrl = window.location.origin + finalApiUrl;
                     const axiosOptions = {};
 
                     if (!contentType.includes('application/json') && !contentType.startsWith('text/')) {
-                         axiosOptions.responseType = 'arraybuffer'; // Atau 'blob'
+                         axiosOptions.responseType = 'arraybuffer';
                     }
 
                     const optionsString = Object.keys(axiosOptions).length > 0 ? `, ${JSON.stringify(axiosOptions)}` : '';
@@ -360,7 +872,6 @@
                     errorSound.play().catch(e => console.warn("Gagal memainkan suara error:", e));
 
                     if (error.response) {
-                        // Error dari server (status code non-2xx)
                         let errorHeadersText = `Status: ${error.response.status} ${error.response.statusText}\n`;
                         Object.entries(error.response.headers).forEach(([key, value]) => {
                             errorHeadersText += `${key}: ${value}\n`;
@@ -376,30 +887,25 @@
                              responseBodyPre.textContent = `Error ${error.response.status}. Response tidak dapat ditampilkan sebagai teks.`;
                         }
                     } else if (error.request) {
-                        // Request dibuat tapi tidak ada response (masalah jaringan?)
                         responseHeaderPre.textContent = 'Error: No Response Received';
                         responseBodyPre.textContent = 'Tidak ada respons dari server. Periksa koneksi internet atau URL endpoint.';
                         console.error('Network Error:', error.request);
                     } else {
-                        // Error saat setup request
                         responseHeaderPre.textContent = 'Error: Request Setup Failed';
                         responseBodyPre.textContent = `Gagal membuat request: ${error.message}`;
                         console.error('Request Setup Error:', error.message);
                     }
-                     // Tampilkan tombol copy jika ada teks error
                      if (responseHeaderPre.textContent) copyResponseHeaderBtn.style.display = 'inline-block';
                      if (responseBodyPre.textContent) copyResponseBodyBtn.style.display = 'inline-block';
                 })
                 .finally(() => {
-                    // Selalu aktifkan kembali tombol setelah selesai
                     runButton.disabled = false;
                     closeButton.disabled = false;
                 });
         });
 
-         // Fungsi untuk menyalin teks (dengan notifikasi sederhana)
         function copyToClipboard(text, buttonElement, successMessage) {
-             if (!text) return; // Jangan lakukan apa-apa jika teks kosong
+             if (!text) return;
              navigator.clipboard.writeText(text)
                  .then(() => {
                     const originalText = buttonElement.innerHTML;
@@ -408,8 +914,7 @@
                     setTimeout(() => {
                         buttonElement.innerHTML = originalText;
                         buttonElement.disabled = false;
-                    }, 1500); // Kembalikan teks tombol setelah 1.5 detik
-                    // alert(successMessage); // Ganti dengan notifikasi yang lebih baik jika bisa
+                    }, 1500);
                  })
                  .catch(err => {
                      console.error('Gagal menyalin:', err);
@@ -417,8 +922,6 @@
                  });
         }
 
-
-        // Event listener untuk tombol-tombol copy
         copyResponseHeaderBtn.addEventListener('click', function() {
             copyToClipboard(responseHeaderPre.textContent, this, 'Response Header berhasil disalin!');
         });
@@ -435,26 +938,21 @@
              copyToClipboard(axiosSnippetPre.textContent, this, 'Contoh kode Axios berhasil disalin!');
         });
 
-
-        // Fungsi Fetch dan Render Endpoint
          function fetchData(url) {
-             if (isFetching) return Promise.reject("Fetch sedang berlangsung"); // Hindari fetch ganda
+             if (isFetching) return Promise.reject("Fetch sedang berlangsung");
              isFetching = true;
-             endpointListSection.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Memuat data...</div>'; // Tampilkan loading
+             endpointListSection.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Memuat data...</div>';
              return fetch(url)
                  .then(response => {
                      if (!response.ok) {
                          throw new Error(`HTTP error! status: ${response.status}`);
                      }
-                     return response.text(); // Asumsi server mengembalikan HTML
+                     return response.text();
                  })
                  .then(html => {
-                     // Gunakan DOMParser untuk keamanan dan fleksibilitas
                      const parser = new DOMParser();
                      const doc = parser.parseFromString(html, 'text/html');
-                     // Cari konten yang relevan (misalnya, elemen di dalam body atau div spesifik)
-                     // Di contoh ini, kita anggap server mengembalikan isi dari #endpointListSection
-                     const newContent = doc.body.innerHTML; // Ambil semua dari body hasil parse
+                     const newContent = doc.body.innerHTML;
                      if (newContent) {
                          endpointListSection.innerHTML = newContent;
                      } else {
@@ -466,7 +964,7 @@
                      endpointListSection.innerHTML = `<p class="text-center text-danger">Gagal memuat data endpoint. Silakan coba lagi nanti. (${error.message})</p>`;
                  })
                  .finally(() => {
-                     isFetching = false; // Reset status fetching
+                     isFetching = false;
                  });
          }
 
@@ -475,7 +973,7 @@
              fetchData(searchUrl);
         }
 
-        function renderEndpointsByTag(tag = '') { // Default tag kosong untuk 'All'
+        function renderEndpointsByTag(tag = '') {
             const renderUrl = `/renderpage?tags=${encodeURIComponent(tag)}`;
             fetchData(renderUrl);
         }
@@ -489,9 +987,8 @@
                 .then(data => {
                     if (!data || !Array.isArray(data.tags)) throw new Error("Format data tags tidak valid");
 
-                    let html = '<a class="dropdown-item" href="#" data-tags="">Semua Kategori</a>'; // 'All'
+                    let html = '<a class="dropdown-item" href="#" data-tags="">Semua Kategori</a>';
                     data.tags.forEach(tag => {
-                         // Sanitasi tag sebelum dimasukkan ke HTML (meski dari server sendiri, best practice)
                          const sanitizedTag = tag.replace(/</g, "<").replace(/>/g, ">");
                         html += `<a class="dropdown-item" href="#" data-tags="${encodeURIComponent(sanitizedTag)}">${sanitizedTag}</a>`;
                     });
@@ -503,29 +1000,25 @@
                 });
         }
 
-        // Event Listener untuk Input Search (dengan debounce)
         searchEndpointInput.addEventListener('input', debounce(function() {
             const searchTerm = searchEndpointInput.value.trim();
             if (searchTerm) {
                 searchData(searchTerm);
             } else {
-                renderEndpointsByTag(); // Tampilkan semua jika search kosong
+                renderEndpointsByTag();
             }
-        }, 350)); // Waktu debounce sedikit ditambah
+        }, 350));
 
 
-        // Event Listener untuk Tombol Tags di Dropdown
         tagButtonsContainer.addEventListener('click', function(e) {
-            e.preventDefault(); // Cegah link default
+            e.preventDefault();
             const link = e.target.closest('a.dropdown-item');
             if (link && link.hasAttribute('data-tags')) {
                 const selectedTag = decodeURIComponent(link.getAttribute('data-tags'));
-                searchEndpointInput.value = ''; // Kosongkan search input
-                renderEndpointsByTag(selectedTag); // Render berdasarkan tag yang dipilih
+                searchEndpointInput.value = '';
+                renderEndpointsByTag(selectedTag);
 
-                // Tutup dropdown setelah dipilih (jika menggunakan Bootstrap JS)
                 if (typeof $ !== 'undefined' && typeof $.fn.dropdown !== 'undefined') {
-                     // Mungkin perlu sedikit timeout agar render selesai sebelum dropdown ditutup
                      setTimeout(() => {
                         $('#dropdownTags').dropdown('toggle');
                      }, 100);
@@ -533,8 +1026,10 @@
             }
         });
 
-        // Inisialisasi Awal
-        attachCardEvents(); // Pasang event listener ke section (delegation)
-        renderEndpointsByTag(); // Muat semua endpoint saat halaman pertama dibuka
-        loadTags(); // Muat daftar tags untuk dropdown
-    });</script></body></html>
+        attachCardEvents();
+        renderEndpointsByTag();
+        loadTags();
+    });
+    </script>
+</body>
+</html>
