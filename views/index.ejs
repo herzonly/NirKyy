@@ -1,573 +1,774 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NirKyy - REST API Documentation</title><meta name="google-site-verification" content="J-VFugOfjbkh7eTymofIL-zoG7ne6R91Q-G4gnTEEDw"><meta name="description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta name="keywords" content="REST API, dokumentasi API, Collection API, NirKyy, endpoint, API documentation, web API, fetch API, coba API"><meta name="author" content="NirKyy Developer"><meta name="robots" content="index, follow"><meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"><meta property="og:title" content="NirKyy - REST API Documentation"><meta property="og:description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta property="og:type" content="website"><meta property="og:url" content="nirkyy.koyeb.app"><meta property="og:image" content="/logo.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="NirKyy - REST API Documentation"><meta name="twitter:description" content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"><meta name="twitter:site" content="@NirKyyDev"><meta name="twitter:image" content="/logo.jpg"><link rel="icon" href="favicon.ico" type="image/x-icon"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"><style>:root{--bg-color:#1a1a1a;--text-color:#e0e0e0;--accent-color:#00aced;--border-color:#444;--card-bg-color:#222;--code-bg-color:#282c34;--hover-bg-color:#333}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";background-color:var(--bg-color);color:var(--text-color);margin:0;padding:0;overflow-x:hidden;line-height:1.6}header{background-color:var(--bg-color);padding:15px 20px;border-bottom:2px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}.header-left{display:flex;align-items:center;margin-bottom:10px}.header-left img{max-height:60px;margin-right:15px}.header-title{font-size:1.8rem;font-weight:700;margin:0;color:var(--text-color)}main.container-fluid{padding:25px 20px}.search-container{margin-top:10px;margin-bottom:30px;position:relative;text-align:center}.search-container input[type=text]{padding:12px 40px 12px 15px;border:1px solid var(--border-color);background-color:var(--card-bg-color);color:var(--text-color);border-radius:25px;width:100%;max-width:600px;font-size:1em;transition:border-color .3s ease,box-shadow .3s ease}.search-container input[type=text]::placeholder{color:#888}.search-container input[type=text]:focus{border-color:var(--accent-color);box-shadow:0 0 8px rgba(0,172,237,.5);outline:0}.search-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--accent-color);margin-left:auto;margin-right:auto;left:0;right:0;max-width:570px;pointer-events:none;text-align:right}.dropdown{margin:10px 0}.dropdown-toggle{background-color:transparent;color:var(--accent-color);border:1px solid var(--accent-color);padding:8px 15px;border-radius:20px;transition:background-color .3s ease,color .3s ease}.dropdown-toggle:focus,.dropdown-toggle:hover{background-color:var(--accent-color);color:var(--bg-color);box-shadow:none}.dropdown-menu{background-color:var(--card-bg-color);border:1px solid var(--border-color);border-radius:8px}.dropdown-item{color:var(--text-color);padding:10px 15px;transition:background-color .2s ease,color .2s ease}.dropdown-item:hover{background-color:var(--hover-bg-color);color:var(--accent-color)}#endpointListSection .card{border:1px solid var(--border-color);background-color:var(--card-bg-color);color:var(--text-color);transition:transform .3s ease,box-shadow .3s ease;margin-bottom:20px;border-radius:8px;overflow:hidden}#endpointListSection .card:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,172,237,.2);border-color:var(--accent-color)}.card-header{background-color:rgba(0,172,237,.1);color:var(--accent-color);border-bottom:1px solid var(--border-color);font-weight:700;padding:.8rem 1.25rem}.card-body{padding:1.5rem}.card-body p{margin-bottom:.8rem}.card-body .btn{margin-top:10px;margin-right:5px}pre{white-space:pre-wrap;word-wrap:break-word;background-color:var(--code-bg-color);border:1px solid var(--border-color);padding:15px;border-radius:5px;overflow-x:auto;color:#abb2bf;font-family:"Fira Code",Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace;font-size:.9em;line-height:1.5}.modal{display:none;position:fixed;z-index:1050;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,.85)}.modal-dialog{margin:1.75rem auto;max-width:700px}.modal-content{background-color:var(--card-bg-color);color:var(--text-color);border:1px solid var(--border-color);border-radius:10px}.modal-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center}.modal-title{color:var(--accent-color);font-weight:700;font-size:1.25rem}.modal-header .close{color:var(--text-color);opacity:.7;text-shadow:none;font-size:1.5rem}.modal-header .close:hover{color:var(--accent-color);opacity:1}.modal-body{padding:1.5rem}.modal-body label{font-weight:700;margin-bottom:.5rem;display:block}.modal-body .form-control{background-color:var(--bg-color);border:1px solid var(--border-color);color:var(--text-color);border-radius:5px}.modal-body .form-control:focus{background-color:var(--bg-color);color:var(--text-color);border-color:var(--accent-color);box-shadow:0 0 5px rgba(0,172,237,.3)}.modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--border-color)}footer{text-align:center;padding:25px 20px;background-color:var(--bg-color);color:#aaa;border-top:2px solid var(--border-color);margin-top:40px;font-size:.9em}footer a{color:var(--accent-color);text-decoration:none;margin-left:5px}footer a:hover{text-decoration:underline}.axios-code{margin-top:20px}.modal-section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.modal-section-header h5{margin-bottom:0;font-size:1rem;font-weight:700}.copy-button{background:0 0;border:1px solid var(--accent-color);color:var(--accent-color);padding:3px 8px;font-size:.8em;border-radius:4px;cursor:pointer;transition:background-color .2s ease,color .2s ease;display:none}.copy-button:hover{background-color:var(--accent-color);color:var(--card-bg-color)}.copy-button i{margin-right:4px}.btn{font-family:inherit;border-radius:20px;padding:10px 20px;font-weight:700;transition:background-color .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease}.btn-info,.btn-primary{border:1px solid var(--accent-color);background-color:var(--accent-color);color:var(--bg-color)}.btn-info:focus,.btn-info:hover,.btn-primary:focus,.btn-primary:hover{background-color:var(--bg-color);color:var(--accent-color);border-color:var(--accent-color);box-shadow:0 0 8px rgba(0,172,237,.4)}.btn-outline-info{border:1px solid var(--accent-color);color:var(--accent-color);background-color:transparent}.btn-outline-info:focus,.btn-outline-info:hover{background-color:var(--accent-color);color:var(--bg-color);box-shadow:0 0 8px rgba(0,172,237,.4)}.loading{text-align:center;margin:30px auto;color:var(--accent-color)}.gear{font-size:2.5em;margin:0 10px;display:inline-block;color:var(--accent-color)}.gear1{animation:rotate-clockwise 1.5s linear infinite}.gear2{animation:rotate-counterclockwise 1.5s linear infinite}@keyframes rotate-clockwise{from{transform:rotate(0)}to{transform:rotate(360deg)}}@keyframes rotate-counterclockwise{from{transform:rotate(0)}to{transform:rotate(-360deg)}}#whatsappModal .modal-content{text-align:center;padding:2rem}#whatsappModal .modal-title{font-size:1.5rem;margin-bottom:1rem;width:100%;text-align:center}#whatsappModal .modal-body{font-size:1.05rem;margin-bottom:1.5rem}#whatsappModal .modal-footer{border-top:none;justify-content:center}#whatsappModal .modal-header{border-bottom:none;padding-bottom:0}#whatsappModal .close{position:absolute;top:15px;right:20px}@media (max-width:768px){.header-title{font-size:1.5rem}main.container-fluid{padding:20px 15px}.modal-dialog{max-width:90%}}@media (max-width:576px){header{padding:10px 15px;flex-direction:column;align-items:flex-start}.header-left{margin-bottom:15px}.header-title{font-size:1.4rem}main.container-fluid{padding:15px 10px}.card-body{padding:1.2rem}.modal-title{font-size:1.1rem}.btn{padding:8px 16px;font-size:.9rem}pre{padding:10px;font-size:.85em}.search-container input[type=text]{padding:10px 35px 10px 12px;font-size:.95em}}</style></head><body><header><div class="header-left"><img src="/logo.jpg" alt="Logo NirKyy"><h1 class="header-title">NirKyy API</h1></div><div class="dropdown"><button class="btn dropdown-toggle" type="button" id="dropdownTags" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tags"></i>Tags</button><div class="dropdown-menu" aria-labelledby="dropdownTags" id="tagButtons"></div></div></header><main class="container-fluid"><div class="search-container"><input type="text" id="searchEndpoint" placeholder="Cari Endpoint atau Tag..."><i class="fas fa-search search-icon"></i></div><div id="endpointListSection" class="row"></div></main><footer><p>© 2025 NirKyy. API Bakal tetep aktif selama Koyeb gratis 🗿🙏 | Join Saluran<a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer">WhatsApp</a></p></footer><div id="tryModal" class="modal" tabindex="-1" role="dialog"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Coba Endpoint</h5><button type="button" class="close" id="closeButton" aria-label="Close"><span aria-hidden="true">×</span></button></div><div class="modal-body"><div id="parameterInputs"></div><button id="runButton" class="btn btn-info btn-block mt-3 mb-3"><i class="fas fa-play"></i>Run</button><div id="loadingIndicator" class="loading" style="display:none"><i class="fas fa-cog gear gear1"></i><i class="fas fa-cog gear gear2"></i><span>Memproses...</span></div><div id="apiResponse" class="mt-3"><div class="modal-section-header"><h5>Response Header:</h5><button id="copyResponseHeader" class="copy-button"><i class="fas fa-copy"></i>Salin</button></div><pre id="responseHeader"></pre><div class="modal-section-header mt-3"><h5>Response Body:</h5><button id="copyResponseBody" class="copy-button"><i class="fas fa-copy"></i>Salin</button></div><pre id="responseBody"></pre><div class="modal-section-header mt-3"><h5>Endpoint URL:</h5><button id="copyEndpointButton" class="copy-button"><i class="fas fa-copy"></i>Salin</button></div><pre id="finalUrlDisplay" style="font-size:.85em;word-break:break-all;display:none"></pre></div><div class="axios-code mt-3"><div class="modal-section-header"><h5>Contoh Kode Axios (GET):</h5><button id="copyAxiosButton" class="copy-button"><i class="fas fa-copy"></i>Salin</button></div><pre id="axiosSnippet"><code></code></pre></div></div></div></div></div><div id="whatsappModal" class="modal" tabindex="-1" role="dialog"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title"><i class="fab fa-whatsapp"></i>Gabung Saluran WhatsApp!</h5><button type="button" class="close" id="closeWhatsAppModal" aria-label="Close"><span aria-hidden="true">×</span></button></div><div class="modal-body"><p>Dapatkan update API terbaru dan diskusi seru seputar NirKyy. Yuk, gabung ke saluran WhatsApp kami!</p></div><div class="modal-footer"><a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Gabung Sekarang</a></div></div></div></div><audio id="successSound" src="success.mp3" preload="auto"></audio><audio id="errorSound" src="error.mp3" preload="auto"></audio><script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer="defer"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', function() {
-        let finalApiPath = ''; // Store only the path part
-        let isFetching = false;
-        const baseUrl = 'https://nirkyy.koyeb.app'; // Define base URL
+<!doctypehtml>
+<html lang=id>
+<head>
+<meta charset=UTF-8>
+<meta content="width=device-width,initial-scale=1"name=viewport>
+<title>NirKyy - REST API Documentation</title>
+<meta content=J-VFugOfjbkh7eTymofIL-zoG7ne6R91Q-G4gnTEEDw name=google-site-verification>
+<meta content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"name=description>
+<meta content="REST API, dokumentasi API, Collection API, NirKyy, endpoint, API documentation, web API, fetch API, coba API"name=keywords>
+<meta content="NirKyy Developer"name=author>
+<meta content="index, follow"name=robots>
+<meta content=upgrade-insecure-requests http-equiv=Content-Security-Policy>
+<meta content="NirKyy - REST API Documentation"property=og:title>
+<meta content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"property=og:description>
+<meta content=website property=og:type>
+<meta content=nirkyy.koyeb.app property=og:url>
+<meta content=/logo.jpg property=og:image>
+<meta content=summary_large_image name=twitter:card>
+<meta content="NirKyy - REST API Documentation"name=twitter:title>
+<meta content="Nirkyy Adalah Web yang menyediakan Kumpulan API gratis untuk kebutuhan bot WhatsApp, telegram, dan Web"name=twitter:description>
+<meta content=@NirKyyDev name=twitter:site>
+<meta content=/logo.jpg name=twitter:image>
+<link href=favicon.ico rel=icon type=image/x-icon>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css rel=stylesheet crossorigin=anonymous>
+<link href=https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css rel=stylesheet>
+<link href=https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css rel=stylesheet>
+<style>:root{--bg-color:#1a1a1a;--text-color:#e0e0e0;--accent-color:#00aced;--border-color:#444;--card-bg-color:#222;--code-bg-color:#282c34;--hover-bg-color:#333}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";background-color:var(--bg-color);color:var(--text-color);margin:0;padding:0;overflow-x:hidden;line-height:1.6}header{background-color:var(--bg-color);padding:15px 20px;border-bottom:2px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}.header-left{display:flex;align-items:center;margin-bottom:10px}.header-left img{max-height:60px;margin-right:15px}.header-title{font-size:1.8rem;font-weight:700;margin:0;color:var(--text-color)}main.container-fluid{padding:25px 20px}.search-container{margin-top:10px;margin-bottom:30px;position:relative;text-align:center}.search-container input[type=text]{padding:12px 40px 12px 15px;border:1px solid var(--border-color);background-color:var(--card-bg-color);color:var(--text-color);border-radius:25px;width:100%;max-width:600px;font-size:1em;transition:border-color .3s ease,box-shadow .3s ease}.search-container input[type=text]::placeholder{color:#888}.search-container input[type=text]:focus{border-color:var(--accent-color);box-shadow:0 0 8px rgba(0,172,237,.5);outline:0}.search-icon{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--accent-color);margin-left:auto;margin-right:auto;left:0;right:0;max-width:570px;pointer-events:none;text-align:right}.dropdown{margin:10px 0}.dropdown-toggle{background-color:transparent;color:var(--accent-color);border:1px solid var(--accent-color);padding:8px 15px;border-radius:20px;transition:background-color .3s ease,color .3s ease}.dropdown-toggle:focus,.dropdown-toggle:hover{background-color:var(--accent-color);color:var(--bg-color);box-shadow:none}.dropdown-menu{background-color:var(--card-bg-color);border:1px solid var(--border-color);border-radius:8px}.dropdown-item{color:var(--text-color);padding:10px 15px;transition:background-color .2s ease,color .2s ease}.dropdown-item:hover{background-color:var(--hover-bg-color);color:var(--accent-color)}#endpointListSection .card{border:1px solid var(--border-color);background-color:var(--card-bg-color);color:var(--text-color);transition:transform .3s ease,box-shadow .3s ease;margin-bottom:20px;border-radius:8px;overflow:hidden}#endpointListSection .card:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,172,237,.2);border-color:var(--accent-color)}.card-header{background-color:rgba(0,172,237,.1);color:var(--accent-color);border-bottom:1px solid var(--border-color);font-weight:700;padding:.8rem 1.25rem}.card-body{padding:1.5rem}.card-body p{margin-bottom:.8rem}.card-body .btn{margin-top:10px;margin-right:5px}pre{white-space:pre-wrap;word-wrap:break-word;background-color:var(--code-bg-color);border:1px solid var(--border-color);padding:15px;border-radius:5px;overflow-x:auto;color:#abb2bf;font-family:"Fira Code",Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace;font-size:.9em;line-height:1.5}.modal{display:none;position:fixed;z-index:1050;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,.85)}.modal-dialog{margin:1.75rem auto;max-width:700px}.modal-content{background-color:var(--card-bg-color);color:var(--text-color);border:1px solid var(--border-color);border-radius:10px}.modal-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center}.modal-title{color:var(--accent-color);font-weight:700;font-size:1.25rem}.modal-header .close{color:var(--text-color);opacity:.7;text-shadow:none;font-size:1.5rem}.modal-header .close:hover{color:var(--accent-color);opacity:1}.modal-body{padding:1.5rem}.modal-body label{font-weight:700;margin-bottom:.5rem;display:block}.modal-body .form-control{background-color:var(--bg-color);border:1px solid var(--border-color);color:var(--text-color);border-radius:5px}.modal-body .form-control:focus{background-color:var(--bg-color);color:var(--text-color);border-color:var(--accent-color);box-shadow:0 0 5px rgba(0,172,237,.3)}.modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--border-color)}footer{text-align:center;padding:25px 20px;background-color:var(--bg-color);color:#aaa;border-top:2px solid var(--border-color);margin-top:40px;font-size:.9em}footer a{color:var(--accent-color);text-decoration:none;margin-left:5px}footer a:hover{text-decoration:underline}.axios-code{margin-top:20px}.modal-section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.modal-section-header h5{margin-bottom:0;font-size:1rem;font-weight:700}.copy-button{background:0 0;border:1px solid var(--accent-color);color:var(--accent-color);padding:3px 8px;font-size:.8em;border-radius:4px;cursor:pointer;transition:background-color .2s ease,color .2s ease;display:none;min-width:80px;text-align:center}.copy-button:hover{background-color:var(--accent-color);color:var(--card-bg-color)}.copy-button i{margin-right:4px}.btn{font-family:inherit;border-radius:20px;padding:10px 20px;font-weight:700;transition:background-color .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease}.btn-info,.btn-primary{border:1px solid var(--accent-color);background-color:var(--accent-color);color:var(--bg-color)}.btn-info:focus,.btn-info:hover,.btn-primary:focus,.btn-primary:hover{background-color:var(--bg-color);color:var(--accent-color);border-color:var(--accent-color);box-shadow:0 0 8px rgba(0,172,237,.4)}.btn-outline-info{border:1px solid var(--accent-color);color:var(--accent-color);background-color:transparent}.btn-outline-info:focus,.btn-outline-info:hover{background-color:var(--accent-color);color:var(--bg-color);box-shadow:0 0 8px rgba(0,172,237,.4)}.loading{text-align:center;margin:30px auto;color:var(--accent-color)}.gear{font-size:2.5em;margin:0 10px;display:inline-block;color:var(--accent-color)}.gear1{animation:rotate-clockwise 1.5s linear infinite}.gear2{animation:rotate-counterclockwise 1.5s linear infinite}@keyframes rotate-clockwise{from{transform:rotate(0)}to{transform:rotate(360deg)}}@keyframes rotate-counterclockwise{from{transform:rotate(0)}to{transform:rotate(-360deg)}}#whatsappModal .modal-content{text-align:center;padding:2rem}#whatsappModal .modal-title{font-size:1.5rem;margin-bottom:1rem;width:100%;text-align:center}#whatsappModal .modal-body{font-size:1.05rem;margin-bottom:1.5rem}#whatsappModal .modal-footer{border-top:none;justify-content:center}#whatsappModal .modal-header{border-bottom:none;padding-bottom:0}#whatsappModal .close{position:absolute;top:15px;right:20px}@media (max-width:768px){.header-title{font-size:1.5rem}main.container-fluid{padding:20px 15px}.modal-dialog{max-width:90%}}@media (max-width:576px){header{padding:10px 15px;flex-direction:column;align-items:flex-start}.header-left{margin-bottom:15px}.header-title{font-size:1.4rem}main.container-fluid{padding:15px 10px}.card-body{padding:1.2rem}.modal-title{font-size:1.1rem}.btn{padding:8px 16px;font-size:.9rem}pre{padding:10px;font-size:.85em}.search-container input[type=text]{padding:10px 35px 10px 12px;font-size:.95em}}</style>
+</head>
+<body>
+<header>
+<div class=header-left>
+<img alt="Logo NirKyy"src=/logo.jpg>
+<h1 class=header-title>NirKyy API</h1>
+</div>
+<div class=dropdown>
+<button class="btn dropdown-toggle"id=dropdownTags type=button aria-expanded=false aria-haspopup=true data-toggle=dropdown>
+ Tags
+</button>
 
-        const endpointListSection = document.getElementById('endpointListSection');
-        const searchEndpointInput = document.getElementById('searchEndpoint');
-        const tagButtonsContainer = document.getElementById('tagButtons');
-        const tryModal = document.getElementById('tryModal');
-        const closeButton = document.getElementById('closeButton');
-        const parameterInputsDiv = document.getElementById('parameterInputs');
-        const runButton = document.getElementById('runButton');
-        const responseHeaderPre = document.getElementById('responseHeader');
-        const responseBodyPre = document.getElementById('responseBody');
-        const axiosSnippetPre = document.getElementById('axiosSnippet').querySelector('code');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        const successSound = document.getElementById('successSound');
-        const errorSound = document.getElementById('errorSound');
-        const copyResponseHeaderBtn = document.getElementById('copyResponseHeader');
-        const copyResponseBodyBtn = document.getElementById('copyResponseBody');
-        const copyEndpointButtonBtn = document.getElementById('copyEndpointButton');
-        const copyAxiosButtonBtn = document.getElementById('copyAxiosButton');
-        const finalUrlDisplayPre = document.getElementById('finalUrlDisplay');
-        let currentEndpointData = null;
+</div>
+</header>
+<main class=container-fluid>
+<div class=search-container>
+<input id=searchEndpoint placeholder="Cari Endpoint atau Tag...">
 
-        const whatsappModal = document.getElementById('whatsappModal');
-        const closeWhatsAppModal = document.getElementById('closeWhatsAppModal');
-        if (typeof $ !== 'undefined' && typeof $.fn.modal !== 'undefined') {
-            // Delay showing modal slightly to ensure Bootstrap JS is ready
-            setTimeout(() => { $('#whatsappModal').modal('show'); }, 500);
-        } else {
-            whatsappModal.style.display = 'block';
-        }
+</div>
+<div class=row id=endpointListSection>
+</div>
+</main>
+<footer>
+<p>© 2025 NirKyy. API Bakal tetep aktif selama Koyeb gratis 🗿🙏 | Join Saluran <a href=https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T rel="noopener noreferrer"target=_blank>WhatsApp</a></p>
+</footer>
+<div class=modal id=tryModal role=dialog tabindex=-1>
+<div class="modal-dialog modal-dialog-centered"role=document>
+<div class=modal-content>
+<div class=modal-header>
+<h5 class=modal-title>Coba Endpoint</h5>
+<button class=close id=closeButton type=button aria-label=Close>
+<span aria-hidden=true>×</span>
+</button>
+</div>
+<div class=modal-body>
 
-        closeWhatsAppModal.addEventListener('click', function() {
-             if (typeof $ !== 'undefined' && typeof $.fn.modal !== 'undefined') {
-                $('#whatsappModal').modal('hide');
-            } else {
-                whatsappModal.style.display = 'none';
-            }
-        });
+<button class="mt-3 btn btn-block btn-info mb-3"id=runButton>
+ Run
+</button>
+<div class=loading id=loadingIndicator style=display:none>
 
-        function debounce(func, wait) {
-            let timeout;
-            return function(...args) {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func.apply(this, args), wait);
-            };
-        }
 
-        function attachCardEvents() {
-            endpointListSection.addEventListener('click', function handleCardClick(e) {
-                const btn = e.target.closest('button');
-                if (!btn) return;
+<span>Memproses...</span>
+</div>
+<div class=mt-3 id=apiResponse>
+<div class=modal-section-header>
+<h5>Endpoint URL:</h5>
+<button class=copy-button id=copyEndpointButton data-original-text='<i class="fas fa-copy"></i> Salin'>
+ Salin
+</button>
+</div>
 
-                if (btn.classList.contains('copy-url-button')) {
-                    const urlPath = btn.getAttribute('data-url'); // Assuming data-url contains only the path
-                    if (urlPath) {
-                        const fullUrl = baseUrl + urlPath; // Prepend base URL
-                        copyToClipboard(fullUrl, btn, 'URL berhasil disalin!') // Use the improved copy function
-                            .catch(() => { alert('Gagal menyalin URL.'); });
+<div class="mt-3 modal-section-header">
+<h5>Response Header:</h5>
+<button class=copy-button id=copyResponseHeader data-original-text='<i class="fas fa-copy"></i> Salin'>
+ Salin
+</button>
+</div>
+
+<div class="mt-3 modal-section-header">
+<h5>Response Body:</h5>
+<button class=copy-button id=copyResponseBody data-original-text='<i class="fas fa-copy"></i> Salin'>
+ Salin
+</button>
+</div>
+
+<div class="mt-3 axios-code">
+<div class=modal-section-header>
+<h5>Contoh Kode Axios (GET):</h5>
+<button class=copy-button id=copyAxiosButton data-original-text='<i class="fas fa-copy"></i> Salin'>
+ Salin
+</button>
+</div>
+<pre id=axiosSnippet></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class=modal id=whatsappModal role=dialog tabindex=-1>
+<div class="modal-dialog modal-dialog-centered"role=document>
+<div class=modal-content>
+<div class=modal-header>
+<h5 class=modal-title> Gabung Saluran WhatsApp!</h5>
+<button class=close id=closeWhatsAppModal type=button aria-label=Close>
+<span aria-hidden=true>×</span>
+</button>
+</div>
+<div class=modal-body>
+<p>Dapatkan update API terbaru dan diskusi seru seputar NirKyy. Yuk, gabung ke saluran WhatsApp kami!</p>
+</div>
+<div class=modal-footer>
+<a href=https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T rel="noopener noreferrer"target=_blank class="btn btn-primary">Gabung Sekarang</a>
+</div>
+</div>
+</div>
+</div>
+<audio id=successSound preload=auto src=success.mp3></audio>
+<audio id=errorSound preload=auto src=error.mp3></audio>
+<script src=https://code.jquery.com/jquery-3.5.1.min.js crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js defer></script>
+<script src=https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+            let finalApiPath = ''; // Store only the path part + query string
+            let isFetching = false;
+            const baseUrl = 'https://nirkyy.koyeb.app'; // Define base URL explicitly
+
+            const endpointListSection = document.getElementById('endpointListSection');
+            const searchEndpointInput = document.getElementById('searchEndpoint');
+            const tagButtonsContainer = document.getElementById('tagButtons');
+            const tryModal = document.getElementById('tryModal');
+            const closeButton = document.getElementById('closeButton');
+            const parameterInputsDiv = document.getElementById('parameterInputs');
+            const runButton = document.getElementById('runButton');
+            const responseHeaderPre = document.getElementById('responseHeader');
+            const responseBodyPre = document.getElementById('responseBody');
+            const axiosSnippetPre = document.getElementById('axiosSnippet').querySelector('code');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const successSound = document.getElementById('successSound');
+            const errorSound = document.getElementById('errorSound');
+            const copyResponseHeaderBtn = document.getElementById('copyResponseHeader');
+            const copyResponseBodyBtn = document.getElementById('copyResponseBody');
+            const copyEndpointButtonBtn = document.getElementById('copyEndpointButton');
+            const copyAxiosButtonBtn = document.getElementById('copyAxiosButton');
+            const finalUrlDisplayPre = document.getElementById('finalUrlDisplay');
+            let currentEndpointData = null;
+
+            const whatsappModal = document.getElementById('whatsappModal');
+            const closeWhatsAppModal = document.getElementById('closeWhatsAppModal');
+
+            // Function to show WhatsApp modal safely
+            function showWhatsAppModal() {
+                 if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {
+                    // Check if modal is already initialized
+                    if (!$('#whatsappModal').data('bs.modal')) {
+                        $('#whatsappModal').modal({ backdrop: 'static', keyboard: false }); // Initialize if not
                     }
-                }
-                else if (btn.classList.contains('try-button')) {
-                    const data = btn.getAttribute('data-endpoint');
-                    if (data) {
-                        try {
-                            const endpoint = JSON.parse(data);
-                            openTryModal(endpoint);
-                        } catch (error) {
-                            console.error("Gagal parse data endpoint:", error);
-                            alert("Terjadi kesalahan saat membuka modal.");
+                     $('#whatsappModal').modal('show');
+                 } else {
+                    // Fallback if Bootstrap JS isn't loaded
+                    whatsappModal.style.display = 'block';
+                 }
+            }
+
+             // Function to hide WhatsApp modal safely
+            function hideWhatsAppModal() {
+                 if (typeof $ !== 'undefined' && $.fn && $.fn.modal && $('#whatsappModal').data('bs.modal')) {
+                     $('#whatsappModal').modal('hide');
+                 } else {
+                     whatsappModal.style.display = 'none';
+                 }
+            }
+
+            // Show WhatsApp Modal after a short delay
+             setTimeout(showWhatsAppModal, 1500); // Increased delay slightly
+
+            closeWhatsAppModal.addEventListener('click', hideWhatsAppModal);
+
+            function debounce(func, wait) {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            }
+
+            function attachCardEvents() {
+                endpointListSection.addEventListener('click', function handleCardClick(e) {
+                    const btn = e.target.closest('button');
+                    if (!btn) return;
+
+                    if (btn.classList.contains('copy-url-button')) {
+                        const urlPath = btn.getAttribute('data-url'); // Path only
+                        if (urlPath) {
+                            const fullUrl = baseUrl + urlPath; // Prepend base URL
+                            copyToClipboard(fullUrl, btn, 'URL berhasil disalin!')
+                                .catch(() => { /* Error handled in copyToClipboard */ });
+                        }
+                    } else if (btn.classList.contains('try-button')) {
+                        const data = btn.getAttribute('data-endpoint');
+                        if (data) {
+                            try {
+                                const endpoint = JSON.parse(data);
+                                openTryModal(endpoint);
+                            } catch (error) {
+                                console.error("Gagal parse data endpoint:", error);
+                                alert("Terjadi kesalahan saat membuka modal.");
+                            }
                         }
                     }
-                }
-            });
-        }
-
-        function openTryModal(endpoint) {
-            currentEndpointData = endpoint;
-            parameterInputsDiv.innerHTML = '';
-            responseHeaderPre.textContent = '';
-            responseBodyPre.textContent = '';
-            axiosSnippetPre.textContent = '';
-            finalUrlDisplayPre.textContent = '';
-            finalUrlDisplayPre.style.display = 'none';
-            finalApiPath = ''; // Reset path
-            copyResponseHeaderBtn.style.display = 'none';
-            copyResponseBodyBtn.style.display = 'none';
-            copyEndpointButtonBtn.style.display = 'none';
-            copyAxiosButtonBtn.style.display = 'none';
-            loadingIndicator.style.display = 'none';
-            runButton.disabled = false;
-            closeButton.disabled = false; // Ensure close button is enabled initially
-
-            // Reset copy button states
-            resetCopyButton(copyResponseHeaderBtn, '<i class="fas fa-copy"></i>Salin');
-            resetCopyButton(copyResponseBodyBtn, '<i class="fas fa-copy"></i>Salin');
-            resetCopyButton(copyEndpointButtonBtn, '<i class="fas fa-copy"></i>Salin');
-            resetCopyButton(copyAxiosButtonBtn, '<i class="fas fa-copy"></i>Salin');
-
-
-            if (endpoint.parameter && endpoint.parameter.length > 0) {
-                endpoint.parameter.forEach(param => {
-                    const paramName = param.params;
-                    const defaultValue = param.example || '';
-                    const isRequired = (param.opsional === false);
-                    const description = param.desc || `Masukkan nilai untuk ${paramName}`;
-
-                    const div = document.createElement('div');
-                    div.className = 'form-group mb-3';
-
-                    const label = document.createElement('label');
-                    label.htmlFor = `param-${paramName}`;
-                    label.textContent = `${paramName}${isRequired ? '*' : ''}:`;
-
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.className = 'form-control';
-                    input.id = `param-${paramName}`;
-                    input.name = paramName;
-                    input.placeholder = description + (defaultValue ? ` (contoh: ${defaultValue})` : '');
-                    input.value = defaultValue;
-                    if (isRequired) {
-                        input.required = true;
-                        label.title = "Parameter ini wajib diisi.";
-                    } else {
-                         label.title = "Parameter ini opsional.";
-                    }
-
-                    div.appendChild(label);
-                    div.appendChild(input);
-                    parameterInputsDiv.appendChild(div);
                 });
-            } else {
-                 parameterInputsDiv.innerHTML = '<p class="text-muted">Endpoint ini tidak memerlukan parameter.</p>';
             }
 
-             if (typeof $ !== 'undefined' && typeof $.fn.modal !== 'undefined') {
-                // Ensure modal options allow static backdrop during load later
-                $('#tryModal').modal({ backdrop: 'static', keyboard: false }); // Set static initially
-                $('#tryModal').modal('show');
-                // Allow closing again once shown and not loading
-                $('#tryModal').data('bs.modal')._config.backdrop = true;
-                $('#tryModal').data('bs.modal')._config.keyboard = true;
-             } else {
-                tryModal.style.display = 'block';
-             }
-        }
-
-        // Prevent closing modal by clicking outside when loading
-        window.addEventListener('click', function(event) {
-            if (event.target === tryModal && loadingIndicator.style.display !== 'block') {
-                closeAndClearModal();
-            }
-        });
-
-        // Prevent closing modal with the 'X' button when loading
-        closeButton.addEventListener('click', function() {
-            if (loadingIndicator.style.display !== 'block') {
-                closeAndClearModal();
-            }
-            // If loading, the button is disabled anyway, but this adds an explicit check
-        });
-
-        function closeAndClearModal() {
-            if (typeof $ !== 'undefined' && typeof $.fn.modal !== 'undefined') {
-                $('#tryModal').modal('hide');
-            } else {
-                tryModal.style.display = 'none';
-            }
-            clearModalData();
-        }
-
-        function clearModalData() {
-            responseHeaderPre.textContent = '';
-            responseBodyPre.textContent = '';
-            axiosSnippetPre.textContent = '';
-            finalUrlDisplayPre.textContent = '';
-            finalUrlDisplayPre.style.display = 'none';
-            finalApiPath = '';
-            copyResponseHeaderBtn.style.display = 'none';
-            copyResponseBodyBtn.style.display = 'none';
-            copyEndpointButtonBtn.style.display = 'none';
-            copyAxiosButtonBtn.style.display = 'none';
-            currentEndpointData = null;
-             // Ensure buttons are re-enabled if modal is closed externally
-            runButton.disabled = false;
-            closeButton.disabled = false;
-        }
-
-        runButton.addEventListener('click', function() {
-            if (loadingIndicator.style.display === 'block' || !currentEndpointData) return;
-
-            runButton.disabled = true;
-            closeButton.disabled = true; // Disable close button during loading
-            loadingIndicator.style.display = 'block';
-            // Make backdrop static during loading for Bootstrap modal
-            if (typeof $ !== 'undefined' && typeof $.fn.modal !== 'undefined') {
-                 $('#tryModal').data('bs.modal')._config.backdrop = 'static';
-                 $('#tryModal').data('bs.modal')._config.keyboard = false;
+            function resetAllCopyButtons() {
+                 const copyButtons = tryModal.querySelectorAll('.copy-button');
+                 copyButtons.forEach(button => {
+                     resetCopyButton(button);
+                     button.style.display = 'none'; // Hide all initially
+                 });
             }
 
+            function openTryModal(endpoint) {
+                currentEndpointData = endpoint;
+                parameterInputsDiv.innerHTML = ''; // Clear previous inputs
+                responseHeaderPre.textContent = '';
+                responseBodyPre.textContent = '';
+                responseBodyPre.innerHTML = ''; // Clear potential img/video
+                axiosSnippetPre.textContent = '';
+                finalUrlDisplayPre.textContent = '';
+                finalUrlDisplayPre.style.display = 'none';
+                finalApiPath = ''; // Reset path
 
-            responseHeaderPre.textContent = '';
-            responseBodyPre.textContent = '';
-            axiosSnippetPre.textContent = '';
-            finalUrlDisplayPre.textContent = '';
-            finalUrlDisplayPre.style.display = 'none';
-            copyResponseHeaderBtn.style.display = 'none';
-            copyResponseBodyBtn.style.display = 'none';
-            copyEndpointButtonBtn.style.display = 'none';
-            copyAxiosButtonBtn.style.display = 'none';
+                resetAllCopyButtons(); // Reset and hide all copy buttons
 
-            // Reset copy button states again before new request
-            resetCopyButton(copyResponseHeaderBtn, '<i class="fas fa-copy"></i>Salin');
-            resetCopyButton(copyResponseBodyBtn, '<i class="fas fa-copy"></i>Salin');
-            resetCopyButton(copyEndpointButtonBtn, '<i class="fas fa-copy"></i>Salin');
-            resetCopyButton(copyAxiosButtonBtn, '<i class="fas fa-copy"></i>Salin');
-
-            let apiUrlTemplate = currentEndpointData.endpoint;
-            const queryParams = {};
-            let missingRequired = false;
-            let firstMissingField = null;
-
-            const inputs = parameterInputsDiv.querySelectorAll('input.form-control');
-            inputs.forEach(input => {
-                const paramName = input.name;
-                const definition = currentEndpointData.parameter.find(p => p.params === paramName);
-                const isRequired = definition && (definition.opsional === false);
-                const value = input.value.trim();
-
-                 if (isRequired && !value) {
-                    missingRequired = true;
-                    input.classList.add('is-invalid');
-                    if (!firstMissingField) firstMissingField = input;
-                 } else {
-                    input.classList.remove('is-invalid');
-                 }
-
-                if (value) {
-                    const placeholder = `{${paramName}}`;
-                    if (apiUrlTemplate.includes(placeholder)) {
-                        apiUrlTemplate = apiUrlTemplate.replace(placeholder, encodeURIComponent(value));
-                    } else {
-                        queryParams[paramName] = value;
-                    }
-                }
-            });
-
-            if (missingRequired) {
-                alert('Harap isi semua parameter wajib (*).');
-                if (firstMissingField) firstMissingField.focus();
                 loadingIndicator.style.display = 'none';
                 runButton.disabled = false;
-                closeButton.disabled = false; // Re-enable close button on validation error
-                 // Allow closing again
-                if (typeof $ !== 'undefined' && typeof $.fn.modal !== 'undefined') {
-                    $('#tryModal').data('bs.modal')._config.backdrop = true;
-                    $('#tryModal').data('bs.modal')._config.keyboard = true;
-                }
-                return;
-            }
+                closeButton.disabled = false;
 
-            // Construct the final path with query parameters
-             try {
-                 // Use a dummy base URL just to utilize URL object's search param handling
-                 const urlObj = new URL(apiUrlTemplate, 'http://dummybase');
-                 Object.entries(queryParams).forEach(([key, value]) => {
-                     urlObj.searchParams.append(key, value);
-                 });
-                 finalApiPath = urlObj.pathname + urlObj.search; // Store path + query string
-             } catch (e) {
-                 console.error("Error creating URL path:", e);
-                 alert("Terjadi kesalahan saat membuat path endpoint.");
-                 loadingIndicator.style.display = 'none';
-                 runButton.disabled = false;
-                 closeButton.disabled = false; // Re-enable close button on error
-                 // Allow closing again
-                 if (typeof $ !== 'undefined' && typeof $.fn.modal !== 'undefined') {
-                     $('#tryModal').data('bs.modal')._config.backdrop = true;
-                     $('#tryModal').data('bs.modal')._config.keyboard = true;
-                 }
-                 return;
-            }
+                // Populate parameters
+                if (endpoint.parameter && endpoint.parameter.length > 0) {
+                    endpoint.parameter.forEach(param => {
+                        const paramName = param.params;
+                        const defaultValue = param.example || '';
+                        const isRequired = (param.opsional === false);
+                        const description = param.desc || `Masukkan nilai untuk ${paramName}`;
 
-            const fullApiUrl = baseUrl + finalApiPath; // Construct full URL for display and Axios
+                        const div = document.createElement('div');
+                        div.className = 'form-group mb-3';
 
-            finalUrlDisplayPre.textContent = fullApiUrl; // Display the full URL
-            finalUrlDisplayPre.style.display = 'block';
-            if (finalUrlDisplayPre.textContent) { copyEndpointButtonBtn.style.display = 'inline-block'; }
+                        const label = document.createElement('label');
+                        label.htmlFor = `param-${paramName}`;
+                        label.textContent = `${paramName}${isRequired ? '*' : ''}:`;
+                        label.title = isRequired ? "Parameter ini wajib diisi." : "Parameter ini opsional.";
 
-            axios.get(fullApiUrl) // Use the full URL for the request
-                .then(response => {
-                    // Removed loadingIndicator hide here, moved to finally
 
-                    let headersText = `Status: ${response.status} ${response.statusText}\n`;
-                    Object.entries(response.headers).forEach(([key, value]) => {
-                        headersText += `${key}: ${value}\n`;
-                    });
-                    responseHeaderPre.textContent = headersText.trim();
-                    if (responseHeaderPre.textContent) copyResponseHeaderBtn.style.display = 'inline-block';
-
-                    const contentType = response.headers['content-type'] || '';
-
-                    if (response.status >= 200 && response.status < 300 && (!response.data || response.data.success !== false)) {
-                        successSound.play().catch(e => console.warn("Gagal memainkan suara sukses:", e));
-                    } else {
-                        errorSound.play().catch(e => console.warn("Gagal memainkan suara error:", e));
-                    }
-
-                    responseBodyPre.innerHTML = '';
-                    if (contentType.includes('application/json')) {
-                        responseBodyPre.textContent = JSON.stringify(response.data, null, 2);
-                    } else if (contentType.startsWith('image/')) {
-                        responseBodyPre.innerHTML = '<div class="loading">Memuat gambar...</div>';
-                        const img = document.createElement('img');
-                        img.src = response.config.url; // Use the requested URL
-                        img.style.maxWidth = '100%';
-                        img.style.height = 'auto';
-                        img.style.display = 'block';
-                        img.style.marginTop = '10px';
-                        img.onload = () => { responseBodyPre.innerHTML = ''; responseBodyPre.appendChild(img); };
-                        img.onerror = () => { responseBodyPre.textContent = 'Gagal memuat gambar (format rusak atau URL tidak valid).'; };
-                    } else if (contentType.startsWith('video/')) {
-                         responseBodyPre.innerHTML = '<div class="loading">Memuat video...</div>';
-                         const vid = document.createElement('video');
-                         vid.src = response.config.url; // Use the requested URL
-                         vid.controls = true;
-                         vid.style.maxWidth = '100%';
-                         vid.style.height = 'auto';
-                         vid.style.display = 'block';
-                         vid.style.marginTop = '10px';
-                         vid.onloadeddata = () => { responseBodyPre.innerHTML = ''; responseBodyPre.appendChild(vid); };
-                         vid.onerror = () => { responseBodyPre.textContent = 'Gagal memuat video (format rusak atau URL tidak valid).'; };
-                    } else if (contentType.startsWith('text/')) {
-                         responseBodyPre.textContent = response.data;
-                    }
-                    else {
-                         if (typeof response.data === 'string' || typeof response.data === 'number') {
-                            responseBodyPre.textContent = response.data;
-                         } else {
-                             responseBodyPre.textContent = `Tipe konten tidak didukung untuk pratinjau: ${contentType}\n\nData diterima (JSON): ${JSON.stringify(response.data, null, 2)}`;
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.className = 'form-control';
+                        input.id = `param-${paramName}`;
+                        input.name = paramName;
+                        input.placeholder = description + (defaultValue ? ` (contoh: ${defaultValue})` : '');
+                        input.value = defaultValue;
+                         if (isRequired) {
+                            input.required = true; // Add required attribute for potential browser validation
                          }
-                    }
 
-                     // Show copy button for body unless it's an image/video preview
-                    if (responseBodyPre.textContent.trim() && !contentType.startsWith('image/') && !contentType.startsWith('video/')) {
-                         copyResponseBodyBtn.style.display = 'inline-block';
-                    }
+                        div.appendChild(label);
+                        div.appendChild(input);
+                        parameterInputsDiv.appendChild(div);
+                    });
+                } else {
+                    parameterInputsDiv.innerHTML = '<p class="text-muted">Endpoint ini tidak memerlukan parameter.</p>';
+                }
 
-                    let axiosCode = '';
-                    const requestUrl = fullApiUrl; // Use the full URL in the snippet
-                    const axiosOptions = {};
-
-                    if (!contentType.includes('application/json') && !contentType.startsWith('text/')) {
-                         axiosOptions.responseType = 'arraybuffer';
-                    }
-
-                    const optionsString = Object.keys(axiosOptions).length > 0 ? `, ${JSON.stringify(axiosOptions)}` : '';
-
-                    axiosCode = `axios.get('${requestUrl}'${optionsString})\n` +
-                                `.then(response => {\n` +
-                                `  console.log('Success:', response.data);\n` +
-                                `})\n` +
-                                `.catch(error => {\n` +
-                                `  console.error('Error:', error.response ? error.response.data : error.message);\n` +
-                                `});`;
-
-                    axiosSnippetPre.textContent = axiosCode;
-                    if (axiosSnippetPre.textContent) copyAxiosButtonBtn.style.display = 'inline-block';
-
-                })
-                .catch(error => {
-                    // Removed loadingIndicator hide here, moved to finally
-                    errorSound.play().catch(e => console.warn("Gagal memainkan suara error:", e));
-
-                    if (error.response) {
-                        let errorHeadersText = `Status: ${error.response.status} ${error.response.statusText}\n`;
-                        Object.entries(error.response.headers).forEach(([key, value]) => {
-                            errorHeadersText += `${key}: ${value}\n`;
-                        });
-                        responseHeaderPre.textContent = errorHeadersText.trim();
-
-                        const errorContentType = error.response.headers['content-type'] || '';
-                         if (errorContentType.includes('application/json')) {
-                            responseBodyPre.textContent = JSON.stringify(error.response.data, null, 2);
-                        } else if (typeof error.response.data === 'string') {
-                            responseBodyPre.textContent = error.response.data;
-                        } else {
-                             responseBodyPre.textContent = `Error ${error.response.status}. Response tidak dapat ditampilkan sebagai teks.`;
-                        }
-                    } else if (error.request) {
-                        responseHeaderPre.textContent = 'Error: No Response Received';
-                        responseBodyPre.textContent = 'Tidak ada respons dari server. Periksa koneksi internet atau URL endpoint.';
-                        console.error('Network Error:', error.request);
+                // Show modal using Bootstrap if available
+                 if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {
+                    // Ensure modal options allow static backdrop during load later
+                    if (!$('#tryModal').data('bs.modal')) {
+                        $('#tryModal').modal({ backdrop: true, keyboard: true }); // Initialize standardly first
                     } else {
-                        responseHeaderPre.textContent = 'Error: Request Setup Failed';
-                        responseBodyPre.textContent = `Gagal membuat request: ${error.message}`;
-                        console.error('Request Setup Error:', error.message);
-                    }
-                     if (responseHeaderPre.textContent) copyResponseHeaderBtn.style.display = 'inline-block';
-                     if (responseBodyPre.textContent) copyResponseBodyBtn.style.display = 'inline-block';
-                })
-                .finally(() => {
-                    loadingIndicator.style.display = 'none'; // Hide loading indicator here
-                    runButton.disabled = false;
-                    closeButton.disabled = false; // Re-enable close button when request finishes
-                    // Allow closing modal again
-                    if (typeof $ !== 'undefined' && typeof $.fn.modal !== 'undefined') {
+                         // Reset config if previously set to static
                         $('#tryModal').data('bs.modal')._config.backdrop = true;
                         $('#tryModal').data('bs.modal')._config.keyboard = true;
                     }
-                });
-        });
-
-        function copyToClipboard(text, buttonElement, successMessage) {
-             return new Promise((resolve, reject) => { // Return a promise
-                 if (!text || !navigator.clipboard) {
-                    console.error('Clipboard API not available or text is empty.');
-                    return reject(new Error('Clipboard API not available or text is empty.'));
+                    $('#tryModal').modal('show');
+                 } else {
+                    tryModal.style.display = 'block';
                  }
-                 navigator.clipboard.writeText(text)
-                     .then(() => {
-                        const originalText = buttonElement.innerHTML;
-                        buttonElement.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
-                        buttonElement.disabled = true;
-                        setTimeout(() => {
-                           resetCopyButton(buttonElement, originalText);
-                           resolve(); // Resolve the promise on success
-                        }, 1500);
-                     })
-                     .catch(err => {
-                         console.error('Gagal menyalin:', err);
-                         alert('Gagal menyalin ke clipboard.');
-                         reject(err); // Reject the promise on error
-                     });
-             });
-        }
-
-         function resetCopyButton(buttonElement, originalHTML) {
-            if(buttonElement) {
-                buttonElement.innerHTML = originalHTML;
-                buttonElement.disabled = false;
             }
-         }
 
-
-        copyResponseHeaderBtn.addEventListener('click', function() {
-            copyToClipboard(responseHeaderPre.textContent, this, 'Response Header berhasil disalin!');
-        });
-
-        copyResponseBodyBtn.addEventListener('click', function() {
-            // Handle cases where body might be complex HTML (like image/video)
-            let textToCopy = responseBodyPre.textContent;
-            if (!textToCopy && responseBodyPre.querySelector('img')) {
-                textToCopy = responseBodyPre.querySelector('img').src;
-            } else if (!textToCopy && responseBodyPre.querySelector('video')) {
-                 textToCopy = responseBodyPre.querySelector('video').src;
-            }
-            copyToClipboard(textToCopy, this, 'Response Body berhasil disalin!');
-        });
-
-        copyEndpointButtonBtn.addEventListener('click', function() {
-             // Always copy the full URL displayed in the <pre> tag
-             copyToClipboard(finalUrlDisplayPre.textContent, this, 'Endpoint URL berhasil disalin!');
-        });
-
-        copyAxiosButtonBtn.addEventListener('click', function() {
-             copyToClipboard(axiosSnippetPre.textContent, this, 'Contoh kode Axios berhasil disalin!');
-        });
-
-         function fetchData(url) {
-             if (isFetching) return Promise.reject("Fetch sedang berlangsung");
-             isFetching = true;
-             endpointListSection.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Memuat data...</div>';
-             return fetch(url)
-                 .then(response => {
-                     if (!response.ok) {
-                         throw new Error(`HTTP error! status: ${response.status}`);
-                     }
-                     // Assuming the response is HTML content for the endpoint list
-                     return response.text();
-                 })
-                 .then(html => {
-                      // Replace the content safely
-                      const tempDiv = document.createElement('div');
-                      tempDiv.innerHTML = html; // Parse the HTML string
-                      const newContent = tempDiv.querySelector('#endpointListSection'); // Find the relevant part if needed, or use the whole body
-
-                      if (newContent || tempDiv.innerHTML.trim()) {
-                         // Replace content of the actual endpointListSection
-                         endpointListSection.innerHTML = newContent ? newContent.innerHTML : tempDiv.innerHTML;
-                      } else {
-                          endpointListSection.innerHTML = '<p class="text-center text-muted">Tidak ada endpoint ditemukan.</p>';
-                      }
-                 })
-                 .catch(error => {
-                     console.error("Gagal fetch data:", error);
-                     endpointListSection.innerHTML = `<p class="text-center text-danger">Gagal memuat data endpoint. Silakan coba lagi nanti. (${error.message})</p>`;
-                 })
-                 .finally(() => {
-                     isFetching = false;
-                     attachCardEvents(); // Re-attach events after loading new content
-                 });
-         }
-
-        function searchData(term) {
-             const searchUrl = `/search?term=${encodeURIComponent(term)}`;
-             fetchData(searchUrl);
-        }
-
-        function renderEndpointsByTag(tag = '') {
-            const renderUrl = `/renderpage?tags=${encodeURIComponent(tag)}`;
-            fetchData(renderUrl);
-        }
-
-         function loadTags() {
-            fetch('/tags')
-                .then(res => {
-                    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-                    return res.json();
-                })
-                .then(data => {
-                    if (!data || !Array.isArray(data.tags)) throw new Error("Format data tags tidak valid");
-
-                    let html = '<a class="dropdown-item" href="#" data-tags="">Semua Kategori</a>';
-                    data.tags.forEach(tag => {
-                         // Basic sanitization for display, rely on encodeURIComponent for attribute
-                         const sanitizedTag = tag.replace(/</g, "<").replace(/>/g, ">");
-                        html += `<a class="dropdown-item" href="#" data-tags="${encodeURIComponent(tag)}">${sanitizedTag}</a>`;
-                    });
-                    tagButtonsContainer.innerHTML = html;
-                })
-                .catch(error => {
-                     console.error("Gagal memuat tags:", error);
-                     tagButtonsContainer.innerHTML = '<span class="dropdown-item text-danger">Gagal memuat tags</span>';
-                });
-        }
-
-        searchEndpointInput.addEventListener('input', debounce(function() {
-            const searchTerm = searchEndpointInput.value.trim();
-            // No need to check isFetching here, fetchData handles it
-            if (searchTerm) {
-                searchData(searchTerm);
-            } else {
-                renderEndpointsByTag();
-            }
-        }, 350));
-
-
-        tagButtonsContainer.addEventListener('click', function(e) {
-            e.preventDefault();
-            const link = e.target.closest('a.dropdown-item');
-            if (link && link.hasAttribute('data-tags')) {
-                const selectedTag = decodeURIComponent(link.getAttribute('data-tags'));
-                searchEndpointInput.value = '';
-                // No need to check isFetching here, fetchData handles it
-                renderEndpointsByTag(selectedTag);
-
-                // Close dropdown using Bootstrap's JS if available
-                if (typeof $ !== 'undefined' && typeof $.fn.dropdown !== 'undefined') {
-                     // Use jQuery to find the button and toggle the dropdown
-                     $(link).closest('.dropdown').find('.dropdown-toggle').dropdown('toggle');
+            // Prevent closing modal by clicking outside or Esc WHEN loading
+            function setModalStatic(isStatic) {
+                if (typeof $ !== 'undefined' && $.fn && $.fn.modal && $('#tryModal').data('bs.modal')) {
+                    const modalInstance = $('#tryModal').data('bs.modal');
+                    modalInstance._config.backdrop = isStatic ? 'static' : true;
+                    modalInstance._config.keyboard = !isStatic;
                 }
+                // For non-Bootstrap fallback, we can't easily prevent Esc,
+                // but we can disable the close button. The outside click is handled below.
+                closeButton.disabled = isStatic;
             }
-        });
 
-        // Initial setup
-        renderEndpointsByTag(); // Load initial data
-        loadTags();
-        // attachCardEvents is now called within fetchData's finally block
-    });</script></body></html>
+
+            // Handle backdrop click for non-bootstrap modal
+            window.addEventListener('click', function(event) {
+                if (event.target === tryModal && loadingIndicator.style.display !== 'block') {
+                     closeAndClearModal();
+                }
+            });
+
+            closeButton.addEventListener('click', function() {
+                if (loadingIndicator.style.display !== 'block') {
+                    closeAndClearModal();
+                }
+            });
+
+            function closeAndClearModal() {
+                if (typeof $ !== 'undefined' && $.fn && $.fn.modal && $('#tryModal').data('bs.modal')) {
+                    $('#tryModal').modal('hide');
+                } else {
+                    tryModal.style.display = 'none';
+                }
+                clearModalData(); // Clear data after hiding animation (or immediately)
+            }
+
+            function clearModalData() {
+                responseHeaderPre.textContent = '';
+                responseBodyPre.textContent = '';
+                responseBodyPre.innerHTML = ''; // Clear img/video too
+                axiosSnippetPre.textContent = '';
+                finalUrlDisplayPre.textContent = '';
+                finalUrlDisplayPre.style.display = 'none';
+                finalApiPath = '';
+                resetAllCopyButtons();
+                currentEndpointData = null;
+                runButton.disabled = false;
+                closeButton.disabled = false;
+                // Clear validation states
+                 parameterInputsDiv.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+            }
+
+             // Add event listener for when the modal is fully hidden (Bootstrap only)
+            if (typeof $ !== 'undefined' && $.fn && $.fn.modal) {
+                 $('#tryModal').on('hidden.bs.modal', function () {
+                     clearModalData(); // Ensure cleanup even if closed via Esc or backdrop
+                 });
+            }
+
+
+            runButton.addEventListener('click', function() {
+                if (loadingIndicator.style.display === 'block' || !currentEndpointData) return;
+
+                runButton.disabled = true;
+                setModalStatic(true); // Make modal static during request
+                loadingIndicator.style.display = 'block';
+
+                // Clear previous results and reset copy buttons
+                responseHeaderPre.textContent = '';
+                responseBodyPre.textContent = '';
+                responseBodyPre.innerHTML = '';
+                axiosSnippetPre.textContent = '';
+                finalUrlDisplayPre.textContent = '';
+                finalUrlDisplayPre.style.display = 'none';
+                resetAllCopyButtons();
+
+
+                let apiUrlTemplate = currentEndpointData.endpoint;
+                const queryParams = {};
+                let missingRequired = false;
+                let firstMissingField = null;
+
+                // Validate and collect parameters
+                const inputs = parameterInputsDiv.querySelectorAll('input.form-control');
+                inputs.forEach(input => {
+                    input.classList.remove('is-invalid'); // Clear previous validation
+                    const paramName = input.name;
+                    const definition = currentEndpointData.parameter.find(p => p.params === paramName);
+                    const isRequired = definition && (definition.opsional === false);
+                    const value = input.value.trim();
+
+                    if (isRequired && !value) {
+                        missingRequired = true;
+                        input.classList.add('is-invalid');
+                        if (!firstMissingField) firstMissingField = input;
+                    }
+
+                    if (value) {
+                        const placeholder = `{${paramName}}`;
+                        if (apiUrlTemplate.includes(placeholder)) {
+                            apiUrlTemplate = apiUrlTemplate.replace(placeholder, encodeURIComponent(value));
+                        } else {
+                            queryParams[paramName] = value;
+                        }
+                    }
+                });
+
+                // Stop if validation fails
+                if (missingRequired) {
+                    alert('Harap isi semua parameter wajib (*).');
+                    if (firstMissingField) firstMissingField.focus();
+                    loadingIndicator.style.display = 'none';
+                    runButton.disabled = false;
+                    setModalStatic(false); // Make modal interactive again
+                    return;
+                }
+
+                // Construct the final path + query string
+                 try {
+                     const urlObj = new URL(apiUrlTemplate, 'http://dummybase'); // Use dummy base for path/query extraction
+                     Object.entries(queryParams).forEach(([key, value]) => {
+                         urlObj.searchParams.append(key, value);
+                     });
+                     finalApiPath = urlObj.pathname + urlObj.search; // Store path + query
+                 } catch (e) {
+                     console.error("Error creating URL path:", e);
+                     alert("Terjadi kesalahan saat membuat path endpoint.");
+                     loadingIndicator.style.display = 'none';
+                     runButton.disabled = false;
+                     setModalStatic(false);
+                     return;
+                }
+
+                const fullApiUrl = baseUrl + finalApiPath; // Construct full URL
+
+                // Display the full URL and show its copy button
+                finalUrlDisplayPre.textContent = fullApiUrl;
+                finalUrlDisplayPre.style.display = 'block';
+                copyEndpointButtonBtn.style.display = 'inline-block';
+
+
+                // Make the API call
+                axios.get(fullApiUrl)
+                    .then(response => {
+                        let headersText = `Status: ${response.status} ${response.statusText}\n`;
+                        Object.entries(response.headers).forEach(([key, value]) => {
+                            headersText += `${key}: ${value}\n`;
+                        });
+                        responseHeaderPre.textContent = headersText.trim();
+                        if (responseHeaderPre.textContent) copyResponseHeaderBtn.style.display = 'inline-block';
+
+                        const contentType = response.headers['content-type'] || '';
+                        const isSuccess = response.status >= 200 && response.status < 300 && (!response.data || response.data.success !== false);
+
+                        if (isSuccess) {
+                            successSound.play().catch(e => console.warn("Gagal memainkan suara sukses:", e));
+                        } else {
+                            errorSound.play().catch(e => console.warn("Gagal memainkan suara error:", e));
+                        }
+
+                        responseBodyPre.innerHTML = ''; // Clear previous body
+                        if (contentType.includes('application/json')) {
+                            responseBodyPre.textContent = JSON.stringify(response.data, null, 2);
+                        } else if (contentType.startsWith('image/')) {
+                             const img = document.createElement('img');
+                             img.src = fullApiUrl; // Use the actual request URL
+                             img.style.maxWidth = '100%';
+                             img.style.height = 'auto';
+                             img.style.display = 'block';
+                             img.style.marginTop = '10px';
+                             img.alt = 'Image Response';
+                             img.onload = () => { responseBodyPre.innerHTML = ''; responseBodyPre.appendChild(img); };
+                             img.onerror = () => { responseBodyPre.textContent = 'Gagal memuat gambar.'; };
+                             responseBodyPre.innerHTML = '<div class="loading">Memuat gambar...</div>'; // Placeholder
+                        } else if (contentType.startsWith('video/')) {
+                             const vid = document.createElement('video');
+                             vid.src = fullApiUrl; // Use the actual request URL
+                             vid.controls = true;
+                             vid.style.maxWidth = '100%';
+                             vid.style.height = 'auto';
+                             vid.style.display = 'block';
+                             vid.style.marginTop = '10px';
+                             vid.onloadeddata = () => { responseBodyPre.innerHTML = ''; responseBodyPre.appendChild(vid); };
+                             vid.onerror = () => { responseBodyPre.textContent = 'Gagal memuat video.'; };
+                             responseBodyPre.innerHTML = '<div class="loading">Memuat video...</div>'; // Placeholder
+                        } else if (contentType.startsWith('text/')) {
+                            responseBodyPre.textContent = response.data;
+                        } else {
+                             // Fallback for other types or potentially binary data
+                            if (typeof response.data === 'string' || typeof response.data === 'number') {
+                                responseBodyPre.textContent = response.data;
+                            } else {
+                                 responseBodyPre.textContent = `Tipe konten (${contentType}) tidak dapat dipratinjau.\n\nData (JSON fallback): ${JSON.stringify(response.data, null, 2)}`;
+                            }
+                        }
+
+                         // Show copy button for body only if it's text content
+                        if (responseBodyPre.textContent.trim() && !contentType.startsWith('image/') && !contentType.startsWith('video/')) {
+                             copyResponseBodyBtn.style.display = 'inline-block';
+                        }
+
+                        // Generate Axios snippet
+                        let axiosCode = '';
+                        const requestUrlForSnippet = fullApiUrl; // Use full URL
+                        const axiosOptions = {};
+                        // Suggest arraybuffer for non-text/json types
+                         if (!contentType.includes('application/json') && !contentType.startsWith('text/')) {
+                             axiosOptions.responseType = 'arraybuffer';
+                         }
+                        const optionsString = Object.keys(axiosOptions).length > 0 ? `, ${JSON.stringify(axiosOptions)}` : '';
+
+                        axiosCode = `axios.get('${requestUrlForSnippet}'${optionsString})\n` +
+                                    `.then(response => {\n` +
+                                    `  console.log('Success:', response.data);\n` +
+                                    `  // For responseType: 'arraybuffer', handle Buffer/ArrayBuffer here\n`+
+                                    `})\n` +
+                                    `.catch(error => {\n` +
+                                    `  console.error('Error:', error.response ? error.response.data : error.message);\n` +
+                                    `});`;
+                        axiosSnippetPre.textContent = axiosCode;
+                        if (axiosSnippetPre.textContent) copyAxiosButtonBtn.style.display = 'inline-block';
+
+                    })
+                    .catch(error => {
+                        errorSound.play().catch(e => console.warn("Gagal memainkan suara error:", e));
+                        responseBodyPre.innerHTML = ''; // Clear potential previews
+
+                        if (error.response) {
+                            // Server responded with a status code outside the 2xx range
+                            let errorHeadersText = `Status: ${error.response.status} ${error.response.statusText}\n`;
+                            Object.entries(error.response.headers).forEach(([key, value]) => {
+                                errorHeadersText += `${key}: ${value}\n`;
+                            });
+                            responseHeaderPre.textContent = errorHeadersText.trim();
+
+                            const errorContentType = error.response.headers['content-type'] || '';
+                            if (errorContentType.includes('application/json')) {
+                                responseBodyPre.textContent = JSON.stringify(error.response.data, null, 2);
+                            } else if (typeof error.response.data === 'string') {
+                                responseBodyPre.textContent = error.response.data;
+                            } else {
+                                responseBodyPre.textContent = `Error ${error.response.status}. Respons tidak dapat ditampilkan sebagai teks.`;
+                            }
+                        } else if (error.request) {
+                            // Request was made but no response received
+                            responseHeaderPre.textContent = 'Error: No Response Received';
+                            responseBodyPre.textContent = 'Tidak ada respons dari server. Periksa koneksi internet atau URL endpoint.';
+                            console.error('Network Error:', error.request);
+                        } else {
+                            // Something happened in setting up the request
+                            responseHeaderPre.textContent = 'Error: Request Setup Failed';
+                            responseBodyPre.textContent = `Gagal membuat request: ${error.message}`;
+                            console.error('Request Setup Error:', error.message);
+                        }
+                         // Show relevant copy buttons even on error
+                        if (responseHeaderPre.textContent) copyResponseHeaderBtn.style.display = 'inline-block';
+                        if (responseBodyPre.textContent) copyResponseBodyBtn.style.display = 'inline-block';
+
+                    })
+                    .finally(() => {
+                        loadingIndicator.style.display = 'none';
+                        runButton.disabled = false;
+                        setModalStatic(false); // Make modal interactive again
+                    });
+            });
+
+            async function copyToClipboard(text, buttonElement) {
+                 const originalHtml = buttonElement.dataset.originalText || '<i class="fas fa-copy"></i> Salin'; // Get original text
+
+                 // Check if clipboard API is available
+                 if (!navigator.clipboard) {
+                     console.error('Clipboard API tidak tersedia.');
+                     alert('Maaf, browser Anda tidak mendukung penyalinan ke clipboard.');
+                     return Promise.reject('Clipboard API not available'); // Return rejected promise
+                 }
+                 // Check if text is provided
+                 if (!text || typeof text !== 'string') {
+                     console.warn('Tidak ada teks untuk disalin.');
+                      // Optionally show a brief message on the button
+                     buttonElement.innerHTML = 'Tidak ada';
+                     buttonElement.disabled = true;
+                     setTimeout(() => {
+                         resetCopyButton(buttonElement);
+                     }, 1000);
+                     return Promise.resolve(); // Resolve silently
+                 }
+
+                 buttonElement.disabled = true; // Disable button immediately
+                 buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; // Show loading state
+
+                 try {
+                     await navigator.clipboard.writeText(text);
+                     buttonElement.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                     // console.log('Teks berhasil disalin:', text); // Optional logging
+                     return new Promise(resolve => { // Return a promise that resolves after timeout
+                         setTimeout(() => {
+                             resetCopyButton(buttonElement);
+                             resolve();
+                         }, 1500);
+                     });
+                 } catch (err) {
+                     console.error('Gagal menyalin teks:', err);
+                     buttonElement.innerHTML = '<i class="fas fa-times"></i> Gagal';
+                      alert('Gagal menyalin ke clipboard.');
+                     setTimeout(() => {
+                          resetCopyButton(buttonElement);
+                     }, 1500);
+                     return Promise.reject(err); // Return rejected promise
+                 }
+            }
+
+             function resetCopyButton(buttonElement) {
+                if(buttonElement) {
+                    const originalHtml = buttonElement.dataset.originalText || '<i class="fas fa-copy"></i> Salin';
+                    buttonElement.innerHTML = originalHtml;
+                    buttonElement.disabled = false;
+                }
+             }
+
+            // Attach copy listeners using event delegation on the modal body for simplicity
+            const modalBody = tryModal.querySelector('.modal-body');
+            modalBody.addEventListener('click', async (event) => {
+                const button = event.target.closest('.copy-button');
+                if (!button) return; // Exit if click wasn't on a copy button
+
+                let textToCopy = null;
+                let targetPreId = null;
+
+                 try {
+                     if (button.id === 'copyResponseHeader') {
+                        targetPreId = 'responseHeader';
+                     } else if (button.id === 'copyResponseBody') {
+                         // Handle image/video source or text content
+                         const img = responseBodyPre.querySelector('img');
+                         const vid = responseBodyPre.querySelector('video');
+                         if (img) {
+                             textToCopy = img.src;
+                         } else if (vid) {
+                             textToCopy = vid.src;
+                         } else {
+                             targetPreId = 'responseBody';
+                         }
+                     } else if (button.id === 'copyEndpointButton') {
+                        targetPreId = 'finalUrlDisplay';
+                     } else if (button.id === 'copyAxiosButton') {
+                         textToCopy = axiosSnippetPre.textContent; // Get text directly from code element
+                     }
+
+                     // If targetPreId is set, get text content from the corresponding <pre>
+                     if (targetPreId) {
+                         const preElement = document.getElementById(targetPreId);
+                         if (preElement) {
+                             textToCopy = preElement.textContent;
+                         }
+                     }
+
+                     // Perform the copy operation
+                     if (textToCopy !== null) {
+                         await copyToClipboard(textToCopy, button);
+                     } else if (!targetPreId) {
+                         console.warn(`No text found or logic missing for button ID: ${button.id}`);
+                         await copyToClipboard('', button); // Indicate nothing to copy
+                     } else {
+                          console.warn(`Element with ID ${targetPreId} not found.`);
+                         await copyToClipboard('', button); // Indicate nothing to copy
+                     }
+
+                 } catch (error) {
+                     console.error("Error during copy operation:", error);
+                     // Error message is handled within copyToClipboard
+                 }
+            });
+
+            // --- Fetching and Rendering Logic ---
+            function fetchData(url) {
+                if (isFetching) return Promise.reject("Fetch sedang berlangsung");
+                isFetching = true;
+                endpointListSection.innerHTML = '<div class="loading col-12"><i class="fas fa-spinner fa-spin"></i> Memuat data...</div>'; // Added col-12 for grid context
+                return fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.text(); // Expecting HTML partial
+                    })
+                    .then(html => {
+                        // Create a temporary container to parse the HTML
+                         const tempDiv = document.createElement('div');
+                         tempDiv.innerHTML = html;
+
+                         // Try to find the specific content if the server returns a full page fragment
+                         const newContentContainer = tempDiv.querySelector('#endpointListSection');
+                         const contentToInject = newContentContainer ? newContentContainer.innerHTML : tempDiv.innerHTML;
+
+                         if (contentToInject.trim()) {
+                             endpointListSection.innerHTML = contentToInject;
+                         } else {
+                             endpointListSection.innerHTML = '<p class="text-center text-muted col-12">Tidak ada endpoint ditemukan.</p>'; // Added col-12
+                         }
+                    })
+                    .catch(error => {
+                        console.error("Gagal fetch data:", error);
+                        endpointListSection.innerHTML = `<p class="text-center text-danger col-12">Gagal memuat data endpoint. Silakan coba lagi nanti. (${error.message})</p>`; // Added col-12
+                    })
+                    .finally(() => {
+                        isFetching = false;
+                        attachCardEvents(); // Re-attach events for new cards
+                    });
+            }
+
+            function searchData(term) {
+                const searchUrl = `/search?term=${encodeURIComponent(term)}`;
+                fetchData(searchUrl);
+            }
+
+            function renderEndpointsByTag(tag = '') {
+                 // Assume renderpage returns the HTML for the #endpointListSection
+                const renderUrl = `/renderpage?tags=${encodeURIComponent(tag)}`;
+                fetchData(renderUrl);
+            }
+
+            function loadTags() {
+                fetch('/tags')
+                    .then(res => {
+                        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (!data || !Array.isArray(data.tags)) throw new Error("Format data tags tidak valid");
+
+                         let html = '<a class="dropdown-item" href="#" data-tags="">Semua Kategori</a>';
+                         data.tags.forEach(tag => {
+                            // Basic sanitization for display
+                            const sanitizedTag = tag.replace(/</g, "<").replace(/>/g, ">");
+                            html += `<a class="dropdown-item" href="#" data-tags="${encodeURIComponent(tag)}">${sanitizedTag}</a>`;
+                         });
+                        tagButtonsContainer.innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error("Gagal memuat tags:", error);
+                        tagButtonsContainer.innerHTML = '<span class="dropdown-item text-danger">Gagal memuat tags</span>';
+                    });
+            }
+
+            // --- Event Listeners Setup ---
+            searchEndpointInput.addEventListener('input', debounce(function() {
+                const searchTerm = searchEndpointInput.value.trim();
+                if (searchTerm) {
+                    searchData(searchTerm);
+                } else {
+                    renderEndpointsByTag(); // Show all if search is cleared
+                }
+            }, 350));
+
+            tagButtonsContainer.addEventListener('click', function(e) {
+                e.preventDefault();
+                const link = e.target.closest('a.dropdown-item');
+                if (link && link.hasAttribute('data-tags')) {
+                    const selectedTag = decodeURIComponent(link.getAttribute('data-tags'));
+                    searchEndpointInput.value = ''; // Clear search input when tag is selected
+                    renderEndpointsByTag(selectedTag);
+
+                    // Close dropdown using Bootstrap's JS if available
+                    if (typeof $ !== 'undefined' && $.fn && $.fn.dropdown) {
+                         $(link).closest('.dropdown').find('.dropdown-toggle').dropdown('toggle');
+                    }
+                }
+            });
+
+            // --- Initial Load ---
+            renderEndpointsByTag(); // Load initial endpoint list (all)
+            loadTags();
+            // attachCardEvents is called within fetchData's finally block
+
+        });
+</script>
