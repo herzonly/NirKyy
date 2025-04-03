@@ -6,12 +6,12 @@
   "parameter": [
     {
       "params": "text",
-      "example": "API lu burik Banh",
+      "example": "Keren abis, kece bang",
       "opsional": false
     },
     {
       "params": "link",
-      "example": "https://ngl.link/nirkyy",
+      "example": "https://ngl.link/nirkyy1",
       "opsional": false
     }
   ]
