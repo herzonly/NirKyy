@@ -43,7 +43,7 @@ router.get('/fireLogo', async (req, res) => {
     const { text } = req.query;
 
     if (!text) {
-      return res.status(400).json({ error: 'Parameter "text" is required' });
+      return res.errorJson('Parameter "text" is required', 400);
     }
 
     const params = {
@@ -139,7 +139,7 @@ router.get('/fireLogo', async (req, res) => {
     } else if (error.request) {
       errorMessage = 'API Error: No response received from server.';
     }
-    res.status(status).json({ error: errorMessage });
+    res.errorJson(errorMessage, status);
   }
 });
 
