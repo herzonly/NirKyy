@@ -43,7 +43,7 @@ router.get('/fireLogo', async (req, res) => {
     const { text } = req.query;
 
     if (!text) {
-      return res.errorJson('Parameter "text" is required', 400);
+      return res.status(400).json({ error: 'Parameter "text" is required' });
     }
 
     const params = {
@@ -124,8 +124,9 @@ router.get('/fireLogo', async (req, res) => {
       headers: headers
     });
 
-    res.succesJson(response.data);
-
+    const gambar = await axios.get(response.data.src, { responseType: "arraybuffer" });
+    res.setHeader('Content-Type', 'image/png');
+    res.send(gambar.data);
   } catch (error) {
     let errorMessage = error.message;
     let status = 500;
@@ -138,7 +139,7 @@ router.get('/fireLogo', async (req, res) => {
     } else if (error.request) {
       errorMessage = 'API Error: No response received from server.';
     }
-    res.errorJson(errorMessage, status);
+    res.status(status).json({ error: errorMessage });
   }
 });
 
