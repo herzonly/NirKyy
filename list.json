@@ -1,5 +1,22 @@
 [
   {
+  "nama": "NGL Sender",
+  "tags": ["Tools"],
+  "endpoint": "/api/v1/sendngl",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "API lu burik Banh",
+      "opsional": false
+    },
+    {
+      "params": "link",
+      "example": "https://ngl.link/nirkyy",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Blue Fire text Generator",
   "tags": ["Maker"],
   "endpoint": "/api/v1/bluefire",
