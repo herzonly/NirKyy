@@ -23,7 +23,9 @@ const yanzGPT = require('../lib/yanzGPT.js')
 const spotify = require('../lib/spotify.js')
 const tiktokScrapt = require('../lib/tiktok.js')
 const ghiblistyle = require('../lib/ghiblistyle.js')
+const fancyText = require('../lib/fancyText.js')
 
+router.get('/fancytext', fancyText)
 router.get('/ghiblistyle', ghiblistyle)
 router.get('/tiktokdl', tiktokScrapt)
 router.get('/spotifydl', spotify);

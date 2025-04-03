@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Fancy Text Generator",
+  "tags": ["Tools"],
+  "endpoint": "/api/v1/fancytext",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Ishh macam mana pulak",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Ghibli Style Image Generator",
   "tags": ["AI","Tools"],
   "endpoint": "/api/v1/ghiblistyle",
