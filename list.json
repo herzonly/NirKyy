@@ -1,6 +1,18 @@
 [
   {
-  "nama": "Fire Logo Generator",
+  "nama": "Blue Fire text Generator",
+  "tags": ["Maker"],
+  "endpoint": "/api/v1/bluefire",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Menyala abangkuh",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Fire Logo text Generator",
   "tags": ["Maker"],
   "endpoint": "/api/v1/fireLogo",
   "parameter": [
