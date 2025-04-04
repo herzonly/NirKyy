@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Youtube Search",
+  "tags": ["Tools"],
+  "endpoint": "/youtube-search",
+  "parameter": [
+    {
+      "params": "query",
+      "example": "lost sky",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Anime Quotes",
   "tags": ["Random"],
   "endpoint": "/api/v1/anime-quotes",
