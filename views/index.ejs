@@ -289,7 +289,7 @@
               <h5>Response Body:</h5>
               <button id="copyResponseBody" class="btn btn-link btn-sm" style="position:absolute;right:5px;top:5px;display:none">Salin</button>
             </div>
-            <pre id="responseBody" class="p-2"></pre> {/* Bagian ini akan diisi oleh gambar/video/audio jika sesuai */}
+            <pre id="responseBody" class="p-2"></pre>
             <div style="position:relative">
               <h5>Endpoint:</h5>
               <button id="copyEndpointButton" class="btn btn-link btn-sm" style="position:absolute;right:5px;top:5px;display:none">Salin</button>
@@ -342,7 +342,7 @@
       const parameterInputsDiv = document.getElementById('parameterInputs');
       const runButton = document.getElementById('runButton');
       const responseHeader = document.getElementById('responseHeader');
-      const responseBody = document.getElementById('responseBody'); // Target element for response body (text, image, video, audio)
+      const responseBody = document.getElementById('responseBody');
       const axiosSnippetPre = document.getElementById('axiosSnippet');
       const loadingIndicator = document.getElementById('loadingIndicator');
       const successSound = document.getElementById('successSound');
@@ -391,8 +391,8 @@
         currentEndpointData = endpoint;
         parameterInputsDiv.innerHTML = '';
         responseHeader.textContent = '';
-        responseBody.textContent = ''; // Clear previous content
-        responseBody.innerHTML = '';   // Also clear any potential HTML content (like previous images/videos/audio)
+        responseBody.textContent = ''; 
+        responseBody.innerHTML = '';   
         axiosSnippetPre.innerHTML = '<code></code>';
         finalApiUrl = '';
         copyResponseHeader.style.display = 'none';
@@ -495,8 +495,8 @@
 
         loadingIndicator.style.display = 'block';
         responseHeader.textContent = '';
-        responseBody.textContent = ''; // Clear text content
-        responseBody.innerHTML = '';   // Clear HTML content
+        responseBody.textContent = ''; 
+        responseBody.innerHTML = '';   
 
         axios.get(finalApiUrl)
         .then(r => {
@@ -507,9 +507,6 @@
           if (r.status >= 200 && r.status < 300) {
             if (r.data && r.data.success === false) {
               errorSound.play();
-              // Even if success=false, display the JSON response
-              // responseHeader.textContent = hdr; // Header already set below
-              // responseBody.textContent = JSON.stringify(r.data, null, 2); // Body already set below
             } else {
               successSound.play();
             }
@@ -519,68 +516,60 @@
           responseHeader.textContent = hdr;
           if(hdr.trim() !== "") { copyResponseHeader.style.display = 'block'; }
 
-          // --- MODIFICATION START ---
           if (ctype.includes('application/json')) {
             responseBody.textContent = JSON.stringify(r.data, null, 2);
           } else if (ctype.startsWith('image/')) {
-            // Change responseBody from <pre> to a div temporarily for image
+
             responseBody.innerHTML = '<div class="loading">Memuat gambar...</div>';
             const img = document.createElement('img');
-            img.src = r.config.url; // Use the final request URL
+            img.src = r.config.url; 
             img.style.maxWidth = '100%';
             img.style.height = 'auto';
             img.onload = function() {
-              responseBody.innerHTML = ''; // Clear loading
-              responseBody.appendChild(img); // Append the image
+              responseBody.innerHTML = ''; 
+              responseBody.appendChild(img);
             };
             img.onerror = function() {
               responseBody.textContent = 'Image format rusak';
             };
           } else if (ctype.startsWith('video/')) {
-             // Change responseBody from <pre> to a div temporarily for video
             responseBody.innerHTML = '<div class="loading">Memuat video...</div>';
             const vid = document.createElement('video');
-            vid.src = r.config.url; // Use the final request URL
+            vid.src = r.config.url; 
             vid.controls = true;
             vid.style.maxWidth = '100%';
             vid.style.height = 'auto';
             vid.onloadeddata = function() {
-              responseBody.innerHTML = ''; // Clear loading
-              responseBody.appendChild(vid); // Append the video
+              responseBody.innerHTML = ''; 
+              responseBody.appendChild(vid);
             };
             vid.onerror = function() {
               responseBody.textContent = 'Video format rusak';
             };
-          } else if (ctype.startsWith('audio/')) { // Added audio handling
-             // Change responseBody from <pre> to a div temporarily for audio
+          } else if (ctype.startsWith('audio/')) { 
              responseBody.innerHTML = '<div class="loading">Memuat audio...</div>';
              const audio = document.createElement('audio');
-             audio.src = r.config.url; // Use the final request URL
+             audio.src = r.config.url; 
              audio.controls = true;
-             audio.style.width = '100%'; // Make controls visible
+             audio.style.width = '100%';
              audio.onloadeddata = function() {
-               responseBody.innerHTML = ''; // Clear loading
-               responseBody.appendChild(audio); // Append the audio player
+               responseBody.innerHTML = ''; 
+               responseBody.appendChild(audio); 
              };
              audio.onerror = function() {
                responseBody.textContent = 'Audio format rusak atau tidak dapat dimuat.';
              };
           } else {
-            // Default: Display as text in the <pre> tag
             responseBody.textContent = r.data;
           }
-          // --- MODIFICATION END ---
-
-          // Update copy button visibility (hide for media types)
           if(responseBody.textContent.trim() !== "" && !ctype.startsWith('image/') && !ctype.startsWith('video/') && !ctype.startsWith('audio/')) { // Added audio check
             copyResponseBody.style.display = 'block';
           } else {
             copyResponseBody.style.display = 'none';
           }
 
-          // Generate Axios code snippet
           let axiosCode;
-          // Check if response type needs to be arraybuffer (for non-JSON likely binary data)
+  
           const needsArrayBuffer = !ctype.includes('application/json');
 
           if (Object.keys(params).length > 0) {
@@ -600,8 +589,8 @@
             let h = 'Status: ' + err.response.status + ' ' + err.response.statusText + '\n';
             Object.entries(err.response.headers).forEach(([k, v]) => { h += k + ': ' + v + '\n'; });
             responseHeader.textContent = h;
-             // Ensure error response body is displayed in the <pre> tag
-            responseBody.innerHTML = ''; // Clear any potential media elements
+            
+            responseBody.innerHTML = ''; 
             if (typeof err.response.data === 'object') {
               responseBody.textContent = JSON.stringify(err.response.data, null, 2);
             } else {
@@ -610,12 +599,12 @@
           } else {
             responseHeader.textContent = 'Error: No response';
             responseBody.textContent = err.message;
-             responseBody.innerHTML = ''; // Clear any potential media elements
+             responseBody.innerHTML = ''; 
           }
           if(responseHeader.textContent.trim() !== "") {
             copyResponseHeader.style.display = 'block';
           }
-          // Show copy body button only if there's text content
+
           if(responseBody.textContent.trim() !== "") {
             copyResponseBody.style.display = 'block';
           } else {
@@ -633,7 +622,7 @@
       });
 
       copyResponseBody.addEventListener('click', function() {
-        // Only copy if it's text content
+
         if (responseBody.textContent.trim() !== "" && !responseBody.querySelector('img') && !responseBody.querySelector('video') && !responseBody.querySelector('audio')) {
             navigator.clipboard.writeText(responseBody.textContent)
               .then(() => alert('Response Body berhasil di-copy!'))
