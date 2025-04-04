@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Youtube Audio",
+  "tags": ["Downloader"],
+  "endpoint": "/api/v1/youtube-audio",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://youtu.be/-ktlIHSOOmk?si=X9X5jlOhDd1jsl9M",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Youtube Search",
   "tags": ["Tools"],
   "endpoint": "/api/v1/youtube-search",
