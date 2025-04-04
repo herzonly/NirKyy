@@ -440,7 +440,7 @@
       function clearModalData() {
         responseHeader.textContent = '';
         responseBody.textContent = '';
-        responseBody.innerHTML = ''; // Clear HTML too
+        responseBody.innerHTML = ''; 
         axiosSnippetPre.innerHTML = '<code></code>';
         finalApiUrl = '';
         copyResponseHeader.style.display = 'none';
@@ -562,7 +562,7 @@
           } else {
             responseBody.textContent = r.data;
           }
-          if(responseBody.textContent.trim() !== "" && !ctype.startsWith('image/') && !ctype.startsWith('video/') && !ctype.startsWith('audio/')) { // Added audio check
+          if(responseBody.textContent.trim() !== "" && !ctype.startsWith('image/') && !ctype.startsWith('video/') && !ctype.startsWith('audio/')) { 
             copyResponseBody.style.display = 'block';
           } else {
             copyResponseBody.style.display = 'none';
