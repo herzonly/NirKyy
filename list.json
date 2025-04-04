@@ -2,7 +2,7 @@
   {
   "nama": "Youtube Search",
   "tags": ["Tools"],
-  "endpoint": "/youtube-search",
+  "endpoint": "/api/v1/youtube-search",
   "parameter": [
     {
       "params": "query",
