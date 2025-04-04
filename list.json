@@ -1,5 +1,11 @@
 [
   {
+  "nama": "Anime Quotes",
+  "tags": ["Random"],
+  "endpoint": "/api/v1/anime-quotes",
+  "parameter": []
+},
+  {
   "nama": "NGL Sender",
   "tags": ["Tools"],
   "endpoint": "/api/v1/sendngl",
@@ -78,7 +84,7 @@
 },
   {
   "nama": "Wikipedia Random",
-  "tags": ["Info"],
+  "tags": ["Info","Random"],
   "endpoint": "/api/v1/wikipedia-random",
   "parameter": []
 },
@@ -359,7 +365,7 @@
   },
   {
     "nama": "Imagine",
-    "tags": ["AI"],
+    "tags": ["AI","Maker"],
     "endpoint": "/api/v1/imagine",
     "parameter": [
       {
@@ -444,7 +450,7 @@
   },
   {
     "nama": "Random Susun Kata",
-    "tags": ["Fun"],
+    "tags": ["Fun","Random"],
     "endpoint": "/api/v1/susunkata",
     "parameter": []
   },
@@ -456,7 +462,7 @@
   },
   {
     "nama": "Random Asah Otak",
-    "tags": ["Fun"],
+    "tags": ["Fun","Random"],
     "endpoint": "/api/v1/asahotak",
     "parameter": []
   },
