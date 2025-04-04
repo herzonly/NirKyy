@@ -42,6 +42,69 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
+router.get('/elevenlabs-tts', async (req, res) => {
+  try {
+    const voiceID = req.query.voiceID || 'cgSgspJ2msm6clMCkdW9'
+    const text = req.query.text;
+
+    if (!text) {
+      return res.errorJson({ error: 'Parameter text diperlukan.' }, 400);
+    }
+
+    if (text.length > 500) {
+      return res.errorJson({ error: 'Teks tidak boleh melebihi 500 karakter.' }, 400);
+    }
+
+    const apiUrl = `https://api.elevenlabs.io/v1/text-to-speech/${voiceID}?allow_unauthenticated=1`;
+    const payload = {
+      text: text,
+      model_id: "eleven_multilingual_v2",
+      voice_settings: {
+        speed: 1
+      }
+    };
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'User-Agent': 'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
+      'Referer': 'https://elevenlabs.io/'
+    };
+
+    const response = await axios.post(apiUrl, payload, {
+      headers: headers,
+      responseType: 'arraybuffer'
+    });
+
+    res.setHeader('Content-Type', response.headers['content-type'] || 'audio/mpeg');
+    res.setHeader('character-cost', response.headers['character-cost'] || 'unknown');
+    res.setHeader('history-item-id', response.headers['history-item-id'] || 'not_stored');
+    res.setHeader('request-id', response.headers['request-id'] || 'unknown');
+
+    res.send(response.data);
+
+  } catch (error) {
+    let errorMessage = 'Terjadi kesalahan internal server.';
+    let statusCode = 500;
+
+    if (error.response) {
+      statusCode = error.response.status;
+      try {
+        const errorData = JSON.parse(error.response.data.toString());
+        errorMessage = errorData.detail?.message || error.response.statusText || 'Gagal menghubungi API ElevenLabs.';
+      } catch (parseError) {
+        errorMessage = error.response.statusText || 'Gagal menghubungi API ElevenLabs.';
+      }
+    } else if (error.request) {
+      errorMessage = 'Tidak ada respons dari server ElevenLabs.';
+      statusCode = 504;
+    } else {
+      errorMessage = error.message;
+    }
+
+    res.errorJson({ error: errorMessage }, statusCode);
+  }
+});
+
 router.get('/youtube-audio', async (req, res) => {
   try {
     const { url: youtubeUrl } = req.query;

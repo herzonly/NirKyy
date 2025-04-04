@@ -1,5 +1,22 @@
 [
   {
+  "nama": "ElevenLabs TTS",
+  "tags": ["TTS", "Audio"],
+  "endpoint": "/api/v1/elevenlabs-tts",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Nirkyy API mah selalu gratis anjaaay",
+      "opsional": false
+    },
+    {
+      "params": "voiceID",
+      "example": "cgSgspJ2msm6clMCkdW9",
+      "opsional": true
+    }
+  ]
+},
+  {
   "nama": "Youtube Audio",
   "tags": ["Downloader"],
   "endpoint": "/api/v1/youtube-audio",
