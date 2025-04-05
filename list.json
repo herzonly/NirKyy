@@ -1,5 +1,22 @@
 [
   {
+  "nama": "Text to Speech Indonesia",
+  "tags": ["Tools"],
+  "endpoint": "/api/v1/text2speech-indo",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Follow channel Nirkyy lah njir",
+      "opsional": false
+    },
+    {
+      "params": "voice",
+      "example": null,
+      "opsional": true
+    }
+  ]
+},
+  {
   "nama": "Play Youtube Audio",
   "tags": ["Downloader"],
   "endpoint": "/api/v1/ytplay-mp3",
