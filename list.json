@@ -1,6 +1,7 @@
 [
   {
   "nama": "Play Youtube Audio",
+  "tags": ["Downloader"],
   "endpoint": "/api/v1/ytplay-mp3",
   "parameter": [
     {
