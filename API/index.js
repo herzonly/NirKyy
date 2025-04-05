@@ -42,72 +42,38 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
-router.get('/elevenlabs-tts', async (req, res) => {
+router.get('/elevenlabs-tts-segmind', async (req, res) => {
   try {
-    const voiceID = req.query.voiceID || 'cgSgspJ2msm6clMCkdW9';
-    const text = req.query.text;
+    const { text, voice } = req.query;
+    const voiceList = [
+      "Sarah", "Laura", "Charlie", "George", "Callum", "Liam",
+      "Charlotte", "Alice", "Matilda", "Will", "Jessica", "Eric",
+      "Chris", "Brian", "Daniel", "Lily", "Bill", "Aria", "Roger", "River"
+    ];
     
     if (!text) return res.errorJson('Parameter text diperlukan.', 400);
     if (text.length > 300) return res.errorJson('Teks tidak boleh melebihi 300 karakter.', 400);
-    
-    const payload = {
-      text: text,
-      model_id: "eleven_multilingual_v2",
-      voice_settings: { speed: 1 }
-    };
+    if (!voice) return res.json({ availableVoices: voiceList });
+    if (!voiceList.includes(voice)) return res.errorJson({error:'Voice tidak valid.', voiceList}, 400);
     
     const headers = {
+      'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json',
-      'User-Agent': 'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
-      'Referer': 'https://elevenlabs.io/'
+      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NDM4MTQ4MDMsIm5iZiI6MTc0MzgxNDgwMywianRpIjoiODVhZjZhMmItNTE1MS00ODVjLWFlYjktZjM2ZDdlNmVhYmE4IiwiZXhwIjoxNzQ2NDA2ODAzLCJpZGVudGl0eSI6InJpa2lwdXJwdXI5OEBnbWFpbC5jb20iLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.UPQcYU2sLPCSHI-RyKbJiY55TGAGdRdKWob7IMieNtnU9lNQEZLzpnXLp46cPFnIMJgfxXpFX9dwDl-8n7A0TP44wnAd3ivLzGp-WKSb8F9wYQWYROEBRvA3W6bvjvVIWW_evjlvOIOR6UQj-ecrQSMp9eX2z2yVAKy48eTLHcB1QjU1KY6mf5_dhyYqVmtN4FFLyRtGNGfNh-_v_AAQdYgORn7qg7p5xz9R6UfvDGrplvEwd--13pBzwJ_anWs_WYUR6qwVBENo2aFPJszxv34G6eRtejQWa-l4f1cH-4a0o2A5Z4-PSazSRtir5X3EP01vfd-KBXTTcw5_YJ8HS2htJZTEIj1RuZS_JvTl8188-5nTAm7fBuoAYhQd1vWZD5bgQ5GQH4uC8nVmTDgS3KfjFxTHH1HMHFt5MpPggPecSz_TgsrbQmt8o38faEKh3ZRDMVeIFHzEuku4sRj52ZWcyYJvW8LMaOiJFYbrtdIAFdkEF6QpHbzfj3suj-X0ljIvliC1YVl5ck2k_quMzQz8fW5F3rbFhaZ7dNazdwEZtqSb37GSvChFn64EWK6jjC3Eo2cM-QkmEGQWUOPyioPELxZcAizMSUXBx_g9hvEu7WstuuGPTKAcmA2DLKtlBbBUJf7LRAC2rUiNS7ER8smNT0ItFyloX9X6FvwLpDY',
+      'x-initiator': 'WEBPROD',
+      'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.135 Mobile Safari/537.36',
+      'Referer': 'https://www.segmind.com/models/tts-eleven-labs'
     };
     
-    let response;
+    const response = await axios.post('https://api.segmind.com/v1/tts-eleven-labs', {
+      prompt: text,
+      voice: voice
+    }, {
+      headers,
+      responseType: 'arraybuffer'
+    });
     
-    try {
-      const apiUrl = `https://api.elevenlabs.io/v1/text-to-speech/${voiceID}?allow_unauthenticated=1`;
-      response = await axios.post(apiUrl, payload, {
-        headers,
-        responseType: 'arraybuffer'
-      });
-    } catch (err1) {
-      try {
-        const fallbackUrl = `https://api.us.elevenlabs.io/v1/text-to-speech/${voiceID}/stream`;
-        const fallbackHeaders = {
-          'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImE5ZGRjYTc2YzEyMzMyNmI5ZTJlODJkOGFjNDg0MWU1MzMyMmI3NmEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUmlraSBQdXJQdXIiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jS0hhV2VsY1NEbGR2Ym02d2gwQ2VnbGpVcl9JeXY4TllORlZsYUNiMHFrX0xyZWNBND1zOTYtYyIsIndvcmtzcGFjZV9pZCI6IjkxYWVkMDQxNWEzZjRjMjZiOTc1MGJlNjRjZjU1NjkyIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3hpLWxhYnMiLCJhdWQiOiJ4aS1sYWJzIiwiYXV0aF90aW1lIjoxNzQzNzk3MDU3LCJ1c2VyX2lkIjoiQjVza1kwRVc3aGRVUk5WcVJLZXhhTE9RaUd5MSIsInN1YiI6IkI1c2tZMEVXN2hkVVJOVnFSS2V4YUxPUWlHeTEiLCJpYXQiOjE3NDM4MTMxMzksImV4cCI6MTc0MzgxNjczOSwiZW1haWwiOiJyaWtpcHVycHVyOThAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDU1MzI0NTE1NDcwNjY0MjU5MTIiXSwiZW1haWwiOlsicmlraXB1cnB1cjk4QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.mj1EIjJ0CLIkcbVtSZSHmwxd5ZlH8gRWDv7b61eBktQ2Hols4gc3eYiRjKF-MIkgZ1X75GNNGt5SesmH2kqS2JyG40DPOWplZjp325qD_XYxy1rcrlSkxaYYk80FqSbAgPL7qp1ofavAMRCUqWzY-XH_EZ-TcrR7vaapgstzGbbERcMmwJgm_QQTQmH-cBhsEc9Mbcf2P-k3X0J9eIG0iFuNcnaD1HLMEL81M0bgwwXcSvrfTKHoFOC_3dN1NZUf6S7-okoWRISMVdbYr8B5M6LN0VPUPCKE3nEdZrgiGJ58GO0j2tkhG5UfM8_EyE_Cie6tQgOiloRpQa3lHn-RPw',
-          'Content-Type': 'application/json',
-          'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.135 Mobile Safari/537.36',
-          'Referer': 'https://elevenlabs.io/app/speech-synthesis/text-to-speech'
-        };
-        response = await axios.post(fallbackUrl, { text, model_id: "eleven_multilingual_v2" }, {
-          headers: fallbackHeaders,
-          responseType: 'arraybuffer'
-        });
-      } catch (err2) {
-        try {
-          const segmindUrl = `https://api.segmind.com/v1/tts-eleven-labs`;
-          const segmindHeaders = {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NDM4MTQ4MDMsIm5iZiI6MTc0MzgxNDgwMywianRpIjoiODVhZjZhMmItNTE1MS00ODVjLWFlYjktZjM2ZDdlNmVhYmE4IiwiZXhwIjoxNzQ2NDA2ODAzLCJpZGVudGl0eSI6InJpa2lwdXJwdXI5OEBnbWFpbC5jb20iLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.UPQcYU2sLPCSHI-RyKbJiY55TGAGdRdKWob7IMieNtnU9lNQEZLzpnXLp46cPFnIMJgfxXpFX9dwDl-8n7A0TP44wnAd3ivLzGp-WKSb8F9wYQWYROEBRvA3W6bvjvVIWW_evjlvOIOR6UQj-ecrQSMp9eX2z2yVAKy48eTLHcB1QjU1KY6mf5_dhyYqVmtN4FFLyRtGNGfNh-_v_AAQdYgORn7qg7p5xz9R6UfvDGrplvEwd--13pBzwJ_anWs_WYUR6qwVBENo2aFPJszxv34G6eRtejQWa-l4f1cH-4a0o2A5Z4-PSazSRtir5X3EP01vfd-KBXTTcw5_YJ8HS2htJZTEIj1RuZS_JvTl8188-5nTAm7fBuoAYhQd1vWZD5bgQ5GQH4uC8nVmTDgS3KfjFxTHH1HMHFt5MpPggPecSz_TgsrbQmt8o38faEKh3ZRDMVeIFHzEuku4sRj52ZWcyYJvW8LMaOiJFYbrtdIAFdkEF6QpHbzfj3suj-X0ljIvliC1YVl5ck2k_quMzQz8fW5F3rbFhaZ7dNazdwEZtqSb37GSvChFn64EWK6jjC3Eo2cM-QkmEGQWUOPyioPELxZcAizMSUXBx_g9hvEu7WstuuGPTKAcmA2DLKtlBbBUJf7LRAC2rUiNS7ER8smNT0ItFyloX9X6FvwLpDY',
-            'x-initiator': 'WEBPROD',
-            'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.135 Mobile Safari/537.36',
-            'Referer': 'https://www.segmind.com/models/tts-eleven-labs'
-          };
-          response = await axios.post(segmindUrl, { prompt: text, voice: "Sarah" }, {
-            headers: segmindHeaders,
-            responseType: 'arraybuffer'
-          });
-        } catch (err3) {
-          return res.errorJson(`Semua API gagal: ${err1.message} | ${err2.message} | ${err3.message}`, 502);
-        }
-      }
-    }
-    
-    res.setHeader('Content-Type', response.headers['content-type'] || 'audio/mpeg');
-    res.setHeader('character-cost', response.headers['character-cost'] || 'unknown');
-    res.setHeader('history-item-id', response.headers['history-item-id'] || 'not_stored');
-    res.setHeader('request-id', response.headers['request-id'] || 'unknown');
+    res.setHeader('Content-Type', 'audio/mpeg');
     res.send(response.data);
   } catch (error) {
     res.errorJson(error.message, 500);
