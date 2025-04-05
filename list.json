@@ -2,17 +2,12 @@
   {
   "nama": "ElevenLabs TTS",
   "tags": ["AI","Tools"],
-  "endpoint": "/api/v1/elevenlabs-tts-segmind",
+  "endpoint": "/api/v1/elevenlabs-tts",
   "parameter": [
     {
       "params": "text",
       "example": "Nirkyy API mah selalu gratis anjaaay",
       "opsional": false
-    },
-    {
-      "params": "voice",
-      "example": "Jessica",
-      "opsional": true
     }
   ]
 },
