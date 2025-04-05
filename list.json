@@ -1,5 +1,16 @@
 [
   {
+  "nama": "Play Youtube Audio",
+  "endpoint": "/ytplay-mp3",
+  "parameter": [
+    {
+      "params": "q",
+      "example": "Aku dah lupa tak ingat lagi",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Youtube Audio",
   "tags": ["Downloader"],
   "endpoint": "/api/v1/youtube-audio",
