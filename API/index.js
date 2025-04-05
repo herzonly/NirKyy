@@ -44,17 +44,12 @@ router.get('/gemini',gemini)
 
 router.get('/elevenlabs-tts', async (req, res) => {
   try {
-    const voiceID = req.query.voiceID || 'cgSgspJ2msm6clMCkdW9'
+    const voiceID = req.query.voiceID || 'cgSgspJ2msm6clMCkdW9';
     const text = req.query.text;
-
-    if (!text) {
-      return res.errorJson({ error: 'Parameter text diperlukan.' }, 400);
-    }
-
-    if (text.length > 500) {
-      return res.errorJson({ error: 'Teks tidak boleh melebihi 500 karakter.' }, 400);
-    }
-
+    
+    if (!text) return res.errorJson({ error: 'Parameter text diperlukan.' }, 400);
+    if (text.length > 500) return res.errorJson({ error: 'Teks tidak boleh melebihi 500 karakter.' }, 400);
+    
     const apiUrl = `https://api.elevenlabs.io/v1/text-to-speech/${voiceID}?allow_unauthenticated=1`;
     const payload = {
       text: text,
@@ -63,35 +58,48 @@ router.get('/elevenlabs-tts', async (req, res) => {
         speed: 1
       }
     };
-
     const headers = {
       'Content-Type': 'application/json',
       'User-Agent': 'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
       'Referer': 'https://elevenlabs.io/'
     };
-
-    const response = await axios.post(apiUrl, payload, {
-      headers: headers,
-      responseType: 'arraybuffer'
-    });
-
+    
+    let response;
+    try {
+      response = await axios.post(apiUrl, payload, {
+        headers: headers,
+        responseType: 'arraybuffer'
+      });
+    } catch (primaryError) {
+      const fallbackUrl = `https://api.us.elevenlabs.io/v1/text-to-speech/${voiceID}/stream`;
+      const fallbackHeaders = {
+        'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImE5ZGRjYTc2YzEyMzMyNmI5ZTJlODJkOGFjNDg0MWU1MzMyMmI3NmEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUmlraSBQdXJQdXIiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jS0hhV2VsY1NEbGR2Ym02d2gwQ2VnbGpVcl9JeXY4TllORlZsYUNiMHFrX0xyZWNBND1zOTYtYyIsIndvcmtzcGFjZV9pZCI6IjkxYWVkMDQxNWEzZjRjMjZiOTc1MGJlNjRjZjU1NjkyIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3hpLWxhYnMiLCJhdWQiOiJ4aS1sYWJzIiwiYXV0aF90aW1lIjoxNzQzNzk3MDU3LCJ1c2VyX2lkIjoiQjVza1kwRVc3aGRVUk5WcVJLZXhhTE9RaUd5MSIsInN1YiI6IkI1c2tZMEVXN2hkVVJOVnFSS2V4YUxPUWlHeTEiLCJpYXQiOjE3NDM4MTMxMzksImV4cCI6MTc0MzgxNjczOSwiZW1haWwiOiJyaWtpcHVycHVyOThAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDU1MzI0NTE1NDcwNjY0MjU5MTIiXSwiZW1haWwiOlsicmlraXB1cnB1cjk4QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.mj1EIjJ0CLIkcbVtSZSHmwxd5ZlH8gRWDv7b61eBktQ2Hols4gc3eYiRjKF-MIkgZ1X75GNNGt5SesmH2kqS2JyG40DPOWplZjp325qD_XYxy1rcrlSkxaYYk80FqSbAgPL7qp1ofavAMRCUqWzY-XH_EZ-TcrR7vaapgstzGbbERcMmwJgm_QQTQmH-cBhsEc9Mbcf2P-k3X0J9eIG0iFuNcnaD1HLMEL81M0bgwwXcSvrfTKHoFOC_3dN1NZUf6S7-okoWRISMVdbYr8B5M6LN0VPUPCKE3nEdZrgiGJ58GO0j2tkhG5UfM8_EyE_Cie6tQgOiloRpQa3lHn-RPw',
+        'Content-Type': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.135 Mobile Safari/537.36',
+        'Referer': 'https://elevenlabs.io/app/speech-synthesis/text-to-speech'
+      };
+      response = await axios.post(fallbackUrl, { text, model_id: "eleven_multilingual_v2" }, {
+        headers: fallbackHeaders,
+        responseType: 'arraybuffer'
+      });
+    }
+    
     res.setHeader('Content-Type', response.headers['content-type'] || 'audio/mpeg');
     res.setHeader('character-cost', response.headers['character-cost'] || 'unknown');
     res.setHeader('history-item-id', response.headers['history-item-id'] || 'not_stored');
     res.setHeader('request-id', response.headers['request-id'] || 'unknown');
-
     res.send(response.data);
-
+    
   } catch (error) {
     let errorMessage = 'Terjadi kesalahan internal server.';
     let statusCode = 500;
-
+    
     if (error.response) {
       statusCode = error.response.status;
       try {
         const errorData = JSON.parse(error.response.data.toString());
         errorMessage = errorData.detail?.message || error.response.statusText || 'Gagal menghubungi API ElevenLabs.';
-      } catch (parseError) {
+      } catch {
         errorMessage = error.response.statusText || 'Gagal menghubungi API ElevenLabs.';
       }
     } else if (error.request) {
@@ -100,7 +108,7 @@ router.get('/elevenlabs-tts', async (req, res) => {
     } else {
       errorMessage = error.message;
     }
-
+    
     res.errorJson({ error: errorMessage }, statusCode);
   }
 });
