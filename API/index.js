@@ -78,7 +78,10 @@ router.get('/jadibabi', async (req, res) => {
     const responseData = apiResponse.data;
 
     if (responseData.status === 'success' && responseData.processedImageUrl) {
-      res.succesJson({ processedImageUrl: responseData.processedImageUrl });
+    const imageBuffer = Buffer.from(responseData.processedImageUrl, 'base64');
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.send(imageBuffer);
+    
     } else {
       res.errorJson({ error: 'Failed to process image', details: responseData }, 500);
     }
