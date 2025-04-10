@@ -46,6 +46,38 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
+router.get('/lirik', async (req, res) => {
+    const query = req.query.q;
+    if (!query) {
+        return res.errorJson({ error: 'Parameter q (query) diperlukan.' },400);
+    }
+
+    const url = `https://www.lyrics.com/subserp.php?genre=&style=&year=&dec=&st=${encodeURIComponent(query)}&qtype=1`;
+
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+            },
+            https: {
+                rejectUnauthorized: false,
+            },
+        });
+
+        const htmlContent = response.data;
+        const $ = cheerio.load(htmlContent);
+        const lyricBody = $('.lyric-body').text().trim();
+
+        if (lyricBody) {
+            res.succesJson({ lyrics: lyricBody });
+        } else {
+            res.errorJson({ error: 'Lirik tidak ditemukan.' },404);
+        }
+    } catch (error) {
+        res.errorJson({ error: 'Terjadi kesalahan saat mengambil lirik.' });
+    }
+});
+
 router.get('/youtube-audio', async (req, res) => {
   try {
     const { url: youtubeUrl } = req.query;
