@@ -27,7 +27,9 @@ const ngl = require('../lib/ngl.js')
 const youtubeSearch = require('../lib/youtubeSearch.js')
 const playyt = require('../lib/play.js')
 const ttsindo = require('../lib/ttsindo.js')
+const allvid = require('../lib/alvid.js')
 
+router.get('/allvid', allvid);
 router.get('/text2speech-indo', ttsindo)
 router.get('/ytplay-mp3', playyt)
 router.get('/youtube-search', youtubeSearch)

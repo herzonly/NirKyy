@@ -1,5 +1,17 @@
 [
   {
+  "nama": "All In One - Video",
+  "tags": ["Downloader"],
+  "endpoint": "/api/v1/allvid",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://www.instagram.com/reel/DG7I2Ezz2sy/?igsh=MTFoN2Z1MDJpeGNj",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Jadilah Babi:v",
   "tags": ["AI","Maker"],
   "endpoint": "/api/v1/jadibabi",
