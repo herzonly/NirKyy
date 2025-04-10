@@ -49,19 +49,19 @@ router.get('/gemini',gemini)
 router.get('/lirik', async (req, res) => {
     const query = req.query.q;
     if (!query) {
-        return res.errorJson({ error: 'Parameter q (query) diperlukan.' },400);
+        return res.errorJson({ error: 'Parameter q (query) diperlukan.' }, 400);
     }
 
-    const url = `https://www.lyrics.com/subserp.php?genre=&style=&year=&dec=&st=${encodeURIComponent(query)}&qtype=1`;
+    const url = `https://www.lyrics.com/lyrics/${encodeURIComponent(query)}`;
 
     try {
         const response = await axios.get(url, {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.135 Mobile Safari/537.36',
+                'Referer': `https://www.lyrics.com/lyrics/${encodeURIComponent(query)}`,
             },
-            https: {
-                rejectUnauthorized: false,
-            },
+            decompress: true,
         });
 
         const htmlContent = response.data;
@@ -71,7 +71,7 @@ router.get('/lirik', async (req, res) => {
         if (lyricBody) {
             res.succesJson({ lyrics: lyricBody });
         } else {
-            res.errorJson({ error: 'Lirik tidak ditemukan.' },404);
+            res.errorJson({ error: 'Lirik tidak ditemukan.' }, 404);
         }
     } catch (error) {
         res.errorJson({ error: 'Terjadi kesalahan saat mengambil lirik.' });
