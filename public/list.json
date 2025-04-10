@@ -1,0 +1,631 @@
+[
+  {
+  "nama": "All In One - Video",
+  "tags": ["Downloader"],
+  "endpoint": "/api/v1/allvid",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://vm.tiktok.com/ZSjBQ6t9g/",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Jadilah Babi:v",
+  "tags": ["AI","Maker"],
+  "endpoint": "/api/v1/jadibabi",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://nirkyy.koyeb.app/example.jpg",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Cari Lirik Lagu",
+  "tags": ["Tools"],
+  "endpoint": "/api/v1/lirik",
+  "parameter": [
+    {
+      "params": "q",
+      "example": "Aku dah Lupa",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Text to Speech Indonesia",
+  "tags": ["Tools"],
+  "endpoint": "/api/v1/text2speech-indo",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Follow channel Nirkyy lah njir",
+      "opsional": false
+    },
+    {
+      "params": "voice",
+      "example": null,
+      "opsional": true
+    }
+  ]
+},
+  {
+  "nama": "Play Youtube Audio",
+  "tags": ["Downloader"],
+  "endpoint": "/api/v1/ytplay-mp3",
+  "parameter": [
+    {
+      "params": "q",
+      "example": "Aku dah lupa tak ingat lagi",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Youtube Audio",
+  "tags": ["Downloader"],
+  "endpoint": "/api/v1/youtube-audio",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://youtu.be/-ktlIHSOOmk?si=X9X5jlOhDd1jsl9M",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Youtube Search",
+  "tags": ["Tools"],
+  "endpoint": "/api/v1/youtube-search",
+  "parameter": [
+    {
+      "params": "query",
+      "example": "lost sky",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Anime Quotes",
+  "tags": ["Random"],
+  "endpoint": "/api/v1/anime-quotes",
+  "parameter": []
+},
+  {
+  "nama": "NGL Sender",
+  "tags": ["Tools"],
+  "endpoint": "/api/v1/sendngl",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Keren abis, kece bang",
+      "opsional": false
+    },
+    {
+      "params": "link",
+      "example": "https://ngl.link/nirkyy1",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Blue Fire text Generator",
+  "tags": ["Maker"],
+  "endpoint": "/api/v1/bluefire",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Menyala abangkuh",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Fire Logo text Generator",
+  "tags": ["Maker"],
+  "endpoint": "/api/v1/fireLogo",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Ihh takutnyee",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Fancy Text Generator",
+  "tags": ["Maker"],
+  "endpoint": "/api/v1/fancytext",
+  "parameter": [
+    {
+      "params": "text",
+      "example": "Ishh macam mana pulak",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Ghibli Style Image Generator",
+  "tags": ["AI","Maker"],
+  "endpoint": "/api/v1/ghiblistyle",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://nirkyy.koyeb.app/example.jpg",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Tiktok Downloader",
+  "tags": ["Downloader"],
+  "endpoint": "/api/v1/tiktokdl",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://vm.tiktok.com/ZSjBQ6t9g/",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Wikipedia Random",
+  "tags": ["Info","Random"],
+  "endpoint": "/api/v1/wikipedia-random",
+  "parameter": []
+},
+  {
+  "nama": "Spotify Downloader",
+  "tags": ["Downloader"],
+  "endpoint": "/api/v1/spotifydl",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://open.spotify.com/intl-id/track/3wHU5wfyf0uw6TpiE98Jxn",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Anime Popular",
+  "tags": ["Info"],
+  "endpoint": "/api/v1/anime-popular",
+  "parameter": []
+},
+  {
+  "nama": "Yanz GPT",
+  "tags": ["AI"],
+  "endpoint": "/api/v1/yanzgpt",
+  "parameter": [
+    {
+      "params": "prompt",
+      "example": "apa kabar",
+      "opsional": false
+    }
+  ]
+},
+  {
+  "nama": "Gemini Translate",
+  "tags": ["AI","Tools"],
+  "endpoint": "/api/v1/gemini-translate",
+  "parameter": [
+    {
+      "params": "lang",
+      "example": "en",
+      "opsional": false
+    },
+    {
+      "params": "text",
+      "example": "sayang.. kamu kok... kamu manis kaya madu. heheh!",
+      "opsional": false
+    }
+  ]
+},
+  {
+    "nama": "Tangga Lagu",
+    "tags": ["Info"],
+    "endpoint": "/api/v1/tangga-lagu",
+    "parameter": []
+  },
+  {
+    "nama": "Jadwal TV",
+    "tags": ["Info"],
+    "endpoint": "/api/v1/jadwaltv",
+    "parameter": [
+      {
+        "params": "channel",
+        "example": "Antv",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "GPT-4o Latest",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/gpt-4o-latest",
+    "parameter": [
+      {
+        "params": "prompt",
+        "example": "Aku cinta AI aku sayang AI",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Cek Kecocokan",
+    "tags": ["Fun"],
+    "endpoint": "/api/v1/kecocokan",
+    "parameter": [
+      {
+        "params": "nama1",
+        "example": "Ricky",
+        "opsional": false
+      },
+      {
+        "params": "nama2",
+        "example": "Nirsa",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Upscale Image",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/upscale",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://nirkyy.koyeb.app/example.jpg",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Anime Search",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/anime-search",
+    "parameter": [
+      {
+        "params": "q",
+        "example": "Solo leveling",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Nulis Buku",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/nulis",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Anjay Alok wkakakaa",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Remove Background",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/removebg",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://nirkyy.koyeb.app/example.jpg",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "LuminAI Chat",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/luminai",
+    "parameter": [
+      {
+        "params": "prompt",
+        "example": "Jangan panggil aku anak sigma paman, namaku siva bukan sigma",
+        "opsional": false
+      },
+      {
+        "params": "web",
+        "example": "true",
+        "opsional": true
+      }
+    ]
+  },
+  {
+    "nama": "Gemini-2.0-flash",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/gemini",
+    "parameter": [
+      {
+        "params": "prompt",
+        "example": "Sebutkan ciri ciri kedewasaan bagi pria",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Sound of Text",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/soundoftext",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Gak bahaya tah?",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "DeepSeek-R1",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/deepseek",
+    "parameter": [
+      {
+        "params": "query",
+        "example": "Ihh lu siapa sih",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Speechma Text to Speech",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/speechma",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Hallo semuanya, apa kabar?!",
+        "opsional": false
+      },
+      {
+        "params": "voice",
+        "example": "voice-110",
+        "opsional": true
+      },
+      {
+        "params": "pitch",
+        "example": 0,
+        "opsional": true
+      },
+      {
+        "params": "rate",
+        "example": 0,
+        "opsional": true
+      }
+    ]
+  },
+  {
+    "nama": "Brats Image Generator",
+    "tags": ["Maker"],
+    "endpoint": "/api/v1/brats",
+    "parameter": [
+      {
+        "params": "host",
+        "example": "1",
+        "opsional": false
+      },
+      {
+        "params": "text",
+        "example": "Ishh ape bende tuhh",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Arti Nama (Image)",
+    "tags": ["Fun"],
+    "endpoint": "/api/v1/artinama",
+    "parameter": [
+      {
+        "params": "nama",
+        "example": "PurPur",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Cek Khodam (Image)",
+    "tags": ["Fun"],
+    "endpoint": "/api/v1/khodam",
+    "parameter": [
+      {
+        "params": "nama",
+        "example": "PurPur",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Snapsave (Ig, tiktok, FB)",
+    "tags": ["Downloader"],
+    "endpoint": "/api/v1/snapsave",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://www.instagram.com/reel/DG7I2Ezz2sy/?igsh=MTFoN2Z1MDJpeGNj",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Imagine",
+    "tags": ["AI","Maker"],
+    "endpoint": "/api/v1/imagine",
+    "parameter": [
+      {
+        "params": "prompt",
+        "example": "Vast rice fields with flowing rivers",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "SimiSimi Chat",
+    "tags": ["Fun"],
+    "endpoint": "/api/v1/simsimi",
+    "parameter": [
+      {
+        "params": "msg",
+        "example": "Halo Simi!",
+        "opsional": false
+      },
+      {
+        "params": "lang",
+        "example": "id",
+        "opsional": true
+      }
+    ]
+  },
+  {
+    "nama": "AI generator Query",
+    "tags": ["AI","Tools"],
+    "endpoint": "/api/v1/generate-query",
+    "parameter": [
+      {
+        "params": "user",
+        "example": "pengguna123",
+        "opsional": false
+      },
+      {
+        "params": "msg",
+        "example": "tolong Carikan gambar burung",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Unlimited Chat Alicia AI",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/alicia",
+    "parameter": [
+      {
+        "params": "user",
+        "example": "pengguna123",
+        "opsional": false
+      },
+      {
+        "params": "msg",
+        "example": "Halo Alicia!",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Meme Generator",
+    "tags": ["Maker"],
+    "endpoint": "/api/v1/memegen",
+    "parameter": [
+      {
+        "params": "text_atas",
+        "example": null,
+        "opsional": true
+      },
+      {
+        "params": "text_bawah",
+        "example": null,
+        "opsional": true
+      },
+      {
+        "params": "background",
+        "example": "https://nirkyy.koyeb.app/example.jpg",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Random Susun Kata",
+    "tags": ["Fun","Random"],
+    "endpoint": "/api/v1/susunkata",
+    "parameter": []
+  },
+  {
+    "nama": "Auto Gempa",
+    "tags": ["Info"],
+    "endpoint": "/api/v1/autogempa",
+    "parameter": []
+  },
+  {
+    "nama": "Random Asah Otak",
+    "tags": ["Fun","Random"],
+    "endpoint": "/api/v1/asahotak",
+    "parameter": []
+  },
+  {
+    "nama": "SaveTube Scraper",
+    "tags": ["Downloader"],
+    "endpoint": "/api/v1/savetube",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://youtu.be/3eDgG_AvOZk?si=HJ1GvDr8o1dNUKcB",
+        "opsional": false
+      },
+      {
+        "params": "format",
+        "example": "480",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Jadwal-Anime Scraper",
+    "tags": ["Info"],
+    "endpoint": "/api/v1/anime-jadwal",
+    "parameter": [
+      {
+        "params": "hari",
+        "example": "selasa",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Pinterest Search",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/pin",
+    "parameter": [
+      {
+        "params": "query",
+        "example": "Boboiboy",
+        "opsional": false
+      }
+    ]
+  },
+  {
+    "nama": "Groq + token History",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/llm",
+    "parameter": [
+      {
+        "params": "groqKey",
+        "example": "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",
+        "opsional": false
+      },
+      {
+        "params": "model",
+        "example": "gemma2-9b-it",
+        "opsional": true
+      },
+      {
+        "params": "user",
+        "example": "Ricky",
+        "opsional": false
+      },
+      {
+        "params": "systemPrompt",
+        "example": "kamu adalah Nirsky...",
+        "opsional": false
+      },
+      {
+        "params": "msg",
+        "example": "hallo apa kabar",
+        "opsional": false
+      }
+    ]
+  }
+]
