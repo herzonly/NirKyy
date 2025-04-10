@@ -1,5 +1,17 @@
 [
   {
+  "nama": "Jadilah Babi:v",
+  "tags": ["AI","Maker"],
+  "endpoint": "/api/v1/jadibabi",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://nirkyy.koyeb.app/example.jpg",
+      "opsional": false
+    }
+  ]
+},
+  {
   "nama": "Cari Lirik Lagu",
   "tags": ["Tools"],
   "endpoint": "/api/v1/lirik",

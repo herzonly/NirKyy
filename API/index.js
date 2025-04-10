@@ -45,6 +45,48 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
+router.get('/jadibabi', async (req, res) => {
+  const imageUrl = req.query.url;
+  const filterName = req.query.filter || 'piggy';
+
+  if (!imageUrl) {
+    return res.errorJson({ error: 'URL gambar diperlukan.' },400);
+  }
+
+  try {
+    const imageResponse = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+    const base64Image = Buffer.from(imageResponse.data, 'binary').toString('base64');
+
+    const apiUrl = 'https://negro.consulting/api/process-image';
+    const userAgent = 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.135 Mobile Safari/537.36';
+    const referer = 'https://negro.consulting/#tools';
+
+    const payload = {
+      imageData: base64Image,
+      filter: filterName,
+    };
+
+    const apiResponse = await axios.post(apiUrl, payload, {
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': userAgent,
+        'Referer': referer,
+      },
+      timeout: 30000,
+    });
+
+    const responseData = apiResponse.data;
+
+    if (responseData.status === 'success' && responseData.processedImageUrl) {
+      res.succesJson({ processedImageUrl: responseData.processedImageUrl });
+    } else {
+      res.errorJson({ error: 'Failed to process image', details: responseData }, 500);
+    }
+  } catch (error) {
+    res.errorJson({ error: `Terjadi kesalahan: ${error.message}` });
+  }
+});
+
 router.get('/lirik', async (req, res) => {
     const query = req.query.q;
     if (!query) {
