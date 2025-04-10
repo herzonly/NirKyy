@@ -65,7 +65,8 @@ router.get('/lirik', async (req, res) => {
 
         const htmlContent = response.data;
         const $ = cheerio.load(htmlContent);
-        const lyricBody = $('.lyric-body').text().trim();
+        const lyricDiv = $('.sec-lyric.clearfix').first();
+        const lyricBody = lyricDiv.find('.lyric-body').text().trim();
 
         if (lyricBody) {
             res.succesJson({ lyrics: lyricBody });
