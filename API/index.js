@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const { alldown } = require('alldown');
 const cheerio = require('cheerio');
 const { handleTextQuery } = require('../lib/ai.js');
 const { pin } = require('../lib/pinterest.js');
@@ -913,16 +912,5 @@ router.get('/llm', async (req, res) => {
   }
 });
 
-router.get('/aio-dl', async (req, res) => {
-  const query = req.query.url;
-  if (!query) return res.errorJson("Masukkan parameter url",400);
-  try {
-    const data = await alldown(query);
-    if (!data.data) return res.errorJson("Terjadi kesalahan saat mengunduh video");
-    return res.succesJson(data.data);
-  } catch (error) {
-    return res.errorJson(error);
-  }
-});
 
 module.exports = router;
