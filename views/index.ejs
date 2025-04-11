@@ -837,12 +837,9 @@
                     responseBodyContainer.appendChild(video);
                     video.src = videoUrl; // Set src after appending
                 } else if (contentType.startsWith('audio/')) {
-                    console.log("Audio content type detected:", contentType);
-                    console.log("Audio data length:", response.data.byteLength);
                     if(response.data.byteLength > 0) {
                         const blob = new Blob([response.data], { type: contentType });
                         const audioUrl = URL.createObjectURL(blob);
-                        console.log("Generated Blob URL:", audioUrl);
                         const audio = document.createElement('audio');
                         audio.controls = true;
                         audio.preload = 'auto';
@@ -850,7 +847,6 @@
                         audio.style.width = '100%';
                         responseBodyContainer.appendChild(audio); // Append first
                         audio.src = audioUrl; // Set src after appending
-                        console.log("Audio element appended and src set.");
                     } else {
                          const p = document.createElement('p');
                          p.textContent = "[Data audio kosong]";
