@@ -2,112 +2,155 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-const succesJson = (json) => ({ published_By:"NirKyy",success: true, data: json });
-const errorJson = (json) => ({ published_By:"NirKyy", success: false, error: json });
+const PUBLIC_DIR = path.join(__dirname, 'public');
+const VIEWS_DIR = path.join(__dirname, 'views');
+const ENDPOINTS_FILE = path.join(__dirname, 'list.json');
+
+let endpoints = [];
+try {
+    const rawData = fs.readFileSync(ENDPOINTS_FILE, 'utf-8');
+    endpoints = JSON.parse(rawData);
+    console.log(`Successfully loaded ${endpoints.length} endpoints from ${ENDPOINTS_FILE}`);
+} catch (err) {
+    console.error(`Error reading or parsing endpoints file (${ENDPOINTS_FILE}):`, err);
+}
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  res.succesJson = (json) => res.status(200).json(succesJson(json));
-  res.errorJson = (json, status) => res.status(status||500).json(errorJson(json));
-  next();
+    res.successJson = (data, statusCode = 200) => res.status(statusCode).json({ published_By: "NirKyy", success: true, data: data });
+    res.errorJson = (message, statusCode = 500) => res.status(statusCode).json({ published_By: "NirKyy", success: false, status: statusCode, error: message });
+    next();
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.set('json spaces', 2);
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(PUBLIC_DIR));
 
-const endpoints = require('./list.json');
+app.set('view engine', 'ejs');
+app.set('views', VIEWS_DIR);
 
 function getUniqueTags(data) {
-  const tags = new Set();
-  data.forEach(ep => {
-    if (ep.tags && Array.isArray(ep.tags)) {
-      ep.tags.forEach(tag => tags.add(tag));
-    }
-  });
-  return Array.from(tags).sort();
+    const tags = new Set();
+    data.forEach(ep => {
+        if (ep.tags && Array.isArray(ep.tags)) {
+            ep.tags.forEach(tag => {
+                if (tag && typeof tag === 'string') {
+                   tags.add(tag.trim());
+                }
+            });
+        }
+    });
+    return Array.from(tags).sort((a, b) => a.localeCompare(b));
 }
+
 const uniqueTags = getUniqueTags(endpoints);
 
 function generateEndpointsHTML(data) {
-  let html = '<div class="row">';
-  data.forEach(ep => {
-    html += `<div class="col-md-6 mb-3">
-      <div class="card mb-3" style="border:1px solid #39ff14;background-color:#1a1a1a;color:#39ff14;">
-        <div class="card-header" style="background-color:#0f0f0f;color:#00ffff;">${ep.nama}</div>
-        <div class="card-body">
-          <div class="mb-2">
-            ${(ep.tags || []).map(t => `<span class="badge badge-secondary mr-1" style="background-color:#ff00ff;color:#fff;"><i class="fas fa-hashtag"></i> ${t}</span>`).join('')}
-          </div>
-          <div class="bg-dark p-2 mb-2" style="font-size:0.9em;overflow-x:auto;">${ep.endpoint}</div>
-          <div class="d-flex justify-content-end">
-            <button class="btn btn-outline-info btn-sm mr-2 copy-url-button" data-url="${ep.endpoint}"><i class="fas fa-copy"></i> Copy URL</button>
-            <button class="btn btn-info btn-sm try-button" data-endpoint='${JSON.stringify(ep)}'><i class="fas fa-play"></i> Try</button>
-          </div>
-        </div>
-      </div>
-    </div>`;
-  });
-  html += '</div>';
-  return html;
+    if (!data || data.length === 0) {
+        return '<p class="text-center text-secondary fst-italic mt-4">Tidak ada endpoint yang cocok ditemukan.</p>';
+    }
+
+    let html = '<div class="row">';
+    data.forEach(ep => {
+        const name = ep.nama || 'Unnamed Endpoint';
+        const path = ep.endpoint || '/error-missing-path';
+        const tags = (Array.isArray(ep.tags) ? ep.tags : []).filter(t => t && typeof t === 'string');
+
+        html += `
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header">${name}</div>
+                <div class="card-body d-flex flex-column">
+                    <div class="endpoint-path mb-3">
+                        <span class="text-monospace">${path}</span>
+                         <div class="btn-group ms-2" role="group" aria-label="Endpoint Actions">
+                             <button class="btn btn-sm btn-outline-secondary btn-copy" data-clipboard-text="https://nirkyy.koyeb.app${path}" title="Salin Full URL">
+                                 <i class="far fa-copy"></i> URL
+                             </button>
+                             <button class="btn btn-sm btn-primary try-button" data-endpoint='${JSON.stringify(ep).replace(/'/g, "'")}' title="Coba Endpoint Ini">
+                                 <i class="fas fa-vial"></i> Coba
+                             </button>
+                         </div>
+                    </div>
+                    ${ep.deskripsi ? `<p class="card-text text-secondary mb-2 flex-grow-1">${ep.deskripsi}</p>` : '<p class="card-text text-secondary mb-2 flex-grow-1 fst-italic">Tidak ada deskripsi.</p>'}
+                    <div class="mt-auto">
+                        ${tags.map(t => `<span class="badge me-1 mb-1">${t}</span>`).join('')}
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    });
+    html += '</div>';
+    return html;
 }
 
-function filterEndpointsByTerm(term) {
-  if (!term) return endpoints;
-  const lowerTerm = term.toLowerCase();
-  return endpoints.filter(ep =>
-    ep.nama.toLowerCase().includes(lowerTerm) ||
-    ep.endpoint.toLowerCase().includes(lowerTerm) ||
-    ep.tags.some(tag => tag.toLowerCase().includes(lowerTerm))
-  );
+function filterEndpoints(data, { term, tags }) {
+    let filteredData = data;
+
+    if (tags) {
+        const lowerTags = tags.toLowerCase().split(',').map(t => t.trim()).filter(t => t);
+        if (lowerTags.length > 0) {
+             filteredData = filteredData.filter(ep =>
+                 ep.tags && Array.isArray(ep.tags) && ep.tags.some(tag => lowerTags.includes(tag.toLowerCase()))
+             );
+        }
+    }
+
+    if (term) {
+        const lowerTerm = term.toLowerCase();
+        filteredData = filteredData.filter(ep =>
+            (ep.nama && ep.nama.toLowerCase().includes(lowerTerm)) ||
+            (ep.endpoint && ep.endpoint.toLowerCase().includes(lowerTerm)) ||
+            (ep.deskripsi && ep.deskripsi.toLowerCase().includes(lowerTerm)) ||
+            (ep.tags && Array.isArray(ep.tags) && ep.tags.some(tag => tag.toLowerCase().includes(lowerTerm)))
+        );
+    }
+
+    return filteredData;
 }
 
-function filterEndpointsByTags(tags) {
-  if (!tags) return endpoints;
-  const arrTags = tags.split(',').map(t => t.trim().toLowerCase());
-  return endpoints.filter(ep => ep.tags.some(tag => arrTags.includes(tag.toLowerCase())));
-}
-
-app.use("/api/v1", require("./API/index.js"));
-
-app.get('/', (req, res) => { res.render('index'); });
-
-app.get('/tags', (req, res) => {
-  res.json({ tags: uniqueTags });
+app.get('/', (req, res) => {
+    res.sendFile(path.join(PUBLIC_DIR, 'index.html'));
 });
 
-app.get('/search', (req, res) => {
-  const term = req.query.term || '';
-  const filtered = filterEndpointsByTerm(term);
-  const htmlSnippet = generateEndpointsHTML(filtered);
-  res.send(htmlSnippet);
+app.get('/tags', (req, res) => {
+    res.json({ tags: uniqueTags });
 });
 
 app.get('/renderpage', (req, res) => {
-  const tags = req.query.tags || '';
-  const filtered = filterEndpointsByTags(tags);
-  const htmlSnippet = generateEndpointsHTML(filtered);
-  const fullHTML = `<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<title>Render Page by Tags</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<style>body { background-color: #111; color: #39ff14; font-family: 'Orbitron', sans-serif; }</style>
-</head>
-<body>
-<div class="container">
-<h1>Hasil Render by Tags: ${tags || 'All'}</h1>
-${htmlSnippet}
-</div>
-</body>
-</html>`;
-  res.send(fullHTML);
+    const { tags = '' } = req.query;
+    const filtered = filterEndpoints(endpoints, { tags });
+    const htmlSnippet = generateEndpointsHTML(filtered);
+    res.send(htmlSnippet);
 });
 
-app.use((req, res, next) => { res.status(404).render('404'); });
-app.use((err, req, res, next) => { console.error(err.stack); res.status(500).render('500'); });
+app.get('/search', (req, res) => {
+    const { term = '' } = req.query;
+    const filtered = filterEndpoints(endpoints, { term });
+    const htmlSnippet = generateEndpointsHTML(filtered);
+    res.send(htmlSnippet);
+});
 
-app.listen(port, () => { console.log(`Server berjalan di http://localhost:${port}`); });
+app.use((req, res, next) => {
+    if (req.accepts('html')) {
+         res.status(404).render('404');
+    } else {
+         res.errorJson('Not Found', 404);
+    }
+});
+
+app.use((err, req, res, next) => {
+    console.error("Unhandled Error:", err.stack || err);
+     if (req.accepts('html')) {
+         res.status(500).render('500');
+     } else {
+         res.errorJson('Internal Server Error', 500);
+     }
+});
+
+app.listen(port, () => {
+    console.log(`🚀 Server listening on http://localhost:${port}`);
+});
+
