@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const API = require('./API/index.js');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -25,6 +26,8 @@ app.use((req, res, next) => {
     res.errorJson = (message, statusCode = 500) => res.status(statusCode).json({ published_By: "NirKyy", success: false, status: statusCode, error: message });
     next();
 });
+
+app.use("/api/v1", API);
 
 app.use(express.static(PUBLIC_DIR));
 
