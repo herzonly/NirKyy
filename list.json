@@ -1,5 +1,18 @@
 [
   {
+  "nama": "Yahoo Search",
+  "tags": ["Tools","Search"],
+  "endpoint": "/api/v1/yahoo-search",
+  "deskripsi": "Melakukan pencarian menggunakan Yahoo Search.",
+  "parameter": [
+    {
+      "params": "q",
+      "example": "Berita Terbaru",
+      "opsional": false
+    }
+  ]
+},
+  {
     "nama": "All In One - Video",
     "tags": ["Downloader"],
     "endpoint": "/api/v1/allvid",
@@ -84,7 +97,7 @@
   },
   {
     "nama": "Youtube Search",
-    "tags": ["Tools"],
+    "tags": ["Tools","Search"],
     "endpoint": "/api/v1/youtube-search",
     "deskripsi": "Cari video di YouTube berdasarkan kata kunci.",
     "parameter": [
@@ -632,7 +645,7 @@
   },
   {
     "nama": "Pinterest Search",
-    "tags": ["Tools"],
+    "tags": ["Tools","Search"],
     "endpoint": "/api/v1/pin",
     "deskripsi": "Cari gambar di Pinterest berdasarkan kata kunci.",
     "parameter": [
