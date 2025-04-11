@@ -89,51 +89,26 @@ app.get('/renderpage', (req, res) => {
   const tags = req.query.tags || '';
   const filtered = filterEndpointsByTags(tags);
   const htmlSnippet = generateEndpointsHTML(filtered);
-  
   const fullHTML = `<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Render Page by Tags</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    body {
-      background-color: #121212;
-      color: #e0e0e0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding-top: 40px;
-    }
-    .container {
-      max-width: 960px;
-    }
-    h1 {
-      font-weight: 600;
-      margin-bottom: 30px;
-    }
-    .endpoint-card {
-      background-color: #1e1e1e;
-      border: 1px solid #2c2c2c;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    .endpoint-card i {
-      color: #39ff14;
-      margin-right: 10px;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <h1><i class="fas fa-tags"></i> Hasil Render berdasarkan Tag: <span class="text-success">${tags || 'Semua'}</span></h1>
+  <div class="container mt-5">
+    <h1>Hasil Render by Tags: ${tags || 'Semua'}</h1>
     ${htmlSnippet}
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>`;
-  
   res.send(fullHTML);
 });
+
 
 app.use((req, res, next) => { res.status(404).render('404'); });
 app.use((err, req, res, next) => { console.error(err.stack); res.status(500).render('500'); });
