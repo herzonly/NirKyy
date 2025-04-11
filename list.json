@@ -1,239 +1,260 @@
 [
   {
-  "nama": "All In One - Video",
-  "tags": ["Downloader"],
-  "endpoint": "/api/v1/allvid",
-  "parameter": [
-    {
-      "params": "url",
-      "example": "https://vm.tiktok.com/ZSjBQ6t9g/",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "All In One - Video",
+    "tags": ["Downloader"],
+    "endpoint": "/api/v1/allvid",
+    "deskripsi": "Unduh video dari berbagai platform menggunakan URL.",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://vm.tiktok.com/ZSjBQ6t9g/",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Jadilah Babi:v",
-  "tags": ["AI","Maker"],
-  "endpoint": "/api/v1/jadibabi",
-  "parameter": [
-    {
-      "params": "url",
-      "example": "https://nirkyy.koyeb.app/example.jpg",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Jadilah Babi:v",
+    "tags": ["AI", "Maker"],
+    "endpoint": "/api/v1/jadibabi",
+    "deskripsi": "Ubah gambar menjadi gaya 'Jadilah Babi' menggunakan AI.",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://nirkyy.koyeb.app/example.jpg",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Cari Lirik Lagu",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/lirik",
-  "parameter": [
-    {
-      "params": "q",
-      "example": "Aku dah Lupa",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Cari Lirik Lagu",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/lirik",
+    "deskripsi": "Cari lirik lagu berdasarkan judul.",
+    "parameter": [
+      {
+        "params": "q",
+        "example": "Aku dah Lupa",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Text to Speech Indonesia",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/text2speech-indo",
-  "parameter": [
-    {
-      "params": "text",
-      "example": "Follow channel Nirkyy lah njir",
-      "opsional": false
-    },
-    {
-      "params": "voice",
-      "example": null,
-      "opsional": true
-    }
-  ]
-},
+    "nama": "Text to Speech Indonesia",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/text2speech-indo",
+    "deskripsi": "Ubah teks menjadi suara berbahasa Indonesia dengan pilihan suara.",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Follow channel Nirkyy lah njir",
+        "opsional": false
+      },
+      {
+        "params": "voice",
+        "example": "Gadis",
+        "opsional": true
+      }
+    ]
+  },
   {
-  "nama": "Play Youtube Audio",
-  "tags": ["Downloader"],
-  "endpoint": "/api/v1/ytplay-mp3",
-  "parameter": [
-    {
-      "params": "q",
-      "example": "Aku dah lupa tak ingat lagi",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Play Youtube Audio",
+    "tags": ["Downloader"],
+    "endpoint": "/api/v1/ytplay-mp3",
+    "deskripsi": "Putar audio dari video YouTube berdasarkan pencarian.",
+    "parameter": [
+      {
+        "params": "q",
+        "example": "Aku dah lupa tak ingat lagi",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Youtube Audio",
-  "tags": ["Downloader"],
-  "endpoint": "/api/v1/youtube-audio",
-  "parameter": [
-    {
-      "params": "url",
-      "example": "https://youtu.be/-ktlIHSOOmk?si=X9X5jlOhDd1jsl9M",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Youtube Audio",
+    "tags": ["Downloader"],
+    "endpoint": "/api/v1/youtube-audio",
+    "deskripsi": "Unduh audio dari video YouTube menggunakan URL.",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://youtu.be/-ktlIHSOOmk?si=X9X5jlOhDd1jsl9M",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Youtube Search",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/youtube-search",
-  "parameter": [
-    {
-      "params": "query",
-      "example": "lost sky",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Youtube Search",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/youtube-search",
+    "deskripsi": "Cari video di YouTube berdasarkan kata kunci.",
+    "parameter": [
+      {
+        "params": "query",
+        "example": "lost sky",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Anime Quotes",
-  "tags": ["Random"],
-  "endpoint": "/api/v1/anime-quotes",
-  "parameter": []
-},
+    "nama": "Anime Quotes",
+    "tags": ["Random"],
+    "endpoint": "/api/v1/anime-quotes",
+    "deskripsi": "Dapatkan kutipan acak dari berbagai anime.",
+    "parameter": []
+  },
   {
-  "nama": "NGL Sender",
-  "tags": ["Tools"],
-  "endpoint": "/api/v1/sendngl",
-  "parameter": [
-    {
-      "params": "text",
-      "example": "Keren abis, kece bang",
-      "opsional": false
-    },
-    {
-      "params": "link",
-      "example": "https://ngl.link/nirkyy1",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "NGL Sender",
+    "tags": ["Tools"],
+    "endpoint": "/api/v1/sendngl",
+    "deskripsi": "Kirim pesan anonim ke tautan NGL.",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Keren abis, kece bang",
+        "opsional": false
+      },
+      {
+        "params": "link",
+        "example": "https://ngl.link/nirkyy1",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Blue Fire text Generator",
-  "tags": ["Maker"],
-  "endpoint": "/api/v1/bluefire",
-  "parameter": [
-    {
-      "params": "text",
-      "example": "Menyala abangkuh",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Blue Fire text Generator",
+    "tags": ["Maker"],
+    "endpoint": "/api/v1/bluefire",
+    "deskripsi": "Buat teks dengan efek api biru.",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Menyala abangkuh",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Fire Logo text Generator",
-  "tags": ["Maker"],
-  "endpoint": "/api/v1/fireLogo",
-  "parameter": [
-    {
-      "params": "text",
-      "example": "Ihh takutnyee",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Fire Logo text Generator",
+    "tags": ["Maker"],
+    "endpoint": "/api/v1/fireLogo",
+    "deskripsi": "Buat teks dengan efek logo api.",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Ihh takutnyee",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Fancy Text Generator",
-  "tags": ["Maker"],
-  "endpoint": "/api/v1/fancytext",
-  "parameter": [
-    {
-      "params": "text",
-      "example": "Ishh macam mana pulak",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Fancy Text Generator",
+    "tags": ["Maker"],
+    "endpoint": "/api/v1/fancytext",
+    "deskripsi": "Buat teks dengan gaya tulisan unik (fancy).",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Ishh macam mana pulak",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Ghibli Style Image Generator",
-  "tags": ["AI","Maker"],
-  "endpoint": "/api/v1/ghiblistyle",
-  "parameter": [
-    {
-      "params": "url",
-      "example": "https://nirkyy.koyeb.app/example.jpg",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Ghibli Style Image Generator",
+    "tags": ["AI", "Maker"],
+    "endpoint": "/api/v1/ghiblistyle",
+    "deskripsi": "Ubah gambar menjadi gaya Ghibli menggunakan AI.",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://nirkyy.koyeb.app/example.jpg",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Tiktok Downloader",
-  "tags": ["Downloader"],
-  "endpoint": "/api/v1/tiktokdl",
-  "parameter": [
-    {
-      "params": "url",
-      "example": "https://vm.tiktok.com/ZSjBQ6t9g/",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Tiktok Downloader",
+    "tags": ["Downloader"],
+    "endpoint": "/api/v1/tiktokdl",
+    "deskripsi": "Unduh video TikTok menggunakan URL.",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://vm.tiktok.com/ZSjBQ6t9g/",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Wikipedia Random",
-  "tags": ["Info","Random"],
-  "endpoint": "/api/v1/wikipedia-random",
-  "parameter": []
-},
+    "nama": "Wikipedia Random",
+    "tags": ["Info", "Random"],
+    "endpoint": "/api/v1/wikipedia-random",
+    "deskripsi": "Dapatkan artikel acak dari Wikipedia.",
+    "parameter": []
+  },
   {
-  "nama": "Spotify Downloader",
-  "tags": ["Downloader"],
-  "endpoint": "/api/v1/spotifydl",
-  "parameter": [
-    {
-      "params": "url",
-      "example": "https://open.spotify.com/intl-id/track/3wHU5wfyf0uw6TpiE98Jxn",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Spotify Downloader",
+    "tags": ["Downloader"],
+    "endpoint": "/api/v1/spotifydl",
+    "deskripsi": "Unduh lagu dari Spotify menggunakan URL.",
+    "parameter": [
+      {
+        "params": "url",
+        "example": "https://open.spotify.com/intl-id/track/3wHU5wfyf0uw6TpiE98Jxn",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Anime Popular",
-  "tags": ["Info"],
-  "endpoint": "/api/v1/anime-popular",
-  "parameter": []
-},
+    "nama": "Anime Popular",
+    "tags": ["Info"],
+    "endpoint": "/api/v1/anime-popular",
+    "deskripsi": "Dapatkan daftar anime yang sedang populer.",
+    "parameter": []
+  },
   {
-  "nama": "Yanz GPT",
-  "tags": ["AI"],
-  "endpoint": "/api/v1/yanzgpt",
-  "parameter": [
-    {
-      "params": "prompt",
-      "example": "apa kabar",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Yanz GPT",
+    "tags": ["AI"],
+    "endpoint": "/api/v1/yanzgpt",
+    "deskripsi": "Berinteraksi dengan model AI Yanz GPT.",
+    "parameter": [
+      {
+        "params": "prompt",
+        "example": "apa kabar",
+        "opsional": false
+      }
+    ]
+  },
   {
-  "nama": "Gemini Translate",
-  "tags": ["AI","Tools"],
-  "endpoint": "/api/v1/gemini-translate",
-  "parameter": [
-    {
-      "params": "lang",
-      "example": "en",
-      "opsional": false
-    },
-    {
-      "params": "text",
-      "example": "sayang.. kamu kok... kamu manis kaya madu. heheh!",
-      "opsional": false
-    }
-  ]
-},
+    "nama": "Gemini Translate",
+    "tags": ["AI", "Tools"],
+    "endpoint": "/api/v1/gemini-translate",
+    "deskripsi": "Terjemahkan teks ke berbagai bahasa menggunakan Gemini AI.",
+    "parameter": [
+      {
+        "params": "lang",
+        "example": "en",
+        "opsional": false
+      },
+      {
+        "params": "text",
+        "example": "sayang.. kamu kok... kamu manis kaya madu. heheh!",
+        "opsional": false
+      }
+    ]
+  },
   {
     "nama": "Tangga Lagu",
     "tags": ["Info"],
     "endpoint": "/api/v1/tangga-lagu",
+    "deskripsi": "Dapatkan daftar tangga lagu Terpopuler.",
     "parameter": []
   },
   {
     "nama": "Jadwal TV",
     "tags": ["Info"],
     "endpoint": "/api/v1/jadwaltv",
+    "deskripsi": "Cari jadwal acara TV berdasarkan saluran.",
     "parameter": [
       {
         "params": "channel",
@@ -246,6 +267,7 @@
     "nama": "GPT-4o Latest",
     "tags": ["AI"],
     "endpoint": "/api/v1/gpt-4o-latest",
+    "deskripsi": "Berinteraksi dengan model AI GPT-4o terbaru.",
     "parameter": [
       {
         "params": "prompt",
@@ -258,6 +280,7 @@
     "nama": "Cek Kecocokan",
     "tags": ["Fun"],
     "endpoint": "/api/v1/kecocokan",
+    "deskripsi": "Hitung persentase kecocokan antara dua nama.",
     "parameter": [
       {
         "params": "nama1",
@@ -275,6 +298,7 @@
     "nama": "Upscale Image",
     "tags": ["Tools"],
     "endpoint": "/api/v1/upscale",
+    "deskripsi": "Tingkatkan resolusi gambar.",
     "parameter": [
       {
         "params": "url",
@@ -287,6 +311,7 @@
     "nama": "Anime Search",
     "tags": ["Tools"],
     "endpoint": "/api/v1/anime-search",
+    "deskripsi": "Cari informasi anime berdasarkan judul.",
     "parameter": [
       {
         "params": "q",
@@ -299,6 +324,7 @@
     "nama": "Nulis Buku",
     "tags": ["Tools"],
     "endpoint": "/api/v1/nulis",
+    "deskripsi": "Buat gambar teks seperti tulisan tangan di buku.",
     "parameter": [
       {
         "params": "text",
@@ -311,6 +337,7 @@
     "nama": "Remove Background",
     "tags": ["Tools"],
     "endpoint": "/api/v1/removebg",
+    "deskripsi": "Hapus latar belakang dari gambar.",
     "parameter": [
       {
         "params": "url",
@@ -323,6 +350,7 @@
     "nama": "LuminAI Chat",
     "tags": ["AI"],
     "endpoint": "/api/v1/luminai",
+    "deskripsi": "Berinteraksi dengan model AI LuminAI, dengan opsi pencarian web.",
     "parameter": [
       {
         "params": "prompt",
@@ -340,6 +368,7 @@
     "nama": "Gemini-2.0-flash",
     "tags": ["AI"],
     "endpoint": "/api/v1/gemini",
+    "deskripsi": "Berinteraksi dengan model AI Gemini 2.0 Flash.",
     "parameter": [
       {
         "params": "prompt",
@@ -352,6 +381,7 @@
     "nama": "Sound of Text",
     "tags": ["Tools"],
     "endpoint": "/api/v1/soundoftext",
+    "deskripsi": "Ubah teks menjadi suara menggunakan layanan Sound of Text.",
     "parameter": [
       {
         "params": "text",
@@ -364,6 +394,7 @@
     "nama": "DeepSeek-R1",
     "tags": ["AI"],
     "endpoint": "/api/v1/deepseek",
+    "deskripsi": "Berinteraksi dengan model AI DeepSeek-R1.",
     "parameter": [
       {
         "params": "query",
@@ -376,6 +407,7 @@
     "nama": "Speechma Text to Speech",
     "tags": ["Tools"],
     "endpoint": "/api/v1/speechma",
+    "deskripsi": "Ubah teks menjadi suara dengan berbagai pilihan suara, pitch, dan kecepatan.",
     "parameter": [
       {
         "params": "text",
@@ -403,6 +435,7 @@
     "nama": "Brats Image Generator",
     "tags": ["Maker"],
     "endpoint": "/api/v1/brats",
+    "deskripsi": "Buat gambar gaya Bratz dengan teks kustom.",
     "parameter": [
       {
         "params": "host",
@@ -420,6 +453,7 @@
     "nama": "Arti Nama (Image)",
     "tags": ["Fun"],
     "endpoint": "/api/v1/artinama",
+    "deskripsi": "Buat gambar yang menampilkan arti dari sebuah nama.",
     "parameter": [
       {
         "params": "nama",
@@ -432,6 +466,7 @@
     "nama": "Cek Khodam (Image)",
     "tags": ["Fun"],
     "endpoint": "/api/v1/khodam",
+    "deskripsi": "Buat gambar 'cek khodam' berdasarkan nama (untuk hiburan).",
     "parameter": [
       {
         "params": "nama",
@@ -444,6 +479,7 @@
     "nama": "Snapsave (Ig, tiktok, FB)",
     "tags": ["Downloader"],
     "endpoint": "/api/v1/snapsave",
+    "deskripsi": "Unduh konten dari Instagram, TikTok, dan Facebook menggunakan URL.",
     "parameter": [
       {
         "params": "url",
@@ -454,8 +490,9 @@
   },
   {
     "nama": "Imagine",
-    "tags": ["AI","Maker"],
+    "tags": ["AI", "Maker"],
     "endpoint": "/api/v1/imagine",
+    "deskripsi": "Buat gambar berdasarkan deskripsi teks menggunakan AI.",
     "parameter": [
       {
         "params": "prompt",
@@ -468,6 +505,7 @@
     "nama": "SimiSimi Chat",
     "tags": ["Fun"],
     "endpoint": "/api/v1/simsimi",
+    "deskripsi": "Berinteraksi dengan chatbot SimiSimi.",
     "parameter": [
       {
         "params": "msg",
@@ -483,8 +521,9 @@
   },
   {
     "nama": "AI generator Query",
-    "tags": ["AI","Tools"],
+    "tags": ["AI", "Tools"],
     "endpoint": "/api/v1/generate-query",
+    "deskripsi": "Hasilkan query yang sesuai untuk AI berdasarkan input pengguna.",
     "parameter": [
       {
         "params": "user",
@@ -502,6 +541,7 @@
     "nama": "Unlimited Chat Alicia AI",
     "tags": ["AI"],
     "endpoint": "/api/v1/alicia",
+    "deskripsi": "Berinteraksi tanpa batas dengan model AI Alicia.",
     "parameter": [
       {
         "params": "user",
@@ -519,6 +559,7 @@
     "nama": "Meme Generator",
     "tags": ["Maker"],
     "endpoint": "/api/v1/memegen",
+    "deskripsi": "Buat meme dengan teks atas/bawah dan gambar latar belakang.",
     "parameter": [
       {
         "params": "text_atas",
@@ -539,26 +580,30 @@
   },
   {
     "nama": "Random Susun Kata",
-    "tags": ["Fun","Random"],
+    "tags": ["Fun", "Random"],
     "endpoint": "/api/v1/susunkata",
+    "deskripsi": "Dapatkan permainan susun kata acak.",
     "parameter": []
   },
   {
     "nama": "Auto Gempa",
     "tags": ["Info"],
     "endpoint": "/api/v1/autogempa",
+    "deskripsi": "Dapatkan informasi gempa bumi terkini.",
     "parameter": []
   },
   {
     "nama": "Random Asah Otak",
-    "tags": ["Fun","Random"],
+    "tags": ["Fun", "Random"],
     "endpoint": "/api/v1/asahotak",
+    "deskripsi": "Dapatkan soal asah otak acak.",
     "parameter": []
   },
   {
     "nama": "SaveTube Scraper",
     "tags": ["Downloader"],
     "endpoint": "/api/v1/savetube",
+    "deskripsi": "Unduh video YouTube dengan format tertentu menggunakan URL.",
     "parameter": [
       {
         "params": "url",
@@ -576,6 +621,7 @@
     "nama": "Jadwal-Anime Scraper",
     "tags": ["Info"],
     "endpoint": "/api/v1/anime-jadwal",
+    "deskripsi": "Dapatkan jadwal tayang anime berdasarkan hari.",
     "parameter": [
       {
         "params": "hari",
@@ -588,6 +634,7 @@
     "nama": "Pinterest Search",
     "tags": ["Tools"],
     "endpoint": "/api/v1/pin",
+    "deskripsi": "Cari gambar di Pinterest berdasarkan kata kunci.",
     "parameter": [
       {
         "params": "query",
@@ -600,6 +647,7 @@
     "nama": "Groq + token History",
     "tags": ["AI"],
     "endpoint": "/api/v1/llm",
+    "deskripsi": "Berinteraksi dengan model AI di Groq dengan dukungan histori token.",
     "parameter": [
       {
         "params": "groqKey",
@@ -629,3 +677,4 @@
     ]
   }
 ]
+
