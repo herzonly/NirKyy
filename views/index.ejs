@@ -366,7 +366,9 @@
         color: var(--text-secondary);
     }
 
-    #responseBodyContainer img, #responseBodyContainer video, #responseBodyContainer audio {
+    #responseBodyContainer img,
+    #responseBodyContainer video,
+    #responseBodyContainer audio {
         max-width: 100%;
         height: auto;
         display: block;
@@ -376,9 +378,10 @@
     }
     #responseBodyContainer audio {
         width: 100%;
+        display: block; /* Ensure audio element is block-level */
     }
      #responseBodyContainer pre {
-        margin-top: 0; /* Remove default margin if pre is direct child */
+        margin-top: 0;
      }
 
 
@@ -697,14 +700,17 @@
             resultUrlDiv.style.display = 'none';
             if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
             finalApiUrl = '';
-            // Clean up any existing blob URLs from previous responses
             const mediaElements = responseBodyContainer.querySelectorAll('img[src^="blob:"], video[src^="blob:"], audio[src^="blob:"]');
             mediaElements.forEach(el => {
-                if (el.src) URL.revokeObjectURL(el.src);
+                if (el.src) {
+                    try { URL.revokeObjectURL(el.src); } catch(e) { console.warn("Could not revoke", el.src, e); }
+                }
             });
             const downloadLinks = responseBodyContainer.querySelectorAll('a[href^="blob:"]');
             downloadLinks.forEach(a => {
-                if (a.href) URL.revokeObjectURL(a.href);
+                 if (a.href) {
+                    try { URL.revokeObjectURL(a.href); } catch(e) { console.warn("Could not revoke", a.href, e); }
+                 }
             });
         }
 
@@ -771,7 +777,6 @@
             finalUrlTextCode.textContent = finalApiUrl;
             resultUrlDiv.style.display = 'block';
 
-            const potentialBinary = /\.(jpg|jpeg|png|gif|webp|mp4|webm|mp3|ogg|wav|pdf|zip)$/i.test(finalApiUrl);
             const axiosConfig = {
                 method: 'get',
                 url: finalApiUrl,
@@ -804,7 +809,7 @@
                 try {
                     responseText = decoder.decode(new Uint8Array(response.data));
                     if (contentType.includes('application/json')) {
-                        JSON.parse(responseText); // Validate JSON structure
+                        JSON.parse(responseText);
                         isJson = true;
                     }
                 } catch (e) {
@@ -836,6 +841,7 @@
                     const audio = document.createElement('audio');
                     audio.src = audioUrl;
                     audio.controls = true;
+                    audio.preload = 'metadata'; // Helps ensure controls are shown
                     responseBodyContainer.appendChild(audio);
                  } else if (contentType.startsWith('text/')) {
                      const pre = document.createElement('pre');
@@ -864,13 +870,13 @@
                              filename = pathParts[pathParts.length - 1] || 'download';
                              if (!filename.includes('.')) {
                                  const extMatch = contentType.split('/')[1];
-                                 if(extMatch) filename += `.${extMatch.split('+')[0]}`; // Basic extension guess
+                                 if(extMatch) filename += `.${extMatch.split('+')[0]}`;
                                  else filename += '.bin';
                              }
                          }
                          a.download = filename;
                          a.textContent = `Unduh File (${filename})`;
-                         a.className = 'btn btn-sm btn-outline-primary mt-2 d-block'; // Make block for better layout
+                         a.className = 'btn btn-sm btn-outline-primary mt-2 d-block';
                          responseBodyContainer.appendChild(a);
                     } catch (blobError) {
                          console.error("Error creating download link:", blobError);
@@ -1030,7 +1036,7 @@
                     let html = '<li><a class="dropdown-item" href="#" data-tags="">All Tags</a></li>';
                     html += '<li><hr class="dropdown-divider" style="border-top: 1px solid var(--border-color);"></li>';
                     if (data.tags && data.tags.length > 0) {
-                        data.tags.sort().forEach(tag => { // Sort tags alphabetically
+                        data.tags.sort().forEach(tag => {
                             html += `<li><a class="dropdown-item" href="#" data-tags="${tag}">${tag}</a></li>`;
                         });
                     } else {
@@ -1051,7 +1057,7 @@
         const observer = new MutationObserver(mutations => {
             mutations.forEach(mutation => {
                 if (mutation.addedNodes.length) {
-                   // Event delegation handles new elements, no need to re-attach typically
+                   // Event delegation should handle new elements
                 }
             });
         });

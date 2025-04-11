@@ -13,10 +13,10 @@
     ]
   },
   {
-    "nama": "Jadilah Babi:v",
+    "nama": "Jadilah Babi",
     "tags": ["AI", "Maker"],
     "endpoint": "/api/v1/jadibabi",
-    "deskripsi": "Ubah gambar menjadi gaya 'Jadilah Babi' menggunakan AI.",
+    "deskripsi": "Ubah gambar menjadi gaya BABI menggunakan AI.",
     "parameter": [
       {
         "params": "url",
