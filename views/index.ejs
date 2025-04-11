@@ -54,9 +54,10 @@
     .navbar-brand img { max-height: 50px; margin-right: 10px; }
     .navbar-brand { font-weight: 600; font-size: 1.5rem; color: var(--heading-color); display: flex; align-items: center; }
     .navbar-brand:hover { color: var(--heading-color); }
-    .dropdown-menu { background-color: var(--card-bg); border: 1px solid var(--border-color); padding: 0.5rem 0; }
+    .dropdown-menu { background-color: var(--card-bg); border: 1px solid var(--border-color); padding: 0.5rem 0; max-height: 70vh; overflow-y: auto; }
     .dropdown-item { color: var(--bs-body-color); padding: 0.5rem 1rem; }
     .dropdown-item:hover, .dropdown-item:focus { background-color: rgba(255, 255, 255, 0.1); color: var(--heading-color); }
+    .dropdown-item.active, .dropdown-item:active { background-color: var(--accent-color); color: #fff; }
     .dropdown-toggle.btn-outline-primary { color: var(--accent-color); border-color: var(--accent-color); }
     .dropdown-toggle.btn-outline-primary:hover, .dropdown-toggle.btn-outline-primary:focus { background-color: var(--accent-color); color: #fff; }
     main.container-fluid { padding: 2rem 1.5rem; }
@@ -125,7 +126,8 @@
           <i class="fas fa-tags me-1"></i> Tags
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownTags" id="tagButtons">
-          <li><a class="dropdown-item" href="#" data-tags="">Loading tags...</a></li>
+          <li><a class="dropdown-item active" href="#" data-tags="">All Tags</a></li>
+          <li><hr class="dropdown-divider"></li>
         </ul>
       </div>
     </div>
@@ -137,7 +139,6 @@
       <i class="fas fa-search search-icon"></i>
     </div>
     <div id="endpointListSection" class="row">
-       <%# Initial endpoint list rendered by EJS %>
        <% if (typeof endpoints !== 'undefined' && endpoints.length > 0) { %>
          <% endpoints.forEach(endpoint => { %>
            <%
@@ -146,11 +147,9 @@
                  .replace(/>/g, '&gt;')
                  .replace(/'/g, '&#39;')
                  .replace(/"/g, '&quot;');
-
              const tagsHtml = (endpoint.tags && endpoint.tags.length > 0)
                ? endpoint.tags.map(tag => `<span class="badge bg-secondary me-1">${tag}</span>`).join(' ')
-               : '<span class="badge bg-light text-dark">No Tags</span>';
-
+               : '';
              const methodColors = { GET: 'success', POST: 'primary', PUT: 'warning', DELETE: 'danger', PATCH: 'info' };
              const methodColor = methodColors[String(endpoint.method).toUpperCase()] || 'secondary';
            %>
@@ -548,12 +547,20 @@
 
         if (endpoint.parameter && endpoint.parameter.length > 0) {
           endpoint.parameter.forEach(param => {
+            const defaultValue = param.example || '';
+            const isRequired = (param.opsional === false);
+            const description = param.desc || `Parameter ${param.params}`;
+            const paramLocation = param.in || 'query';
+
             const div = document.createElement('div'); div.className = 'mb-3';
             const label = document.createElement('label'); label.htmlFor = `param-${param.params}`; label.className = 'form-label';
-            label.textContent = `${param.params}${param.opsional === false ? '*' : ''} (${param.in || 'query'})`; label.title = param.desc || `Parameter ${param.params}`;
+            label.textContent = `${param.params}${isRequired ? '*' : ''} (${paramLocation})`; label.title = description;
             const input = document.createElement('input'); input.type = 'text'; input.className = 'form-control param-input'; input.id = `param-${param.params}`; input.name = param.params;
-            input.placeholder = param.example ? `Contoh: ${param.example}` : (param.desc || `Masukkan ${param.params}`);
-            const small = document.createElement('small'); small.className = 'form-text text-muted'; small.textContent = param.desc || `Parameter ${param.params}`;
+            input.placeholder = !defaultValue ? description : ''; // Only show desc placeholder if no example
+            if(defaultValue) {
+                input.value = defaultValue; // Pre-fill with example value
+            }
+            const small = document.createElement('small'); small.className = 'form-text text-muted'; small.textContent = description;
             div.appendChild(label); div.appendChild(input); div.appendChild(small);
             parameterInputsDiv.appendChild(div);
           });
@@ -589,11 +596,10 @@
       function renderEndpointsHTML(htmlContent) {
           const parser = new DOMParser();
           const doc = parser.parseFromString(htmlContent, 'text/html');
-          const row = doc.querySelector('.row'); // Expecting /renderpage to return the <div class="row">...</div> part
+          const row = doc.querySelector('.row');
           if (row) {
-               endpointListSection.innerHTML = row.innerHTML; // Insert only the content of the row
+               endpointListSection.innerHTML = row.innerHTML;
            } else {
-               // Fallback if the expected structure isn't found
                endpointListSection.innerHTML = htmlContent;
            }
       }
@@ -618,7 +624,7 @@
           .then(data => {
             const uniqueTags = new Set(data.tags || []);
             const sortedTags = Array.from(uniqueTags).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-            let tagsHtml = '<li><a class="dropdown-item active" href="#" data-tags="">All Tags</a></li>';
+            let tagsHtml = '<li><a class="dropdown-item active" href="#" data-tags="">All Tags</a></li>'; // Add active class here
             tagsHtml += '<li><hr class="dropdown-divider"></li>';
             sortedTags.forEach(tag => {
               tagsHtml += `<li><a class="dropdown-item" href="#" data-tags="${tag}">${tag}</a></li>`;
@@ -635,14 +641,12 @@
       searchEndpointInput.addEventListener('input', debounce(function() {
         const searchTerm = searchEndpointInput.value.trim().toLowerCase();
         if (!searchTerm) {
-            // If search is cleared, re-render based on active tag
              const activeTagItem = tagButtonsContainer.querySelector('.dropdown-item.active');
              const tags = activeTagItem ? activeTagItem.getAttribute('data-tags') || '' : '';
-             fetchAndRenderByTags(tags); // Fetch again using the active tag
+             fetchAndRenderByTags(tags);
              return;
         }
 
-        // Client-side search on initially loaded data
         const filtered = allEndpointsData.filter(ep =>
            (ep.path && ep.path.toLowerCase().includes(searchTerm)) ||
            (ep.summary && ep.summary.toLowerCase().includes(searchTerm)) ||
@@ -650,12 +654,11 @@
            (ep.tags && ep.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
         );
 
-        // Need to generate HTML for the filtered results (client-side rendering part)
         if (filtered.length > 0) {
              let html = '';
              filtered.forEach(endpoint => {
                  const safeEndpointData = JSON.stringify(endpoint).replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
-                 const tagsHtml = (endpoint.tags && endpoint.tags.length > 0) ? endpoint.tags.map(tag => `<span class="badge bg-secondary me-1">${tag}</span>`).join(' ') : '<span class="badge bg-light text-dark">No Tags</span>';
+                 const tagsHtml = (endpoint.tags && endpoint.tags.length > 0) ? endpoint.tags.map(tag => `<span class="badge bg-secondary me-1">${tag}</span>`).join(' ') : '';
                  const methodColors = { GET: 'success', POST: 'primary', PUT: 'warning', DELETE: 'danger', PATCH: 'info' };
                  const methodColor = methodColors[String(endpoint.method).toUpperCase()] || 'secondary';
                  html += `
@@ -685,7 +688,7 @@
            if (isFetchingRenderPage) return;
            isFetchingRenderPage = true;
            showLoadingIndicator();
-           searchEndpointInput.value = ''; // Clear search when filtering by tag
+           searchEndpointInput.value = '';
 
            fetch('/renderpage?tags=' + encodeURIComponent(tags))
              .then(response => {
