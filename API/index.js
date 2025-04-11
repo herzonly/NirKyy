@@ -30,7 +30,7 @@ const ttsindo = require('../lib/ttsindo.js')
 const allvid = require('../lib/alvid.js')
 const googleSearch = require('../lib/googleSearch.js')
 //-
-rourer.get('/yahoo-search', googleSearch)
+router.get('/yahoo-search', googleSearch)
 router.get('/allvid', allvid);
 router.get('/text2speech-indo', ttsindo)
 router.get('/ytplay-mp3', playyt)
