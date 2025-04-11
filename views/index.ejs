@@ -378,7 +378,7 @@
     }
     #responseBodyContainer audio {
         width: 100%;
-        display: block; /* Ensure audio element is block-level */
+        display: block;
     }
      #responseBodyContainer pre {
         margin-top: 0;
@@ -836,13 +836,27 @@
                     video.controls = true;
                     responseBodyContainer.appendChild(video);
                 } else if (contentType.startsWith('audio/')) {
-                    const blob = new Blob([response.data], { type:contentType });
-                    const audioUrl = URL.createObjectURL(blob);
-                    const audio = document.createElement('audio');
-                    audio.src = audioUrl;
-                    audio.controls = true;
-                    audio.preload = 'metadata'; // Helps ensure controls are shown
-                    responseBodyContainer.appendChild(audio);
+                    console.log("Audio content type detected:", contentType);
+                    console.log("Audio data length:", response.data.byteLength);
+                    if(response.data.byteLength > 0) {
+                        const blob = new Blob([response.data], { type: contentType });
+                        const audioUrl = URL.createObjectURL(blob);
+                        console.log("Generated Blob URL:", audioUrl);
+                        const audio = document.createElement('audio');
+                        audio.src = audioUrl;
+                        audio.controls = true;
+                        audio.preload = 'auto';
+                        audio.style.display = 'block'; // Ensure it's block-level
+                        audio.style.width = '100%'; // Ensure it takes width
+                        responseBodyContainer.appendChild(audio);
+                        console.log("Audio element appended to DOM.");
+                    } else {
+                         const p = document.createElement('p');
+                         p.textContent = "[Data audio kosong]";
+                         p.className = "text-warning fst-italic";
+                         responseBodyContainer.appendChild(p);
+                         console.warn("Received audio content type but data length is 0.");
+                    }
                  } else if (contentType.startsWith('text/')) {
                      const pre = document.createElement('pre');
                      pre.textContent = responseText;
