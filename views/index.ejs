@@ -366,7 +366,7 @@
         color: var(--text-secondary);
     }
 
-     #responseBody img, #responseBody video, #responseBody audio {
+    #responseBodyContainer img, #responseBodyContainer video, #responseBodyContainer audio {
         max-width: 100%;
         height: auto;
         display: block;
@@ -374,27 +374,17 @@
         border-radius: var(--border-radius);
         background-color: var(--bg-dark);
     }
-    #responseBody audio {
+    #responseBodyContainer audio {
         width: 100%;
     }
+     #responseBodyContainer pre {
+        margin-top: 0; /* Remove default margin if pre is direct child */
+     }
+
 
     .text-accent {
         color: var(--accent-primary);
     }
-
-    /* Media Loading Indicator Specific Style */
-    #mediaLoadingIndicator {
-        display: none; /* Hidden by default */
-        text-align: center;
-        margin: 20px 0;
-        color: var(--text-secondary);
-    }
-    #mediaLoadingIndicator .spinner-border {
-        width: 1.5rem;
-        height: 1.5rem;
-        color: var(--accent-primary);
-    }
-
 
     @media (max-width: 768px) {
       header {
@@ -519,13 +509,6 @@
               </div>
           </div>
 
-          <div id="mediaLoadingIndicator">
-              <div class="spinner-border spinner-border-sm" role="status">
-                  <span class="visually-hidden">Loading...</span>
-              </div>
-              <span class="ms-2">Memuat media...</span>
-          </div>
-
           <div id="apiResponse" class="mt-3" style="display: none;">
             <div class="response-area">
                 <h5>Response Header:</h5>
@@ -536,10 +519,10 @@
             </div>
             <div class="response-area mt-3">
                 <h5>Response Body:</h5>
-                <button class="btn-copy" data-clipboard-target="#responseBody" title="Salin Body" style="display: none;">
+                <button class="btn-copy btn-copy-body" data-clipboard-target="#responseBodyContainer pre" title="Salin Body" style="display: none;">
                      <i class="far fa-copy"></i>
                  </button>
-                <pre id="responseBody" class="p-2"></pre>
+                <div id="responseBodyContainer" class="p-0"></div>
             </div>
           </div>
 
@@ -598,21 +581,19 @@
         const parameterInputsDiv = document.getElementById('parameterInputs');
         const runButton = document.getElementById('runButton');
         const responseHeaderPre = document.getElementById('responseHeader');
-        const responseBodyPre = document.getElementById('responseBody');
+        const responseBodyContainer = document.getElementById('responseBodyContainer');
         const axiosSnippetPre = document.getElementById('axiosSnippet').querySelector('code');
         const loadingIndicator = document.getElementById('loadingIndicator');
-        const mediaLoadingIndicator = document.getElementById('mediaLoadingIndicator');
         const successSound = document.getElementById('successSound');
         const errorSound = document.getElementById('errorSound');
         const apiResponseDiv = document.getElementById('apiResponse');
         const axiosExampleDiv = document.getElementById('axiosExample');
         const resultUrlDiv = document.getElementById('resultUrl');
         const finalUrlTextCode = document.getElementById('finalUrlText');
-        const copyResponseBodyBtn = responseBodyPre.parentElement.querySelector('.btn-copy');
+        const copyResponseBodyBtn = document.querySelector('.btn-copy-body');
 
         let currentEndpointData = null;
         let clipboard;
-        let currentBlobUrl = null; // Variable to store the current Blob URL
 
         clipboard = new ClipboardJS('.btn-copy');
         clipboard.on('success', function(e) {
@@ -635,11 +616,9 @@
 
         const whatsappModalElement = document.getElementById('whatsappModal');
         const whatsappModal = new bootstrap.Modal(whatsappModalElement);
-        // Show modal every time after a delay
         setTimeout(() => {
              whatsappModal.show();
         }, 2000);
-
 
         function debounce(func, wait) {
             let timeout;
@@ -671,7 +650,6 @@
             currentEndpointData = endpoint;
             parameterInputsDiv.innerHTML = '';
             resetModalOutput();
-
             document.getElementById('tryModalLabel').innerHTML = `<i class="fas fa-vial me-2"></i>Coba: ${endpoint.nama}`;
 
             if (endpoint.parameter && endpoint.parameter.length > 0) {
@@ -706,26 +684,28 @@
             } else {
                  parameterInputsDiv.innerHTML = `<p class="text-secondary fst-italic">Endpoint ini tidak memerlukan parameter tambahan.</p>`;
             }
-
             tryModal.show();
         }
 
         function resetModalOutput() {
-            if (currentBlobUrl) {
-                URL.revokeObjectURL(currentBlobUrl);
-                currentBlobUrl = null;
-            }
             responseHeaderPre.textContent = '';
-            responseBodyPre.textContent = '';
-            responseBodyPre.innerHTML = '';
+            responseBodyContainer.innerHTML = '';
             axiosSnippetPre.textContent = '';
             finalUrlTextCode.textContent = '';
             apiResponseDiv.style.display = 'none';
             axiosExampleDiv.style.display = 'none';
             resultUrlDiv.style.display = 'none';
-            mediaLoadingIndicator.style.display = 'none';
-            copyResponseBodyBtn.style.display = 'none';
+            if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
             finalApiUrl = '';
+            // Clean up any existing blob URLs from previous responses
+            const mediaElements = responseBodyContainer.querySelectorAll('img[src^="blob:"], video[src^="blob:"], audio[src^="blob:"]');
+            mediaElements.forEach(el => {
+                if (el.src) URL.revokeObjectURL(el.src);
+            });
+            const downloadLinks = responseBodyContainer.querySelectorAll('a[href^="blob:"]');
+            downloadLinks.forEach(a => {
+                if (a.href) URL.revokeObjectURL(a.href);
+            });
         }
 
         tryModalElement.addEventListener('hidden.bs.modal', function () {
@@ -736,13 +716,11 @@
              }
         });
 
-
         runButton.addEventListener('click', function() {
             if (loadingIndicator.style.display === 'block' || !currentEndpointData) return;
 
             runButton.disabled = true;
             loadingIndicator.style.display = 'block';
-            mediaLoadingIndicator.style.display = 'none'; // Ensure media loader is hidden initially
             resetModalOutput();
 
             let apiUrl = currentEndpointData.endpoint;
@@ -797,11 +775,12 @@
             const axiosConfig = {
                 method: 'get',
                 url: finalApiUrl,
-                responseType: potentialBinary ? 'arraybuffer' : 'json',
+                responseType: 'arraybuffer',
                 validateStatus: function (status) {
                      return status >= 200 && status < 500;
                 }
             };
+
 
             axios(axiosConfig)
             .then(response => {
@@ -814,100 +793,64 @@
                     headerString += `${key}: ${value}\n`;
                 });
                 responseHeaderPre.textContent = headerString.trim();
+                apiResponseDiv.style.display = 'block';
 
-                 if (status >= 200 && status < 300) {
-                    let success = true;
-                    if (contentType.includes('application/json') && response.data && response.data.success === false) {
-                         success = false;
+                responseBodyContainer.innerHTML = '';
+                if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
+
+                const decoder = new TextDecoder('utf-8');
+                let responseText = '';
+                let isJson = false;
+                try {
+                    responseText = decoder.decode(new Uint8Array(response.data));
+                    if (contentType.includes('application/json')) {
+                        JSON.parse(responseText); // Validate JSON structure
+                        isJson = true;
                     }
-                    if(success) successSound.play(); else errorSound.play();
-                 } else {
-                    errorSound.play();
-                 }
+                } catch (e) {
+                   isJson = false;
+                }
 
-                responseBodyPre.innerHTML = '';
-                responseBodyPre.textContent = '';
-                copyResponseBodyBtn.style.display = 'none';
-                mediaLoadingIndicator.style.display = 'none'; // Hide general media loader initially
-                apiResponseDiv.style.display = 'none'; // Hide response area until content is ready
-
-                const displayResponse = () => {
-                    mediaLoadingIndicator.style.display = 'none';
-                    apiResponseDiv.style.display = 'block';
-                };
-
-                const handleMediaError = (elementType) => {
-                     responseBodyPre.innerHTML = `<p class="text-danger">Gagal memuat ${elementType}.</p>`;
-                     displayResponse();
-                };
-
-                if (contentType.includes('application/json')) {
-                    try {
-                        let dataToDisplay = response.data;
-                        if (axiosConfig.responseType === 'arraybuffer') {
-                             const decoder = new TextDecoder('utf-8');
-                             dataToDisplay = JSON.parse(decoder.decode(new Uint8Array(response.data)));
-                        }
-                        responseBodyPre.textContent = JSON.stringify(dataToDisplay, null, 2);
-                        copyResponseBodyBtn.style.display = 'block';
-                        displayResponse();
-                    } catch(e) {
-                        responseBodyPre.textContent = "Error parsing JSON response.";
-                        console.error("JSON Parsing Error:", e);
-                        displayResponse();
-                    }
-
+                if (isJson) {
+                     const pre = document.createElement('pre');
+                     pre.textContent = JSON.stringify(JSON.parse(responseText), null, 2);
+                     responseBodyContainer.appendChild(pre);
+                     if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'block';
                 } else if (contentType.startsWith('image/')) {
-                     mediaLoadingIndicator.style.display = 'block';
                      const blob = new Blob([response.data], { type: contentType });
-                     currentBlobUrl = URL.createObjectURL(blob);
+                     const imageUrl = URL.createObjectURL(blob);
                      const img = document.createElement('img');
-                     img.onload = () => {
-                         responseBodyPre.appendChild(img);
-                         displayResponse();
-                     };
-                     img.onerror = () => handleMediaError('gambar');
-                     img.src = currentBlobUrl;
+                     img.src = imageUrl;
                      img.alt = "API Response Image";
-
+                     responseBodyContainer.appendChild(img);
                 } else if (contentType.startsWith('video/')) {
-                    mediaLoadingIndicator.style.display = 'block';
                     const blob = new Blob([response.data], { type: contentType });
-                    currentBlobUrl = URL.createObjectURL(blob);
+                    const videoUrl = URL.createObjectURL(blob);
                     const video = document.createElement('video');
-                    video.onloadeddata = () => {
-                        responseBodyPre.appendChild(video);
-                        displayResponse();
-                    };
-                    video.onerror = () => handleMediaError('video');
-                    video.src = currentBlobUrl;
+                    video.src = videoUrl;
                     video.controls = true;
-
+                    responseBodyContainer.appendChild(video);
                 } else if (contentType.startsWith('audio/')) {
-                    mediaLoadingIndicator.style.display = 'block';
                     const blob = new Blob([response.data], { type:contentType });
-                    currentBlobUrl = URL.createObjectURL(blob);
+                    const audioUrl = URL.createObjectURL(blob);
                     const audio = document.createElement('audio');
-                    audio.onloadeddata = () => { // Use onloadeddata or oncanplay
-                        responseBodyPre.appendChild(audio);
-                        displayResponse();
-                    };
-                     audio.onerror = () => handleMediaError('audio');
-                    audio.src = currentBlobUrl;
+                    audio.src = audioUrl;
                     audio.controls = true;
-
+                    responseBodyContainer.appendChild(audio);
                  } else if (contentType.startsWith('text/')) {
-                     const decoder = new TextDecoder('utf-8');
-                     responseBodyPre.textContent = decoder.decode(new Uint8Array(response.data));
-                     copyResponseBodyBtn.style.display = 'block';
-                     displayResponse();
+                     const pre = document.createElement('pre');
+                     pre.textContent = responseText;
+                     responseBodyContainer.appendChild(pre);
+                     if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'block';
                  } else {
-                    responseBodyPre.textContent = `[${contentType} - ${response.data.byteLength} bytes received]`;
+                    const pre = document.createElement('pre');
+                    pre.textContent = `[${contentType} - ${response.data.byteLength} bytes received]`;
+                    responseBodyContainer.appendChild(pre);
                     try {
                         const blob = new Blob([response.data], { type: contentType });
-                        currentBlobUrl = URL.createObjectURL(blob); // Store for potential revocation
+                        const downloadUrl = URL.createObjectURL(blob);
                         const a = document.createElement('a');
-                        a.href = currentBlobUrl;
+                        a.href = downloadUrl;
                         const disposition = headers['content-disposition'];
                         let filename = 'download';
                          if (disposition && disposition.indexOf('attachment') !== -1) {
@@ -919,21 +862,42 @@
                          } else {
                             const pathParts = new URL(finalApiUrl).pathname.split('/');
                              filename = pathParts[pathParts.length - 1] || 'download';
-                             if (!filename.includes('.')) filename += '.bin';
+                             if (!filename.includes('.')) {
+                                 const extMatch = contentType.split('/')[1];
+                                 if(extMatch) filename += `.${extMatch.split('+')[0]}`; // Basic extension guess
+                                 else filename += '.bin';
+                             }
                          }
                          a.download = filename;
                          a.textContent = `Unduh File (${filename})`;
-                         a.className = 'btn btn-sm btn-outline-primary mt-2';
-                         responseBodyPre.appendChild(document.createElement('br'));
-                         responseBodyPre.appendChild(a);
+                         a.className = 'btn btn-sm btn-outline-primary mt-2 d-block'; // Make block for better layout
+                         responseBodyContainer.appendChild(a);
                     } catch (blobError) {
                          console.error("Error creating download link:", blobError);
-                         responseBodyPre.textContent += "\n(Tidak dapat membuat tautan unduhan)";
+                         const errorP = document.createElement('p');
+                         errorP.textContent = "(Tidak dapat membuat tautan unduhan)";
+                         errorP.className = 'text-danger fst-italic mt-1';
+                         responseBodyContainer.appendChild(errorP);
                     }
-                    displayResponse();
                  }
 
-                const axiosResponseType = (axiosConfig.responseType === 'arraybuffer' && !contentType.includes('application/json')) ? ",\n  responseType: 'arraybuffer'" : "";
+                 if (status >= 200 && status < 300) {
+                    let playSuccess = true;
+                     if (isJson) {
+                         try {
+                             const jsonData = JSON.parse(responseText);
+                             if (jsonData && jsonData.success === false) {
+                                 playSuccess = false;
+                             }
+                         } catch (e) { }
+                     }
+                     if(playSuccess) successSound.play(); else errorSound.play();
+                 } else {
+                     errorSound.play();
+                 }
+
+
+                const axiosResponseType = (!isJson && (contentType.startsWith('image/') || contentType.startsWith('video/') || contentType.startsWith('audio/') || !contentType.startsWith('text/'))) ? ",\n  responseType: 'arraybuffer'" : "";
                 let axiosCode = `axios.get('${baseUrl}', {\n`;
                 if (Object.keys(queryParams).length > 0) {
                      axiosCode += `  params: ${JSON.stringify(queryParams, null, 2)}`;
@@ -951,55 +915,53 @@
             .catch(error => {
                 errorSound.play();
                 console.error('Axios request failed:', error);
-                mediaLoadingIndicator.style.display = 'none';
                 apiResponseDiv.style.display = 'block';
                  responseHeaderPre.textContent = `Error: ${error.message}`;
+                 responseBodyContainer.innerHTML = '';
+                 if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
+
                  if (error.response) {
                     let headerString = `Status: ${error.response.status} ${error.response.statusText}\n`;
                     Object.entries(error.response.headers).forEach(([key, value]) => { headerString += `${key}: ${value}\n`; });
                     responseHeaderPre.textContent = headerString.trim();
 
-                    responseBodyPre.innerHTML = '';
                     if (error.response.data) {
-                         if (typeof error.response.data === 'object') {
-                            if (error.response.data instanceof ArrayBuffer) {
-                                 try {
-                                     const decoder = new TextDecoder('utf-8');
-                                     const textData = decoder.decode(new Uint8Array(error.response.data));
-                                    try {
-                                         responseBodyPre.textContent = JSON.stringify(JSON.parse(textData), null, 2);
-                                         copyResponseBodyBtn.style.display = 'block';
-                                     } catch (jsonError) {
-                                         responseBodyPre.textContent = textData;
-                                         copyResponseBodyBtn.style.display = 'block';
-                                     }
-                                 } catch (decodeError) {
-                                      responseBodyPre.textContent = `[Binary data received - ${error.response.data.byteLength} bytes]`;
-                                  }
-                            } else {
-                                 responseBodyPre.textContent = JSON.stringify(error.response.data, null, 2);
-                                 copyResponseBodyBtn.style.display = 'block';
-                            }
-                         } else {
-                             responseBodyPre.textContent = String(error.response.data);
-                             copyResponseBodyBtn.style.display = 'block';
-                         }
+                        const pre = document.createElement('pre');
+                        try {
+                             const decoder = new TextDecoder('utf-8');
+                             const errorText = decoder.decode(new Uint8Array(error.response.data));
+                             try {
+                                 pre.textContent = JSON.stringify(JSON.parse(errorText), null, 2);
+                                 if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'block';
+                             } catch (jsonError) {
+                                 pre.textContent = errorText;
+                                 if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'block';
+                             }
+                         } catch (decodeError) {
+                              pre.textContent = `[Binary error data received - ${error.response.data.byteLength} bytes]`;
+                          }
+                           responseBodyContainer.appendChild(pre);
                     } else {
-                         responseBodyPre.textContent = '(No response body)';
+                         const p = document.createElement('p');
+                         p.textContent = '(No response body)';
+                         p.className = 'fst-italic text-secondary';
+                         responseBodyContainer.appendChild(p);
                      }
 
                  } else if (error.request) {
-                    responseBodyPre.textContent = 'Tidak ada respons diterima dari server. Periksa koneksi atau URL.';
+                     const p = document.createElement('p');
+                     p.textContent = 'Tidak ada respons diterima dari server. Periksa koneksi atau URL.';
+                     p.className = 'text-danger';
+                     responseBodyContainer.appendChild(p);
                 } else {
-                     responseBodyPre.textContent = `Error konfigurasi permintaan: ${error.message}`;
+                     const p = document.createElement('p');
+                     p.textContent = `Error konfigurasi permintaan: ${error.message}`;
+                     p.className = 'text-danger';
+                     responseBodyContainer.appendChild(p);
                 }
             })
             .finally(() => {
                 loadingIndicator.style.display = 'none';
-                // Ensure media loading is hidden if axios fails early or finishes
-                if (mediaLoadingIndicator.style.display === 'block' && apiResponseDiv.style.display === 'none') {
-                    mediaLoadingIndicator.style.display = 'none';
-                }
                 runButton.disabled = false;
             });
         });
@@ -1054,6 +1016,7 @@
                  searchEndpointInput.value = '';
                  fetchData(`/renderpage?tags=${encodeURIComponent(tags)}`);
                  document.getElementById('dropdownTags').innerHTML = `<i class="fas fa-tags me-2"></i>${tags === '' ? 'All Tags' : tagLink.textContent}`;
+
              }
          });
 
@@ -1067,7 +1030,7 @@
                     let html = '<li><a class="dropdown-item" href="#" data-tags="">All Tags</a></li>';
                     html += '<li><hr class="dropdown-divider" style="border-top: 1px solid var(--border-color);"></li>';
                     if (data.tags && data.tags.length > 0) {
-                        data.tags.forEach(tag => {
+                        data.tags.sort().forEach(tag => { // Sort tags alphabetically
                             html += `<li><a class="dropdown-item" href="#" data-tags="${tag}">${tag}</a></li>`;
                         });
                     } else {
@@ -1088,7 +1051,7 @@
         const observer = new MutationObserver(mutations => {
             mutations.forEach(mutation => {
                 if (mutation.addedNodes.length) {
-                   // Event delegation handles new elements, no need to re-attach generally
+                   // Event delegation handles new elements, no need to re-attach typically
                 }
             });
         });
@@ -1098,4 +1061,3 @@
   </script>
 </body>
 </html>
-
