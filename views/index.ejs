@@ -379,6 +379,7 @@
     #responseBodyContainer audio {
         width: 100%;
         display: block;
+        min-height: 54px; /* Often helps force controls to render */
     }
      #responseBodyContainer pre {
         margin-top: 0;
@@ -832,9 +833,9 @@
                     const blob = new Blob([response.data], { type: contentType });
                     const videoUrl = URL.createObjectURL(blob);
                     const video = document.createElement('video');
-                    video.src = videoUrl;
                     video.controls = true;
                     responseBodyContainer.appendChild(video);
+                    video.src = videoUrl; // Set src after appending
                 } else if (contentType.startsWith('audio/')) {
                     console.log("Audio content type detected:", contentType);
                     console.log("Audio data length:", response.data.byteLength);
@@ -843,13 +844,13 @@
                         const audioUrl = URL.createObjectURL(blob);
                         console.log("Generated Blob URL:", audioUrl);
                         const audio = document.createElement('audio');
-                        audio.src = audioUrl;
                         audio.controls = true;
                         audio.preload = 'auto';
-                        audio.style.display = 'block'; // Ensure it's block-level
-                        audio.style.width = '100%'; // Ensure it takes width
-                        responseBodyContainer.appendChild(audio);
-                        console.log("Audio element appended to DOM.");
+                        audio.style.display = 'block';
+                        audio.style.width = '100%';
+                        responseBodyContainer.appendChild(audio); // Append first
+                        audio.src = audioUrl; // Set src after appending
+                        console.log("Audio element appended and src set.");
                     } else {
                          const p = document.createElement('p');
                          p.textContent = "[Data audio kosong]";
