@@ -111,9 +111,7 @@ function filterEndpoints(data, { term, tags }) {
     return filteredData;
 }
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(PUBLIC_DIR, 'index.html'));
-});
+app.get('/', (req, res) => { res.render('index'); });
 
 app.get('/tags', (req, res) => {
     res.json({ tags: uniqueTags });
