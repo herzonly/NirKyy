@@ -91,7 +91,7 @@ router.get('/elevenlabs', async (req, res) => {
     } catch (e) {}
   }
 
-  res.errorJson('Mungkin model Tidak tersedia Atau tunggu beberapa menit untuk mencoba lagi pantek', 500)
+  res.errorJson('Mungkin model Tidak tersedia Atau tunggu beberapa menit untuk mencoba lagi, jika berlanjut hubungi PurPur', 500)
 })
 router.get('/jadibabi', async (req, res) => {
     const imageUrl = req.query.url;
