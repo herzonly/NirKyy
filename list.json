@@ -65,7 +65,7 @@
       {
         "params": "voice",
         "example": "Gadis",
-        "opsional": true
+        "opsional": false
       }
     ]
   },
