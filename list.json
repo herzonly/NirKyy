@@ -479,7 +479,7 @@
     "nama": "Cek Khodam (Image)",
     "tags": ["Fun"],
     "endpoint": "/api/v1/khodam",
-    "deskripsi": "Buat gambar 'cek khodam' berdasarkan nama (untuk hiburan).",
+    "deskripsi": "Buat gambar cek khodam berdasarkan nama (untuk hiburan).",
     "parameter": [
       {
         "params": "nama",
