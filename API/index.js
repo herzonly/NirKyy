@@ -67,8 +67,8 @@ router.get('/elevenlabs', async (req, res) => {
         const { data: html } = await axios.get(baseUrl + '/')
         const $ = cheerio.load(html)
         const options = $('#model option').map((_, el) => $(el).val()).get()
-        if (!options.length) continue
-        model = options[0]
+        if (!options.length)
+        return res.succesJson(options)
       }
 
       const payload = new URLSearchParams()
@@ -92,7 +92,7 @@ router.get('/elevenlabs', async (req, res) => {
     } catch (e) {}
   }
 
-  res.errorJson('Gagal melakukan generate audio setelah 3 percobaan', 500)
+  res.errorJson('Mungkin model Tidak tersedia Atau tunggu beberapa menit untuk mencoba lagi pantek', 500)
 })
 router.get('/jadibabi', async (req, res) => {
     const imageUrl = req.query.url;
