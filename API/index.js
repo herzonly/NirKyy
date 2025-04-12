@@ -64,12 +64,11 @@ router.get('/elevenlabs', async (req, res) => {
     const baseUrl = baseUrls[Math.floor(Math.random() * baseUrls.length)]
     try {
       if (!model || model === "getList") {
-        const { data: html } = await axios.get(baseUrl + '/')
-        const $ = cheerio.load(html)
-        const options = $('#model option').map((_, el) => $(el).val()).get()
-        if (!options.length)
-        return res.succesJson(options)
-      }
+  const { data: html } = await axios.get(baseUrl + '/');
+  const $ = cheerio.load(html);
+  const options = $('#model option').map((_, el) => $(el).val()).get();
+  return res.succesJson({ models: options });
+}
 
       const payload = new URLSearchParams()
       payload.append('model', model)
