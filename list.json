@@ -1,5 +1,23 @@
 [
   {
+    "nama": "Elevenlabs Text2Speech",
+    "tags": [ "AI", "Tools" ],
+    "endpoint": "/api/v1/elevenlabs",
+    "deskripsi": "Menghasilkan audio dari teks menggunakan beberapa alternatif Elevenlabs.",
+    "parameter": [
+      {
+        "params": "text",
+        "example": "Halo nama saya Ricky.",
+        "opsional": false
+      },
+      {
+        "params": "model",
+        "example": "getList",
+        "opsional": false
+      }
+    ]
+  },
+  {
   "nama": "Yahoo Search",
   "tags": ["Tools","Search"],
   "endpoint": "/api/v1/yahoo-search",

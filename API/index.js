@@ -49,6 +49,51 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
+router.get('/elevenlabs', async (req, res) => {
+  const baseUrls = [
+    'https://elevenlabs-crack.vercel.app',
+    'https://elevenlabs-crack-qyb7.vercel.app',
+    'https://elevenlabs-crack-f2zu.vercel.app'
+  ]
+
+  const text = req.query.text
+  let model = req.query.model
+  if (!text) return res.errorJson('Missing text parameter')
+
+  for (let i = 0; i < 3; i++) {
+    const baseUrl = baseUrls[Math.floor(Math.random() * baseUrls.length)]
+    try {
+      if (!model || model === "getList") {
+        const { data: html } = await axios.get(baseUrl + '/')
+        const $ = cheerio.load(html)
+        const options = $('#model option').map((_, el) => $(el).val()).get()
+        if (!options.length) continue
+        model = options[0]
+      }
+
+      const payload = new URLSearchParams()
+      payload.append('model', model)
+      payload.append('text', text)
+
+      const { data, headers } = await axios.post(`${baseUrl}/generate-audio`, payload.toString(), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.135 Mobile Safari/537.36',
+          'Referer': baseUrl + '/'
+        },
+        responseType: 'arraybuffer'
+      })
+
+      res.set({
+        'Content-Type': headers['content-type'],
+        'Content-Length': headers['content-length']
+      })
+      return res.send(data)
+    } catch (e) {}
+  }
+
+  res.errorJson('Gagal melakukan generate audio setelah 3 percobaan', 500)
+})
 router.get('/jadibabi', async (req, res) => {
     const imageUrl = req.query.url;
     const filterName = 'piggy';
