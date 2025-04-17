@@ -54,45 +54,6 @@ function getUniqueTags(data) {
 
 const uniqueTags = daftarTags;
 
-function generateEndpointsHTML(data) {
-    if (!data || data.length === 0) {
-        return '<p class="text-center text-secondary fst-italic mt-4">Tidak ada endpoint yang cocok ditemukan.</p>';
-    }
-
-    let html = '<div class="row">';
-    data.forEach(ep => {
-        const name = ep.nama || 'Unnamed Endpoint';
-        const path = ep.endpoint || '/error-missing-path';
-        const tags = (Array.isArray(ep.tags) ? ep.tags : []).filter(t => t && typeof t === 'string');
-
-        html += `
-        <div class="col-lg-6 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-header">${name}</div>
-                <div class="card-body d-flex flex-column">
-                    <div class="endpoint-path mb-3">
-                        <span class="text-monospace">${path}</span>
-                         <div class="btn-group ms-2" role="group" aria-label="Endpoint Actions">
-                             <button class="btn btn-sm btn-outline-secondary btn-copy" data-clipboard-text="https://nirkyy.koyeb.app${path}" title="Salin Full URL">
-                                 <i class="far fa-copy"></i> URL
-                             </button>
-                             <button class="btn btn-sm btn-primary try-button" data-endpoint='${JSON.stringify(ep).replace(/'/g, "'")}' title="Coba Endpoint Ini">
-                                 <i class="fas fa-vial"></i> Coba
-                             </button>
-                         </div>
-                    </div>
-                    ${ep.deskripsi ? `<p class="card-text text-secondary mb-2 flex-grow-1">${ep.deskripsi}</p>` : '<p class="card-text text-secondary mb-2 flex-grow-1 fst-italic">Tidak ada deskripsi.</p>'}
-                    <div class="mt-auto">
-                        ${tags.map(t => `<span class="badge me-1 mb-1">${t}</span>`).join('')}
-                    </div>
-                </div>
-            </div>
-        </div>`;
-    });
-    html += '</div>';
-    return html;
-}
-
 function filterEndpoints(data, { term, tags }) {
     let filteredData = data;
 
@@ -127,15 +88,13 @@ app.get('/tags', (req, res) => {
 app.get('/renderpage', (req, res) => {
     const { tags = '' } = req.query;
     const filtered = filterEndpoints(endpoints, { tags });
-    const htmlSnippet = generateEndpointsHTML(filtered);
-    res.send(htmlSnippet);
+    res.json({ endpoints: filtered }); // Return JSON
 });
 
 app.get('/search', (req, res) => {
     const { term = '' } = req.query;
     const filtered = filterEndpoints(endpoints, { term });
-    const htmlSnippet = generateEndpointsHTML(filtered);
-    res.send(htmlSnippet);
+    res.json({ endpoints: filtered }); // Return JSON
 });
 
 app.use((req, res, next) => {
