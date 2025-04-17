@@ -56,25 +56,25 @@ router.get('/elevenlabs', async (req, res) => {
     'https://elevenlabs-crack.vercel.app',
     'https://elevenlabs-crack-qyb7.vercel.app',
     'https://elevenlabs-crack-f2zu.vercel.app'
-  ]
+  ];
 
-  const text = req.query.text
-  let model = req.query.model
-  if (!text) return res.errorJson('Missing text parameter')
+  const text = req.query.text;
+  let model = req.query.model;
+  if (!text) return res.errorJson('Missing text parameter');
 
   for (let i = 0; i < 3; i++) {
-    const baseUrl = baseUrls[Math.floor(Math.random() * baseUrls.length)]
+    const baseUrl = baseUrls[Math.floor(Math.random() * baseUrls.length)];
     try {
       if (!model || model === "getList") {
-  const { data: html } = await axios.get(baseUrl + '/');
-  const $ = cheerio.load(html);
-  const options = $('#model option').map((_, el) => $(el).val()).get();
-  return res.succesJson({ models: options });
-}
+        const { data: html } = await axios.get(baseUrl + '/');
+        const $ = cheerio.load(html);
+        const options = $('#ttsForm select[name="model"] option').map((_, el) => $(el).val()).get();
+        return res.succesJson({ models: options });
+      }
 
-      const payload = new URLSearchParams()
-      payload.append('model', model)
-      payload.append('text', text)
+      const payload = new URLSearchParams();
+      payload.append('model', model);
+      payload.append('text', text);
 
       const { data, headers } = await axios.post(`${baseUrl}/generate-audio`, payload.toString(), {
         headers: {
@@ -83,18 +83,19 @@ router.get('/elevenlabs', async (req, res) => {
           'Referer': baseUrl + '/'
         },
         responseType: 'arraybuffer'
-      })
+      });
 
       res.set({
         'Content-Type': headers['content-type'],
         'Content-Length': headers['content-length']
-      })
-      return res.send(data)
+      });
+      return res.send(data);
     } catch (e) {}
   }
 
-  res.errorJson('Mungkin model Tidak tersedia Atau tunggu beberapa menit untuk mencoba lagi, jika berlanjut hubungi PurPur', 500)
-})
+  res.errorJson('Mungkin model Tidak tersedia Atau tunggu beberapa menit untuk mencoba lagi, jika berlanjut hubungi PurPur', 500);
+});
+
 router.get('/jadibabi', async (req, res) => {
     const imageUrl = req.query.url;
     const filterName = 'piggy';
