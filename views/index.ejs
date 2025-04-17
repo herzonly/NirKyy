@@ -30,11 +30,11 @@
             font-family: 'Poppins', sans-serif;
         }
         ::-webkit-scrollbar { width: 8px; height: 8px;}
-        ::-webkit-scrollbar-track { background: #1f2937; /* gray-800 */ }
-        ::-webkit-scrollbar-thumb { background: #4b5563; /* gray-600 */ border-radius: 4px;}
-        ::-webkit-scrollbar-thumb:hover { background: #6b7280; /* gray-500 */ }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px;}
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
         .tag-active {
-            background-color: #4f46e5; /* indigo-600 */
+            background-color: #4f46e5;
             color: white;
             font-weight: 600;
         }
@@ -45,20 +45,20 @@
              max-height: 90vh;
         }
         .btn-copy-feedback {
-            background-color: #10b981 !important; /* emerald-500 */
+            background-color: #10b981 !important;
             color: white !important;
         }
         pre {
             white-space: pre-wrap;
             word-wrap: break-word;
-            background-color: #111827; /* gray-900 */
-            border: 1px solid #374151; /* gray-700 */
+            background-color: #111827;
+            border: 1px solid #374151;
             padding: 12px;
             border-radius: 8px;
             overflow-x: auto;
-            color: #d1d5db; /* gray-300 */
+            color: #d1d5db;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 0.875rem; /* text-sm */
+            font-size: 0.875rem;
             max-height: 400px;
             position: relative;
         }
@@ -69,7 +69,7 @@
              z-index: 10;
              background: rgba(255,255,255,0.1);
              border: none;
-             color: #9ca3af; /* gray-400 */
+             color: #9ca3af;
              padding: 2px 6px;
              font-size: 0.8em;
              border-radius: 4px;
@@ -88,7 +88,7 @@
             display: block;
             margin-top: 10px;
             border-radius: 8px;
-            background-color: #111827; /* gray-900 */
+            background-color: #111827;
         }
         #responseBodyContainer audio {
             width: 100%;
@@ -312,13 +312,13 @@
             };
         }
 
-        function generateEndpointsHTML(data) {
-            if (!data || data.length === 0) {
+        function generateEndpointsHTML(endpointsArray) {
+            if (!Array.isArray(endpointsArray) || endpointsArray.length === 0) {
                 return `<p class="col-span-full text-center text-gray-500 italic mt-6">Tidak ada endpoint yang cocok ditemukan.</p>`;
             }
 
             let html = '';
-            data.forEach(ep => {
+            endpointsArray.forEach(ep => {
                 const name = ep.nama || 'Unnamed Endpoint';
                 const path = ep.endpoint || '/error-missing-path';
                 const tags = (Array.isArray(ep.tags) ? ep.tags : []).filter(t => t && typeof t === 'string');
@@ -369,21 +369,28 @@
                      if (!response.ok) {
                          throw new Error(`HTTP error! status: ${response.status}`);
                      }
-                     // **MODIFICATION HERE: Directly parse as JSON**
                      return response.json();
                  })
                 .then(jsonData => {
-                     // **MODIFICATION HERE: Use the parsed JSON data directly**
-                     endpointListSection.innerHTML = generateEndpointsHTML(jsonData);
-                     new ClipboardJS('.btn-copy-url'); // Re-initialize clipboard for new buttons
+                     if (jsonData && Array.isArray(jsonData.endpoints)) {
+                        endpointListSection.innerHTML = generateEndpointsHTML(jsonData.endpoints);
+                        new ClipboardJS('.btn-copy-url');
+                     } else if (jsonData && typeof jsonData === 'object' && !jsonData.endpoints) {
+                         console.warn("Received data object without 'endpoints' array:", jsonData);
+                         endpointListSection.innerHTML = generateEndpointsHTML([]);
+                     }
+                      else {
+                         throw new Error('Invalid data structure received. Expected an object with an "endpoints" array.');
+                     }
                  })
                  .catch(error => {
                      console.error('Fetch error:', error);
-                     // Provide more specific error message if possible
                      let errorMessage = `Gagal memuat endpoint. Coba lagi nanti. (${error.message})`;
-                     if (error instanceof SyntaxError) { // Specific error for JSON parsing failure
+                     if (error instanceof SyntaxError) {
                         errorMessage = `Gagal memuat endpoint: Respons server bukan JSON yang valid. (${error.message})`;
                         console.warn("Received non-JSON response from:", url);
+                     } else if (error.message.includes('Invalid data structure')) {
+                         errorMessage = `Gagal memuat endpoint: Struktur data tidak valid. (${error.message})`;
                      }
                      endpointListSection.innerHTML = `<p class="col-span-full text-center text-red-500 font-semibold mt-6">${errorMessage}</p>`;
                  })
@@ -402,7 +409,7 @@
                     let html = `<a href="#" data-tags="" class="tag-link group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white ${activeTag === '' ? 'tag-active' : ''}">
                                    <i class="fas fa-tags mr-3 text-gray-400 group-hover:text-gray-300"></i> All Tags
                                </a>`;
-                    if (data.tags && data.tags.length > 0) {
+                    if (data && data.tags && Array.isArray(data.tags) && data.tags.length > 0) {
                         data.tags.sort((a, b) => a.localeCompare(b));
                         data.tags.forEach(tag => {
                             html += `<a href="#" data-tags="${tag}" class="tag-link group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white ${activeTag === tag ? 'tag-active' : ''}">
@@ -444,17 +451,16 @@
                  button.addEventListener('click', () => {
                      const modalId = button.getAttribute('data-modal-hide');
                      const modal = document.getElementById(modalId);
-                     const persist = button.textContent.includes('Nanti Saja') || button.textContent.includes('Tutup'); // Crude check, adjust if needed
+                     const persist = button.textContent.includes('Nanti Saja') || button.textContent.includes('Tutup');
                      hideModal(modal, persist);
                  });
              });
 
              document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
                 backdrop.addEventListener('click', (event) => {
-                    // Find the parent modal container associated with this backdrop
                     const modal = event.target.closest('.fixed.inset-0');
-                    if (modal && modal.contains(event.target) && event.target === backdrop) { // Ensure click is directly on backdrop
-                        const persist = modal.id === 'whatsappModal'; // Only persist WhatsApp modal on backdrop click
+                    if (modal && modal.contains(event.target) && event.target === backdrop) {
+                        const persist = modal.id === 'whatsappModal';
                         hideModal(modal, persist);
                     }
                 });
@@ -484,7 +490,7 @@
             resetModalOutput();
             document.getElementById('tryModalLabel').textContent = `Coba: ${endpoint.nama}`;
 
-            if (endpoint.parameter && endpoint.parameter.length > 0) {
+            if (endpoint.parameter && Array.isArray(endpoint.parameter) && endpoint.parameter.length > 0) {
                  parameterInputsDiv.innerHTML += `<h4 class="text-md font-medium text-gray-400 mb-3">Parameter Permintaan</h4>`;
                 endpoint.parameter.forEach(param => {
                     const paramName = param.params;
@@ -590,7 +596,9 @@
              inputs.forEach(input => {
                  input.classList.remove('border-red-500');
                  const paramName = input.name;
-                 const paramDefinition = currentEndpointData.parameter.find(p => p.params === paramName);
+                 const paramDefinition = currentEndpointData.parameter && Array.isArray(currentEndpointData.parameter)
+                    ? currentEndpointData.parameter.find(p => p.params === paramName)
+                    : null;
                  const isRequired = paramDefinition && (paramDefinition.opsional === false);
                  const inputValue = input.value.trim();
 
@@ -769,9 +777,7 @@
                  let axiosCode = `axios.get('${baseUrl}'`;
 
                   const pathParamMatches = currentEndpointData.endpoint.match(/{(\w+)}/g);
-                  if(pathParamMatches) {
-                     axiosCode += `\n  // Path parameters like ${pathParamMatches.join(', ')} are included in the URL`;
-                  }
+
                   if (Object.keys(queryParams).length > 0) {
                       axiosCode += `, {\n    params: ${JSON.stringify(queryParams, null, 2)}`;
                       if(axiosResponseType) axiosCode += axiosResponseType;
