@@ -1,28 +1,49 @@
-<!DOCTYPE html><html lang="id" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NirKyy - REST API Documentation</title><meta name="description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web."><meta name="keywords" content="REST API, dokumentasi API, free API, NirKyy, endpoint, API documentation, web API, fetch API, modern API, aesthetic API, tailwind css"><meta name="author" content="NirKyy Developer"><meta name="robots" content="index, follow"><meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"><meta property="og:title" content="NirKyy - Modern REST API Documentation"><meta property="og:description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web."><meta property="og:type" content="website"><meta property="og:url" content="nirkyy.koyeb.app"><meta property="og:image" content="/favicon.ico"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="NirKyy - Modern REST API Documentation"><meta name="twitter:description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web."><meta name="twitter:site" content="@NirKyyDev"><meta name="twitter:image" content="/favicon.ico"><link rel="icon" href="/favicon.ico" type="image/x-icon"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"><script src="https://cdn.tailwindcss.com?plugins=forms"></script><style type="text/tailwindcss">/* Customizations if needed, or keep base Tailwind */
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>NirKyy - REST API Documentation</title>
+    <meta name="description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web.">
+    <meta name="keywords" content="REST API, dokumentasi API, free API, NirKyy, endpoint, API documentation, web API, fetch API, modern API, aesthetic API, tailwind css">
+    <meta name="author" content="NirKyy Developer">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta property="og:title" content="NirKyy - Modern REST API Documentation">
+    <meta property="og:description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="nirkyy.koyeb.app">
+    <meta property="og:image" content="/favicon.ico">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NirKyy - Modern REST API Documentation">
+    <meta name="twitter:description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web.">
+    <meta name="twitter:site" content="@NirKyyDev">
+    <meta name="twitter:image" content="/favicon.ico">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <style type="text/tailwindcss">
         body {
             font-family: 'Poppins', sans-serif;
         }
-        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; height: 8px;}
         ::-webkit-scrollbar-track { background: #1f2937; /* gray-800 */ }
         ::-webkit-scrollbar-thumb { background: #4b5563; /* gray-600 */ border-radius: 4px;}
         ::-webkit-scrollbar-thumb:hover { background: #6b7280; /* gray-500 */ }
-
-        /* Style for active tag */
         .tag-active {
             background-color: #4f46e5; /* indigo-600 */
             color: white;
             font-weight: 600;
         }
-
-        /* Style for modal backdrop */
         .modal-backdrop {
              background-color: rgba(0, 0, 0, 0.6);
         }
         .modal {
              max-height: 90vh;
         }
-        /* Style for copy feedback */
         .btn-copy-feedback {
             background-color: #10b981 !important; /* emerald-500 */
             color: white !important;
@@ -73,18 +94,166 @@
             width: 100%;
             min-height: 54px;
         }
-        /* Animation for sidebar */
         .sidebar-transition {
             transition: transform 0.3s ease-in-out;
-        }</style></head><body class="bg-gray-900 text-gray-200"><div class="flex h-screen overflow-hidden"><aside id="sidebar" class="sidebar-transition fixed inset-y-0 left-0 z-30 w-64 bg-gray-800 border-r border-gray-700 transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0 overflow-y-auto"><div class="flex items-center justify-between p-4 border-b border-gray-700"><div class="flex items-center space-x-3"><img src="/favicon.ico" alt="Logo NirKyy" class="h-10 w-10 rounded-full"><h1 class="text-xl font-semibold text-white">NirKyy API</h1></div><button id="sidebar-close" class="lg:hidden text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button></div><div class="p-4 space-y-4"><div class="relative"><span class="absolute inset-y-0 left-0 flex items-center pl-3"><i class="fas fa-search text-gray-400"></i></span><input type="text" id="searchEndpoint" class="w-full pl-10 pr-4 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400" placeholder="Cari endpoint..."></div><nav class="mt-6"><h3 class="px-2 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Tags</h3><div id="tagButtons" class="space-y-1"><a href="#" data-tags="" class="tag-link group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"><i class="fas fa-tag mr-3 text-gray-400 group-hover:text-gray-300"></i>All Tags</a><div class="px-2 py-2 text-sm text-gray-500">Memuat tags...</div></div></nav></div></aside><main class="flex-1 flex flex-col overflow-hidden"><header class="lg:hidden flex items-center justify-between p-4 bg-gray-800 border-b border-gray-700"><button id="sidebar-open" class="text-gray-300 hover:text-white"><i class="fas fa-bars text-xl"></i></button><div class="flex items-center space-x-2"><img src="/favicon.ico" alt="Logo NirKyy" class="h-8 w-8 rounded-full"><span class="font-semibold text-white">NirKyy API</span></div><div></div></header><div class="flex-1 overflow-y-auto p-4 lg:p-6"><div id="endpointListSection" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6"><div class="loading-placeholder col-span-full flex flex-col items-center justify-center h-64 text-gray-500"><svg class="animate-spin h-10 w-10 text-indigo-400 mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><p class="text-lg">Memuat daftar endpoint...</p></div></div></div><footer class="text-center py-4 px-4 bg-gray-800 border-t border-gray-700 text-sm text-gray-400"><p>© 2025 NirKyy. Tetap semangat, API tetap aktif selama Koyeb gratis! 🚀</p><p>Bergabunglah di<a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 hover:underline"><i class="fab fa-whatsapp"></i>Saluran WhatsApp</a>untuk update terbaru.</p></footer></main></div><div id="tryModal" class="fixed inset-0 z-40 overflow-y-auto hidden" aria-labelledby="tryModalLabel" role="dialog" aria-modal="true"><div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"><div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity modal-backdrop" aria-hidden="true"></div><span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span><div class="modal inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl w-full flex flex-col"><div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-700 sticky top-0 z-10"><div class="sm:flex sm:items-start"><div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 sm:mx-0 sm:h-10 sm:w-10"><i class="fas fa-vial text-indigo-600 text-xl"></i></div><div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full"><h3 class="text-lg leading-6 font-medium text-indigo-400" id="tryModalLabel">Coba Endpoint</h3><button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200" data-modal-hide="tryModal"><i class="fas fa-times text-xl"></i></button></div></div></div><div class="px-4 py-5 sm:p-6 flex-1 overflow-y-auto space-y-6"><div id="parameterInputs"><h4 class="text-md font-medium text-gray-400 mb-3">Parameter Permintaan</h4></div><button id="runButton" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:text-sm transition duration-150 ease-in-out"><i class="fas fa-play mr-2 -ml-1"></i>Jalankan Permintaan</button><div id="loadingIndicator" class="text-center py-3 text-gray-400" style="display:none"><svg class="animate-spin inline-block h-5 w-5 text-indigo-400 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Memproses...</span></div><div id="resultUrl" class="mt-4" style="display:none"><h5 class="text-sm font-medium text-gray-400 mb-1">URL Permintaan:</h5><div class="response-area"><button class="btn-copy" data-clipboard-target="#finalUrlText" title="Salin URL"><i class="far fa-copy"></i></button><pre class="text-xs"><code id="finalUrlText"></code></pre></div></div><div id="apiResponse" class="mt-4 space-y-4" style="display:none"><div><h5 class="text-sm font-medium text-gray-400 mb-1">Response Header:</h5><div class="response-area"><button class="btn-copy" data-clipboard-target="#responseHeader" title="Salin Header"><i class="far fa-copy"></i></button><pre id="responseHeader" class="text-xs"></pre></div></div><div><h5 class="text-sm font-medium text-gray-400 mb-1">Response Body:</h5><div class="response-area"><button class="btn-copy btn-copy-body" data-clipboard-target="#responseBodyContainer pre, #responseBodyContainer" title="Salin Body" style="display:none"><i class="far fa-copy"></i></button><div id="responseBodyContainer" class="border border-gray-700 rounded-md p-0 bg-gray-900"></div></div></div></div><div id="axiosExample" class="mt-4" style="display:none"><h5 class="text-sm font-medium text-gray-400 mb-1">Contoh Kode Axios (GET):</h5><div class="response-area"><button class="btn-copy" data-clipboard-target="#axiosSnippet code" title="Salin Kode"><i class="far fa-copy"></i></button><pre id="axiosSnippet" class="text-xs"><code></code></pre></div></div></div><div class="bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-700 sticky bottom-0 z-10"><button type="button" data-modal-hide="tryModal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-600 shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Tutup</button></div></div></div></div><div id="whatsappModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="whatsappModalLabel" role="dialog" aria-modal="true"><div class="flex items-center justify-center min-h-screen px-4 text-center"><div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity modal-backdrop" aria-hidden="true"></div><div class="inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full"><div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4"><div class="sm:flex sm:items-start"><div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10"><i class="fab fa-whatsapp text-green-600 text-2xl"></i></div><div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left"><h3 class="text-lg leading-6 font-medium text-green-400" id="whatsappModalLabel">Gabung Saluran WhatsApp Kami!</h3><div class="mt-2"><p class="text-sm text-gray-400">Dapatkan update API terbaru, info menarik, dan diskusi seru seputar NirKyy langsung di WhatsApp Anda.</p></div></div><button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200" data-modal-hide="whatsappModal"><i class="fas fa-times text-xl"></i></button></div></div><div class="bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-3"><a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:ring-offset-gray-800 sm:w-auto sm:text-sm"><i class="fab fa-whatsapp mr-2 -ml-1"></i>Gabung Sekarang</a><button type="button" data-modal-hide="whatsappModal" class="w-full inline-flex justify-center rounded-md border border-gray-600 shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:w-auto sm:text-sm">Nanti Saja</button></div></div></div></div><audio id="successSound" src="/success.mp3" preload="auto"></audio><audio id="errorSound" src="/error.mp3" preload="auto"></audio><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
-        // --- State & Variables ---
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <div class="flex h-screen overflow-hidden">
+        <aside id="sidebar" class="sidebar-transition fixed inset-y-0 left-0 z-30 w-64 bg-gray-800 border-r border-gray-700 transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0 overflow-y-auto">
+            <div class="flex items-center justify-between p-4 border-b border-gray-700">
+                <div class="flex items-center space-x-3">
+                    <img src="/favicon.ico" alt="Logo NirKyy" class="h-10 w-10 rounded-full">
+                    <h1 class="text-xl font-semibold text-white">NirKyy API</h1>
+                </div>
+                <button id="sidebar-close" class="lg:hidden text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-4 space-y-4">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3"><i class="fas fa-search text-gray-400"></i></span>
+                    <input type="text" id="searchEndpoint" class="w-full pl-10 pr-4 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400" placeholder="Cari endpoint...">
+                </div>
+                <nav class="mt-6">
+                    <h3 class="px-2 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Tags</h3>
+                    <div id="tagButtons" class="space-y-1">
+                        <a href="#" data-tags="" class="tag-link group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"><i class="fas fa-tag mr-3 text-gray-400 group-hover:text-gray-300"></i>All Tags</a>
+                        <div class="px-2 py-2 text-sm text-gray-500">Memuat tags...</div>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <header class="lg:hidden flex items-center justify-between p-4 bg-gray-800 border-b border-gray-700">
+                <button id="sidebar-open" class="text-gray-300 hover:text-white"><i class="fas fa-bars text-xl"></i></button>
+                <div class="flex items-center space-x-2">
+                    <img src="/favicon.ico" alt="Logo NirKyy" class="h-8 w-8 rounded-full">
+                    <span class="font-semibold text-white">NirKyy API</span>
+                </div>
+                <div></div>
+            </header>
+            <div class="flex-1 overflow-y-auto p-4 lg:p-6">
+                <div id="endpointListSection" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
+                    <div class="loading-placeholder col-span-full flex flex-col items-center justify-center h-64 text-gray-500">
+                        <svg class="animate-spin h-10 w-10 text-indigo-400 mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <p class="text-lg">Memuat daftar endpoint...</p>
+                    </div>
+                </div>
+            </div>
+            <footer class="text-center py-4 px-4 bg-gray-800 border-t border-gray-700 text-sm text-gray-400">
+                <p>© 2025 NirKyy. Tetap semangat, API tetap aktif selama Koyeb gratis! 🚀</p>
+                <p>Bergabunglah di <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 hover:underline"><i class="fab fa-whatsapp"></i> Saluran WhatsApp</a> untuk update terbaru.</p>
+            </footer>
+        </main>
+    </div>
+
+    <div id="tryModal" class="fixed inset-0 z-40 overflow-y-auto hidden" aria-labelledby="tryModalLabel" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity modal-backdrop" aria-hidden="true"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+            <div class="modal inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl w-full flex flex-col">
+                <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-700 sticky top-0 z-10">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 sm:mx-0 sm:h-10 sm:w-10"><i class="fas fa-vial text-indigo-600 text-xl"></i></div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                            <h3 class="text-lg leading-6 font-medium text-indigo-400" id="tryModalLabel">Coba Endpoint</h3>
+                            <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200" data-modal-hide="tryModal"><i class="fas fa-times text-xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-4 py-5 sm:p-6 flex-1 overflow-y-auto space-y-6">
+                    <div id="parameterInputs">
+                        <h4 class="text-md font-medium text-gray-400 mb-3">Parameter Permintaan</h4>
+                    </div>
+                    <button id="runButton" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:text-sm transition duration-150 ease-in-out">
+                        <i class="fas fa-play mr-2 -ml-1"></i>Jalankan Permintaan
+                    </button>
+                    <div id="loadingIndicator" class="text-center py-3 text-gray-400" style="display:none">
+                        <svg class="animate-spin inline-block h-5 w-5 text-indigo-400 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Memproses...</span>
+                    </div>
+                    <div id="resultUrl" class="mt-4" style="display:none">
+                        <h5 class="text-sm font-medium text-gray-400 mb-1">URL Permintaan:</h5>
+                        <div class="response-area">
+                           <button class="btn-copy" data-clipboard-target="#finalUrlText" title="Salin URL"><i class="far fa-copy"></i></button>
+                           <pre class="text-xs"><code id="finalUrlText"></code></pre>
+                        </div>
+                    </div>
+                    <div id="apiResponse" class="mt-4 space-y-4" style="display:none">
+                        <div>
+                            <h5 class="text-sm font-medium text-gray-400 mb-1">Response Header:</h5>
+                             <div class="response-area">
+                                <button class="btn-copy" data-clipboard-target="#responseHeader" title="Salin Header"><i class="far fa-copy"></i></button>
+                                <pre id="responseHeader" class="text-xs"></pre>
+                             </div>
+                        </div>
+                        <div>
+                            <h5 class="text-sm font-medium text-gray-400 mb-1">Response Body:</h5>
+                            <div class="response-area">
+                               <button class="btn-copy btn-copy-body" data-clipboard-target="#responseBodyContainer pre, #responseBodyContainer" title="Salin Body" style="display:none"><i class="far fa-copy"></i></button>
+                               <div id="responseBodyContainer" class="border border-gray-700 rounded-md p-0 bg-gray-900"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="axiosExample" class="mt-4" style="display:none">
+                        <h5 class="text-sm font-medium text-gray-400 mb-1">Contoh Kode Axios (GET):</h5>
+                        <div class="response-area">
+                           <button class="btn-copy" data-clipboard-target="#axiosSnippet code" title="Salin Kode"><i class="far fa-copy"></i></button>
+                           <pre id="axiosSnippet" class="text-xs"><code></code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-700 sticky bottom-0 z-10">
+                    <button type="button" data-modal-hide="tryModal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-600 shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="whatsappModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="whatsappModalLabel" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center min-h-screen px-4 text-center">
+            <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity modal-backdrop" aria-hidden="true"></div>
+            <div class="inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
+                <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10"><i class="fab fa-whatsapp text-green-600 text-2xl"></i></div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-green-400" id="whatsappModalLabel">Gabung Saluran WhatsApp Kami!</h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-400">Dapatkan update API terbaru, info menarik, dan diskusi seru seputar NirKyy langsung di WhatsApp Anda.</p>
+                            </div>
+                        </div>
+                         <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200" data-modal-hide="whatsappModal"><i class="fas fa-times text-xl"></i></button>
+                    </div>
+                </div>
+                <div class="bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-3">
+                    <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:ring-offset-gray-800 sm:w-auto sm:text-sm"><i class="fab fa-whatsapp mr-2 -ml-1"></i>Gabung Sekarang</a>
+                    <button type="button" data-modal-hide="whatsappModal" class="w-full inline-flex justify-center rounded-md border border-gray-600 shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:w-auto sm:text-sm">Nanti Saja</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="successSound" src="/success.mp3" preload="auto"></audio>
+    <audio id="errorSound" src="/error.mp3" preload="auto"></audio>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
         let finalApiUrl = '';
         let isFetching = false;
         let currentEndpointData = null;
         let clipboard;
-        let activeTag = ''; // Keep track of the currently selected tag
+        let activeTag = '';
 
-        // --- DOM Elements ---
         const sidebar = document.getElementById('sidebar');
         const sidebarOpenBtn = document.getElementById('sidebar-open');
         const sidebarCloseBtn = document.getElementById('sidebar-close');
@@ -105,13 +274,9 @@
         const copyResponseBodyBtn = tryModalElement.querySelector('.btn-copy-body');
         const whatsappModalElement = document.getElementById('whatsappModal');
 
-        // --- Audio Elements ---
         const successSound = document.getElementById('successSound');
         const errorSound = document.getElementById('errorSound');
 
-        // --- Initial Setup ---
-
-        // ClipboardJS
         clipboard = new ClipboardJS('.btn-copy');
         clipboard.on('success', function(e) {
             const originalIcon = e.trigger.innerHTML;
@@ -126,21 +291,18 @@
         clipboard.on('error', function(e) {
             const originalTitle = e.trigger.getAttribute('title');
             e.trigger.setAttribute('title', 'Gagal menyalin');
-            e.trigger.classList.add('text-red-500'); // Indicate error
+            e.trigger.classList.add('text-red-500');
              setTimeout(() => {
                 e.trigger.setAttribute('title', originalTitle);
                 e.trigger.classList.remove('text-red-500');
             }, 1500);
         });
 
-        // Show WhatsApp Modal after delay
         setTimeout(() => {
-            if (whatsappModalElement) {
+            if (whatsappModalElement && !localStorage.getItem('whatsappModalDismissed')) {
                whatsappModalElement.classList.remove('hidden');
             }
         }, 3000);
-
-        // --- Functions ---
 
         function debounce(func, wait) {
             let timeout;
@@ -150,7 +312,6 @@
             };
         }
 
-        // Function to generate HTML for endpoints using Tailwind
         function generateEndpointsHTML(data) {
             if (!data || data.length === 0) {
                 return `<p class="col-span-full text-center text-gray-500 italic mt-6">Tidak ada endpoint yang cocok ditemukan.</p>`;
@@ -162,8 +323,6 @@
                 const path = ep.endpoint || '/error-missing-path';
                 const tags = (Array.isArray(ep.tags) ? ep.tags : []).filter(t => t && typeof t === 'string');
                 const description = ep.deskripsi || '<span class="italic text-gray-500">Tidak ada deskripsi.</span>';
-
-                // Escape single quotes in JSON for the attribute
                 const escapedData = JSON.stringify(ep).replace(/'/g, "\\'");
 
                 html += `
@@ -193,11 +352,9 @@
             return html;
         }
 
-        // Function to fetch and render endpoints
         function fetchData(url) {
              if (isFetching) return;
              isFetching = true;
-             // Show loading placeholder
              endpointListSection.innerHTML = `
                  <div class="loading-placeholder col-span-full flex flex-col items-center justify-center h-64 text-gray-500">
                      <svg class="animate-spin h-10 w-10 text-indigo-400 mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -209,24 +366,32 @@
 
              fetch(url)
                 .then(response => {
-                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                     return response.text();
+                     if (!response.ok) {
+                         throw new Error(`HTTP error! status: ${response.status}`);
+                     }
+                     // **MODIFICATION HERE: Directly parse as JSON**
+                     return response.json();
                  })
-                .then(html => {
-                     endpointListSection.innerHTML = generateEndpointsHTML(JSON.parse(html)); // Assuming backend now sends JSON data directly matching generateEndpointsHTML input
-                     // Re-initialize clipboard for potentially new URL copy buttons inside cards
-                     new ClipboardJS('.btn-copy-url');
+                .then(jsonData => {
+                     // **MODIFICATION HERE: Use the parsed JSON data directly**
+                     endpointListSection.innerHTML = generateEndpointsHTML(jsonData);
+                     new ClipboardJS('.btn-copy-url'); // Re-initialize clipboard for new buttons
                  })
                  .catch(error => {
                      console.error('Fetch error:', error);
-                     endpointListSection.innerHTML = `<p class="col-span-full text-center text-red-500 font-semibold mt-6">Gagal memuat endpoint. Coba lagi nanti. (${error.message})</p>`;
+                     // Provide more specific error message if possible
+                     let errorMessage = `Gagal memuat endpoint. Coba lagi nanti. (${error.message})`;
+                     if (error instanceof SyntaxError) { // Specific error for JSON parsing failure
+                        errorMessage = `Gagal memuat endpoint: Respons server bukan JSON yang valid. (${error.message})`;
+                        console.warn("Received non-JSON response from:", url);
+                     }
+                     endpointListSection.innerHTML = `<p class="col-span-full text-center text-red-500 font-semibold mt-6">${errorMessage}</p>`;
                  })
                 .finally(() => {
                      isFetching = false;
                  });
          }
 
-        // Function to load tags into the sidebar
         function loadTags() {
             fetch('/tags')
                 .then(res => {
@@ -238,7 +403,6 @@
                                    <i class="fas fa-tags mr-3 text-gray-400 group-hover:text-gray-300"></i> All Tags
                                </a>`;
                     if (data.tags && data.tags.length > 0) {
-                        // Sort tags alphabetically
                         data.tags.sort((a, b) => a.localeCompare(b));
                         data.tags.forEach(tag => {
                             html += `<a href="#" data-tags="${tag}" class="tag-link group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white ${activeTag === tag ? 'tag-active' : ''}">
@@ -256,20 +420,20 @@
                 });
         }
 
-        // --- Modal Handling ---
-
         function showModal(modalElement) {
             if (modalElement) {
                 modalElement.classList.remove('hidden');
-                document.body.classList.add('overflow-hidden'); // Prevent background scroll
+                document.body.classList.add('overflow-hidden');
             }
         }
 
-        function hideModal(modalElement) {
+        function hideModal(modalElement, persistDismiss = false) {
             if (modalElement) {
                 modalElement.classList.add('hidden');
-                // Check if any other modal is open before removing overflow-hidden
-                 if (!document.querySelector('.modal:not(.hidden)')) {
+                if (persistDismiss && modalElement.id === 'whatsappModal') {
+                    localStorage.setItem('whatsappModalDismissed', 'true');
+                }
+                 if (!document.querySelector('.fixed.inset-0.z-40:not(.hidden), .fixed.inset-0.z-50:not(.hidden)')) {
                     document.body.classList.remove('overflow-hidden');
                  }
             }
@@ -280,17 +444,20 @@
                  button.addEventListener('click', () => {
                      const modalId = button.getAttribute('data-modal-hide');
                      const modal = document.getElementById(modalId);
-                     hideModal(modal);
+                     const persist = button.textContent.includes('Nanti Saja') || button.textContent.includes('Tutup'); // Crude check, adjust if needed
+                     hideModal(modal, persist);
                  });
              });
 
-             // Optional: Close modal on backdrop click
-             document.querySelectorAll('.modal').forEach(modal => {
-                 modal.addEventListener('click', (event) => {
-                      if (event.target === modal) { // Check if the click is directly on the backdrop
-                         hideModal(modal);
-                      }
-                 });
+             document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+                backdrop.addEventListener('click', (event) => {
+                    // Find the parent modal container associated with this backdrop
+                    const modal = event.target.closest('.fixed.inset-0');
+                    if (modal && modal.contains(event.target) && event.target === backdrop) { // Ensure click is directly on backdrop
+                        const persist = modal.id === 'whatsappModal'; // Only persist WhatsApp modal on backdrop click
+                        hideModal(modal, persist);
+                    }
+                });
              });
         }
 
@@ -305,7 +472,6 @@
             if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
             finalApiUrl = '';
 
-            // Clean up any Blob URLs
              const mediaElements = responseBodyContainer.querySelectorAll('img[src^="blob:"], video[src^="blob:"], audio[src^="blob:"]');
             mediaElements.forEach(el => { if (el.src) { try { URL.revokeObjectURL(el.src); } catch(e) { console.warn("Could not revoke", el.src, e); } } });
             const downloadLinks = responseBodyContainer.querySelectorAll('a[href^="blob:"]');
@@ -314,7 +480,7 @@
 
         function openTryModal(endpoint) {
             currentEndpointData = endpoint;
-            parameterInputsDiv.innerHTML = ''; // Clear previous inputs
+            parameterInputsDiv.innerHTML = '';
             resetModalOutput();
             document.getElementById('tryModalLabel').textContent = `Coba: ${endpoint.nama}`;
 
@@ -354,9 +520,6 @@
             showModal(tryModalElement);
         }
 
-        // --- Event Listeners ---
-
-        // Sidebar Toggle
         if (sidebarOpenBtn) {
              sidebarOpenBtn.addEventListener('click', () => {
                  sidebar.classList.remove('-translate-x-full');
@@ -368,43 +531,39 @@
             });
          }
 
-        // Search Input
         const debouncedSearch = debounce(function() {
             const searchTerm = searchEndpointInput.value.trim();
-            activeTag = ''; // Reset tag filter when searching
-            loadTags(); // Update active state display
+            activeTag = '';
+            loadTags();
             const url = searchTerm
                ? `/search?term=${encodeURIComponent(searchTerm)}`
-               : '/renderpage?tags='; // Changed to use renderpage for empty search too
+               : '/renderpage?tags=';
             fetchData(url);
         }, 350);
         searchEndpointInput.addEventListener('input', debouncedSearch);
 
-        // Tag Filtering (using event delegation on the container)
         tagButtonsContainer.addEventListener('click', function(e) {
             e.preventDefault();
             const tagLink = e.target.closest('a.tag-link');
             if (tagLink) {
                 activeTag = tagLink.getAttribute('data-tags');
-                searchEndpointInput.value = ''; // Clear search when clicking tag
-                loadTags(); // Reload tags to update active state
+                searchEndpointInput.value = '';
+                loadTags();
                 fetchData(`/renderpage?tags=${encodeURIComponent(activeTag)}`);
 
-                // Close sidebar on mobile after clicking a tag
-                 if (window.innerWidth < 1024) { // lg breakpoint
+                 if (window.innerWidth < 1024) {
                      sidebar.classList.add('-translate-x-full');
                  }
             }
         });
 
-        // "Try it out" Button (using event delegation)
         endpointListSection.addEventListener('click', function(e) {
             const tryButton = e.target.closest('.try-button');
             if (tryButton) {
                 const data = tryButton.getAttribute('data-endpoint');
                 if (data) {
                     try {
-                       const endpoint = JSON.parse(data.replace(/\\'/g, "'")); // Unescape single quotes
+                       const endpoint = JSON.parse(data.replace(/\\'/g, "'"));
                        openTryModal(endpoint);
                     } catch(parseError) {
                         console.error("Failed to parse endpoint data:", parseError, "Data:", data);
@@ -414,7 +573,6 @@
             }
         });
 
-        // Run API Request Button
         runButton.addEventListener('click', function() {
              if (loadingIndicator.style.display === 'block' || !currentEndpointData) return;
 
@@ -428,10 +586,9 @@
             let missingRequired = false;
             let firstMissingField = null;
 
-            // --- Parameter Handling ---
             const inputs = parameterInputsDiv.querySelectorAll('input[name]');
              inputs.forEach(input => {
-                 input.classList.remove('border-red-500'); // Reset validation style
+                 input.classList.remove('border-red-500');
                  const paramName = input.name;
                  const paramDefinition = currentEndpointData.parameter.find(p => p.params === paramName);
                  const isRequired = paramDefinition && (paramDefinition.opsional === false);
@@ -440,7 +597,7 @@
                  if (isRequired && !inputValue) {
                      missingRequired = true;
                      if (!firstMissingField) firstMissingField = input;
-                     input.classList.add('border-red-500'); // Add red border for error
+                     input.classList.add('border-red-500');
                  }
 
                   if (inputValue) {
@@ -462,23 +619,21 @@
                  return;
              }
 
-            // --- Build Final URL ---
             const baseUrl = `https://nirkyy.koyeb.app${apiUrl}`;
             const urlObj = new URL(baseUrl);
             Object.entries(queryParams).forEach(([key, value]) => {
                 urlObj.searchParams.append(key, value);
             });
-            finalApiUrl = urlObj.toString(); // Use toString() for the full URL
+            finalApiUrl = urlObj.toString();
 
             finalUrlTextCode.textContent = finalApiUrl;
             resultUrlDiv.style.display = 'block';
 
-            // --- Axios Request ---
             const axiosConfig = {
                 method: 'get',
                 url: finalApiUrl,
-                responseType: 'arraybuffer', // Always request arraybuffer first
-                validateStatus: status => status >= 200 && status < 500 // Handle 4xx errors gracefully
+                responseType: 'arraybuffer',
+                validateStatus: status => status >= 200 && status < 500
             };
 
             axios(axiosConfig)
@@ -487,18 +642,16 @@
                  const contentType = headers['content-type']?.toLowerCase() || '';
                  const status = response.status;
 
-                 // Display Headers
                  let headerString = `Status: ${status} ${response.statusText}\n`;
                  Object.entries(headers).forEach(([key, value]) => { headerString += `${key}: ${value}\n`; });
                  responseHeaderPre.textContent = headerString.trim();
-                 apiResponseDiv.style.display = 'block'; // Show response section
+                 apiResponseDiv.style.display = 'block';
 
-                responseBodyContainer.innerHTML = ''; // Clear previous body
-                if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none'; // Hide copy button initially
+                responseBodyContainer.innerHTML = '';
+                if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
 
-                const responseData = response.data; // ArrayBuffer
+                const responseData = response.data;
 
-                // --- Handle Response Body based on Content-Type ---
                  if (contentType.includes('application/json')) {
                      try {
                          const decoder = new TextDecoder('utf-8');
@@ -506,13 +659,12 @@
                          const jsonData = JSON.parse(jsonText);
                          const pre = document.createElement('pre');
                          pre.textContent = JSON.stringify(jsonData, null, 2);
-                         responseBodyContainer.innerHTML = ''; // Clear just in case
+                         responseBodyContainer.innerHTML = '';
                          responseBodyContainer.appendChild(pre);
                          if(copyResponseBodyBtn) {
                              copyResponseBodyBtn.setAttribute('data-clipboard-target', '#responseBodyContainer pre');
                              copyResponseBodyBtn.style.display = 'block';
                          }
-                         // Play sound based on API's own success flag if present
                           if (jsonData && jsonData.success === false) errorSound.play(); else successSound.play();
 
                      } catch (e) {
@@ -546,7 +698,7 @@
                          const audioUrl = URL.createObjectURL(blob);
                          const audio = document.createElement('audio');
                          audio.controls = true;
-                         audio.preload = 'metadata'; // Use metadata for faster load usually
+                         audio.preload = 'metadata';
                          audio.src = audioUrl;
                          audio.className = "w-full mt-2";
                          responseBodyContainer.innerHTML = '';
@@ -554,7 +706,7 @@
                          successSound.play();
                      } else {
                          responseBodyContainer.innerHTML = `<p class="text-yellow-400 italic text-sm p-3">[Data audio kosong]</p>`;
-                         errorSound.play(); // Indicate something might be wrong
+                         errorSound.play();
                      }
                  } else if (contentType.startsWith('text/')) {
                      const decoder = new TextDecoder('utf-8');
@@ -568,8 +720,8 @@
                          copyResponseBodyBtn.style.display = 'block';
                      }
                      successSound.play();
-                 } else { // --- Handle as Downloadable File ---
-                     responseBodyContainer.innerHTML = ''; // Clear first
+                 } else {
+                     responseBodyContainer.innerHTML = '';
                      const pre = document.createElement('pre');
                      pre.textContent = `[Received ${contentType || 'unknown'} data - ${responseData.byteLength} bytes]`;
                      pre.className = "text-gray-400 text-sm mb-2";
@@ -581,7 +733,6 @@
                          const a = document.createElement('a');
                          a.href = downloadUrl;
 
-                         // Determine filename
                          const disposition = headers['content-disposition'];
                          let filename = 'download';
                           if (disposition && disposition.includes('filename=')) {
@@ -590,12 +741,11 @@
                                  filename = decodeURIComponent(filenameMatch[1]);
                              }
                           } else {
-                             // Guess filename from URL path and content type
                              const pathParts = urlObj.pathname.split('/');
                              filename = pathParts[pathParts.length - 1] || 'download';
                              if (!filename.includes('.')) {
                                  const typeParts = contentType.split('/');
-                                 const ext = typeParts[1] ? typeParts[1].split('+')[0] : 'bin'; // Basic extension guess
+                                 const ext = typeParts[1] ? typeParts[1].split('+')[0] : 'bin';
                                  filename += `.${ext}`;
                              }
                          }
@@ -615,12 +765,9 @@
                     }
                  }
 
-                 // --- Generate Axios Snippet ---
                  const axiosResponseType = (contentType && !contentType.includes('application/json') && !contentType.startsWith('text/')) ? ", \n  responseType: 'arraybuffer'" : "";
-                 let axiosCode = `axios.get('${baseUrl}'`; // Start with base URL before params
+                 let axiosCode = `axios.get('${baseUrl}'`;
 
-                 const axiosParams = {};
-                  // Add path params to comment for clarity if any were substituted
                   const pathParamMatches = currentEndpointData.endpoint.match(/{(\w+)}/g);
                   if(pathParamMatches) {
                      axiosCode += `\n  // Path parameters like ${pathParamMatches.join(', ')} are included in the URL`;
@@ -640,29 +787,25 @@
             .catch(error => {
                 errorSound.play();
                 console.error('Axios request failed:', error);
-                apiResponseDiv.style.display = 'block'; // Show response section even for errors
+                apiResponseDiv.style.display = 'block';
                 responseHeaderPre.textContent = `Error: ${error.message}`;
-                responseBodyContainer.innerHTML = ''; // Clear body
-                if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none'; // Hide copy button
+                responseBodyContainer.innerHTML = '';
+                if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
 
                 if (error.response) {
-                    // Display error response headers
                     let headerString = `Status: ${error.response.status} ${error.response.statusText}\n`;
                     Object.entries(error.response.headers).forEach(([key, value]) => { headerString += `${key}: ${value}\n`; });
                     responseHeaderPre.textContent = headerString.trim();
 
-                    // Attempt to display error response body
                      if (error.response.data && error.response.data.byteLength > 0) {
                         const pre = document.createElement('pre');
-                        pre.className = "text-red-400"; // Style as error
+                        pre.className = "text-red-400";
                          try {
                               const decoder = new TextDecoder('utf-8');
                               const errorText = decoder.decode(new Uint8Array(error.response.data));
                               try {
-                                  // Try to format if it's JSON
                                   pre.textContent = JSON.stringify(JSON.parse(errorText), null, 2);
                               } catch (jsonError) {
-                                  // Otherwise display as plain text
                                   pre.textContent = errorText;
                               }
                           } catch (decodeError) {
@@ -690,10 +833,11 @@
             });
         });
 
-
-        // --- Initial Load ---
         setupModalTriggers();
         loadTags();
-        fetchData('/renderpage?tags='); // Load all endpoints initially
+        fetchData('/renderpage?tags=');
 
-    });</script></body></html>
+    });
+    </script>
+</body>
+</html>
