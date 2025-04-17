@@ -29,7 +29,9 @@ const playyt = require('../lib/play.js')
 const ttsindo = require('../lib/ttsindo.js')
 const allvid = require('../lib/alvid.js')
 const googleSearch = require('../lib/googleSearch.js')
+const fluxf = require('../lib/fluxFast.js')
 //-
+router.get('/fluxfast', fluxf)
 router.get('/yahoo-search', googleSearch)
 router.get('/allvid', allvid);
 router.get('/text2speech-indo', ttsindo)

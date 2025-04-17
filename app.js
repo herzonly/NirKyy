@@ -9,14 +9,17 @@ const PUBLIC_DIR = path.join(__dirname, 'public');
 const VIEWS_DIR = path.join(__dirname, 'views');
 const ENDPOINTS_FILE = path.join(__dirname, 'list.json');
 
-let endpoints = [];
+let dataJson = { daftarTags: [], fitur: [] };
 try {
     const rawData = fs.readFileSync(ENDPOINTS_FILE, 'utf-8');
-    endpoints = JSON.parse(rawData);
-    console.log(`Successfully loaded ${endpoints.length} endpoints from ${ENDPOINTS_FILE}`);
+    dataJson = JSON.parse(rawData);
+    console.log(`Berhasil memuat ${dataJson.fitur.length} endpoint dari ${ENDPOINTS_FILE}`);
 } catch (err) {
-    console.error(`Error reading or parsing endpoints file (${ENDPOINTS_FILE}):`, err);
+    console.error(`Error saat membaca atau mem-parse file endpoint (${ENDPOINTS_FILE}):`, err);
 }
+
+const endpoints = dataJson.fitur;
+const daftarTags = dataJson.daftarTags;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -41,7 +44,7 @@ function getUniqueTags(data) {
         if (ep.tags && Array.isArray(ep.tags)) {
             ep.tags.forEach(tag => {
                 if (tag && typeof tag === 'string') {
-                   tags.add(tag.trim());
+                    tags.add(tag.trim());
                 }
             });
         }
@@ -49,7 +52,7 @@ function getUniqueTags(data) {
     return Array.from(tags).sort((a, b) => a.localeCompare(b));
 }
 
-const uniqueTags = getUniqueTags(endpoints);
+const uniqueTags = daftarTags;
 
 function generateEndpointsHTML(data) {
     if (!data || data.length === 0) {
@@ -96,9 +99,9 @@ function filterEndpoints(data, { term, tags }) {
     if (tags) {
         const lowerTags = tags.toLowerCase().split(',').map(t => t.trim()).filter(t => t);
         if (lowerTags.length > 0) {
-             filteredData = filteredData.filter(ep =>
-                 ep.tags && Array.isArray(ep.tags) && ep.tags.some(tag => lowerTags.includes(tag.toLowerCase()))
-             );
+            filteredData = filteredData.filter(ep =>
+                ep.tags && Array.isArray(ep.tags) && ep.tags.some(tag => lowerTags.includes(tag.toLowerCase()))
+            );
         }
     }
 
@@ -137,22 +140,22 @@ app.get('/search', (req, res) => {
 
 app.use((req, res, next) => {
     if (req.accepts('html')) {
-         res.status(404).render('404');
+        res.status(404).render('404');
     } else {
-         res.errorJson('Not Found', 404);
+        res.errorJson('Not Found', 404);
     }
 });
 
 app.use((err, req, res, next) => {
     console.error("Unhandled Error:", err.stack || err);
-     if (req.accepts('html')) {
-         res.status(500).render('500');
-     } else {
-         res.errorJson('Internal Server Error', 500);
-     }
+    if (req.accepts('html')) {
+        res.status(500).render('500');
+    } else {
+        res.errorJson('Internal Server Error', 500);
+    }
 });
 
 app.listen(port, () => {
-    console.log(`🚀 Server listening on http://localhost:${port}`);
+    console.log(`🚀 Server berjalan di http://localhost:${port}`);
 });
 
