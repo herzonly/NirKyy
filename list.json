@@ -18,7 +18,7 @@
     {
   "nama": "gemma-3-27b-it",
   "tags": ["AI", "Utility"],
-  "endpoint": "/gemmachat",
+  "endpoint": "/api/v1/gemmachat",
   "deskripsi": "Berinteraksi dengan model AI Gemma.",
   "parameter": [
     {
