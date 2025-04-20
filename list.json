@@ -16,6 +16,29 @@
   ],
   "fitur": [
     {
+  "nama": "gemma-3-27b-it",
+  "tags": ["AI", "Utility"],
+  "endpoint": "/gemmachat",
+  "deskripsi": "Berinteraksi dengan model AI Gemma.",
+  "parameter": [
+    {
+      "params": "user",
+      "example": "pengguna123",
+      "opsional": false
+    },
+    {
+      "params": "system",
+      "example": "kamu adalah asisten AI yang membantu.",
+      "opsional": false
+    },
+    {
+      "params": "prompt",
+      "example": "Halo, apa kabar?",
+      "opsional": false
+    }
+  ]
+},
+    {
       "nama": "Flux Image Generator",
       "tags": ["AI", "Image"],
       "endpoint": "/api/v1/fluxfast",
