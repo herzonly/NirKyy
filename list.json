@@ -16,6 +16,19 @@
   ],
   "fitur": [
     {
+  "nama": "Random Anime Image",
+  "tags": ["Image", "Random"],
+  "endpoint": "/api/v1/random-anime-image",
+  "deskripsi": "Menghasilkan gambar anime acak berdasarkan tipe (waifu, neko, cry, blush, cuddle, kiss).",
+  "parameter": [
+    {
+      "params": "type",
+      "example": "waifu",
+      "opsional": false
+    }
+  ]
+},
+    {
   "nama": "gemma-3-27b-it",
   "tags": ["AI", "Utility"],
   "endpoint": "/api/v1/gemmachat",

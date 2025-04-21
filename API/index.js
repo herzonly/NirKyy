@@ -51,6 +51,30 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
+router.get('/random-anime-image', async (req, res) => {
+  try {
+    const { type } = req.query;
+
+    const allowedTypes = ['waifu', 'neko', 'cry', 'blush', 'cuddle', 'kiss'];
+    if (!type || !allowedTypes.includes(type)) {
+      return res.status(400).json({ error: 'Type-nya ga valid cuy! Pilih salah satu dari: ' + allowedTypes.join(', ') });
+    }
+
+    const apiUrl = `https://api.waifu.pics/sfw/${type}`;
+    const response = await axios.get(apiUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36',
+        'Referer': 'https://random-image-v1.vercel.app/'
+      }
+    });
+
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Ada masalah saat mengambil gambar.' });
+  }
+});
+
 router.get('/gemmachat', async (req, res) => {
   const { user, system, prompt } = req.query;
 
