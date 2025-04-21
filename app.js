@@ -23,6 +23,7 @@ const daftarTags = dataJson.daftarTags;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.set('json spaces', 2);
 
 app.use((req, res, next) => {
     res.succesJson = (data, statusCode = 200) => res.status(statusCode).json({ published_By: "NirKyy", success: true, data: data });
