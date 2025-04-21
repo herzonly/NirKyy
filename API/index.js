@@ -54,12 +54,12 @@ router.get('/gemini',gemini)
 router.get('/random-anime-image', async (req, res) => {
   try {
     const { type } = req.query;
-
+    
     const allowedTypes = ['waifu', 'neko', 'cry', 'blush', 'cuddle', 'kiss'];
     if (!type || !allowedTypes.includes(type)) {
-      return res.status(400).json({ error: 'Type-nya ga valid cuy! Pilih salah satu dari: ' + allowedTypes.join(', ') });
+      return res.errorJson('Type-nya ga valid cuy! Pilih salah satu dari: ' + allowedTypes.join(', '), 400);
     }
-
+    
     const apiUrl = `https://api.waifu.pics/sfw/${type}`;
     const response = await axios.get(apiUrl, {
       headers: {
@@ -67,11 +67,16 @@ router.get('/random-anime-image', async (req, res) => {
         'Referer': 'https://random-image-v1.vercel.app/'
       }
     });
-
-    res.json(response.data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Ada masalah saat mengambil gambar.' });
+    
+    const imageUrl = response.data.url;
+    const imageResp = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+    const contentType = imageResp.headers['content-type'] || 'image/jpeg';
+    
+    res.setHeader('Content-Type', contentType);
+    res.send(imageResp.data);
+  } catch (err) {
+    console.error('Error cuy:', err.message);
+    res.errorJson('Ada error cuy, coba lagi nanti!', 500);
   }
 });
 
