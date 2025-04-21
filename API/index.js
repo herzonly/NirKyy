@@ -31,6 +31,7 @@ const allvid = require('../lib/alvid.js')
 const googleSearch = require('../lib/googleSearch.js')
 const fluxf = require('../lib/fluxFast.js')
 //-
+router.get('/otakudesu', require('../lib/otakudesu.js'))
 router.get('/fluxfast', fluxf)
 router.get('/yahoo-search', googleSearch)
 router.get('/allvid', allvid);
