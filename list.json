@@ -16,6 +16,39 @@
   ],
   "fitur": [
     {
+  "nama": "Otakudesu Scraper",
+  "tags": ["Information", "Search"],
+  "endpoint": "/api/v1/otakudesu",
+  "deskripsi": "Mengambil data anime (detail, episode, genre, pencarian) dari Otakudesu.",
+  "parameter": [
+    {
+      "params": "action",
+      "example": "home, anime, episode, search, genres, genre, get_server_url",
+      "opsional": false
+    },
+    {
+      "params": "id",
+      "example": "nama-anime-atau-episode-id (opsional tergantung action)",
+      "opsional": true
+    },
+     {
+      "params": "q",
+      "example": "query pencarian (opsional tergantung action)",
+      "opsional": true
+    },
+     {
+      "params": "server_id",
+      "example": "server id untuk streaming (opsional tergantung action)",
+      "opsional": true
+    },
+    {
+      "params": "page",
+      "example": "nomor halaman (opsional)",
+      "opsional": true
+    }
+  ]
+},
+    {
   "nama": "Random Anime Image",
   "tags": ["Image", "Random"],
   "endpoint": "/api/v1/random-anime-image",
