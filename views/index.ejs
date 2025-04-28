@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
+ <html lang="id" class="dark">
+ <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width,initial-scale=1">
  <title>NirKyy - REST API Documentation</title>
@@ -16,7 +16,7 @@
  <meta property="og:image" content="/favicon.ico">
  <meta name="twitter:card" content="summary_large_image">
  <meta name="twitter:title" content="NirKyy - Modern REST API Documentation">
- <meta name="twitter:description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, and Web.">
+ <meta name="twitter:description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web.">
  <meta name="twitter:site" content="@NirKyyDev">
  <meta name="twitter:image" content="/favicon.ico">
  <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -26,83 +26,65 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
  <style type="text/tailwindcss">
- @layer base {
  body {
  font-family: 'Poppins', sans-serif;
- background-color: #181a2a; /* Softer dark background */
- color: #c2c7d1; /* Softer text color */
  }
  ::-webkit-scrollbar { width: 8px; height: 8px;}
- ::-webkit-scrollbar-track { background: #25283b; } /* Track color */
- ::-webkit-scrollbar-thumb { background: #5a637b; border-radius: 4px;} /* Thumb color */
- ::-webkit-scrollbar-thumb:hover { background: #727b93; } /* Thumb hover */
- }
-
- @layer components {
+ ::-webkit-scrollbar-track { background: #1f2937; } /* bg-gray-800 */
+ ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px;} /* bg-gray-600 */
+ ::-webkit-scrollbar-thumb:hover { background: #6b7280; } /* bg-gray-500 */
  .tag-active {
- background-color: #6c63ff; /* Soft indigo */
+ background-color: #4f46e5; /* bg-indigo-600 */
  color: white;
  font-weight: 600;
  }
  .modal-backdrop {
- background-color: rgba(24, 26, 42, 0.85); /* Softer dark with transparency */
- transition: opacity 0.3s ease;
+ background-color: rgba(17, 24, 39, 0.75); /* bg-gray-900 opacity-75 */
  }
  .modal {
  max-height: 90vh;
- background-color: #25283b; /* Softer dark modal background */
- border-radius: 16px; /* Larger border radius */
- overflow: hidden; /* Ensure children respect radius */
  }
  .btn-copy-feedback {
- background-color: #34d399 !important; /* Soft emerald */
+ background-color: #10b981 !important; /* bg-emerald-500 */
  color: white !important;
  }
  pre {
  white-space: pre-wrap;
  word-wrap: break-word;
- background-color: #1e2130; /* Darker code background */
- border: 1px solid #3d4558; /* Softer border color */
- padding: 16px; /* More padding */
- border-radius: 12px; /* Larger border radius */
+ background-color: #111827; /* bg-gray-900 */
+ border: 1px solid #374151; /* border-gray-700 */
+ padding: 12px;
+ border-radius: 8px;
  overflow-x: auto;
- color: #d1d5db; /* Text color */
+ color: #d1d5db; /* text-gray-300 */
  font-family: 'Courier New', Courier, monospace;
  font-size: 0.875rem; /* text-sm */
  max-height: 400px;
  }
  .response-area {
  position: relative;
- margin-bottom: 1.5rem; /* More space below */
+ margin-bottom: 1rem; /* Add some space below each area */
  }
  .response-area .btn-copy {
  position: absolute;
- right: 12px; /* Adjusted position */
- top: 12px; /* Adjusted position */
+ right: 8px;
+ top: 8px;
  z-index: 10;
- background: rgba(61, 69, 88, 0.7); /* Softer background with opacity */
+ background: rgba(55, 65, 81, 0.7); /* bg-gray-600 opacity-70 */
  border: none;
- color: #d1d5db; /* Text color */
- padding: 4px 8px; /* More padding */
+ color: #d1d5db; /* text-gray-300 */
+ padding: 2px 6px;
  font-size: 0.75rem; /* text-xs */
- border-radius: 8px; /* Larger border radius */
- opacity: 0.8; /* Slightly less opaque */
+ border-radius: 4px;
+ opacity: 0.6;
  transition: opacity 0.2s ease, background 0.2s ease;
  cursor: pointer;
  }
  .response-area .btn-copy:hover {
  opacity: 1;
- background: rgba(81, 90, 107, 0.9); /* Darker hover background */
+ background: rgba(75, 85, 99, 0.9); /* bg-gray-500 opacity-90 */
  }
- #responseBodyContainer {
- border: 1px solid #3d4558; /* Softer border */
- border-radius: 12px; /* Larger border radius */
- background-color: #1e2130; /* Darker background */
- padding: 16px; /* Add padding like pre */
- }
- #responseBodyContainer > pre:only-child {
- margin: -16px; /* Counteract parent padding */
- }
+ /* Adjustments for media content in response body */
  #responseBodyContainer img,
  #responseBodyContainer video,
  #responseBodyContainer audio {
@@ -111,106 +93,48 @@
  display: block;
  margin-top: 10px;
  border-radius: 8px;
- background-color: #1e2130;
+ background-color: #111827; /* bg-gray-900 */
+ }
+ #responseBodyContainer audio {
+ width: 100%;
+ min-height: 54px;
+ }
+ /* Ensure response body container has padding when showing media/download */
+ #responseBodyContainer {
+ border: 1px solid #374151; /* border-gray-700 */
+ border-radius: 8px;
+ background-color: #111827; /* bg-gray-900 */
+ padding: 12px; /* Add padding like pre */
+ }
+ /* Remove padding if it ONLY contains a pre tag */
+ #responseBodyContainer > pre:only-child {
+ margin: -12px; /* Counteract parent padding */
  }
  .sidebar-transition {
  transition: transform 0.3s ease-in-out;
  }
- .endpoint-card {
- transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
- border-radius: 12px; /* Larger radius */
- background-color: #2e3247; /* Softer card background */
- border: 1px solid #3d4558; /* Softer border */
- }
- .endpoint-card:hover {
- transform: translateY(-4px); /* Subtle lift */
- box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Softer shadow */
- border-color: #6c63ff; /* Highlight color */
- }
- .endpoint-path {
- background-color: #1e2130; /* Darker path background */
- border-color: #3d4558; /* Softer border */
- border-radius: 8px; /* Larger radius */
- }
- .tag-pill {
- background-color: #6c63ff; /* Soft indigo pill */
- color: white;
- font-weight: 500;
- border-radius: 9999px; /* Full pill shape */
- padding: 2.5px 10px; /* Adjusted padding */
- font-size: 0.75rem;
- }
- .try-button, .btn-copy-url {
- border-radius: 8px; /* Larger button radius */
- transition: background-color 0.2s ease;
- }
- .try-button {
- background-color: #6c63ff; /* Soft indigo button */
- }
- .try-button:hover {
- background-color: #5249e4; /* Darker indigo on hover */
- }
- .btn-copy-url {
- background-color: #5a637b; /* Softer gray button */
- }
- .btn-copy-url:hover {
- background-color: #474e62; /* Darker gray on hover */
- }
-
- @keyframes fadeIn {
- from { opacity: 0; }
- to { opacity: 1; }
- }
-
- @keyframes slideInLeft {
- from { transform: translateX(-20px); opacity: 0; }
- to { transform: translateX(0); opacity: 1; }
- }
-
- @keyframes slideInUp {
- from { transform: translateY(20px); opacity: 0; }
- to { transform: translateY(0); opacity: 1; }
- }
-
- .animate-fadeIn { animation: fadeIn 0.6s ease-out forwards; }
- .animate-slideInLeft { animation: slideInLeft 0.5s ease-out forwards; }
- .animate-slideInUp { animation: slideInUp 0.6s ease-out forwards; }
-
- .modal-open .modal-backdrop { opacity: 1; }
- .modal-closed .modal-backdrop { opacity: 0; }
- .modal-open .modal { opacity: 1; transform: scale(1); }
- .modal-closed .modal { opacity: 0; transform: scale(0.95); }
-
- .hidden-modal { display: none; }
-
- /* Add specific styles for responsiveness */
- @media (max-width: 1023px) {
- .lg\\:translate-x-0 { transform: translateX(0); } /* Override default to control with JS */
- }
-
- }
  </style>
-</head>
-<body class="bg-gray-900 text-gray-200">
+ </head>
+ <body class="bg-gray-900 text-gray-200">
  <div class="flex h-screen overflow-hidden">
- <aside id="sidebar" class="sidebar-transition fixed inset-y-0 left-0 z-30 w-64 bg-gray-800 border-r border-gray-700 transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0 overflow-y-auto p-6 lg:p-4">
- <div class="flex items-center justify-between pb-6 mb-6 border-b border-gray-700 lg:pb-4 lg:mb-4">
+ <aside id="sidebar" class="sidebar-transition fixed inset-y-0 left-0 z-30 w-64 bg-gray-800 border-r border-gray-700 transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0 overflow-y-auto">
+ <div class="flex items-center justify-between p-4 border-b border-gray-700">
  <div class="flex items-center space-x-3">
  <img src="/favicon.ico" alt="Logo NirKyy" class="h-10 w-10 rounded-full">
  <h1 class="text-xl font-semibold text-white">NirKyy API</h1>
  </div>
  <button id="sidebar-close" class="lg:hidden text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
  </div>
- <div class="space-y-6 lg:space-y-4">
+ <div class="p-4 space-y-4">
  <div class="relative">
  <span class="absolute inset-y-0 left-0 flex items-center pl-3"><i class="fas fa-search text-gray-400"></i></span>
  <input type="text" id="searchEndpoint" class="w-full pl-10 pr-4 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400 text-sm" placeholder="Cari endpoint...">
  </div>
  <nav class="mt-6">
- <h3 class="px-2 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 lg:mb-2">Tags</h3>
- <div id="tagButtons" class="space-y-2 lg:space-y-1">
- <a href="#" data-tags="" class="tag-link group flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition duration-150"><i class="fas fa-tags mr-3 text-gray-400 group-hover:text-gray-300"></i>All Tags</a>
- <div class="px-3 py-2 text-sm text-gray-500 italic">Memuat tags...</div>
+ <h3 class="px-2 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Tags</h3>
+ <div id="tagButtons" class="space-y-1">
+ <a href="#" data-tags="" class="tag-link group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"><i class="fas fa-tag mr-3 text-gray-400 group-hover:text-gray-300"></i>All Tags</a>
+ <div class="px-2 py-2 text-sm text-gray-500">Memuat tags...</div>
  </div>
  </nav>
  </div>
@@ -224,8 +148,8 @@
  </div>
  <div></div>
  </header>
- <div class="flex-1 overflow-y-auto p-6 lg:p-8">
- <div id="endpointListSection" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 animate-fadeIn">
+ <div class="flex-1 overflow-y-auto p-4 lg:p-6">
+ <div id="endpointListSection" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
  <div class="loading-placeholder col-span-full flex flex-col items-center justify-center h-64 text-gray-500">
  <svg class="animate-spin h-10 w-10 text-indigo-400 mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -242,25 +166,25 @@
  </main>
  </div>
 
- <div id="tryModal" class="fixed inset-0 z-40 overflow-y-auto hidden-modal modal-closed" aria-labelledby="tryModalLabel" role="dialog" aria-modal="true">
+ <div id="tryModal" class="fixed inset-0 z-40 overflow-y-auto hidden" aria-labelledby="tryModalLabel" role="dialog" aria-modal="true">
  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
  <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity modal-backdrop" aria-hidden="true"></div>
  <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
- <div class="modal inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl w-full flex flex-col opacity-0 scale-95">
- <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-700 sticky top-0 z-10 flex justify-between items-center">
- <div class="flex items-center">
- <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-600 sm:mx-0 sm:h-10 sm:w-10"><i class="fas fa-vial text-white text-xl"></i></div>
+ <div class="modal inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl w-full flex flex-col">
+ <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-700 sticky top-0 z-10">
+ <div class="sm:flex sm:items-start">
+ <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 sm:mx-0 sm:h-10 sm:w-10"><i class="fas fa-vial text-indigo-600 text-xl"></i></div>
  <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
  <h3 class="text-lg leading-6 font-medium text-indigo-400" id="tryModalLabel">Coba Endpoint</h3>
+ <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200" data-modal-hide="tryModal"><i class="fas fa-times text-xl"></i></button>
  </div>
  </div>
- <button type="button" class="text-gray-400 hover:text-gray-200 transition duration-150" data-modal-hide="tryModal"><i class="fas fa-times text-xl"></i></button>
  </div>
  <div class="px-4 py-5 sm:p-6 flex-1 overflow-y-auto space-y-6">
  <div id="parameterInputs">
  <h4 class="text-md font-medium text-gray-400 mb-3">Parameter Permintaan</h4>
  </div>
- <button id="runButton" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-3 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:text-sm transition duration-150 ease-in-out">
+ <button id="runButton" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:text-sm transition duration-150 ease-in-out">
  <i class="fas fa-play mr-2 -ml-1"></i>Jalankan Permintaan
  </button>
  <div id="loadingIndicator" class="text-center py-3 text-gray-400" style="display:none">
@@ -302,31 +226,31 @@
  </div>
  </div>
  <div class="bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-700 sticky bottom-0 z-10">
- <button type="button" data-modal-hide="tryModal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-600 shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition duration-150">Tutup</button>
+ <button type="button" data-modal-hide="tryModal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-600 shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Tutup</button>
  </div>
  </div>
  </div>
  </div>
 
- <div id="whatsappModal" class="fixed inset-0 z-50 overflow-y-auto hidden-modal modal-closed" aria-labelledby="whatsappModalLabel" role="dialog" aria-modal="true">
+ <div id="whatsappModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="whatsappModalLabel" role="dialog" aria-modal="true">
  <div class="flex items-center justify-center min-h-screen px-4 text-center">
  <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity modal-backdrop" aria-hidden="true"></div>
- <div class="inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full opacity-0 scale-95">
+ <div class="inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
  <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
  <div class="sm:flex sm:items-start">
- <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-600 sm:mx-0 sm:h-10 sm:w-10"><i class="fab fa-whatsapp text-white text-2xl"></i></div>
+ <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10"><i class="fab fa-whatsapp text-green-600 text-2xl"></i></div>
  <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
  <h3 class="text-lg leading-6 font-medium text-green-400" id="whatsappModalLabel">Gabung Saluran WhatsApp Kami!</h3>
  <div class="mt-2">
  <p class="text-sm text-gray-400">Dapatkan update API terbaru, info menarik, dan diskusi seru seputar NirKyy langsung di WhatsApp Anda.</p>
  </div>
  </div>
- <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200 transition duration-150" data-modal-hide="whatsappModal"><i class="fas fa-times text-xl"></i></button>
+ <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200" data-modal-hide="whatsappModal"><i class="fas fa-times text-xl"></i></button>
  </div>
  </div>
- <div class="bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-3 border-t border-gray-700">
- <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:ring-offset-gray-800 sm:w-auto sm:text-sm transition duration-150"><i class="fab fa-whatsapp mr-2 -ml-1"></i>Gabung Sekarang</a>
- <button type="button" data-modal-hide="whatsappModal" class="w-full inline-flex justify-center rounded-md border border-gray-600 shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:w-auto sm:text-sm transition duration-150">Nanti Saja</button>
+ <div class="bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-3">
+ <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:ring-offset-gray-800 sm:w-auto sm:text-sm"><i class="fab fa-whatsapp mr-2 -ml-1"></i>Gabung Sekarang</a>
+ <button type="button" data-modal-hide="whatsappModal" class="w-full inline-flex justify-center rounded-md border border-gray-600 shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:w-auto sm:text-sm">Nanti Saja</button>
  </div>
  </div>
  </div>
@@ -395,7 +319,7 @@
 
  setTimeout(() => {
  if (whatsappModalElement && !localStorage.getItem('whatsappModalDismissed')) {
- showModal(whatsappModalElement);
+ whatsappModalElement.classList.remove('hidden');
  }
  }, 3000);
 
@@ -413,7 +337,7 @@
  }
 
  let html = '';
- endpointsArray.forEach((ep, index) => {
+ endpointsArray.forEach(ep => {
  const name = ep.nama || 'Unnamed Endpoint';
  const path = ep.endpoint || '/error-missing-path';
  const tags = (Array.isArray(ep.tags) ? ep.tags : []).filter(t => t && typeof t === 'string');
@@ -421,7 +345,7 @@
  const escapedData = JSON.stringify(ep).replace(/'/g, "\\'");
 
  html += `
- <div class="endpoint-card bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-700 hover:border-indigo-500 transition duration-200 ease-in-out transform hover:-translate-y-1 animate-slideInUp" style="animation-delay: ${index * 0.05}s;">
+ <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-700 hover:border-indigo-500 transition duration-200 ease-in-out transform hover:-translate-y-1">
  <div class="px-4 py-3 border-b border-gray-700">
  <h3 class="text-md font-semibold text-indigo-400">${name}</h3>
  </div>
@@ -439,7 +363,7 @@
  </div>
  <p class="text-sm text-gray-300">${description}</p>
  <div class="flex flex-wrap gap-1 pt-1">
- ${tags.map(t => `<span class="tag-pill bg-indigo-500 text-white text-xs font-medium px-2.5 py-0.5 rounded-full">${t}</span>`).join('')}
+ ${tags.map(t => `<span class="bg-indigo-500 text-white text-xs font-medium px-2.5 py-0.5 rounded-full">${t}</span>`).join('')}
  </div>
  </div>
  </div>`;
@@ -501,51 +425,43 @@
  return res.json();
  })
  .then(data => {
- let html = `<a href="#" data-tags="" class="tag-link group flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition duration-150 ${activeTag === '' ? 'tag-active' : ''}">
+ let html = `<a href="#" data-tags="" class="tag-link group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white ${activeTag === '' ? 'tag-active' : ''}">
  <i class="fas fa-tags mr-3 text-gray-400 group-hover:text-gray-300"></i> All Tags
  </a>`;
  if (data && data.tags && Array.isArray(data.tags) && data.tags.length > 0) {
  data.tags.sort((a, b) => a.localeCompare(b));
  data.tags.forEach(tag => {
- html += `<a href="#" data-tags="${tag}" class="tag-link group flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition duration-150 ${activeTag === tag ? 'tag-active' : ''}">
+ html += `<a href="#" data-tags="${tag}" class="tag-link group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white ${activeTag === tag ? 'tag-active' : ''}">
  <i class="fas fa-tag mr-3 text-gray-400 group-hover:text-gray-300"></i> ${tag}
  </a>`;
  });
  } else {
- html += '<div class="px-3 py-2 text-sm text-gray-500 italic">Tidak ada tag.</div>';
+ html += '<div class="px-2 py-2 text-sm text-gray-500 italic">Tidak ada tag.</div>';
  }
  tagButtonsContainer.innerHTML = html;
  })
  .catch(error => {
  console.error("Error loading tags:", error);
- tagButtonsContainer.innerHTML = '<div class="px-3 py-2 text-sm text-red-500">Gagal memuat tag.</div>';
+ tagButtonsContainer.innerHTML = '<div class="px-2 py-2 text-sm text-red-500">Gagal memuat tag.</div>';
  });
  }
 
  function showModal(modalElement) {
  if (modalElement) {
- modalElement.classList.remove('hidden-modal');
- setTimeout(() => {
- modalElement.classList.remove('modal-closed');
- modalElement.classList.add('modal-open');
+ modalElement.classList.remove('hidden');
  document.body.classList.add('overflow-hidden');
- }, 10);
  }
  }
 
  function hideModal(modalElement, persistDismiss = false) {
  if (modalElement) {
- modalElement.classList.add('modal-closed');
- modalElement.classList.remove('modal-open');
+ modalElement.classList.add('hidden');
  if (persistDismiss && modalElement.id === 'whatsappModal') {
  localStorage.setItem('whatsappModalDismissed', 'true');
  }
- setTimeout(() => {
- modalElement.classList.add('hidden-modal');
- if (!document.querySelector('.fixed.inset-0.z-40:not(.hidden-modal), .fixed.inset-0.z-50:not(.hidden-modal)')) {
+ if (!document.querySelector('.fixed.inset-0.z-40:not(.hidden), .fixed.inset-0.z-50:not(.hidden)')) {
  document.body.classList.remove('overflow-hidden');
  }
- }, 300);
  }
  }
 
@@ -657,9 +573,7 @@
  if (tagLink) {
  activeTag = tagLink.getAttribute('data-tags');
  searchEndpointInput.value = '';
- const tagLinks = tagButtonsContainer.querySelectorAll('.tag-link');
- tagLinks.forEach(link => link.classList.remove('tag-active'));
- tagLink.classList.add('tag-active');
+ loadTags();
  fetchData(`/renderpage?tags=${encodeURIComponent(activeTag)}`);
 
  if (window.innerWidth < 1024) {
@@ -791,7 +705,7 @@
  const img = document.createElement('img');
  img.src = imageUrl;
  img.alt = "API Response Image";
- img.className = "max-w-full h-auto rounded-md";
+ img.className = "max-w-full h-auto rounded-md"; // Removed mt-2, handled by parent padding
  responseBodyContainer.innerHTML = '';
  responseBodyContainer.appendChild(img);
  successSound.play();
@@ -801,7 +715,7 @@
  const video = document.createElement('video');
  video.controls = true;
  video.src = videoUrl;
- video.className = "max-w-full rounded-md";
+ video.className = "max-w-full rounded-md"; // Removed mt-2
  responseBodyContainer.innerHTML = '';
  responseBodyContainer.appendChild(video);
  successSound.play();
@@ -813,7 +727,7 @@
  audio.controls = true;
  audio.preload = 'metadata';
  audio.src = audioUrl;
- audio.className = "w-full";
+ audio.className = "w-full"; // Removed mt-2
  responseBodyContainer.innerHTML = '';
  responseBodyContainer.appendChild(audio);
  successSound.play();
@@ -837,7 +751,7 @@
  responseBodyContainer.innerHTML = '';
  const pre = document.createElement('pre');
  pre.textContent = `[Received ${contentType || 'unknown'} data - ${responseData.byteLength} bytes]`;
- pre.className = "text-gray-400 text-sm mb-2";
+ pre.className = "text-gray-400 text-sm mb-2"; // Added margin-bottom
  responseBodyContainer.appendChild(pre);
 
  try {
@@ -948,5 +862,5 @@
 
  });
  </script>
-</body>
-</html>
+ </body>
+ </html>
