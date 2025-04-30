@@ -16,6 +16,19 @@
   ],
   "fitur": [
     {
+      "nama": "Youtube Audio V2",
+      "tags": ["Audio", "Downloader"],
+      "endpoint": "/api/v1/youtube-audio-v2",
+      "deskripsi": "Unduh audio dari video YouTube menggunakan URL.",
+      "parameter": [
+        {
+          "params": "url",
+          "example": "https://youtu.be/-ktlIHSOOmk?si=X9X5jlOhDd1jsl9M",
+          "opsional": false
+        }
+      ]
+    },
+    {
   "nama": "Otakudesu Scraper",
   "tags": ["Information", "Search"],
   "endpoint": "/api/v1/otakudesu",
@@ -193,7 +206,7 @@
       "parameter": [
         {
           "params": "q",
-          "example": "Aku dah lupa tak ingat lagi",
+          "example": "Stecu stecu",
           "opsional": false
         }
       ]
