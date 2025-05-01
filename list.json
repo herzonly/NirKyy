@@ -16,7 +16,7 @@
   ],
   "fitur": [
     {
-  "nama": "Komiku",
+  "nama": "Komiku Scraper",
   "tags": ["Search", "Information"],
   "endpoint": "/api/v1/komik",
   "deskripsi": "Mencari komik, melihat detail komik dan chapter, melihat komik populer, dan riwayat baca dari Komiku.id.",
