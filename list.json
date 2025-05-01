@@ -16,6 +16,34 @@
   ],
   "fitur": [
     {
+  "nama": "Komiku",
+  "tags": ["Search", "Information"],
+  "endpoint": "/api/v1/komik",
+  "deskripsi": "Mencari komik, melihat detail komik dan chapter, melihat komik populer, dan riwayat baca dari Komiku.id.",
+  "parameter": [
+    {
+      "params": "s",
+      "example": "boruto",
+      "opsional": true
+    },
+    {
+      "params": "manga",
+      "example": "boruto-two-blue-vortex",
+      "opsional": true
+    },
+    {
+      "params": "chapter",
+      "example": "boruto-two-blue-vortex-chapter-01",
+      "opsional": true
+    },
+     {
+      "params": "tab",
+      "example": "popular",
+      "opsional": true
+    }
+  ]
+},
+    {
       "nama": "Youtube Audio V2",
       "tags": ["Audio", "Downloader"],
       "endpoint": "/api/v1/youtube-audio-v2",
