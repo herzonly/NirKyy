@@ -16,6 +16,13 @@
   ],
   "fitur": [
     {
+  "nama": "Random Hentai Image",
+  "tags": ["Image", "Random"],
+  "endpoint": "/api/v1/image-hentai",
+  "deskripsi": "Mendapatkan gambar hentai acak dari sumber eksternal.",
+  "parameter": []
+},
+    {
   "nama": "Komiku Scraper",
   "tags": ["Search", "Information"],
   "endpoint": "/api/v1/komik",
