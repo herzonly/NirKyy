@@ -916,9 +916,10 @@ router.get('/brats', async (req, res) => {
 
   try {
     const apiUrl = `https://express-vercel-ytdl.vercel.app/brats?host=${encodeURIComponent(host)}&text=${encodeURIComponent(text)}`;
-    const response = await axios.get(apiUrl, { responseType: 'stream' });
+    const response = await axios.get(apiUrl, { responseType: 'arraybuffer' });
     res.setHeader('Content-Type', 'image/png');
-    response.data.pipe(res);
+    const buffer = Buffer.from(response.data);
+    res.send(buffer);
   } catch (error) {
     console.error("Error fetching or streaming brats image:", error);
     res.errorJson({ error: "Gagal mengambil atau mengirim gambar brats." });
@@ -934,10 +935,10 @@ router.get('/artinama', async (req, res) => {
 
   try {
     const apiUrl = `https://express-vercel-ytdl.vercel.app/arti?nama=${encodeURIComponent(nama)}`;
-    const response = await axios.get(apiUrl, { responseType: 'stream' });
+const response = await axios.get(apiUrl, { responseType: 'arraybuffer' });
 
-    res.setHeader('Content-Type', 'image/jpeg');
-    response.data.pipe(res);
+res.setHeader('Content-Type', 'image/jpeg');
+res.send(Buffer.from(response.data));
   } catch (error) {
     console.error("Error fetching or streaming khodam image:", error);
     res.errorJson({ error: "Gagal mengambil atau mengirim gambar khodam." });
@@ -953,10 +954,10 @@ router.get('/khodam', async (req, res) => {
 
   try {
     const apiUrl = `https://express-vercel-ytdl.vercel.app/khodam?nama=${encodeURIComponent(nama)}`;
-    const response = await axios.get(apiUrl, { responseType: 'stream' });
+        const response = await axios.get(apiUrl, { responseType: 'arraybuffer' });
 
     res.setHeader('Content-Type', 'image/jpeg');
-    response.data.pipe(res);
+    res.send(Buffer.from(response.data));
   } catch (error) {
     console.error("Error fetching or streaming khodam image:", error);
     res.errorJson({ error: "Gagal mengambil atau mengirim gambar khodam." });
