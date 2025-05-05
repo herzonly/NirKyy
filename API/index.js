@@ -783,7 +783,9 @@ router.get('/anime-search', async (req, res) => {
 
     const anime = result[0];
     const originalSynopsis = anime.synopsis;
-    const aiPrompt = `Terjemahkan dan ringkas sinopsis di bawah secara langsung tanpa basa basi:\n\n${originalSynopsis}`;
+    const aiPrompt = `Terjemahkan dan ringkas sinopsis berikut ke dalam Bahasa Indonesia dengan kalimat yang jelas dan santai. Hasilnya hanya berupa teks terjemahan dan ringkasan sinopsis, tanpa format tambahan seperti bullet points, nomor, atau simbol lainnya.
+Sinopsis:
+${originalSynopsis}`;
 
     const geminiResponse = await axios.get(`https://nirkyy.koyeb.app/api/v1/gemini?prompt=${encodeURIComponent(aiPrompt)}`);
     const summarizedSynopsis = geminiResponse.data.data;
