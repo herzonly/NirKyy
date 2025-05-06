@@ -23,13 +23,11 @@ const endpoints = dataJson.fitur;
 const daftarTags = dataJson.daftarTags;
 
 const counterMiddleware = async (req, res, next) => {
-  if (req.path.startsWith('/api/v1')) {
     try {
       await axios.get('https://api.counterapi.dev/v1/nirkyy/api/up');
     } catch (error) {
       console.error('Terjadi kesalahan saat mengirim permintaan Axios:', error.message);
     }
-  }
   next();
 };
 app.use("/api/v1", counterMiddleware);
