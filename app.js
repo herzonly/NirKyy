@@ -23,7 +23,7 @@ const endpoints = dataJson.fitur;
 const daftarTags = dataJson.daftarTags;
 
 const counterMiddleware = async (req, res, next) => {
-  if (req.path === '/api/v1') {
+  if (req.path.startsWith('/api/v1')) {
     try {
       await axios.get('https://api.counterapi.dev/v1/nirkyy/api/up');
     } catch (error) {
@@ -32,8 +32,7 @@ const counterMiddleware = async (req, res, next) => {
   }
   next();
 };
-
-app.use(counterMiddleware)
+app.use("/api/v1", counterMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('json spaces', 2);
