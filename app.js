@@ -22,14 +22,16 @@ try {
 const endpoints = dataJson.fitur;
 const daftarTags = dataJson.daftarTags;
 
-const counterMiddleware = async (req, res, next) => {
-    try {
-      await axios.get('https://api.counterapi.dev/v1/nirkyy/api/up');
-    } catch (error) {
-      console.error('Terjadi kesalahan saat mengirim permintaan Axios:', error.message);
-    }
+const counterMiddleware = (req, res, next) => {
+  axios.get('https://api.counterapi.dev/v1/nirkyy/api/up', {
+    timeout: 10000
+  })
+  .catch(error => {
+    console.error('Terjadi kesalahan saat mengirim permintaan Axios:', error.message);
+  });
   next();
 };
+
 app.use("/api/v1", counterMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
