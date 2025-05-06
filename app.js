@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const API = require('./API/index.js');
 const app = express();
+const axios = require('axios');
 const port = process.env.PORT || 3000;
 
 const PUBLIC_DIR = path.join(__dirname, 'public');
@@ -21,6 +22,18 @@ try {
 const endpoints = dataJson.fitur;
 const daftarTags = dataJson.daftarTags;
 
+const counterMiddleware = async (req, res, next) => {
+  if (req.path === '/api/v1') {
+    try {
+      await axios.get('https://api.counterapi.dev/v1/nirkyy/api/up');
+    } catch (error) {
+      console.error('Terjadi kesalahan saat mengirim permintaan Axios:', error.message);
+    }
+  }
+  next();
+};
+
+app.use(counterMiddleware)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('json spaces', 2);
