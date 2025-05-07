@@ -16,6 +16,19 @@
   ],
   "fitur": [
     {
+  "nama": "Image Random Search",
+  "tags": ["Search", "Image", "Random"],
+  "endpoint": "/api/v1/image-random",
+  "deskripsi": "Mencari gambar secara acak berdasarkan kata kunci dari Yahoo Search Images dan mengembalikan salah satunya.",
+  "parameter": [
+    {
+      "params": "query",
+      "example": "pemandangan alam",
+      "opsional": false
+    }
+  ]
+},
+    {
   "nama": "Random Hentai Image",
   "tags": ["Image", "Random"],
   "endpoint": "/api/v1/image-hentai",
