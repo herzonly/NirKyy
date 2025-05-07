@@ -821,7 +821,8 @@ ${originalSynopsis}`;
     const themes = anime.themes.map(theme => theme.name).join(', ');
 
     res.succesJson({
-      thumbnail: anime.images.jpg.image_url,
+      thumbnail: `https://nirkyy.koyeb.app/api/v1/image-random?query=${encodeURIComponent(q)}`,
+      thumb_original: anime.images.jpg.image_url,
       title: anime.title,
       genre: genres,
       theme: themes,
