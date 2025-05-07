@@ -57,6 +57,32 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
+router.get('/fakeshop-image', async (req, res) => {
+  try {
+    const {
+      search,
+      judul,
+      harga,
+      thumbnail
+    } = req.query;
+
+    if (!search || !judul || !harga || !thumbnail) {
+      return res.errorJson('Ups, ada parameter yang kurang nih. Pastikan ada search, judul, harga, dan thumbnail ya.', 400);
+    }
+
+    const targetUrl = `https://express-vercel-ytdl.vercel.app/fakeshop-cuy?search=${encodeURIComponent(search)}&judul=${encodeURIComponent(judul)}&harga=${encodeURIComponent(harga)}&thumbnail=${encodeURIComponent(thumbnail)}`;
+
+    const response = await axios.get(targetUrl, {
+      responseType: 'arraybuffer'
+    });
+
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.send(response.data);
+
+  } catch (e) {
+    res.errorJson('Yah, ada masalah pas ngambil gambar nih. Coba lagi ya.');
+  }
+});
 router.get('/image-hentai', async (req, res) => {
   const ajaxUrl = 'https://aihentai.co/wp-admin/admin-ajax.php';
   const postData = 'action=get_random_image_url';
