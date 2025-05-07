@@ -23,8 +23,8 @@ const endpoints = dataJson.fitur;
 const daftarTags = dataJson.daftarTags;
 
 const counterMiddleware = (req, res, next) => {
-  axios.get('https://api.counterapi.dev/v1/nirkyy/api/up', {
-    timeout: 10000
+  axios.get('https://copper-ambiguous-velvet.glitch.me/up', {
+    timeout: 5000
   })
   .catch(error => {
     console.error('Terjadi kesalahan saat mengirim permintaan Axios:', error.message);
