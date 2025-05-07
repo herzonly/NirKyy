@@ -1,876 +1,928 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>NirKyy - REST API Documentation</title>
-    <meta name="description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web.">
-    <meta name="keywords" content="REST API, dokumentasi API, free API, NirKyy, endpoint, API documentation, web API, fetch API, modern API, aesthetic API, tailwind css">
-    <meta name="author" content="NirKyy Developer">
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <meta property="og:title" content="NirKyy - Modern REST API Documentation">
-    <meta property="og:description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://nirkyy.koyeb.app">
-    <meta property="og:image" content="https://nirkyy.koyeb.app/favicon.ico">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NirKyy - Modern REST API Documentation">
-    <meta name="twitter:description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web.">
-    <meta name="twitter:site" content="@NirKyyDev">
-    <meta name="twitter:image" content="https://nirkyy.koyeb.app/favicon.ico">
-    <link rel="icon" href="https://nirkyy.koyeb.app/favicon.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <style type="text/tailwindcss">
-        @layer base {
-            body {
-                font-family: 'Poppins', sans-serif;
-            }
-        }
-        @layer components {
-            ::-webkit-scrollbar { width: 8px; height: 8px;}
-            ::-webkit-scrollbar-track { background: #1f2937; } /* bg-gray-800 */
-            ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px;} /* bg-gray-600 */
-            ::-webkit-scrollbar-thumb:hover { background: #6b7280; } /* bg-gray-500 */
-            .tag-active {
-                @apply bg-indigo-600 text-white font-semibold;
-            }
-            .modal-backdrop {
-                @apply bg-gray-900 bg-opacity-75;
-            }
-            .modal {
-                max-height: 90vh;
-            }
-            .btn-copy-feedback {
-                @apply bg-emerald-500 text-white !important;
-            }
-            pre {
-                white-space: pre-wrap;
-                word-wrap: break-word;
-                @apply bg-gray-900 border border-gray-700 p-3 rounded-lg overflow-x-auto text-gray-300 text-sm;
-                font-family: 'Courier New', Courier, monospace;
-                max-height: 400px;
-            }
-            .response-area {
-                position: relative;
-                margin-bottom: 1rem;
-            }
-            .response-area .btn-copy {
-                position: absolute;
-                right: 8px;
-                top: 8px;
-                z-index: 10;
-                @apply bg-gray-600 bg-opacity-70 border-none text-gray-300 px-2 py-1 text-xs rounded opacity-60 transition duration-200 ease-in-out cursor-pointer;
-            }
-            .response-area .btn-copy:hover {
-                @apply opacity-100 bg-gray-500 bg-opacity-90;
-            }
-            #responseBodyContainer img,
-            #responseBodyContainer video,
-            #responseBodyContainer audio {
-                max-width: 100%;
-                height: auto;
-                display: block;
-                margin-top: 10px;
-                @apply rounded-md bg-gray-900;
-            }
-            #responseBodyContainer audio {
-                width: 100%;
-                min-height: 54px;
-            }
-            #responseBodyContainer {
-                @apply border border-gray-700 rounded-lg bg-gray-900 p-3;
-            }
-             #responseBodyContainer > pre:only-child {
-                margin: -12px;
-            }
-            .sidebar-transition {
-                transition: transform 0.3s ease-in-out;
-            }
-            .endpoint-card {
-                 @apply bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-700 hover:border-indigo-600 transition duration-300 ease-in-out transform hover:-translate-y-1;
-            }
-            .endpoint-path {
-                 @apply bg-gray-900 p-2 rounded border border-gray-700 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0;
-            }
-        }
-    </style>
-</head>
-<body class="bg-gray-950 text-gray-200">
-    <div class="flex h-screen overflow-hidden">
-        <aside id="sidebar" class="sidebar-transition fixed inset-y-0 left-0 z-40 w-64 bg-gray-900 border-r border-gray-800 transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0 overflow-y-auto shadow-xl lg:shadow-none">
-            <div class="flex items-center justify-between p-4 border-b border-gray-800">
-                <div class="flex items-center space-x-3">
-                    <img src="https://nirkyy.koyeb.app/favicon.ico" alt="Logo NirKyy" class="h-10 w-10 rounded-full">
-                    <h1 class="text-xl font-semibold text-white">NirKyy API</h1>
-                </div>
-                <button id="sidebar-close" class="lg:hidden text-gray-400 hover:text-white focus:outline-none"><i class="fas fa-times text-xl"></i></button>
-            </div>
-            <div class="p-4 space-y-6">
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3"><i class="fas fa-search text-gray-500"></i></span>
-                    <input type="text" id="searchEndpoint" class="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent placeholder-gray-500 text-sm text-white" placeholder="Cari endpoint...">
-                </div>
-                <nav>
-                    <h3 class="px-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Tags</h3>
-                    <div id="tagButtons" class="space-y-1">
-                        <a href="#" data-tags="" class="tag-link group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-400 hover:bg-gray-800 hover:text-white transition duration-150 ease-in-out"><i class="fas fa-tags mr-3 text-gray-500 group-hover:text-gray-400"></i>All Tags</a>
-                        <div class="px-2 py-2 text-sm text-gray-600 italic">Memuat tags...</div>
-                    </div>
-                </nav>
-            </div>
-        </aside>
-
-        <main class="flex-1 flex flex-col overflow-hidden">
-            <header class="lg:hidden flex items-center justify-between p-4 bg-gray-900 border-b border-gray-800 shadow-md">
-                <button id="sidebar-open" class="text-gray-300 hover:text-white focus:outline-none"><i class="fas fa-bars text-xl"></i></button>
-                <div class="flex items-center space-x-2">
-                    <img src="https://nirkyy.koyeb.app/favicon.ico" alt="Logo NirKyy" class="h-8 w-8 rounded-full">
-                    <span class="font-semibold text-white">NirKyy API</span>
-                </div>
-                <div></div>
-            </header>
-
-            <div class="flex-1 overflow-y-auto p-4 lg:p-8">
-                <div id="endpointListSection" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
-                    <div class="loading-placeholder col-span-full flex flex-col items-center justify-center h-64 text-gray-500">
-                        <svg class="animate-spin h-12 w-12 text-indigo-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        <p class="text-lg text-gray-400">Memuat daftar endpoint...</p>
-                    </div>
-                </div>
-            </div>
-
-            <footer class="text-center py-4 px-4 bg-gray-900 border-t border-gray-800 text-sm text-gray-500">
-                <p>© 2025 NirKyy. Tetap semangat, API tetap aktif selama Koyeb gratis! 🚀</p>
-                <p>Bergabunglah di <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="text-green-500 hover:text-green-400 hover:underline transition duration-150 ease-in-out"><i class="fab fa-whatsapp"></i> Saluran WhatsApp</a> untuk update terbaru.</p>
-            </footer>
-        </main>
-    </div>
-
-    <div id="tryModal" class="fixed inset-0 z-40 overflow-y-auto hidden" aria-labelledby="tryModalLabel" role="dialog" aria-modal="true">
-        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity modal-backdrop" aria-hidden="true"></div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
-            <div class="modal inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl w-full flex flex-col">
-                <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-700 sticky top-0 z-10">
-                    <div class="sm:flex sm:items-start">
-                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-600 sm:mx-0 sm:h-10 sm:w-10"><i class="fas fa-vial text-white text-xl"></i></div>
-                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                            <h3 class="text-lg leading-6 font-medium text-indigo-400" id="tryModalLabel">Coba Endpoint</h3>
-                            <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200 focus:outline-none" data-modal-hide="tryModal"><i class="fas fa-times text-xl"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="px-4 py-5 sm:p-6 flex-1 overflow-y-auto space-y-6">
-                    <div id="parameterInputs">
-                        <h4 class="text-md font-medium text-gray-400 mb-3">Parameter Permintaan</h4>
-                    </div>
-                    <button id="runButton" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:text-sm transition duration-150 ease-in-out">
-                        <i class="fas fa-play mr-2 -ml-1"></i>Jalankan Permintaan
-                    </button>
-                    <div id="loadingIndicator" class="text-center py-3 text-gray-400" style="display:none">
-                        <svg class="animate-spin inline-block h-5 w-5 text-indigo-400 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        <span>Memproses...</span>
-                    </div>
-                    <div id="resultUrl" class="mt-4" style="display:none">
-                        <h5 class="text-sm font-medium text-gray-400 mb-1">URL Permintaan:</h5>
-                        <div class="response-area">
-                            <button class="btn-copy" data-clipboard-target="#finalUrlText" title="Salin URL"><i class="far fa-copy"></i></button>
-                            <pre class="text-xs"><code id="finalUrlText"></code></pre>
-                        </div>
-                    </div>
-                    <div id="apiResponse" class="mt-4 space-y-4" style="display:none">
-                        <div>
-                            <h5 class="text-sm font-medium text-gray-400 mb-1">Response Header:</h5>
-                            <div class="response-area">
-                                <button class="btn-copy" data-clipboard-target="#responseHeader" title="Salin Header"><i class="far fa-copy"></i></button>
-                                <pre id="responseHeader" class="text-xs"></pre>
-                            </div>
-                        </div>
-                        <div>
-                            <h5 class="text-sm font-medium text-gray-400 mb-1">Response Body:</h5>
-                            <div class="response-area">
-                                <button class="btn-copy btn-copy-body" title="Salin Body" style="display:none"><i class="far fa-copy"></i></button>
-                                <div id="responseBodyContainer"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="axiosExample" class="mt-4" style="display:none">
-                        <h5 class="text-sm font-medium text-gray-400 mb-1">Contoh Kode Axios (GET):</h5>
-                        <div class="response-area">
-                            <button class="btn-copy" data-clipboard-target="#axiosSnippet code" title="Salin Kode"><i class="far fa-copy"></i></button>
-                            <pre id="axiosSnippet" class="text-xs"><code></code></pre>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-700 sticky bottom-0 z-10">
-                    <button type="button" data-modal-hide="tryModal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-600 shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition duration-150 ease-in-out">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="whatsappModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="whatsappModalLabel" role="dialog" aria-modal="true">
-        <div class="flex items-center justify-center min-h-screen px-4 text-center">
-            <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity modal-backdrop" aria-hidden="true"></div>
-            <div class="inline-block align-bottom bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
-                <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-600 sm:mx-0 sm:h-10 sm:w-10"><i class="fab fa-whatsapp text-white text-2xl"></i></div>
-                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                            <h3 class="text-lg leading-6 font-medium text-green-400" id="whatsappModalLabel">Gabung Saluran WhatsApp Kami!</h3>
-                            <div class="mt-2">
-                                <p class="text-sm text-gray-400">Dapatkan update API terbaru, info menarik, dan diskusi seru seputar NirKyy langsung di WhatsApp Anda.</p>
-                            </div>
-                        </div>
-                        <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200 focus:outline-none" data-modal-hide="whatsappModal"><i class="fas fa-times text-xl"></i></button>
-                    </div>
-                </div>
-                <div class="bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-3 border-t border-gray-700">
-                    <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:ring-offset-gray-800 sm:w-auto sm:text-sm transition duration-150 ease-in-out"><i class="fab fa-whatsapp mr-2 -ml-1"></i>Gabung Sekarang</a>
-                    <button type="button" data-modal-hide="whatsappModal" class="w-full inline-flex justify-center rounded-md border border-gray-600 shadow-sm px-4 py-2 bg-gray-700 text-base font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:w-auto sm:text-sm transition duration-150 ease-in-out">Nanti Saja</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <audio id="successSound" src="/success.mp3" preload="auto"></audio>
-    <audio id="errorSound" src="/error.mp3" preload="auto"></audio>
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            AOS.init({
-                duration: 800,
-                once: true,
-                disable: 'mobile'
-            });
-
-            let finalApiUrl = '';
-            let isFetching = false;
-            let currentEndpointData = null;
-            let clipboard;
-            let activeTag = '';
-
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOpenBtn = document.getElementById('sidebar-open');
-            const sidebarCloseBtn = document.getElementById('sidebar-close');
-            const endpointListSection = document.getElementById('endpointListSection');
-            const searchEndpointInput = document.getElementById('searchEndpoint');
-            const tagButtonsContainer = document.getElementById('tagButtons');
-            const tryModalElement = document.getElementById('tryModal');
-            const parameterInputsDiv = document.getElementById('parameterInputs');
-            const runButton = document.getElementById('runButton');
-            const responseHeaderPre = document.getElementById('responseHeader');
-            const responseBodyContainer = document.getElementById('responseBodyContainer');
-            const axiosSnippetPre = document.getElementById('axiosSnippet').querySelector('code');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const apiResponseDiv = document.getElementById('apiResponse');
-            const axiosExampleDiv = document.getElementById('axiosExample');
-            const resultUrlDiv = document.getElementById('resultUrl');
-            const finalUrlTextCode = document.getElementById('finalUrlText');
-            const copyResponseBodyBtn = tryModalElement.querySelector('.btn-copy-body');
-            const whatsappModalElement = document.getElementById('whatsappModal');
-
-            const successSound = document.getElementById('successSound');
-            const errorSound = document.getElementById('errorSound');
-
-            clipboard = new ClipboardJS('.btn-copy');
-            clipboard.on('success', function(e) {
-                const originalIcon = e.trigger.innerHTML;
-                const originalTitle = e.trigger.getAttribute('title');
-                e.trigger.innerHTML = '<i class="fas fa-check"></i> Disalin!';
-                e.trigger.setAttribute('title', 'Berhasil disalin!');
-                e.trigger.classList.add('btn-copy-feedback');
-                setTimeout(() => {
-                    e.trigger.innerHTML = originalIcon;
-                    e.trigger.setAttribute('title', originalTitle);
-                    e.trigger.classList.remove('btn-copy-feedback');
-                }, 1500);
-                e.clearSelection();
-            });
-            clipboard.on('error', function(e) {
-                const originalTitle = e.trigger.getAttribute('title');
-                e.trigger.setAttribute('title', 'Gagal menyalin');
-                e.trigger.classList.add('text-red-500');
-                setTimeout(() => {
-                    e.trigger.setAttribute('title', originalTitle);
-                    e.trigger.classList.remove('text-red-500');
-                }, 1500);
-            });
-
-            setTimeout(() => {
-                if (whatsappModalElement && !localStorage.getItem('whatsappModalDismissed')) {
-                    whatsappModalElement.classList.remove('hidden');
-                }
-            }, 3000);
-
-            function debounce(func, wait) {
-                let timeout;
-                return function(...args) {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => func.apply(this, args), wait);
-                };
-            }
-
-            function generateEndpointsHTML(endpointsArray) {
-                if (!Array.isArray(endpointsArray) || endpointsArray.length === 0) {
-                    return `<p class="col-span-full text-center text-gray-600 italic mt-6">Tidak ada endpoint yang cocok ditemukan.</p>`;
-                }
-
-                let html = '';
-                endpointsArray.forEach((ep, index) => {
-                    const name = ep.nama || 'Unnamed Endpoint';
-                    const path = ep.endpoint || '/error-missing-path';
-                    const tags = (Array.isArray(ep.tags) ? ep.tags : []).filter(t => t && typeof t === 'string');
-                    const description = ep.deskripsi || '<span class="italic text-gray-600">Tidak ada deskripsi.</span>';
-                    const escapedData = JSON.stringify(ep).replace(/'/g, "\\'");
-
-                    html += `
-                    <div class="endpoint-card" data-aos="fade-up" data-aos-delay="${index * 50}">
-                        <div class="px-4 py-3 border-b border-gray-700">
-                            <h3 class="text-md font-semibold text-indigo-400">${name}</h3>
-                        </div>
-                        <div class="p-4 space-y-3">
-                            <div class="endpoint-path">
-                                <span class="font-mono text-xs text-gray-400 break-all flex-1 mr-2">https://nirkyy.koyeb.app${path}</span>
-                                <div class="flex space-x-2 flex-shrink-0 w-full sm:w-auto justify-end">
-                                    <button class="btn-copy-url text-xs bg-gray-600 hover:bg-gray-500 text-gray-200 px-2 py-1 rounded transition duration-150" data-clipboard-text="https://nirkyy.koyeb.app${path}" title="Salin Full URL">
-                                        <i class="far fa-copy mr-1"></i> URL
-                                    </button>
-                                    <button class="try-button text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-2 py-1 rounded transition duration-150" data-endpoint='${escapedData}' title="Coba Endpoint Ini">
-                                        <i class="fas fa-vial mr-1"></i> Coba
-                                    </button>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-300">${description}</p>
-                            <div class="flex flex-wrap gap-1 pt-1">
-                                ${tags.map(t => `<span class="bg-indigo-600 text-white text-xs font-medium px-2.5 py-0.5 rounded-full">${t}</span>`).join('')}
-                            </div>
-                        </div>
-                    </div>`;
-                });
-                return html;
-            }
-
-            function fetchData(url) {
-                if (isFetching) return;
-                isFetching = true;
-                endpointListSection.innerHTML = `
-                <div class="loading-placeholder col-span-full flex flex-col items-center justify-center h-64 text-gray-500">
-                    <svg class="animate-spin h-12 w-12 text-indigo-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <p class="text-lg text-gray-400">Memuat...</p>
-                </div>`;
-
-                fetch(url)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(jsonData => {
-                        if (jsonData && Array.isArray(jsonData.endpoints)) {
-                            endpointListSection.innerHTML = generateEndpointsHTML(jsonData.endpoints);
-                            new ClipboardJS('.btn-copy-url');
-                            AOS.refreshHard(); // Refresh AOS to detect new elements
-                        } else if (jsonData && typeof jsonData === 'object' && !jsonData.endpoints) {
-                            console.warn("Received data object without 'endpoints' array:", jsonData);
-                            endpointListSection.innerHTML = generateEndpointsHTML([]);
-                        }
-                         else {
-                             throw new Error('Invalid data structure received. Expected an object with an "endpoints" array.');
-                         }
-                    })
-                    .catch(error => {
-                        console.error('Fetch error:', error);
-                        let errorMessage = `Gagal memuat endpoint. Coba lagi nanti. (${error.message})`;
-                        if (error instanceof SyntaxError) {
-                            errorMessage = `Gagal memuat endpoint: Respons server bukan JSON yang valid. (${error.message})`;
-                            console.warn("Received non-JSON response from:", url);
-                        } else if (error.message.includes('Invalid data structure')) {
-                             errorMessage = `Gagal memuat endpoint: Struktur data tidak valid. (${error.message})`;
-                         }
-                        endpointListSection.innerHTML = `<p class="col-span-full text-center text-red-500 font-semibold mt-6">${errorMessage}</p>`;
-                    })
-                    .finally(() => {
-                        isFetching = false;
-                    });
-            }
-
-            function loadTags() {
-                fetch('/tags')
-                    .then(res => {
-                        if (!res.ok) throw new Error('Failed to load tags');
-                        return res.json();
-                    })
-                    .then(data => {
-                        let html = `<a href="#" data-tags="" class="tag-link group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-400 hover:bg-gray-800 hover:text-white transition duration-150 ease-in-out ${activeTag === '' ? 'tag-active' : ''}">
-                                <i class="fas fa-tags mr-3 text-gray-500 group-hover:text-gray-400"></i> All Tags
-                            </a>`;
-                        if (data && data.tags && Array.isArray(data.tags) && data.tags.length > 0) {
-                            data.tags.sort((a, b) => a.localeCompare(b));
-                            data.tags.forEach(tag => {
-                                html += `<a href="#" data-tags="${tag}" class="tag-link group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-400 hover:bg-gray-800 hover:text-white transition duration-150 ease-in-out ${activeTag === tag ? 'tag-active' : ''}">
-                                            <i class="fas fa-tag mr-3 text-gray-500 group-hover:text-gray-400"></i> ${tag}
-                                        </a>`;
-                            });
-                        } else {
-                             html += '<div class="px-2 py-2 text-sm text-gray-600 italic">Tidak ada tag.</div>';
-                        }
-                        tagButtonsContainer.innerHTML = html;
-                    })
-                    .catch(error => {
-                        console.error("Error loading tags:", error);
-                        tagButtonsContainer.innerHTML = '<div class="px-2 py-2 text-sm text-red-500">Gagal memuat tag.</div>';
-                    });
-            }
-
-            function showModal(modalElement) {
-                if (modalElement) {
-                    modalElement.classList.remove('hidden');
-                    document.body.classList.add('overflow-hidden');
-                }
-            }
-
-            function hideModal(modalElement, persistDismiss = false) {
-                if (modalElement) {
-                    modalElement.classList.add('hidden');
-                    if (persistDismiss && modalElement.id === 'whatsappModal') {
-                         localStorage.setItem('whatsappModalDismissed', 'true');
-                    }
-                    if (!document.querySelector('.fixed.inset-0.z-40:not(.hidden), .fixed.inset-0.z-50:not(.hidden)')) {
-                        document.body.classList.remove('overflow-hidden');
-                    }
-                }
-            }
-
-            function setupModalTriggers() {
-                document.querySelectorAll('[data-modal-hide]').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const modalId = button.getAttribute('data-modal-hide');
-                        const modal = document.getElementById(modalId);
-                         const persist = button.textContent.includes('Nanti Saja') || button.textContent.includes('Tutup');
-                        hideModal(modal, persist);
-                    });
-                });
-
-                 document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
-                    backdrop.addEventListener('click', (event) => {
-                        const modal = event.target.closest('.fixed.inset-0');
-                        if (modal && modal.contains(event.target) && event.target === backdrop) {
-                             const persist = modal.id === 'whatsappModal';
-                            hideModal(modal, persist);
-                        }
-                    });
-                });
-            }
-
-             function resetModalOutput() {
-                responseHeaderPre.textContent = '';
-                responseBodyContainer.innerHTML = '';
-                axiosSnippetPre.textContent = '';
-                finalUrlTextCode.textContent = '';
-                apiResponseDiv.style.display = 'none';
-                axiosExampleDiv.style.display = 'none';
-                resultUrlDiv.style.display = 'none';
-                 if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
-                finalApiUrl = '';
-
-                 const mediaElements = responseBodyContainer.querySelectorAll('img[src^="blob:"], video[src^="blob:"], audio[src^="blob:"]');
-                 mediaElements.forEach(el => { if (el.src) { try { URL.revokeObjectURL(el.src); } catch(e) { console.warn("Could not revoke", el.src, e); } } });
-                 const downloadLinks = responseBodyContainer.querySelectorAll('a[href^="blob:"]');
-                 downloadLinks.forEach(a => { if (a.href) { try { URL.revokeObjectURL(a.href); } catch(e) { console.warn("Could not revoke", a.href, e); } } });
-            }
-
-            function openTryModal(endpoint) {
-                currentEndpointData = endpoint;
-                parameterInputsDiv.innerHTML = '';
-                resetModalOutput();
-                document.getElementById('tryModalLabel').textContent = `Coba: ${endpoint.nama}`;
-
-                if (endpoint.parameter && Array.isArray(endpoint.parameter) && endpoint.parameter.length > 0) {
-                    parameterInputsDiv.innerHTML += `<h4 class="text-md font-medium text-gray-400 mb-3">Parameter Permintaan</h4>`;
-                    endpoint.parameter.forEach(param => {
-                        const paramName = param.params;
-                        const defaultValue = param.example || '';
-                        const isRequired = (param.opsional === false);
-                        const inputId = `param-${paramName}`;
-                        const placeholder = param.deskripsi || (defaultValue ? `Contoh: ${defaultValue}` : `Masukkan ${paramName}`);
-
-                        const div = document.createElement('div');
-                        div.className = 'mb-4';
-
-                        const label = document.createElement('label');
-                        label.htmlFor = inputId;
-                        label.className = 'block text-sm font-medium text-gray-300 mb-1';
-                        label.innerHTML = `${paramName} ${isRequired ? '<span class="text-red-500">*</span>' : ''}`;
-
-                        const input = document.createElement('input');
-                        input.type = 'text';
-                        input.className = 'w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400 text-sm text-white';
-                        input.id = inputId;
-                        input.name = paramName;
-                        input.placeholder = placeholder;
-                        input.value = defaultValue;
-                        if (isRequired) input.required = true;
-
-                        div.appendChild(label);
-                        div.appendChild(input);
-                        parameterInputsDiv.appendChild(div);
-                    });
-                } else {
-                    parameterInputsDiv.innerHTML = `<p class="text-sm text-gray-500 italic">Endpoint ini tidak memerlukan parameter tambahan.</p>`;
-                }
-                showModal(tryModalElement);
-            }
-
-            if (sidebarOpenBtn) {
-                sidebarOpenBtn.addEventListener('click', () => {
-                    sidebar.classList.remove('-translate-x-full');
-                });
-            }
-            if (sidebarCloseBtn) {
-                sidebarCloseBtn.addEventListener('click', () => {
-                    sidebar.classList.add('-translate-x-full');
-                });
-            }
-
-            const debouncedSearch = debounce(function() {
-                const searchTerm = searchEndpointInput.value.trim();
-                activeTag = '';
-                loadTags();
-                const url = searchTerm
-                    ? `/search?term=${encodeURIComponent(searchTerm)}`
-                    : '/renderpage?tags=';
-                fetchData(url);
-            }, 350);
-            searchEndpointInput.addEventListener('input', debouncedSearch);
-
-            tagButtonsContainer.addEventListener('click', function(e) {
-                e.preventDefault();
-                const tagLink = e.target.closest('a.tag-link');
-                if (tagLink) {
-                    activeTag = tagLink.getAttribute('data-tags');
-                    searchEndpointInput.value = '';
-                    loadTags();
-                    fetchData(`/renderpage?tags=${encodeURIComponent(activeTag)}`);
-
-                    if (window.innerWidth < 1024) {
-                        sidebar.classList.add('-translate-x-full');
-                    }
-                }
-            });
-
-            endpointListSection.addEventListener('click', function(e) {
-                const tryButton = e.target.closest('.try-button');
-                if (tryButton) {
-                    const data = tryButton.getAttribute('data-endpoint');
-                    if (data) {
-                        try {
-                            const endpoint = JSON.parse(data.replace(/\\'/g, "'"));
-                            openTryModal(endpoint);
-                        } catch(parseError) {
-                            console.error("Failed to parse endpoint data:", parseError, "Data:", data);
-                            alert("Error: Data endpoint tidak valid.");
-                        }
-                    }
-                }
-            });
-
-            runButton.addEventListener('click', function() {
-                if (loadingIndicator.style.display === 'block' || !currentEndpointData) return;
-
-                runButton.disabled = true;
-                runButton.classList.add('opacity-50', 'cursor-not-allowed');
-                loadingIndicator.style.display = 'block';
-                resetModalOutput();
-
-                let apiUrl = currentEndpointData.endpoint;
-                const queryParams = {};
-                let missingRequired = false;
-                let firstMissingField = null;
-
-                const inputs = parameterInputsDiv.querySelectorAll('input[name]');
-                inputs.forEach(input => {
-                    input.classList.remove('border-red-500');
-                    const paramName = input.name;
-                    const paramDefinition = currentEndpointData.parameter && Array.isArray(currentEndpointData.parameter)
-                        ? currentEndpointData.parameter.find(p => p.params === paramName)
-                        : null;
-                    const isRequired = paramDefinition && (paramDefinition.opsional === false);
-                    const inputValue = input.value.trim();
-
-                    if (isRequired && !inputValue) {
-                        missingRequired = true;
-                        if (!firstMissingField) firstMissingField = input;
-                        input.classList.add('border-red-500');
-                    }
-
-                    if (inputValue) {
-                         const placeholder = `{${paramName}}`;
-                         if (apiUrl.includes(placeholder)) {
-                             apiUrl = apiUrl.replace(placeholder, encodeURIComponent(inputValue));
-                         } else {
-                             queryParams[paramName] = inputValue;
-                         }
-                    }
-                });
-
-                if (missingRequired) {
-                    alert('Harap isi semua parameter yang ditandai wajib (*).');
-                    if (firstMissingField) firstMissingField.focus();
-                    runButton.disabled = false;
-                    runButton.classList.remove('opacity-50', 'cursor-not-allowed');
-                    loadingIndicator.style.display = 'none';
-                    return;
-                }
-
-                const baseUrl = `https://nirkyy.koyeb.app${apiUrl}`;
-                const urlObj = new URL(baseUrl);
-                Object.entries(queryParams).forEach(([key, value]) => {
-                     if (value !== '') { // Only add if value is not empty
-                        urlObj.searchParams.append(key, value);
-                     }
-                });
-                finalApiUrl = urlObj.toString();
-
-
-                finalUrlTextCode.textContent = finalApiUrl;
-                resultUrlDiv.style.display = 'block';
-
-                const axiosConfig = {
-                    method: 'get',
-                    url: finalApiUrl,
-                    responseType: 'arraybuffer',
-                    validateStatus: status => status >= 200 && status < 500
-                };
-
-                axios(axiosConfig)
-                    .then(response => {
-                        const headers = response.headers;
-                        const contentType = headers['content-type']?.toLowerCase() || '';
-                        const status = response.status;
-
-                        let headerString = `Status: ${status} ${response.statusText}\n`;
-                        Object.entries(headers).forEach(([key, value]) => { headerString += `${key}: ${value}\n`; });
-                        responseHeaderPre.textContent = headerString.trim();
-                        apiResponseDiv.style.display = 'block';
-
-                        responseBodyContainer.innerHTML = '';
-                         if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
-
-                        const responseData = response.data;
-
-                        if (contentType.includes('application/json')) {
-                            try {
-                                const decoder = new TextDecoder('utf-8');
-                                const jsonText = decoder.decode(responseData);
-                                const jsonData = JSON.parse(jsonText);
-                                const pre = document.createElement('pre');
-                                pre.textContent = JSON.stringify(jsonData, null, 2);
-                                responseBodyContainer.innerHTML = '';
-                                responseBodyContainer.appendChild(pre);
-                                if(copyResponseBodyBtn) {
-                                    copyResponseBodyBtn.setAttribute('data-clipboard-target', '#responseBodyContainer pre');
-                                    copyResponseBodyBtn.style.display = 'block';
-                                }
-                                 if (jsonData && jsonData.success === false) errorSound.play(); else successSound.play();
-
-                            } catch (e) {
-                                console.error("JSON parsing/decoding failed:", e);
-                                responseBodyContainer.innerHTML = `<pre class="text-red-400">[Error: Failed to parse JSON response]\n${new TextDecoder('utf-8').decode(responseData)}</pre>`;
-                                errorSound.play();
-                            }
-                        } else if (contentType.startsWith('image/')) {
-                             if (responseData.byteLength > 0) {
-                                 const blob = new Blob([responseData], { type: contentType });
-                                 const imageUrl = URL.createObjectURL(blob);
-                                 const img = document.createElement('img');
-                                 img.src = imageUrl;
-                                 img.alt = "API Response Image";
-                                 img.className = "max-w-full h-auto rounded-md";
-                                 responseBodyContainer.innerHTML = '';
-                                 responseBodyContainer.appendChild(img);
-                                 successSound.play();
-                             } else {
-                                 responseBodyContainer.innerHTML = `<p class="text-yellow-400 italic text-sm">[Data gambar kosong]</p>`;
-                                 errorSound.play();
-                             }
-                        } else if (contentType.startsWith('video/')) {
-                             if (responseData.byteLength > 0) {
-                                 const blob = new Blob([responseData], { type: contentType });
-                                 const videoUrl = URL.createObjectURL(blob);
-                                 const video = document.createElement('video');
-                                 video.controls = true;
-                                 video.src = videoUrl;
-                                 video.className = "max-w-full rounded-md";
-                                 responseBodyContainer.innerHTML = '';
-                                 responseBodyContainer.appendChild(video);
-                                 successSound.play();
-                             } else {
-                                 responseBodyContainer.innerHTML = `<p class="text-yellow-400 italic text-sm">[Data video kosong]</p>`;
-                                 errorSound.play();
-                             }
-                        } else if (contentType.startsWith('audio/')) {
-                            if(responseData.byteLength > 0) {
-                                const blob = new Blob([responseData], { type: contentType });
-                                const audioUrl = URL.createObjectURL(blob);
-                                const audio = document.createElement('audio');
-                                audio.controls = true;
-                                audio.preload = 'metadata';
-                                audio.src = audioUrl;
-                                audio.className = "w-full";
-                                responseBodyContainer.innerHTML = '';
-                                responseBodyContainer.appendChild(audio);
-                                successSound.play();
-                            } else {
-                                responseBodyContainer.innerHTML = `<p class="text-yellow-400 italic text-sm">[Data audio kosong]</p>`;
-                                errorSound.play();
-                            }
-                        } else if (contentType.startsWith('text/')) {
-                            const decoder = new TextDecoder('utf-8');
-                            const text = decoder.decode(responseData);
-                            const pre = document.createElement('pre');
-                            pre.textContent = text;
-                            responseBodyContainer.innerHTML = '';
-                            responseBodyContainer.appendChild(pre);
-                            if(copyResponseBodyBtn) {
-                                copyResponseBodyBtn.setAttribute('data-clipboard-target', '#responseBodyContainer pre');
-                                copyResponseBodyBtn.style.display = 'block';
-                            }
-                            successSound.play();
-                        } else {
-                            responseBodyContainer.innerHTML = '';
-                             const pre = document.createElement('pre');
-                             pre.textContent = `[Received ${contentType || 'unknown'} data - ${responseData.byteLength} bytes]`;
-                             pre.className = "text-gray-400 text-sm mb-2";
-                             responseBodyContainer.appendChild(pre);
-
-                            try {
-                                 const blob = new Blob([responseData], { type: contentType });
-                                 const downloadUrl = URL.createObjectURL(blob);
-                                 const a = document.createElement('a');
-                                 a.href = downloadUrl;
-
-                                 const disposition = headers['content-disposition'];
-                                 let filename = 'download';
-                                 if (disposition && disposition.includes('filename=')) {
-                                     const filenameMatch = disposition.match(/filename\*?=['"]?([^'";]+)['"]?/);
-                                     if (filenameMatch && filenameMatch[1]) {
-                                         filename = decodeURIComponent(filenameMatch[1]);
-                                     }
-                                 } else {
-                                     const pathParts = urlObj.pathname.split('/');
-                                     filename = pathParts[pathParts.length - 1] || 'download';
-                                     if (!filename.includes('.')) {
-                                         const typeParts = contentType.split('/');
-                                         const ext = typeParts[1] ? typeParts[1].split('+')[0] : 'bin';
-                                         filename += `.${ext}`;
-                                     }
-                                 }
-                                 a.download = filename;
-                                 a.textContent = `Unduh File (${filename})`;
-                                a.className = 'inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-md transition duration-150';
-                                 responseBodyContainer.appendChild(a);
-                                 successSound.play();
-
-                            } catch (blobError) {
-                                console.error("Error creating download link:", blobError);
-                                const errorP = document.createElement('p');
-                                errorP.textContent = "(Tidak dapat membuat tautan unduhan)";
-                                errorP.className = 'text-red-500 italic text-sm mt-1';
-                                errorSound.play();
-                            }
-                        }
-
-                         const axiosResponseType = (contentType && !contentType.includes('application/json') && !contentType.startsWith('text/')) ? ", \n responseType: 'arraybuffer'" : "";
-                         let axiosCode = `axios.get('${baseUrl}'`;
-
-                         if (Object.keys(queryParams).length > 0) {
-                             axiosCode += `, {\n params: ${JSON.stringify(queryParams, null, 2)}`;
-                             if(axiosResponseType) axiosCode += axiosResponseType;
-                             axiosCode += `\n }`;
-                         } else if (axiosResponseType) {
-                             axiosCode += `, {\n responseType: 'arraybuffer'\n }`;
-                         }
-                         axiosCode += `)\n.then(response => {\n console.log('Status:', response.status);\n console.log('Headers:', response.headers);\n console.log('Data:', response.data);\n})\n.catch(error => {\n console.error('Error:', error.response ? error.response.data : error.message);\n});`;
-                         axiosSnippetPre.textContent = axiosCode;
-                         axiosExampleDiv.style.display = 'block';
-
-                    })
-                    .catch(error => {
-                        errorSound.play();
-                        console.error('Axios request failed:', error);
-                        apiResponseDiv.style.display = 'block';
-                        responseHeaderPre.textContent = `Error: ${error.message}`;
-                         responseBodyContainer.innerHTML = '';
-                         if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
-
-                        if (error.response) {
-                             let headerString = `Status: ${error.response.status} ${error.response.statusText}\n`;
-                             Object.entries(error.response.headers).forEach(([key, value]) => { headerString += `${key}: ${value}\n`; });
-                             responseHeaderPre.textContent = headerString.trim();
-
-                             if (error.response.data && error.response.data.byteLength > 0) {
-                                 const pre = document.createElement('pre');
-                                 pre.className = "text-red-400";
-                                 try {
-                                     const decoder = new TextDecoder('utf-8');
-                                     const errorText = decoder.decode(new Uint8Array(error.response.data));
-                                     try {
-                                         pre.textContent = JSON.stringify(JSON.parse(errorText), null, 2);
-                                     } catch (jsonError) {
-                                         pre.textContent = errorText;
-                                     }
-                                 } catch (decodeError) {
-                                     pre.textContent = `[Undecodable binary error data received - ${error.response.data.byteLength} bytes]`;
-                                 }
-                                 responseBodyContainer.appendChild(pre);
-                                 if(copyResponseBodyBtn) {
-                                     copyResponseBodyBtn.setAttribute('data-clipboard-target', '#responseBodyContainer pre');
-                                     copyResponseBodyBtn.style.display = 'block';
-                                 }
-                             } else {
-                                 responseBodyContainer.innerHTML = `<p class="text-gray-500 italic">[No response body]</p>`;
-                             }
-
-                        } else if (error.request) {
-                            responseBodyContainer.innerHTML = `<p class="text-red-500">Tidak ada respons diterima dari server. Periksa koneksi atau URL.</p>`;
-                        } else {
-                            responseBodyContainer.innerHTML = `<p class="text-red-500">Error konfigurasi permintaan: ${error.message}</p>`;
-                        }
-                    })
-                    .finally(() => {
-                        loadingIndicator.style.display = 'none';
-                        runButton.disabled = false;
-                        runButton.classList.remove('opacity-50', 'cursor-not-allowed');
-                    });
-            });
-
-
-            setupModalTriggers();
-            loadTags();
-            fetchData('/renderpage?tags=');
-
-        });
-    </script>
-</body>
-</html>
+ <html lang="id" class="dark">
+ <head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>NirKyy - REST API Documentation</title>
+ <meta name="description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web.">
+ <meta name="keywords" content="REST API, dokumentasi API, free API, NirKyy, endpoint, API documentation, web API, fetch API, modern API, aesthetic API, tailwind css">
+ <meta name="author" content="NirKyy Developer">
+ <meta name="robots" content="index, follow">
+ <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+ <meta property="og:title" content="NirKyy - Modern REST API Documentation">
+ <meta property="og:description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web.">
+ <meta property="og:type" content="website">
+ <meta property="og:url" content="nirkyy.koyeb.app">
+ <meta property="og:image" content="/favicon.ico">
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:title" content="NirKyy - Modern REST API Documentation">
+ <meta name="twitter:description" content="Nirkyy - Kumpulan API gratis dan modern untuk kebutuhan bot WhatsApp, Telegram, dan Web.">
+ <meta name="twitter:site" content="@NirKyyDev">
+ <meta name="twitter:image" content="/favicon.ico">
+ <link rel="icon" href="/favicon.ico" type="image/x-icon">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+ <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+ <style type="text/tailwindcss">
+ body {
+    font-family: 'Inter', 'Poppins', sans-serif;
+    @apply bg-gray-900 text-gray-200;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+ }
+ ::-webkit-scrollbar { width: 10px; height: 10px;}
+ ::-webkit-scrollbar-track { @apply bg-gray-800; }
+ ::-webkit-scrollbar-thumb { @apply bg-gray-600 rounded-md; transition-colors duration-200 ease-in-out; }
+ ::-webkit-scrollbar-thumb:hover { @apply bg-indigo-500; }
+
+ .tag-link {
+    @apply transition-all duration-200 ease-in-out;
+ }
+ .tag-link:hover {
+    @apply bg-gray-700 text-white transform scale-105;
+ }
+ .tag-active {
+    @apply bg-indigo-600 text-white font-semibold shadow-lg shadow-indigo-500/30;
+ }
+ .modal-backdrop {
+    @apply bg-gray-900/80 backdrop-blur-sm; /* More elegant backdrop */
+    transition: opacity 0.3s ease-out;
+ }
+ .modal {
+    max-height: 90vh;
+    @apply shadow-2xl; /* More pronounced shadow */
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease-out;
+ }
+ .btn-copy-feedback {
+    @apply bg-green-500 text-white;
+ }
+ pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    @apply bg-gray-950 border border-gray-700 p-4 rounded-lg overflow-x-auto text-gray-300 font-mono text-sm leading-relaxed shadow-inner;
+    max-height: 400px;
+ }
+ .response-area {
+    position: relative;
+    margin-bottom: 1rem;
+ }
+ .response-area .btn-copy {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 10;
+    @apply bg-gray-700/80 border-none text-gray-400 p-1.5 text-xs rounded-md opacity-70 transition-all duration-200 ease-in-out;
+    cursor: pointer;
+ }
+ .response-area .btn-copy:hover {
+    @apply opacity-100 bg-indigo-500 text-white transform scale-110;
+ }
+ #responseBodyContainer img,
+ #responseBodyContainer video,
+ #responseBodyContainer audio {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 12px;
+    @apply rounded-lg bg-gray-950 shadow-md;
+ }
+ #responseBodyContainer audio {
+    width: 100%;
+    min-height: 54px;
+ }
+ #responseBodyContainer {
+    @apply border border-gray-700 rounded-lg bg-gray-950 p-4;
+ }
+ #responseBodyContainer > pre:only-child {
+    margin: -16px; /* Counteract parent padding if only pre exists */
+ }
+ .sidebar-transition {
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother transition */
+ }
+ .endpoint-card {
+    @apply bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700 transition-all duration-300 ease-out;
+ }
+ .endpoint-card:hover {
+    @apply border-indigo-500 transform -translate-y-1.5 scale-[1.02] shadow-2xl shadow-indigo-500/20;
+ }
+ .endpoint-card h3 {
+    @apply text-indigo-400;
+ }
+ .endpoint-path {
+    @apply bg-gray-900/70 p-3 rounded-lg border border-gray-700 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0 shadow-sm;
+ }
+ .endpoint-path span {
+    @apply text-gray-400;
+ }
+ .btn-action {
+    @apply text-xs px-3 py-1.5 rounded-md transition-all duration-200 ease-in-out font-medium flex items-center justify-center shadow-sm;
+ }
+ .btn-action:hover {
+    @apply transform scale-105 shadow-md;
+ }
+ .btn-copy-url {
+    @apply bg-gray-600 hover:bg-gray-500 text-gray-200;
+ }
+ .try-button {
+    @apply bg-indigo-600 hover:bg-indigo-500 text-white;
+ }
+ input[type="text"], input[type="search"] {
+    @apply bg-gray-700/50 border-gray-600 placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-gray-700 transition-all duration-200 ease-in-out shadow-sm;
+ }
+ .primary-button {
+    @apply w-full inline-flex justify-center rounded-lg border border-transparent shadow-md px-4 py-2.5 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:text-sm transition-all duration-200 ease-in-out;
+ }
+ .primary-button:hover {
+    @apply shadow-lg shadow-indigo-500/30 transform translateY-[-1px];
+ }
+ .secondary-button {
+    @apply w-full inline-flex justify-center rounded-lg border border-gray-600 shadow-sm px-4 py-2.5 bg-gray-700 text-base font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-gray-800 sm:mt-0 sm:w-auto sm:text-sm transition-all duration-200 ease-in-out;
+ }
+ .secondary-button:hover {
+    @apply border-gray-500 shadow-md;
+ }
+ .loading-placeholder svg {
+    @apply text-indigo-500; /* Consistent indigo */
+ }
+ /* Modal animations (if JS toggles a class, otherwise Tailwind transitions handle it) */
+ .modal.modal-active { /* Example: if JS added 'modal-active' */
+    opacity: 1;
+    transform: scale(1) translateY(0);
+ }
+ .modal-backdrop.modal-active { /* Example: if JS added 'modal-active' */
+    opacity: 1;
+ }
+ /* Initial state for modals if we want to animate from hidden */
+ #tryModal:not(.hidden) .modal, #whatsappModal:not(.hidden) .modal {
+    /* This will be animated by Tailwind's transition-all on the .modal div */
+ }
+ #tryModal:not(.hidden) .modal-backdrop, #whatsappModal:not(.hidden) .modal-backdrop {
+    /* This will be animated by Tailwind's transition-opacity on the .modal-backdrop div */
+ }
+
+ /* Subtle pulse for loading text */
+ @keyframes pulse-text {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+ }
+ .loading-placeholder p {
+    animation: pulse-text 1.5s infinite ease-in-out;
+ }
+ .footer-link {
+    @apply text-indigo-400 hover:text-indigo-300 hover:underline transition-colors duration-200 ease-in-out;
+ }
+ .footer-icon {
+    @apply transition-transform duration-200 ease-in-out;
+ }
+ .footer-link:hover .footer-icon {
+    @apply transform scale-110;
+ }
+
+ </style>
+ </head>
+ <body class="bg-gray-900 text-gray-200">
+ <div class="flex h-screen overflow-hidden">
+ <aside id="sidebar" class="sidebar-transition fixed inset-y-0 left-0 z-30 w-64 bg-gray-800 border-r border-gray-700/50 transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0 overflow-y-auto shadow-xl">
+ <div class="flex items-center justify-between p-4 border-b border-gray-700/50">
+ <div class="flex items-center space-x-3">
+ <img src="/favicon.ico" alt="Logo NirKyy" class="h-10 w-10 rounded-full shadow-md">
+ <h1 class="text-xl font-semibold text-white">NirKyy API</h1>
+ </div>
+ <button id="sidebar-close" class="lg:hidden text-gray-400 hover:text-white transition-colors duration-150"><i class="fas fa-times text-xl"></i></button>
+ </div>
+ <div class="p-4 space-y-4">
+ <div class="relative">
+ <span class="absolute inset-y-0 left-0 flex items-center pl-3"><i class="fas fa-search text-gray-500"></i></span>
+ <input type="search" id="searchEndpoint" class="w-full pl-10 pr-4 py-2.5 text-sm" placeholder="Cari endpoint...">
+ </div>
+ <nav class="mt-6">
+ <h3 class="px-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Tags</h3>
+ <div id="tagButtons" class="space-y-1">
+ <a href="#" data-tags="" class="tag-link group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-gray-300"><i class="fas fa-tags mr-3 text-gray-400 group-hover:text-gray-300"></i>All Tags</a>
+ <div class="px-2 py-2 text-sm text-gray-500">Memuat tags...</div>
+ </div>
+ </nav>
+ </div>
+ </aside>
+ <main class="flex-1 flex flex-col overflow-hidden">
+ <header class="lg:hidden flex items-center justify-between p-4 bg-gray-800/80 backdrop-blur-md border-b border-gray-700/50 sticky top-0 z-20 shadow-sm">
+ <button id="sidebar-open" class="text-gray-300 hover:text-white transition-colors duration-150"><i class="fas fa-bars text-xl"></i></button>
+ <div class="flex items-center space-x-2">
+ <img src="/favicon.ico" alt="Logo NirKyy" class="h-8 w-8 rounded-full shadow-sm">
+ <span class="font-semibold text-white">NirKyy API</span>
+ </div>
+ <div></div>
+ </header>
+ <div class="flex-1 overflow-y-auto p-4 lg:p-6">
+ <div id="endpointListSection" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-6">
+ <div class="loading-placeholder col-span-full flex flex-col items-center justify-center h-64 text-gray-500">
+ <svg class="animate-spin h-12 w-12 text-indigo-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+ <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+ <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+ </svg>
+ <p class="text-lg">Memuat daftar endpoint...</p>
+ </div>
+ </div>
+ </div>
+ <footer class="text-center py-5 px-4 bg-gray-800/70 backdrop-blur-sm border-t border-gray-700/50 text-sm text-gray-400">
+ <p>© 2025 NirKyy. Tetap semangat, API tetap aktif selama Koyeb gratis! 🚀</p>
+ <p>Bergabunglah di <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="footer-link"><i class="fab fa-whatsapp footer-icon mr-1.5"></i>Saluran WhatsApp</a> untuk update terbaru.</p>
+ </footer>
+ </main>
+ </div>
+
+ <div id="tryModal" class="fixed inset-0 z-40 overflow-y-auto hidden" aria-labelledby="tryModalLabel" role="dialog" aria-modal="true">
+ <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+ <div class="fixed inset-0 modal-backdrop transition-opacity" aria-hidden="true"></div>
+ <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+ <div class="modal inline-block align-bottom bg-gray-800 rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl w-full flex flex-col">
+ <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-700/50 sticky top-0 z-10">
+ <div class="sm:flex sm:items-start">
+ <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-600/20 sm:mx-0 sm:h-10 sm:w-10"><i class="fas fa-vial text-indigo-400 text-xl"></i></div>
+ <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+ <h3 class="text-lg leading-6 font-medium text-indigo-400" id="tryModalLabel">Coba Endpoint</h3>
+ <button type="button" class="absolute top-4 right-4 text-gray-500 hover:text-gray-200 transition-colors duration-150" data-modal-hide="tryModal"><i class="fas fa-times text-xl"></i></button>
+ </div>
+ </div>
+ </div>
+ <div class="px-4 py-5 sm:p-6 flex-1 overflow-y-auto space-y-6">
+ <div id="parameterInputs">
+ <h4 class="text-md font-medium text-gray-400 mb-3">Parameter Permintaan</h4>
+ </div>
+ <button id="runButton" class="primary-button">
+ <i class="fas fa-play mr-2 -ml-1"></i>Jalankan Permintaan
+ </button>
+ <div id="loadingIndicator" class="text-center py-3 text-gray-400" style="display:none">
+ <svg class="animate-spin inline-block h-5 w-5 text-indigo-400 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+ <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+ <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+ </svg>
+ <span>Memproses...</span>
+ </div>
+ <div id="resultUrl" class="mt-4" style="display:none">
+ <h5 class="text-sm font-medium text-gray-400 mb-1">URL Permintaan:</h5>
+ <div class="response-area">
+ <button class="btn-copy" data-clipboard-target="#finalUrlText" title="Salin URL"><i class="far fa-copy"></i></button>
+ <pre class="text-xs"><code id="finalUrlText"></code></pre>
+ </div>
+ </div>
+ <div id="apiResponse" class="mt-4 space-y-4" style="display:none">
+ <div>
+ <h5 class="text-sm font-medium text-gray-400 mb-1">Response Header:</h5>
+ <div class="response-area">
+ <button class="btn-copy" data-clipboard-target="#responseHeader" title="Salin Header"><i class="far fa-copy"></i></button>
+ <pre id="responseHeader" class="text-xs"></pre>
+ </div>
+ </div>
+ <div>
+ <h5 class="text-sm font-medium text-gray-400 mb-1">Response Body:</h5>
+ <div class="response-area">
+ <button class="btn-copy btn-copy-body" title="Salin Body" style="display:none"><i class="far fa-copy"></i></button>
+ <div id="responseBodyContainer"></div>
+ </div>
+ </div>
+ </div>
+ <div id="axiosExample" class="mt-4" style="display:none">
+ <h5 class="text-sm font-medium text-gray-400 mb-1">Contoh Kode Axios (GET):</h5>
+ <div class="response-area">
+ <button class="btn-copy" data-clipboard-target="#axiosSnippet code" title="Salin Kode"><i class="far fa-copy"></i></button>
+ <pre id="axiosSnippet" class="text-xs"><code></code></pre>
+ </div>
+ </div>
+ </div>
+ <div class="bg-gray-800/80 backdrop-blur-sm px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-700/50 sticky bottom-0 z-10">
+ <button type="button" data-modal-hide="tryModal" class="secondary-button mt-3 sm:ml-3 sm:w-auto">Tutup</button>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div id="whatsappModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="whatsappModalLabel" role="dialog" aria-modal="true">
+ <div class="flex items-center justify-center min-h-screen px-4 text-center">
+ <div class="fixed inset-0 modal-backdrop transition-opacity" aria-hidden="true"></div>
+ <div class="modal inline-block align-bottom bg-gray-800 rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
+ <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+ <div class="sm:flex sm:items-start">
+ <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-600/20 sm:mx-0 sm:h-10 sm:w-10"><i class="fab fa-whatsapp text-green-400 text-2xl"></i></div>
+ <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+ <h3 class="text-lg leading-6 font-medium text-green-400" id="whatsappModalLabel">Gabung Saluran WhatsApp Kami!</h3>
+ <div class="mt-2">
+ <p class="text-sm text-gray-400">Dapatkan update API terbaru, info menarik, dan diskusi seru seputar NirKyy langsung di WhatsApp Anda.</p>
+ </div>
+ </div>
+ <button type="button" class="absolute top-4 right-4 text-gray-500 hover:text-gray-200 transition-colors duration-150" data-modal-hide="whatsappModal"><i class="fas fa-times text-xl"></i></button>
+ </div>
+ </div>
+ <div class="bg-gray-800/80 backdrop-blur-sm px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-3">
+ <a href="https://whatsapp.com/channel/0029Vb3qLJRDuMRdjacRwe2T" target="_blank" rel="noopener noreferrer" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-md px-4 py-2.5 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 focus:ring-offset-gray-800 sm:w-auto sm:text-sm transition-all duration-200 ease-in-out hover:shadow-lg hover:shadow-green-500/30 hover:transform hover:translateY-[-1px]"><i class="fab fa-whatsapp mr-2 -ml-1"></i>Gabung Sekarang</a>
+ <button type="button" data-modal-hide="whatsappModal" class="secondary-button w-full sm:w-auto">Nanti Saja</button>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <audio id="successSound" src="/success.mp3" preload="auto"></audio>
+ <audio id="errorSound" src="/error.mp3" preload="auto"></audio>
+
+ <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+ <script>
+ document.addEventListener('DOMContentLoaded', function() {
+ let finalApiUrl = '';
+ let isFetching = false;
+ let currentEndpointData = null;
+ let clipboard;
+ let activeTag = '';
+
+ const sidebar = document.getElementById('sidebar');
+ const sidebarOpenBtn = document.getElementById('sidebar-open');
+ const sidebarCloseBtn = document.getElementById('sidebar-close');
+ const endpointListSection = document.getElementById('endpointListSection');
+ const searchEndpointInput = document.getElementById('searchEndpoint');
+ const tagButtonsContainer = document.getElementById('tagButtons');
+ const tryModalElement = document.getElementById('tryModal');
+ const parameterInputsDiv = document.getElementById('parameterInputs');
+ const runButton = document.getElementById('runButton');
+ const responseHeaderPre = document.getElementById('responseHeader');
+ const responseBodyContainer = document.getElementById('responseBodyContainer');
+ const axiosSnippetPre = document.getElementById('axiosSnippet').querySelector('code');
+ const loadingIndicator = document.getElementById('loadingIndicator');
+ const apiResponseDiv = document.getElementById('apiResponse');
+ const axiosExampleDiv = document.getElementById('axiosExample');
+ const resultUrlDiv = document.getElementById('resultUrl');
+ const finalUrlTextCode = document.getElementById('finalUrlText');
+ const copyResponseBodyBtn = tryModalElement.querySelector('.btn-copy-body');
+ const whatsappModalElement = document.getElementById('whatsappModal');
+
+ const successSound = document.getElementById('successSound');
+ const errorSound = document.getElementById('errorSound');
+
+ clipboard = new ClipboardJS('.btn-copy');
+ clipboard.on('success', function(e) {
+ const originalIcon = e.trigger.innerHTML;
+ const originalTitle = e.trigger.getAttribute('title');
+ e.trigger.innerHTML = '<i class="fas fa-check"></i> Disalin!';
+ e.trigger.setAttribute('title', 'Berhasil disalin!');
+ e.trigger.classList.add('btn-copy-feedback');
+ setTimeout(() => {
+ e.trigger.innerHTML = originalIcon;
+ e.trigger.setAttribute('title', originalTitle);
+ e.trigger.classList.remove('btn-copy-feedback');
+ }, 1500);
+ e.clearSelection();
+ });
+ clipboard.on('error', function(e) {
+ const originalTitle = e.trigger.getAttribute('title');
+ e.trigger.setAttribute('title', 'Gagal menyalin');
+ e.trigger.classList.add('text-red-500');
+ setTimeout(() => {
+ e.trigger.setAttribute('title', originalTitle);
+ e.trigger.classList.remove('text-red-500');
+ }, 1500);
+ });
+
+ setTimeout(() => {
+ if (whatsappModalElement && !localStorage.getItem('whatsappModalDismissed')) {
+ whatsappModalElement.classList.remove('hidden');
+ }
+ }, 3000);
+
+ function debounce(func, wait) {
+ let timeout;
+ return function(...args) {
+ clearTimeout(timeout);
+ timeout = setTimeout(() => func.apply(this, args), wait);
+ };
+ }
+
+ function generateEndpointsHTML(endpointsArray) {
+ if (!Array.isArray(endpointsArray) || endpointsArray.length === 0) {
+ return `<p class="col-span-full text-center text-gray-500 italic mt-6">Tidak ada endpoint yang cocok ditemukan.</p>`;
+ }
+
+ let html = '';
+ endpointsArray.forEach(ep => {
+ const name = ep.nama || 'Unnamed Endpoint';
+ const path = ep.endpoint || '/error-missing-path';
+ const tags = (Array.isArray(ep.tags) ? ep.tags : []).filter(t => t && typeof t === 'string');
+ const description = ep.deskripsi || '<span class="italic text-gray-500">Tidak ada deskripsi.</span>';
+ const escapedData = JSON.stringify(ep).replace(/'/g, "\\'");
+
+ html += `
+ <div class="endpoint-card">
+ <div class="px-5 py-4 border-b border-gray-700/50">
+ <h3 class="text-lg font-semibold">${name}</h3>
+ </div>
+ <div class="p-5 space-y-3">
+ <div class="endpoint-path">
+ <span class="font-mono text-xs break-all flex-1 mr-2">${path}</span>
+ <div class="flex space-x-2 flex-shrink-0 w-full sm:w-auto justify-end">
+ <button class="btn-action btn-copy-url" data-clipboard-text="https://nirkyy.koyeb.app${path}" title="Salin Full URL">
+ <i class="far fa-copy mr-1.5"></i> URL
+ </button>
+ <button class="btn-action try-button" data-endpoint='${escapedData}' title="Coba Endpoint Ini">
+ <i class="fas fa-vial mr-1.5"></i> Coba
+ </button>
+ </div>
+ </div>
+ <p class="text-sm text-gray-300 leading-relaxed">${description}</p>
+ <div class="flex flex-wrap gap-2 pt-1">
+ ${tags.map(t => `<span class="bg-indigo-500/20 text-indigo-300 text-xs font-medium px-2.5 py-1 rounded-full border border-indigo-500/30">${t}</span>`).join('')}
+ </div>
+ </div>
+ </div>`;
+ });
+ return html;
+ }
+
+ function fetchData(url) {
+ if (isFetching) return;
+ isFetching = true;
+ endpointListSection.innerHTML = `
+ <div class="loading-placeholder col-span-full flex flex-col items-center justify-center h-64 text-gray-500">
+ <svg class="animate-spin h-12 w-12 text-indigo-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+ <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+ <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+ </svg>
+ <p class="text-lg">Memuat...</p>
+ </div>`;
+
+ fetch(url)
+ .then(response => {
+ if (!response.ok) {
+ throw new Error(`HTTP error! status: ${response.status}`);
+ }
+ return response.json();
+ })
+ .then(jsonData => {
+ if (jsonData && Array.isArray(jsonData.endpoints)) {
+ endpointListSection.innerHTML = generateEndpointsHTML(jsonData.endpoints);
+ new ClipboardJS('.btn-copy-url');
+ } else if (jsonData && typeof jsonData === 'object' && !jsonData.endpoints) {
+ endpointListSection.innerHTML = generateEndpointsHTML([]);
+ }
+ else {
+ throw new Error('Invalid data structure received. Expected an object with an "endpoints" array.');
+ }
+ })
+ .catch(error => {
+ let errorMessage = `Gagal memuat endpoint. Coba lagi nanti. (${error.message})`;
+ if (error instanceof SyntaxError) {
+ errorMessage = `Gagal memuat endpoint: Respons server bukan JSON yang valid. (${error.message})`;
+ } else if (error.message.includes('Invalid data structure')) {
+ errorMessage = `Gagal memuat endpoint: Struktur data tidak valid. (${error.message})`;
+ }
+ endpointListSection.innerHTML = `<p class="col-span-full text-center text-red-400 font-semibold mt-6 p-4 bg-red-500/10 rounded-lg border border-red-500/30">${errorMessage}</p>`;
+ })
+ .finally(() => {
+ isFetching = false;
+ });
+ }
+
+ function loadTags() {
+ fetch('/tags')
+ .then(res => {
+ if (!res.ok) throw new Error('Failed to load tags');
+ return res.json();
+ })
+ .then(data => {
+ let html = `<a href="#" data-tags="" class="tag-link group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-gray-300 ${activeTag === '' ? 'tag-active' : ''}">
+ <i class="fas fa-tags mr-3 text-gray-400 group-hover:text-gray-300"></i> All Tags
+ </a>`;
+ if (data && data.tags && Array.isArray(data.tags) && data.tags.length > 0) {
+ data.tags.sort((a, b) => a.localeCompare(b));
+ data.tags.forEach(tag => {
+ html += `<a href="#" data-tags="${tag}" class="tag-link group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-gray-300 ${activeTag === tag ? 'tag-active' : ''}">
+ <i class="fas fa-tag mr-3 text-gray-400 group-hover:text-gray-300"></i> ${tag}
+ </a>`;
+ });
+ } else {
+ html += '<div class="px-2 py-2 text-sm text-gray-500 italic">Tidak ada tag.</div>';
+ }
+ tagButtonsContainer.innerHTML = html;
+ })
+ .catch(error => {
+ tagButtonsContainer.innerHTML = '<div class="px-2 py-2 text-sm text-red-500">Gagal memuat tag.</div>';
+ });
+ }
+
+ function showModal(modalElement) {
+ if (modalElement) {
+ modalElement.classList.remove('hidden');
+ document.body.classList.add('overflow-hidden');
+ }
+ }
+
+ function hideModal(modalElement, persistDismiss = false) {
+ if (modalElement) {
+ modalElement.classList.add('hidden');
+ if (persistDismiss && modalElement.id === 'whatsappModal') {
+ localStorage.setItem('whatsappModalDismissed', 'true');
+ }
+ if (!document.querySelector('.fixed.inset-0.z-40:not(.hidden), .fixed.inset-0.z-50:not(.hidden)')) {
+ document.body.classList.remove('overflow-hidden');
+ }
+ }
+ }
+
+ function setupModalTriggers() {
+ document.querySelectorAll('[data-modal-hide]').forEach(button => {
+ button.addEventListener('click', () => {
+ const modalId = button.getAttribute('data-modal-hide');
+ const modal = document.getElementById(modalId);
+ const persist = button.textContent.includes('Nanti Saja') || button.textContent.includes('Tutup');
+ hideModal(modal, persist);
+ });
+ });
+
+ document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+ backdrop.addEventListener('click', (event) => {
+ const modal = event.target.closest('.fixed.inset-0');
+ if (modal && modal.contains(event.target) && event.target === backdrop) {
+ const persist = modal.id === 'whatsappModal';
+ hideModal(modal, persist);
+ }
+ });
+ });
+ }
+
+ function resetModalOutput() {
+ responseHeaderPre.textContent = '';
+ responseBodyContainer.innerHTML = '';
+ axiosSnippetPre.textContent = '';
+ finalUrlTextCode.textContent = '';
+ apiResponseDiv.style.display = 'none';
+ axiosExampleDiv.style.display = 'none';
+ resultUrlDiv.style.display = 'none';
+ if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
+ finalApiUrl = '';
+
+ const mediaElements = responseBodyContainer.querySelectorAll('img[src^="blob:"], video[src^="blob:"], audio[src^="blob:"]');
+ mediaElements.forEach(el => { if (el.src) { try { URL.revokeObjectURL(el.src); } catch(e) { console.warn("Could not revoke", el.src, e); } } });
+ const downloadLinks = responseBodyContainer.querySelectorAll('a[href^="blob:"]');
+ downloadLinks.forEach(a => { if (a.href) { try { URL.revokeObjectURL(a.href); } catch(e) { console.warn("Could not revoke", a.href, e); } } });
+ }
+
+ function openTryModal(endpoint) {
+ currentEndpointData = endpoint;
+ parameterInputsDiv.innerHTML = '';
+ resetModalOutput();
+ document.getElementById('tryModalLabel').textContent = `Coba: ${endpoint.nama}`;
+
+ if (endpoint.parameter && Array.isArray(endpoint.parameter) && endpoint.parameter.length > 0) {
+ parameterInputsDiv.innerHTML += `<h4 class="text-md font-medium text-gray-300 mb-3">Parameter Permintaan</h4>`;
+ endpoint.parameter.forEach(param => {
+ const paramName = param.params;
+ const defaultValue = param.example || '';
+ const isRequired = (param.opsional === false);
+ const inputId = `param-${paramName}`;
+ const placeholder = param.deskripsi || (defaultValue ? `Contoh: ${defaultValue}` : `Masukkan ${paramName}`);
+
+ const div = document.createElement('div');
+ div.className = 'mb-4';
+
+ const label = document.createElement('label');
+ label.htmlFor = inputId;
+ label.className = 'block text-sm font-medium text-gray-300 mb-1.5';
+ label.innerHTML = `${paramName} ${isRequired ? '<span class="text-red-400 font-semibold">*</span>' : '<span class="text-gray-500 text-xs">(Opsional)</span>'}`;
+
+ const input = document.createElement('input');
+ input.type = 'text';
+ input.className = 'w-full px-3.5 py-2.5 bg-gray-700/50 border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-500 text-sm transition-colors duration-150';
+ input.id = inputId;
+ input.name = paramName;
+ input.placeholder = placeholder;
+ input.value = defaultValue;
+ if (isRequired) input.required = true;
+
+ div.appendChild(label);
+ div.appendChild(input);
+ parameterInputsDiv.appendChild(div);
+ });
+ } else {
+ parameterInputsDiv.innerHTML = `<p class="text-sm text-gray-500 italic">Endpoint ini tidak memerlukan parameter tambahan.</p>`;
+ }
+ showModal(tryModalElement);
+ }
+
+ if (sidebarOpenBtn) {
+ sidebarOpenBtn.addEventListener('click', () => {
+ sidebar.classList.remove('-translate-x-full');
+ });
+ }
+ if (sidebarCloseBtn) {
+ sidebarCloseBtn.addEventListener('click', () => {
+ sidebar.classList.add('-translate-x-full');
+ });
+ }
+
+ const debouncedSearch = debounce(function() {
+ const searchTerm = searchEndpointInput.value.trim();
+ activeTag = '';
+ loadTags();
+ const url = searchTerm
+ ? `/search?term=${encodeURIComponent(searchTerm)}`
+ : '/renderpage?tags=';
+ fetchData(url);
+ }, 350);
+ searchEndpointInput.addEventListener('input', debouncedSearch);
+
+ tagButtonsContainer.addEventListener('click', function(e) {
+ e.preventDefault();
+ const tagLink = e.target.closest('a.tag-link');
+ if (tagLink) {
+ activeTag = tagLink.getAttribute('data-tags');
+ searchEndpointInput.value = '';
+ loadTags();
+ fetchData(`/renderpage?tags=${encodeURIComponent(activeTag)}`);
+
+ if (window.innerWidth < 1024) {
+ sidebar.classList.add('-translate-x-full');
+ }
+ }
+ });
+
+ endpointListSection.addEventListener('click', function(e) {
+ const tryButton = e.target.closest('.try-button');
+ if (tryButton) {
+ const data = tryButton.getAttribute('data-endpoint');
+ if (data) {
+ try {
+ const endpoint = JSON.parse(data.replace(/\\'/g, "'"));
+ openTryModal(endpoint);
+ } catch(parseError) {
+ alert("Error: Data endpoint tidak valid.");
+ }
+ }
+ }
+ });
+
+ runButton.addEventListener('click', function() {
+ if (loadingIndicator.style.display === 'block' || !currentEndpointData) return;
+
+ runButton.disabled = true;
+ runButton.classList.add('opacity-50', 'cursor-not-allowed');
+ loadingIndicator.style.display = 'flex'; /* Use flex for centering */
+ loadingIndicator.classList.add('items-center', 'justify-center');
+ resetModalOutput();
+
+ let apiUrl = currentEndpointData.endpoint;
+ const queryParams = {};
+ let missingRequired = false;
+ let firstMissingField = null;
+
+ const inputs = parameterInputsDiv.querySelectorAll('input[name]');
+ inputs.forEach(input => {
+ input.classList.remove('border-red-500', 'ring-red-500');
+ const paramName = input.name;
+ const paramDefinition = currentEndpointData.parameter && Array.isArray(currentEndpointData.parameter)
+ ? currentEndpointData.parameter.find(p => p.params === paramName)
+ : null;
+ const isRequired = paramDefinition && (paramDefinition.opsional === false);
+ const inputValue = input.value.trim();
+
+ if (isRequired && !inputValue) {
+ missingRequired = true;
+ if (!firstMissingField) firstMissingField = input;
+ input.classList.add('border-red-500', 'ring-1', 'ring-red-500');
+ }
+
+ if (inputValue) {
+ const placeholder = `{${paramName}}`;
+ if (apiUrl.includes(placeholder)) {
+ apiUrl = apiUrl.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), encodeURIComponent(inputValue));
+ } else {
+ queryParams[paramName] = inputValue;
+ }
+ }
+ });
+
+ if (missingRequired) {
+ alert('Harap isi semua parameter yang ditandai wajib (*).');
+ if (firstMissingField) firstMissingField.focus();
+ runButton.disabled = false;
+ runButton.classList.remove('opacity-50', 'cursor-not-allowed');
+ loadingIndicator.style.display = 'none';
+ return;
+ }
+
+ const baseUrl = `https://nirkyy.koyeb.app${apiUrl}`;
+ const urlObj = new URL(baseUrl);
+ Object.entries(queryParams).forEach(([key, value]) => {
+ urlObj.searchParams.append(key, value);
+ });
+ finalApiUrl = urlObj.toString();
+
+ finalUrlTextCode.textContent = finalApiUrl;
+ resultUrlDiv.style.display = 'block';
+
+ const axiosConfig = {
+ method: 'get',
+ url: finalApiUrl,
+ responseType: 'arraybuffer',
+ validateStatus: status => status >= 200 && status < 500
+ };
+
+ axios(axiosConfig)
+ .then(response => {
+ const headers = response.headers;
+ const contentType = headers['content-type']?.toLowerCase() || '';
+ const status = response.status;
+
+ let headerString = `Status: ${status} ${response.statusText}\n`;
+ Object.entries(headers).forEach(([key, value]) => { headerString += `${key}: ${value}\n`; });
+ responseHeaderPre.textContent = headerString.trim();
+ apiResponseDiv.style.display = 'block';
+
+ responseBodyContainer.innerHTML = '';
+ if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
+
+ const responseData = response.data;
+
+ if (contentType.includes('application/json')) {
+ try {
+ const decoder = new TextDecoder('utf-8');
+ const jsonText = decoder.decode(responseData);
+ const jsonData = JSON.parse(jsonText);
+ const pre = document.createElement('pre');
+ pre.textContent = JSON.stringify(jsonData, null, 2);
+ responseBodyContainer.innerHTML = '';
+ responseBodyContainer.appendChild(pre);
+ if(copyResponseBodyBtn) {
+ copyResponseBodyBtn.setAttribute('data-clipboard-target', '#responseBodyContainer pre');
+ copyResponseBodyBtn.style.display = 'block';
+ }
+ if (jsonData && jsonData.success === false) errorSound.play(); else successSound.play();
+
+ } catch (e) {
+ responseBodyContainer.innerHTML = `<pre class="text-red-400">[Error: Failed to parse JSON response]\n${new TextDecoder('utf-8').decode(responseData)}</pre>`;
+ errorSound.play();
+ }
+ } else if (contentType.startsWith('image/')) {
+ const blob = new Blob([responseData], { type: contentType });
+ const imageUrl = URL.createObjectURL(blob);
+ const img = document.createElement('img');
+ img.src = imageUrl;
+ img.alt = "API Response Image";
+ img.className = "max-w-full h-auto rounded-lg shadow-md";
+ responseBodyContainer.innerHTML = '';
+ responseBodyContainer.appendChild(img);
+ successSound.play();
+ } else if (contentType.startsWith('video/')) {
+ const blob = new Blob([responseData], { type: contentType });
+ const videoUrl = URL.createObjectURL(blob);
+ const video = document.createElement('video');
+ video.controls = true;
+ video.src = videoUrl;
+ video.className = "max-w-full rounded-lg shadow-md";
+ responseBodyContainer.innerHTML = '';
+ responseBodyContainer.appendChild(video);
+ successSound.play();
+ } else if (contentType.startsWith('audio/')) {
+ if(responseData.byteLength > 0) {
+ const blob = new Blob([responseData], { type: contentType });
+ const audioUrl = URL.createObjectURL(blob);
+ const audio = document.createElement('audio');
+ audio.controls = true;
+ audio.preload = 'metadata';
+ audio.src = audioUrl;
+ audio.className = "w-full shadow-md";
+ responseBodyContainer.innerHTML = '';
+ responseBodyContainer.appendChild(audio);
+ successSound.play();
+ } else {
+ responseBodyContainer.innerHTML = `<p class="text-yellow-400 italic text-sm p-3 bg-yellow-500/10 rounded-md">[Data audio kosong]</p>`;
+ errorSound.play();
+ }
+ } else if (contentType.startsWith('text/')) {
+ const decoder = new TextDecoder('utf-8');
+ const text = decoder.decode(responseData);
+ const pre = document.createElement('pre');
+ pre.textContent = text;
+ responseBodyContainer.innerHTML = '';
+ responseBodyContainer.appendChild(pre);
+ if(copyResponseBodyBtn) {
+ copyResponseBodyBtn.setAttribute('data-clipboard-target', '#responseBodyContainer pre');
+ copyResponseBodyBtn.style.display = 'block';
+ }
+ successSound.play();
+ } else {
+ responseBodyContainer.innerHTML = '';
+ const pre = document.createElement('pre');
+ pre.textContent = `[Received ${contentType || 'unknown'} data - ${responseData.byteLength} bytes]`;
+ pre.className = "text-gray-400 text-sm mb-2 p-3 bg-gray-700/30 rounded-md";
+ responseBodyContainer.appendChild(pre);
+
+ try {
+ const blob = new Blob([responseData], { type: contentType });
+ const downloadUrl = URL.createObjectURL(blob);
+ const a = document.createElement('a');
+ a.href = downloadUrl;
+
+ const disposition = headers['content-disposition'];
+ let filename = 'download';
+ if (disposition && disposition.includes('filename=')) {
+ const filenameMatch = disposition.match(/filename\*?=['"]?([^'";]+)['"]?/);
+ if (filenameMatch && filenameMatch[1]) {
+ filename = decodeURIComponent(filenameMatch[1]);
+ }
+ } else {
+ const pathParts = urlObj.pathname.split('/');
+ filename = pathParts[pathParts.length - 1] || 'download';
+ if (!filename.includes('.')) {
+ const typeParts = contentType.split('/');
+ const ext = typeParts[1] ? typeParts[1].split('+')[0] : 'bin';
+ filename += `.${ext}`;
+ }
+ }
+ a.download = filename;
+ a.textContent = `Unduh File (${filename})`;
+ a.className = 'inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-all duration-150 ease-in-out shadow-md hover:shadow-lg hover:transform hover:translateY-[-1px]';
+ responseBodyContainer.appendChild(a);
+ successSound.play();
+
+ } catch (blobError) {
+ const errorP = document.createElement('p');
+ errorP.textContent = "(Tidak dapat membuat tautan unduhan)";
+ errorP.className = 'text-red-500 italic text-sm mt-1 p-3 bg-red-500/10 rounded-md';
+ responseBodyContainer.appendChild(errorP);
+ errorSound.play();
+ }
+ }
+
+ const axiosResponseType = (contentType && !contentType.includes('application/json') && !contentType.startsWith('text/')) ? ", \n responseType: 'arraybuffer'" : "";
+ let axiosCode = `axios.get('${baseUrl}'`;
+
+ if (Object.keys(queryParams).length > 0) {
+ axiosCode += `, {\n params: ${JSON.stringify(queryParams, null, 2)}`;
+ if(axiosResponseType) axiosCode += axiosResponseType;
+ axiosCode += `\n }`;
+ } else if (axiosResponseType) {
+ axiosCode += `, {\n responseType: 'arraybuffer'\n }`;
+ }
+ axiosCode += `)\n.then(response => {\n console.log('Status:', response.status);\n console.log('Headers:', response.headers);\n console.log('Data:', response.data);\n})\n.catch(error => {\n console.error('Error:', error.response ? error.response.data : error.message);\n});`;
+ axiosSnippetPre.textContent = axiosCode;
+ axiosExampleDiv.style.display = 'block';
+
+ })
+ .catch(error => {
+ errorSound.play();
+ apiResponseDiv.style.display = 'block';
+ responseHeaderPre.textContent = `Error: ${error.message}`;
+ responseBodyContainer.innerHTML = '';
+ if(copyResponseBodyBtn) copyResponseBodyBtn.style.display = 'none';
+
+ if (error.response) {
+ let headerString = `Status: ${error.response.status} ${error.response.statusText}\n`;
+ Object.entries(error.response.headers).forEach(([key, value]) => { headerString += `${key}: ${value}\n`; });
+ responseHeaderPre.textContent = headerString.trim();
+
+ if (error.response.data && error.response.data.byteLength > 0) {
+ const pre = document.createElement('pre');
+ pre.className = "text-red-400";
+ try {
+ const decoder = new TextDecoder('utf-8');
+ const errorText = decoder.decode(new Uint8Array(error.response.data));
+ try {
+ pre.textContent = JSON.stringify(JSON.parse(errorText), null, 2);
+ } catch (jsonError) {
+ pre.textContent = errorText;
+ }
+ } catch (decodeError) {
+ pre.textContent = `[Undecodable binary error data received - ${error.response.data.byteLength} bytes]`;
+ }
+ responseBodyContainer.appendChild(pre);
+ if(copyResponseBodyBtn) {
+ copyResponseBodyBtn.setAttribute('data-clipboard-target', '#responseBodyContainer pre');
+ copyResponseBodyBtn.style.display = 'block';
+ }
+ } else {
+ responseBodyContainer.innerHTML = `<p class="text-gray-500 italic p-3 bg-gray-700/20 rounded-md">[No response body]</p>`;
+ }
+
+ } else if (error.request) {
+ responseBodyContainer.innerHTML = `<p class="text-red-500 p-3 bg-red-500/10 rounded-md">Tidak ada respons diterima dari server. Periksa koneksi atau URL.</p>`;
+ } else {
+ responseBodyContainer.innerHTML = `<p class="text-red-500 p-3 bg-red-500/10 rounded-md">Error konfigurasi permintaan: ${error.message}</p>`;
+ }
+ })
+ .finally(() => {
+ loadingIndicator.style.display = 'none';
+ runButton.disabled = false;
+ runButton.classList.remove('opacity-50', 'cursor-not-allowed');
+ });
+ });
+
+ setupModalTriggers();
+ loadTags();
+ fetchData('/renderpage?tags=');
+
+ });
+ </script>
+ </body>
+ </html>
+
