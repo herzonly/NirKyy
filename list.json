@@ -16,6 +16,29 @@
   ],
   "fitur": [
     {
+  "nama": "Tic Tac Toe Game",
+  "tags": ["Fun", "Utility"],
+  "endpoint": "/api/v1/tictactoe",
+  "deskripsi": "Mainkan permainan Tic Tac Toe melawan AI dengan level kesulitan berbeda.",
+  "parameter": [
+    {
+      "params": "username",
+      "example": "puruupuruu",
+      "opsional": false
+    },
+    {
+      "params": "start",
+      "example": "sulit atau mudah",
+      "opsional": true
+    },
+    {
+      "params": "move",
+      "example": "1-9",
+      "opsional": true
+    }
+  ]
+},
+    {
   "nama": "Fake Shop Image Generator",
   "tags": ["Image", "Generator", "Fun"],
   "endpoint": "/api/v1/fakeshop-image",
