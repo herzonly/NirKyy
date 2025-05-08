@@ -16,6 +16,19 @@
   ],
   "fitur": [
     {
+  "nama": "Jadwal Sholat",
+  "tags": ["Information", "Utility"],
+  "endpoint": "/api/v1/jadwal-sholat",
+  "deskripsi": "Mendapatkan jadwal sholat harian berdasarkan nama kota.",
+  "parameter": [
+    {
+      "params": "city",
+      "example": "subang",
+      "opsional": false
+    }
+  ]
+},
+    {
   "nama": "Tic Tac Toe Game",
   "tags": ["Fun", "Utility"],
   "endpoint": "/api/v1/tictactoe",
