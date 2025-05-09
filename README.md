@@ -45,6 +45,6 @@ Kami akan meninjau PR Anda secepatnya dan berinteraksi dengan Anda selama proses
 
 ## ❓ Dukungan & Pertanyaan
 
-Jika Anda memiliki pertanyaan, menemui masalah, atau ingin memberikan saran, cara terbaik adalah dengan membuka [Issue Baru](https://github.com/your-username/your-repo/issues) di repositori ini. Kami akan berusaha memberikan respons yang cepat dan membantu.
+Jika Anda memiliki pertanyaan, menemui masalah, atau ingin memberikan saran, cara terbaik adalah dengan membuka [Issue Baru](https://github.com/rikikangsc2-eng/NirKyy/issues) di repositori ini. Kami akan berusaha memberikan respons yang cepat dan membantu.
 
 Terima kasih telah menggunakan dan menjadi bagian dari komunitas pengembang REST API Publik Nirkyy! Mari kita bangun API yang hebat bersama! 💪
