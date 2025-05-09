@@ -679,12 +679,12 @@ router.get('/fakeshop-image', async (req, res) => {
 
     const targetUrl = `https://express-vercel-ytdl.vercel.app/fakeshop-cuy?search=${encodeURIComponent(search)}&judul=${encodeURIComponent(judul)}&harga=${encodeURIComponent(harga)}&thumbnail=${encodeURIComponent(thumbnail)}`;
 
-    const response = await axios.get(targetUrl, {
-      responseType: 'arraybuffer'
+     const response = await axios.get(targetUrl, {
+      responseType: 'stream'
     });
 
     res.setHeader('Content-Type', 'image/jpeg');
-    res.send(response.data);
+    response.data.pipe(res);
 
   } catch (e) {
     res.errorJson('Yah, ada masalah pas ngambil gambar nih. Coba lagi ya.');
@@ -735,15 +735,15 @@ router.get('/image-hentai', async (req, res) => {
   }
 
   try {
-    const imageResponse = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+  const imageResponse = await axios.get(imageUrl, { responseType: 'stream' });
+const contentType = imageResponse.headers['content-type'];
 
-    const contentType = imageResponse.headers['content-type'];
-    if (!contentType || !contentType.startsWith('image/')) {
-         return res.errorJson('URL did not provide an image.', 500);
-    }
+if (!contentType || !contentType.startsWith('image/')) {
+    return res.errorJson('URL did not provide an image.', 500);
+}
 
-    res.setHeader('Content-Type', contentType);
-    res.send(imageResponse.data);
+res.setHeader('Content-Type', contentType);
+imageResponse.data.pipe(res);
 
   } catch (error) {
     res.errorJson('Failed to fetch image.', 500);
@@ -767,11 +767,12 @@ router.get('/random-anime-image', async (req, res) => {
     });
     
     const imageUrl = response.data.url;
-    const imageResp = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+    const imageResp = await axios.get(imageUrl, { responseType: 'stream' });
     const contentType = imageResp.headers['content-type'] || 'image/jpeg';
-    
+
     res.setHeader('Content-Type', contentType);
-    res.send(imageResp.data);
+    imageResp.data.pipe(res);
+
   } catch (err) {
     console.error('Error cuy:', err.message);
     res.errorJson('Ada error cuy, coba lagi nanti!', 500);
@@ -834,20 +835,20 @@ router.get('/elevenlabs', async (req, res) => {
       payload.append('model', model);
       payload.append('text', text);
 
-      const { data, headers } = await axios.post(`${baseUrl}/generate-audio`, payload.toString(), {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.135 Mobile Safari/537.36',
-          'Referer': baseUrl + '/'
-        },
-        responseType: 'arraybuffer'
-      });
+      const response = await axios.post(`${baseUrl}/generate-audio`, payload.toString(), {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.6998.135 Mobile Safari/537.36',
+    'Referer': baseUrl + '/'
+  },
+  responseType: 'stream'
+});
 
-      res.set({
-        'Content-Type': headers['content-type'],
-        'Content-Length': headers['content-length']
-      });
-      return res.send(data);
+res.set({
+  'Content-Type': response.headers['content-type'],
+  'Content-Length': response.headers['content-length']
+});
+return response.data.pipe(res);
     } catch (e) {}
   }
 
@@ -1155,15 +1156,17 @@ router.get('/bluefire', async (req, res) => {
 
         if (apiResponse.data && apiResponse.data.src) {
             const imageUrl = apiResponse.data.src;
-            const imageResponse = await axios.get(imageUrl, {
-                responseType: 'arraybuffer',
-                 headers: {
-                    'User-Agent': headers['User-Agent'],
-                    'Referer': apiUrl
-                 }
-            });
-            res.setHeader('Content-Type', 'image/gif');
-            res.send(imageResponse.data);
+const imageResponse = await axios({
+  method: 'get',
+  url: imageUrl,
+  responseType: 'stream',
+  headers: {
+    'User-Agent': headers['User-Agent'],
+    'Referer': apiUrl
+  }
+});
+res.setHeader('Content-Type', 'image/gif');
+imageResponse.data.pipe(res);
         } else {
              res.errorJson(new Error('Gagal mendapatkan URL gambar dari API FlamingText'), 500);
         }
@@ -1259,9 +1262,9 @@ router.get('/fireLogo', async (req, res) => {
       headers: headers
     });
 
-    const gambar = await axios.get(response.data.src, { responseType: "arraybuffer" });
-    res.setHeader('Content-Type', 'image/png');
-    res.send(gambar.data);
+    const gambarResponse = await axios.get(response.data.src, { responseType: 'stream' });
+res.setHeader('Content-Type', 'image/png');
+gambarResponse.data.pipe(res);
   } catch (error) {
     let errorMessage = error.message;
     let status = 500;
@@ -1390,11 +1393,11 @@ router.get('/tangga-lagu', async (req, res) => {
 router.get('/kecocokan', async (req, res) => {
   const { nama1, nama2 } = req.query;
   try {
-    const response = await axios.get(`https://express-vercel-ytdl.vercel.app/kecocokan?nama1=${nama1}&nama2=${nama2}`, {
-      responseType: 'arraybuffer'
+        const response = await axios.get(`https://express-vercel-ytdl.vercel.app/kecocokan?nama1=${nama1}&nama2=${nama2}`, {
+      responseType: 'stream'
     });
     res.setHeader('Content-Type', 'image/jpeg');
-    res.send(response.data);
+    response.data.pipe(res);
   } catch (error) {
     console.error('Error fetching image:', error);
     res.errorJson('Failed to fetch image');
@@ -1553,10 +1556,9 @@ router.get('/brats', async (req, res) => {
 
   try {
     const apiUrl = `https://express-vercel-ytdl.vercel.app/brats?host=${encodeURIComponent(host)}&text=${encodeURIComponent(text)}`;
-    const response = await axios.get(apiUrl, { responseType: 'arraybuffer' });
+    const response = await axios.get(apiUrl, { responseType: 'stream' });
     res.setHeader('Content-Type', 'image/png');
-    const buffer = Buffer.from(response.data);
-    res.send(buffer);
+    response.data.pipe(res);
   } catch (error) {
     console.error("Error fetching or streaming brats image:", error);
     res.errorJson({ error: "Gagal mengambil atau mengirim gambar brats." });
@@ -1572,10 +1574,9 @@ router.get('/artinama', async (req, res) => {
 
   try {
     const apiUrl = `https://express-vercel-ytdl.vercel.app/arti?nama=${encodeURIComponent(nama)}`;
-const response = await axios.get(apiUrl, { responseType: 'arraybuffer' });
-
+const response = await axios.get(apiUrl, { responseType: 'stream' });
 res.setHeader('Content-Type', 'image/jpeg');
-res.send(Buffer.from(response.data));
+response.data.pipe(res);
   } catch (error) {
     console.error("Error fetching or streaming khodam image:", error);
     res.errorJson({ error: "Gagal mengambil atau mengirim gambar khodam." });
@@ -1591,10 +1592,9 @@ router.get('/khodam', async (req, res) => {
 
   try {
     const apiUrl = `https://express-vercel-ytdl.vercel.app/khodam?nama=${encodeURIComponent(nama)}`;
-        const response = await axios.get(apiUrl, { responseType: 'arraybuffer' });
-
+    const response = await axios.get(apiUrl, { responseType: 'stream' });
     res.setHeader('Content-Type', 'image/jpeg');
-    res.send(Buffer.from(response.data));
+    response.data.pipe(res);
   } catch (error) {
     console.error("Error fetching or streaming khodam image:", error);
     res.errorJson({ error: "Gagal mengambil atau mengirim gambar khodam." });
@@ -1689,9 +1689,9 @@ router.get('/memegen', async (req, res) => {
     url += `?background=${encodeURIComponent(background)}`;
   }
   try {
-    const response = await axios.get(url, { responseType: 'arraybuffer' });
-    res.set('Content-Type', 'image/png');
-    res.send(Buffer.from(response.data));
+    const response = await axios.get(url, { responseType: 'stream' });
+res.set('Content-Type', 'image/png');
+response.data.pipe(res);
   } catch (error) {
     console.error('Error saat memanggil API memegen:', error);
     res.errorJson({ error: 'Terjadi kesalahan saat memproses permintaan.' });
