@@ -16,6 +16,24 @@
   ],
   "fitur": [
     {
+  "nama": "Writecream Text to Image",
+  "tags": ["AI", "Image", "Generator"],
+  "endpoint": "/api/v1/writecream-text2image",
+  "deskripsi": "Menghasilkan gambar dari teks menggunakan Writecream API.",
+  "parameter": [
+    {
+      "params": "prompt",
+      "example": "Anime girl holding a sign with a smiling expression, the sign reads NirKyy",
+      "opsional": false
+    },
+    {
+      "params": "aspect_ratio",
+      "example": "1:1",
+      "opsional": true
+    }
+  ]
+},
+    {
   "nama": "Jadwal Sholat",
   "tags": ["Information", "Utility"],
   "endpoint": "/api/v1/jadwal-sholat",
