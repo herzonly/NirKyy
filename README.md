@@ -1,7 +1,7 @@
 # ✨ Nirkyy Public REST API ✨
 
 [![Status](https://img.shields.io/badge/Status-Aktif-brightgreen)](https://nirkyy.koyeb.app)
-[![Open Source](https://img.shields.io/badge/Open%20Source-Public-blue)]([https://github.com/your-username/your-repo](https://github.com/rikikangsc2-eng/NirKyy/)) [![Kontribusi Disambut](https://img.shields.io/badge/Kontribusi-Disambut-red)](CONTRIBUTING.md) Selamat datang di repositori **REST API Publik Nirkyy**! 🎉 Proyek ini adalah inisiatif **open source publik** yang bertujuan menyediakan akses mudah ke berbagai fungsionalitas melalui antarmuka RESTful yang modern dan mudah digunakan.
+[![Open Source](https://img.shields.io/badge/Open%20Source-Public-blue)](https://github.com/rikikangsc2-eng/NirKyy) [![Kontribusi Disambut](https://img.shields.io/badge/Kontribusi-Disambut-red)](CONTRIBUTING.md) Selamat datang di repositori **REST API Publik Nirkyy**! 🎉 Proyek ini adalah inisiatif **open source publik** yang bertujuan menyediakan akses mudah ke berbagai fungsionalitas melalui antarmuka RESTful yang modern dan mudah digunakan.
 
 ## 📚 Dokumentasi Lengkap
 
