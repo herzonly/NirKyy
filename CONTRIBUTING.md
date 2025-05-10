@@ -25,7 +25,7 @@ Langkah pertama adalah membuat salinan (fork) dari repositori utama ke akun GitH
 Setelah di-fork, clone repositori *fork* Anda ke mesin lokal Anda menggunakan Git:
 
 ```bash
-git clone https://github.com/rikikangsc2-eng/NirKyy
+git clone https://github.com/Your-Username/NirKyy
 cd NirKyy
 ```
 
