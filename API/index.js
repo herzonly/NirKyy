@@ -33,6 +33,7 @@ const fluxf = require('../lib/fluxFast.js')
 const ytaudiov2 = require('../lib/ytAudioV2.js')
 const komiku = require('../lib/komiku.js')
 //-
+router.get('/ssweb',require('../lib/ssmanchine.js'))
 router.get('/tictactoe',require('../lib/tictactoe.js'))
 router.get('/image-random',require('../lib/image-random.js'))
 router.get('/komik',komiku)
