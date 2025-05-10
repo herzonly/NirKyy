@@ -16,19 +16,6 @@
   ],
   "fitur": [
     {
-  "nama": "ML Voice Lines",
-  "tags": ["Audio", "Information"],
-  "endpoint": "/api/v1/voicehero-ml",
-  "deskripsi": "Mengambil daftar audio voice line hero Mobile Legends dari Fandom wiki.",
-  "parameter": [
-    {
-      "params": "hero",
-      "example": "Layla",
-      "opsional": false
-    }
-  ]
-},
-    {
   "nama": "Writecream Text to Image",
   "tags": ["AI", "Image", "Generator"],
   "endpoint": "/api/v1/writecream-text2image",
