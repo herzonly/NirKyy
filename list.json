@@ -28,27 +28,27 @@
     },
     {
       "params": "browserWidth",
-      "example": "1920",
+      "example": "1280",
       "opsional": true
     },
     {
       "params": "browserHeight",
-      "example": "1080",
+      "example": "720",
       "opsional": true
     },
     {
       "params": "fullPage",
-      "example": "true",
+      "example": "false",
       "opsional": true
     },
     {
       "params": "deviceScaleFactor",
-      "example": "2",
+      "example": "1",
       "opsional": true
     },
     {
       "params": "format",
-      "example": "png atau jpeg",
+      "example": "png",
       "opsional": true
     }
   ]
