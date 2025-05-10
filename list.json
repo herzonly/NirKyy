@@ -16,6 +16,19 @@
   ],
   "fitur": [
     {
+  "nama": "Facebook Downloader",
+  "tags": ["Downloader", "Video", "Social"],
+  "endpoint": "/api/v1/facebook-dl",
+  "deskripsi": "Mengunduh video dari Facebook menggunakan URL.",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://www.facebook.com/reel/1190968028860806/?mibextid=rS40aB7S9Ucbxw6v",
+      "opsional": false
+    }
+  ]
+},
+    {
   "nama": "Website Screenshot",
   "tags": ["Image", "Utility"],
   "endpoint": "/api/v1/ssweb",
