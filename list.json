@@ -16,6 +16,44 @@
   ],
   "fitur": [
     {
+  "nama": "Website Screenshot",
+  "tags": ["Image", "Utility"],
+  "endpoint": "/api/v1/ssweb",
+  "deskripsi": "Mengambil screenshot dari sebuah website berdasarkan URL.",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://nirkyy.koyeb.app",
+      "opsional": false
+    },
+    {
+      "params": "browserWidth",
+      "example": "1920",
+      "opsional": true
+    },
+    {
+      "params": "browserHeight",
+      "example": "1080",
+      "opsional": true
+    },
+    {
+      "params": "fullPage",
+      "example": "true",
+      "opsional": true
+    },
+    {
+      "params": "deviceScaleFactor",
+      "example": "2",
+      "opsional": true
+    },
+    {
+      "params": "format",
+      "example": "png atau jpeg",
+      "opsional": true
+    }
+  ]
+},
+    {
   "nama": "Writecream Text to Image",
   "tags": ["AI", "Image", "Generator"],
   "endpoint": "/api/v1/writecream-text2image",
