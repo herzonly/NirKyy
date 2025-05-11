@@ -16,6 +16,19 @@
   ],
   "fitur": [
     {
+  "nama": "Image to Prompt",
+  "tags": ["AI", "Image", "Utility"],
+  "endpoint": "/api/v1/image2prompt",
+  "deskripsi": "Menghasilkan prompt teks dari sebuah gambar menggunakan AI.",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://raw.githubusercontent.com/rikikangsc2-eng/rikikangsc2-eng.github.io/refs/heads/main/galery/marah.jpeg",
+      "opsional": false
+    }
+  ]
+},
+    {
   "nama": "Edit Image AI",
   "tags": ["AI", "Image", "Utility"],
   "endpoint": "/api/v1/editimage",
