@@ -16,6 +16,24 @@
   ],
   "fitur": [
     {
+  "nama": "Edit Image AI",
+  "tags": ["AI", "Image", "Utility"],
+  "endpoint": "/api/v1/editimage",
+  "deskripsi": "Melakukan pengeditan gambar menggunakan AI berdasarkan prompt. Proses kadang cepet di bawah 30 detik tapi kadang lama 1 menit lebih kek nya Mandang fisik.",
+  "parameter": [
+    {
+      "params": "prompt",
+      "example": "Remove glasses",
+      "opsional": false
+    },
+    {
+      "params": "url",
+      "example": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAIXf-_dM1Y3nBfPd9zEFc2LDz-Lwas3ycqugiCJiZ3dvvg_hiX-DP1y0&s=10",
+      "opsional": false
+    }
+  ]
+},
+    {
   "nama": "Facebook Downloader",
   "tags": ["Downloader", "Video", "Social"],
   "endpoint": "/api/v1/facebook-dl",
