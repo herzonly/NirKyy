@@ -86,7 +86,7 @@ while (retries < maxRetries) {
     )
     
     if (response.status === 200) {
-      return res.successJson(response.data.result)
+      return res.successJson(response.data)
     } else {
       if (response.status === 400) {
         return res.errorJson(`API-nya protes nih, error 400. Mungkin URL gambarnya salah? Pesannya: ${response.data.message || 'Gak ada pesan spesifik.'}`, 400)
