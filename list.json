@@ -16,10 +16,10 @@
   ],
   "fitur": [
     {
-  "nama": "TikTok Search",
-  "tags": ["Search", "Video"],
+  "nama": "TikTok Search & Downloader",
+  "tags": ["Search", "Video", "Downloader"],
   "endpoint": "/api/v1/tiktok-search",
-  "deskripsi": "Mencari video di TikTok berdasarkan kata kunci.",
+  "deskripsi": "Cari dan unduh video atau audio dari TikTok berdasarkan kata kunci.",
   "parameter": [
     {
       "params": "query",
