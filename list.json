@@ -16,6 +16,19 @@
   ],
   "fitur": [
     {
+  "nama": "Sound Meme List",
+  "tags": ["Audio", "Fun"],
+  "endpoint": "/api/v1/soundmeme",
+  "deskripsi": "Mengambil daftar sound meme dari MyInstants.com.",
+  "parameter": [
+    {
+      "params": "page",
+      "example": "1",
+      "opsional": true
+    }
+  ]
+},
+    {
   "nama": "TikTok Search & Downloader",
   "tags": ["Search", "Video", "Downloader"],
   "endpoint": "/api/v1/tiktok-search",
