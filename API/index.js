@@ -84,7 +84,7 @@ router.get('/soundmeme',async (req,res) =>{
         instants.push({ title, audio })
       }
     })
-    res.successJson({ data: instants })
+    res.successJson(instants)
   } catch (e) {
     res.errorJson('Yah, gagal nih ngambil datanya!', 500)
   }
