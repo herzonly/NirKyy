@@ -16,6 +16,19 @@
   ],
   "fitur": [
     {
+  "nama": "OCR Image",
+  "tags": ["Image", "Utility"],
+  "endpoint": "/api/v1/ocr-img",
+  "deskripsi": "Melakukan OCR (Optical Character Recognition) pada gambar menggunakan URL.",
+  "parameter": [
+    {
+      "params": "url",
+      "example": "https://i.pinimg.com/736x/cc/07/22/cc072229596bf80a1228c6ce0d0ac0fa.jpg",
+      "opsional": false
+    }
+  ]
+},
+    {
   "nama": "Sound Meme List",
   "tags": ["Audio", "Fun"],
   "endpoint": "/api/v1/soundmeme",
