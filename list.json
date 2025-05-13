@@ -16,6 +16,19 @@
   ],
   "fitur": [
     {
+  "nama": "TikTok Search",
+  "tags": ["Search", "Video"],
+  "endpoint": "/api/v1/tiktok-search",
+  "deskripsi": "Mencari video di TikTok berdasarkan kata kunci.",
+  "parameter": [
+    {
+      "params": "query",
+      "example": "video lucu",
+      "opsional": false
+    }
+  ]
+},
+    {
   "nama": "Image to Prompt",
   "tags": ["AI", "Image", "Utility"],
   "endpoint": "/api/v1/image2prompt",

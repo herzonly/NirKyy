@@ -59,6 +59,24 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
+router.get('/tiktok-search', async (req,res) => {
+  try {
+    const query = req.query.query
+    if (!query) {
+      return res.errorJson('Parameter "query" wajib diisi, cuy!', 400)
+    }
+    const targetUrl = `https://express-vercel-ytdl.vercel.app/tiktok?query=${encodeURIComponent(query)}`
+    const response = await axios.get(targetUrl)
+    if (response.status !== 200) {
+       return res.errorJson(`Gagal ambil data, status: ${response.status}`, response.status)
+    }
+    res.successJson(response.data)
+  } catch (e) {
+    console.error(e)
+    res.errorJson('Ada yang error nih pas ngambil data, coba lagi ya!', 500)
+  }
+});
+
 router.get('/image2prompt',async (req,res) => {
   const imageUrl = req.query.url
 if (!imageUrl) {
