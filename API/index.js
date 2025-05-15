@@ -60,6 +60,67 @@ router.get('/removebg', rmbg)
 router.get('/luminai', luminai)
 router.get('/gemini',gemini)
 
+router.get('/logo-gen', async function(req, res) {
+  try {
+    const initialPrompt = req.query.prompt;
+    
+    if (!initialPrompt) {
+      return res.errorJson('Prompt-nya kosong nih, mau bikin gambar apa dong?', 400);
+    }
+    
+    const fluxaiUrl = 'https://fluxai.pro/api/prompts/generate';
+    const nirkyyUrlBase = 'https://nirkyy.koyeb.app/api/v1/writecream-text2image';
+    
+    const fluxaiResponse = await axios.post(fluxaiUrl, {
+      prompt: initialPrompt,
+      style: 'logo-design'
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.60 Mobile Safari/537.36',
+        'Referer': 'https://fluxai.pro/image-prompt-generator'
+      },
+      responseType: 'json'
+    });
+    
+    if (fluxaiResponse.status !== 200 || !fluxaiResponse.data) {
+      return res.errorJson('Aduh, gagal ngambil ide prompt dari FluxAI. Coba lagi ya!', fluxaiResponse.status);
+    }
+    
+    let generatedPrompt = '';
+    for (const key in fluxaiResponse.data) {
+      if (key === '0' && typeof fluxaiResponse.data[key] === 'string') {
+        generatedPrompt += fluxaiResponse.data[key];
+      }
+    }
+    
+    if (!generatedPrompt.trim()) {
+      return res.errorJson('Format balasan dari FluxAI kok aneh ya? Gak bisa dilanjutin nih.');
+    }
+    
+    const encodedPrompt = encodeURIComponent(generatedPrompt.trim());
+    const nirkyyImageUrl = `${nirkyyUrlBase}?prompt=${encodedPrompt}&aspect_ratio=1%3A1`;
+    
+    const nirkyyResponse = await axios.get(nirkyyImageUrl, {
+      responseType: 'stream'
+    });
+    
+    if (nirkyyResponse.status !== 200) {
+      return res.errorJson('Yah, gagal bikin gambarnya di Nirkyy. Mungkin servernya lagi ngambek?', nirkyyResponse.status);
+    }
+    
+    res.setHeader('Content-Type', 'image/*');
+    nirkyyResponse.data.pipe(res);
+    
+    nirkyyResponse.data.on('error', (err) => {
+      res.errorJson('Ada masalah saat streaming gambar.', 500);
+    });
+    
+  } catch (e) {
+    res.errorJson('Ada masalah teknis nih, coba ulangi bentar lagi ya!');
+  }
+});
+
 router.get('/soundmeme',async (req,res) =>{
     try {
     const targetUrl = `https://www.myinstants.com/en/index/id?page=${encodeURIComponent(req.query.page||'1')}`

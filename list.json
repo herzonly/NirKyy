@@ -16,6 +16,19 @@
   ],
   "fitur": [
     {
+  "nama": "AI Logo Generator",
+  "tags": ["AI", "Image", "Generator"],
+  "endpoint": "/api/v1/logo-gen",
+  "deskripsi": "Menghasilkan desain logo menggunakan AI berdasarkan prompt.",
+  "parameter": [
+    {
+      "params": "prompt",
+      "example": "logo NirKyy untuk kedai kopi modern",
+      "opsional": false
+    }
+  ]
+},
+    {
   "nama": "OCR Image",
   "tags": ["Image", "Utility"],
   "endpoint": "/api/v1/ocr-img",
