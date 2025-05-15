@@ -80,25 +80,37 @@ router.get('/logo-gen', async function(req, res) {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 10; RMX2185 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.60 Mobile Safari/537.36',
         'Referer': 'https://fluxai.pro/image-prompt-generator'
       },
-      responseType: 'json'
+      responseType: 'text'
     });
     
     if (fluxaiResponse.status !== 200 || !fluxaiResponse.data) {
-      return res.errorJson('Aduh, gagal ngambil ide prompt dari FluxAI. Coba lagi ya!', fluxaiResponse.status);
+      return res.errorJson('Aduh, gagal ngambil ide prompt dari FluxAI nih. Servernya gak respon atau datanya kosong.', fluxaiResponse.status || 500);
     }
     
-    let generatedPrompt = '';
-    for (const key in fluxaiResponse.data) {
-      if (key === '0' && typeof fluxaiResponse.data[key] === 'string') {
-        generatedPrompt += fluxaiResponse.data[key];
+    const rawTextData = fluxaiResponse.data;
+    const lines = rawTextData.split('\n').filter(line => line.trim() !== '');
+    let promptParts = [];
+    
+    for (const line of lines) {
+      if (line.startsWith('0:')) {
+        let contentJsonString = line.substring(2).trim();
+        if (contentJsonString.startsWith('"') && contentJsonString.endsWith('"')) {
+          try {
+            promptParts.push(JSON.parse(contentJsonString));
+          } catch (jsonParseError) {
+            // Malformed JSON string segment, skip.
+          }
+        }
       }
     }
     
-    if (!generatedPrompt.trim()) {
-      return res.errorJson('Format balasan dari FluxAI kok aneh ya? Gak bisa dilanjutin nih.');
+    const generatedPrompt = promptParts.join("").trim();
+    
+    if (!generatedPrompt) {
+      return res.errorJson('Sumpah, format balasan dari FluxAI aneh banget atau gak ngasih prompt. Gak bisa lanjut, coy!', 422);
     }
     
-    const encodedPrompt = encodeURIComponent(generatedPrompt.trim());
+    const encodedPrompt = encodeURIComponent(generatedPrompt);
     const nirkyyImageUrl = `${nirkyyUrlBase}?prompt=${encodedPrompt}&aspect_ratio=1%3A1`;
     
     const nirkyyResponse = await axios.get(nirkyyImageUrl, {
@@ -106,18 +118,38 @@ router.get('/logo-gen', async function(req, res) {
     });
     
     if (nirkyyResponse.status !== 200) {
-      return res.errorJson('Yah, gagal bikin gambarnya di Nirkyy. Mungkin servernya lagi ngambek?', nirkyyResponse.status);
+      return res.errorJson('Yah, gagal bikin gambarnya di Nirkyy. Servernya lagi ngambek kayaknya?', nirkyyResponse.status || 500);
     }
     
-    res.setHeader('Content-Type', 'image/*');
-    nirkyyResponse.data.pipe(res);
+    if (res.headersSent) {
+      return;
+    }
     
-    nirkyyResponse.data.on('error', (err) => {
-      res.errorJson('Ada masalah saat streaming gambar.', 500);
+    res.setHeader('Content-Type', nirkyyResponse.headers['content-type'] || 'image/png');
+    
+    const sourceStream = nirkyyResponse.data;
+    sourceStream.pipe(res);
+    
+    sourceStream.on('error', (streamError) => {
+      if (!res.headersSent) {
+        res.errorJson('Waduh, ada masalah pas lagi streaming gambarnya. Gagal maning!', 500);
+      } else if (!res.writableEnded) {
+        res.end();
+      }
+    });
+    
+    req.on('close', () => {
+      if (sourceStream && typeof sourceStream.destroy === 'function') {
+        sourceStream.destroy();
+      }
     });
     
   } catch (e) {
-    res.errorJson('Ada masalah teknis nih, coba ulangi bentar lagi ya!');
+    if (!res.headersSent) {
+      res.errorJson('Busett, ada error teknis nih bro/sis. Coba lagi ntar ya!', 500);
+    } else if (!res.writableEnded) {
+      res.end();
+    }
   }
 });
 
