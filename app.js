@@ -40,6 +40,7 @@ const counterMiddleware = (req, res, next) => {
     next();
 };
 
+app.set('trust proxy', 1);
 app.use(apiLimiter);
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
