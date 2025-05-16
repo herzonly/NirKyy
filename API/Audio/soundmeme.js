@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-module.exports.getSoundmeme = async (req, res) => {
+module.exports = async (req, res) => {
   try {
     const targetUrl = `https://www.myinstants.com/en/index/id?page=${encodeURIComponent(req.query.page || '1')}`;
     const headers = {
