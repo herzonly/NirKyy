@@ -85,7 +85,7 @@ module.exports = async (req, res) => {
   try {
     const prompt = req.query.prompt;
     if (!prompt) {
-      return res.errorJson({ error: 'Missing "prompt" query parameter.' },400);
+      return res.errorJson({ error: 'Missing "prompt" query parameter.' }, 400);
     }
     const responseData = await ask(prompt);
     if (!responseData) {

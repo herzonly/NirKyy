@@ -87,4 +87,27 @@ const handleTextQuery = async ({ groqKey, model = 'gemma2-9b-it', systemPrompt =
   return { reply, history: history };
 };
 
-module.exports = { handleTextQuery };
+
+const handleLLMRequest = async (req, res) => {
+  let { groqKey, model = 'gemma2-9b-it', systemPrompt = " ", msg, user } = req.query;
+
+  if (!groqKey) return res.errorJson("groqKey is required", 400);
+  if (!msg) return res.errorJson("msg is required", 400);
+  if (!user) return res.errorJson("user is required", 400);
+
+  if (groqKey.includes('Bearer')) {
+    groqKey = groqKey.replace('Bearer ', '').trim();
+  }
+
+  try {
+    const response = await handleTextQuery({ groqKey, model, systemPrompt, msg, user });
+    if (response.reply.includes('API Error')) {
+      return res.errorJson(response.reply);
+    }
+    return res.successJson(response);
+  } catch (error) {
+    return res.errorJson(error);
+  }
+};
+
+module.exports = handleLLMRequest;

@@ -5,7 +5,7 @@ async function botika(user, text, attempt = 1) {
   const messageId = `${timestamp}${Math.floor(Math.random() * 1000)}`;
   const payload = {
     app: {
-      id: "blaael9y3cu1684661763473",
+      id: "blaael9y3cu1706606677060",
       time: timestamp,
       data: {
         sender: { id: user },
@@ -41,4 +41,20 @@ async function botika(user, text, attempt = 1) {
   }
 }
 
-module.exports = { botika };
+module.exports = async (req, res) => {
+  const user = req.query.user;
+  const msg = req.query.msg;
+
+  if (!user || !msg) {
+    return res.errorJson({ error: "Parameter 'user' dan 'msg' harus disediakan." }, 400);
+  }
+
+  try {
+    let response = await botika(user, msg);
+    response = response.replace(/Alicia:/i, "").trim();
+    res.successJson({ response });
+  } catch (error) {
+    console.error("Error calling alicia.botika:", error);
+    res.errorJson({ error: "Terjadi kesalahan saat memproses permintaan." });
+  }
+};

@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
   try {
     const imageUrl = req.query.url;
     if (!imageUrl) {
-      return res.errorJson({ error: 'URL parameter is required' },400);
+      return res.errorJson({ error: 'URL parameter is required' }, 400);
     }
     const imageResponse = await axios.get(imageUrl, { responseType: 'arraybuffer' });
     const base64Image = `data:image/jpeg;base64,${Buffer.from(imageResponse.data).toString('base64')}`;
@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
     const outputImageUrl = apiResponse.data.results[0].image;
     const outputImageResponse = await axios.get(outputImageUrl, { responseType: 'stream' });
     res.setHeader('Content-Type', 'image/jpeg');
-outputImageResponse.data.pipe(res);
+    outputImageResponse.data.pipe(res);
   } catch (error) {
     console.error('Error:', error.response ? error.response.data : error.message);
     res.errorJson({ error: 'Internal Server Error', details: error.message });

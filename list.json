@@ -944,24 +944,6 @@
       ]
     },
     {
-      "nama": "AI generator Query",
-      "tags": ["AI", "Utility"],
-      "endpoint": "/api/v1/generate-query",
-      "deskripsi": "Hasilkan query yang sesuai untuk AI berdasarkan input pengguna.",
-      "parameter": [
-        {
-          "params": "user",
-          "example": "pengguna123",
-          "opsional": false
-        },
-        {
-          "params": "msg",
-          "example": "tolong Carikan gambar burung",
-          "opsional": false
-        }
-      ]
-    },
-    {
       "nama": "Unlimited Chat Alicia AI",
       "tags": ["AI", "Utility"],
       "endpoint": "/api/v1/alicia",

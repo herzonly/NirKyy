@@ -37,5 +37,20 @@ async function jadwal(hari) {
     return { error: error.message };
   }
 }
+ 
 
-module.exports = {jadwal};
+module.exports = async (req, res) => {
+  const hari = req.query.hari;
+  if (!hari) {
+    return res.errorJson("Hari tidak valid. Masukkan nama hari dalam bahasa Inggris atau Indonesia", 400);
+  }
+  try {
+    const response = await jadwal(hari.trim());
+    if (response.includes("Hari tidak valid.")) {
+      return res.errorJson(response, 400);
+    }
+    return res.successJson(response);
+  } catch (error) {
+    return res.errorJson({ error: error.message });
+  }
+};

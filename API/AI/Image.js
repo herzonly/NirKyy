@@ -3,8 +3,8 @@ const axios = require('axios');
 module.exports = async (req, res) => {
   try {
     const { prompt } = req.query;
-    if (!prompt) return res.errorJson('Missing prompt',400);
-
+    if (!prompt) return res.errorJson('Missing prompt', 400);
+    
     const boundary = '----WebKitFormBoundary' + Math.random().toString(36).substring(2);
     const body = [
       `--${boundary}`,
@@ -30,8 +30,8 @@ module.exports = async (req, res) => {
       'none',
       `--${boundary}--`
     ].join('\r\n');
-
-     const response = await axios({
+    
+    const response = await axios({
       method: 'post',
       url: 'https://ai-api.magicstudio.com/api/ai-art-generator',
       data: body,
@@ -43,10 +43,10 @@ module.exports = async (req, res) => {
       },
       responseType: 'stream'
     });
-
+    
     res.setHeader('Content-Type', 'image/jpeg');
     response.data.pipe(res);
-
+    
   } catch (error) {
     res.errorJson('Error generating image');
   }

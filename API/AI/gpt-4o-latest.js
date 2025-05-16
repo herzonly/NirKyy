@@ -30,7 +30,7 @@ function generateToken() {
 
 module.exports = async (req, res) => {
   const prompt = req.query.prompt;
-  if (!prompt) return res.errorJson({ error: "Missing prompt" },400);
+  if (!prompt) return res.errorJson({ error: "Missing prompt" }, 400);
   try {
     const session_id = randomString(36);
     const tokenParam = generateToken();
