@@ -60,6 +60,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('json spaces', 2);
 
 app.use((req, res, next) => {
+    res.succesJson = (data, statusCode = 200) => res.status(statusCode).json({ published_By: "NirKyy", success: true, data: data });
     res.successJson = (data, statusCode = 200) => res.status(statusCode).json({ published_By: "NirKyy", success: true, data: data });
     res.errorJson = (message, statusCode = 500) => res.status(statusCode).json({ published_By: "NirKyy", success: false, status: statusCode, error: message });
     next();
