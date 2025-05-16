@@ -16,7 +16,6 @@ let dataJson = { daftarTags: [], fitur: [] };
 try {
     const rawData = fs.readFileSync(ENDPOINTS_FILE, 'utf-8');
     dataJson = JSON.parse(rawData);
-    console.log(`Berhasil memuat ${dataJson.fitur.length} endpoint dari ${ENDPOINTS_FILE}`);
 } catch (err) {
     console.error(`Error saat membaca atau mem-parse file endpoint (${ENDPOINTS_FILE}):`, err);
 }
