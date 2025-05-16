@@ -1,9 +1,11 @@
 const express = require('express');
 const fs = require('fs');
+const rateLimit = require('express-rate-limit');
 const path = require('path');
-const API = require('./API/index.js');
-const app = express();
 const axios = require('axios');
+const API = require('./API/index.js');
+
+const app = express();
 const port = process.env.PORT || 3000;
 
 const PUBLIC_DIR = path.join(__dirname, 'public');
@@ -22,21 +24,27 @@ try {
 const endpoints = dataJson.fitur;
 const daftarTags = dataJson.daftarTags;
 
+const apiLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 20,
+    message: 'Terlalu banyak Melakukan permintaan, Silahkan tunggu beberapa menit',
+});
+
 const counterMiddleware = (req, res, next) => {
-  axios.get('https://copper-ambiguous-velvet.glitch.me/up', {
-    timeout: 5000
-  })
-  .catch(error => {
-    console.error('Terjadi kesalahan saat mengirim permintaan Axios:', error.message);
-  });
-  next();
+    axios.get('https://copper-ambiguous-velvet.glitch.me/up', {
+            timeout: 5000
+        })
+        .catch(error => {
+            console.error('Terjadi kesalahan saat mengirim permintaan Axios:', error.message);
+        });
+    next();
 };
 
+app.use(apiLimiter);
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    
     if (req.method === 'OPTIONS') {
         res.sendStatus(204);
     } else {
@@ -57,7 +65,6 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/v1", API);
-
 app.use(express.static(PUBLIC_DIR));
 
 app.set('view engine', 'ejs');
@@ -81,7 +88,7 @@ const uniqueTags = daftarTags;
 
 function filterEndpoints(data, { term, tags }) {
     let filteredData = data;
-
+    
     if (tags) {
         const lowerTags = tags.toLowerCase().split(',').map(t => t.trim()).filter(t => t);
         if (lowerTags.length > 0) {
@@ -90,7 +97,7 @@ function filterEndpoints(data, { term, tags }) {
             );
         }
     }
-
+    
     if (term) {
         const lowerTerm = term.toLowerCase();
         filteredData = filteredData.filter(ep =>
@@ -100,11 +107,13 @@ function filterEndpoints(data, { term, tags }) {
             (ep.tags && Array.isArray(ep.tags) && ep.tags.some(tag => tag.toLowerCase().includes(lowerTerm)))
         );
     }
-
+    
     return filteredData;
 }
 
-app.get('/', (req, res) => { res.render('index'); });
+app.get('/', (req, res) => {
+    res.render('index');
+});
 
 app.get('/tags', (req, res) => {
     res.json({ tags: uniqueTags });
@@ -113,13 +122,13 @@ app.get('/tags', (req, res) => {
 app.get('/renderpage', (req, res) => {
     const { tags = '' } = req.query;
     const filtered = filterEndpoints(endpoints, { tags });
-    res.json({ endpoints: filtered }); // Return JSON
+    res.json({ endpoints: filtered });
 });
 
 app.get('/search', (req, res) => {
     const { term = '' } = req.query;
     const filtered = filterEndpoints(endpoints, { term });
-    res.json({ endpoints: filtered }); // Return JSON
+    res.json({ endpoints: filtered });
 });
 
 app.use((req, res, next) => {
@@ -142,4 +151,3 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
     console.log(`🚀 Server berjalan di http://localhost:${port}`);
 });
-
