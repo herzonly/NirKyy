@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
   try {
     const spotifyUrl = req.query.url;
     if (!spotifyUrl) {
-      return res.errorJson({ error: "Missing Spotify URL" },400);
+      return res.errorJson({ error: "Missing Spotify URL" }, 400);
     }
     
     const url = 'https://spowload.com/en';
@@ -67,23 +67,23 @@ module.exports = async (req, res) => {
     if (finalResponse.data.error) throw new Error('Conversion failed');
     
     const downloadUrl = finalResponse.data.url;
-if (!downloadUrl) throw new Error('Download URL not found');
-
-const decodedLink = decodeURIComponent(downloadUrl);
-const regex = /https:\/\/node01\.dlapi\.app\/api\/dl\?link=(.*?)&name=/;
-const match = decodedLink.match(regex);
-
-if (match && match[1]) {
-  let directLink = decodeURIComponent(match[1]);
-  const urlObj = new URL(directLink);
-  const encodedParams = new URLSearchParams(urlObj.search);
-
-  const properlyEncodedUrl = `${urlObj.origin}${urlObj.pathname}?${encodedParams.toString()}`;
-
-  res.succesJson(properlyEncodedUrl);
-} else {
-  res.errorJson('Gagal mendapatkan download Link');
-}
+    if (!downloadUrl) throw new Error('Download URL not found');
+    
+    const decodedLink = decodeURIComponent(downloadUrl);
+    const regex = /https:\/\/node01\.dlapi\.app\/api\/dl\?link=(.*?)&name=/;
+    const match = decodedLink.match(regex);
+    
+    if (match && match[1]) {
+      let directLink = decodeURIComponent(match[1]);
+      const urlObj = new URL(directLink);
+      const encodedParams = new URLSearchParams(urlObj.search);
+      
+      const properlyEncodedUrl = `${urlObj.origin}${urlObj.pathname}?${encodedParams.toString()}`;
+      
+      res.succesJson(properlyEncodedUrl);
+    } else {
+      res.errorJson('Gagal mendapatkan download Link');
+    }
   } catch (error) {
     res.errorJson({ error: error.message });
   }

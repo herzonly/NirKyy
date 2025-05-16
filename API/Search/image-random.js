@@ -94,4 +94,3 @@ module.exports = async function(req, res) {
     return errorJson(res, 'Ada masalah di awal nih pas operasi, cuy!', 500);
   }
 };
-

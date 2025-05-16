@@ -46,9 +46,9 @@ module.exports = async (req, res) => {
   
   if (imageUrl) {
     try {
-          const imageResponse = await axios.get(imageUrl, { responseType: 'stream' });
-    res.set('Content-Type', 'image/jpeg');
-    imageResponse.data.pipe(res);
+      const imageResponse = await axios.get(imageUrl, { responseType: 'stream' });
+      res.set('Content-Type', 'image/jpeg');
+      imageResponse.data.pipe(res);
     } catch (err) {
       res.errorJson(`Gagal ngambil gambar, cuy. Error: ${err.message}`, 500);
     }
