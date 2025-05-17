@@ -16,6 +16,24 @@
   ],
   "fitur": [
     {
+  "nama": "Image Uploader to imgBB",
+  "tags": ["Image", "Utility"],
+  "endpoint": "/api/v1/toimgbb",
+  "deskripsi": "Mengunggah gambar ke imgBB menggunakan URL gambar atau file di body request.",
+  "parameter": [
+    {
+      "params": "imgurl",
+      "example": "https://example.com/gambar.jpg",
+      "opsional": true
+    },
+    {
+      "params": "file",
+      "example": "Abaikan ini untuk Post",
+      "opsional": true
+    }
+  ]
+},
+    {
   "nama": "Auto Translate",
   "tags": ["Utility", "AI"],
   "endpoint": "/api/v1/autotranslate",
