@@ -211,3 +211,5 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
     console.log(`🚀 Server nyala di http://localhost:${port}`);
 });
+
+module.exports = app
